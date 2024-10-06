@@ -1,0 +1,72 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  @font-face {
+    font-family: 'Pretendard';
+    src: url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css');
+  }
+  html {
+    font-size: 62.5%;
+    font-family: pretendard;
+  }
+  body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    border: 1px solid #222;
+
+    max-width: 430px;
+    min-height: 100vh;
+  }
+}
+
+@layer components {
+  .display1-bold {
+    @apply text-[3.5rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .display2-medium {
+    @apply text-[2.5rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .title1-bold {
+    @apply text-[2rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .title2-bold {
+    @apply text-[1.75rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .title3-bold {
+    @apply text-[1.5rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .heading1-bold {
+    @apply text-[1.375rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .heading1-semibold {
+    @apply text-[1.375rem] font-semibold leading-normal tracking-[-0.01em];
+  }
+  .heading2-bold {
+    @apply text-[1.25rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .heading2-semibold {
+    @apply text-[1.25rem] font-semibold leading-normal tracking-[-0.01em];
+  }
+  .headline1-bold {
+    @apply text-[1.125rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .headline2-bold {
+    @apply text-[1.0625rem] font-bold leading-normal tracking-[-0.01em];
+  }
+  .body1-medium {
+    @apply text-[1rem] font-medium leading-normal tracking-[-0.01em];
+  }
+  .body1-regular {
+    @apply text-[1rem] font-regular leading-normal tracking-[-0.01em];
+  }
+  .body2-medium {
+    @apply text-[0.9375rem] font-medium leading-normal tracking-[-0.01em];
+  }
+  .body2-regular {
+    @apply text-[0.9375rem] font-regular leading-normal tracking-[-0.01em];
+  }
+}
