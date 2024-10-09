@@ -1,7 +1,7 @@
 ---
 name: Feature Issue Template
 about: 기능 개발 시에 사용하는 이슈 템플릿
-title: ''
+title: 'feat:'
 labels: ''
 assignees: ''
 
