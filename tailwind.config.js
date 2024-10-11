@@ -3,6 +3,13 @@ export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      rotate: {
+        15: "15deg",
+        45: "45deg",
+      },
+      brightness: {
+        75: ".75",
+      },
       fontFamily: {
         pretendard: ["Pretendard"],
       },
@@ -37,6 +44,7 @@ export default {
           DEFAULT: "#717DE8",
         },
         background: {
+          main: "#1C1C1C",
           light: "#FBF9F3",
           dark: "#241A16",
         },
