@@ -1,4 +1,4 @@
-import { LoginPage } from '@/pages/Login/page';
+import { LoginPage } from '@/pages/Login/LoginPage';
 import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
 
 const routes: RouteObject[] = [
