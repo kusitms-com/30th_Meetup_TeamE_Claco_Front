@@ -1,3 +1,4 @@
+import { AgreementPage } from '@/pages/Login/AgreementPage';
 import { LoginPage } from '@/pages/Login/LoginPage';
 import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
 
@@ -9,6 +10,10 @@ const routes: RouteObject[] = [
       {
         path: '',
         element: <LoginPage />,
+      },
+      {
+        path: '/agreement',
+        element: <AgreementPage />,
       },
     ],
   },
