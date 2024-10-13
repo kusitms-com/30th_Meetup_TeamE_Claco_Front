@@ -5,7 +5,7 @@ import User from "@/assets/svgs/user.svg?react";
 
 const Footer = () => {
   return (
-    <footer className="h-[74px] w-screen max-w-[450px] text-common-white bg-[#202020] shadow-footer fixed bottom-0 z-10">
+    <footer className="h-[74px] w-screen max-w-[450px] text-common-white bg-[#202020] shadow-footer fixed bottom-0 z-50">
       <div className="flex justify-around space-x-5 px-5 py-[10px]">
         <div className="flex-col items-center justify-center w-12 h-6 text-center">
           <span className="flex justify-center">

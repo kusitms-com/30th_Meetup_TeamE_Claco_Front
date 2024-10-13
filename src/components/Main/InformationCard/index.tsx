@@ -15,7 +15,7 @@ export const VerticalInfoCard = ({
           className="w-[174px] h-[232px] rounded-[5px] object-contain mb-[18px]"
           src={image}
         />
-        <div className="body4-normal rounded-[20px] bg-[#6370E4] inline-block py-1 px-2 mb-[14px]">
+        <div className="body4-normal rounded-[20px] bg-[#6370E4] inline-block py-1 px-2 mb-[14px] text-common-white">
           무용
         </div>
         <p className="headline2-bold text-grayscale-80 mb-[10px]">{title}</p>

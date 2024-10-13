@@ -4,7 +4,7 @@ export default {
   theme: {
     extend: {
       rotate: {
-        15: "12deg",
+        12: "12deg",
         20: "20deg",
       },
       brightness: {

@@ -5,11 +5,11 @@ import Poster11 from "@/assets/images/poster11.gif";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
-import { VerticalInfoCard } from "@/components/Main/InfoMationCard";
+import { VerticalInfoCard } from "@/components/Main/InformationCard";
 
 const SimilarCollectionSection = () => {
   return (
-    <section className="">
+    <section>
       <div className="w-full h-[62px] bg-gradient-to-b from-secondary-300/60 to-background-dark opacity-40 shadow-main"></div>
       <div className="py-[22px] px-6">
         <section className="mb-[34px]">
@@ -26,7 +26,7 @@ const SimilarCollectionSection = () => {
           </div>
         </section>
 
-        <section>
+        <section className="mb-[60px]">
           <Swiper
             slidesPerView={"auto"}
             pagination={{

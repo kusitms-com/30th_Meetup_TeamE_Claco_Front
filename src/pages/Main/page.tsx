@@ -5,13 +5,13 @@ import {
   SimilarShowsSection,
 } from "./containers";
 
-import { Swiper, SwiperSlide } from "swiper/react";
-import "swiper/css";
+// import { Swiper, SwiperSlide } from "swiper/react";
+// import "swiper/css";
 
 export const MainPage = () => {
   return (
-    <div className="h-screen text-common-white">
-      <Swiper direction={"vertical"} className="h-full" speed={1000}>
+    <div className="pt-[73px]">
+      {/* <Swiper direction={"vertical"} className="h-full" speed={1000}>
         <SwiperSlide>
           <NearbyEventsSection />
         </SwiperSlide>
@@ -24,7 +24,12 @@ export const MainPage = () => {
         <SwiperSlide>
           <SimilarShowsSection />
         </SwiperSlide>
-      </Swiper>
+      </Swiper> */}
+
+      <NearbyEventsSection />
+      <PersonalizedSection />
+      <SimilarCollectionSection />
+      <SimilarShowsSection />
     </div>
   );
 };

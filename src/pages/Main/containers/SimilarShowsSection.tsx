@@ -29,7 +29,7 @@ const SimilarShowsSection = () => {
     } else if (index === 1) {
       style += "z-10 -translate-y-1/3";
     } else if (index === 2) {
-      style += "rotate-15 -translate-y-1/2 translate-x-3/4";
+      style += "rotate-12 -translate-y-1/2 translate-x-3/4";
     }
 
     return style.trim();
@@ -60,7 +60,7 @@ const SimilarShowsSection = () => {
             ))}
           </ul>
         </div>
-        <div className="absolute bottom-[200px] right-6 body3-normal flex-col space-y-[11px]">
+        <div className="absolute bottom-[200px] right-6 body3-normal flex-col space-y-[11px] text-common-white">
           <Arrow />
           <div>컬렉션 보러가기</div>
         </div>
