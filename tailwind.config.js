@@ -70,6 +70,7 @@ export default {
       },
       boxShadow: {
         main: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+        footer: "0px -2px 4px 0px rgba(184, 184, 184, 0.1)",
       },
     },
     minHeight: {

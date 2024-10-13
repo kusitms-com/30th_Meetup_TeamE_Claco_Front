@@ -8,7 +8,7 @@
     src: url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
   }
   html {
-    font-size: 62.5%;
+    /* font-size: 62.5%; */
     font-family: pretendard;
     background-color: #f2f2f2;
   }
@@ -55,7 +55,7 @@
     @apply text-[1rem] font-normal leading-normal tracking-[-0.01em];
   }
   .body2-medium {
-    @apply text-[0.9375rem] font-medium leading-normal tracking-[-0.01em];
+    @apply text-[0.875rem] font-medium leading-normal tracking-[-0.01em];
   }
   .body2-regular {
     @apply text-[0.9375rem] font-normal leading-normal tracking-[-0.01em];
