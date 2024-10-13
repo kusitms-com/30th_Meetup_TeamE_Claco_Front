@@ -3128,6 +3128,11 @@ svg-parser@^2.0.4:
   resolved "https://registry.yarnpkg.com/svg-parser/-/svg-parser-2.0.4.tgz#fdc2e29e13951736140b76cb122c8ee6630eb6b5"
   integrity sha512-e4hG1hRwoOdRb37cIMSgzNsxyzKfayW6VOflrwvR+/bzrkyxY/31WkbgnQpgtrNp1SdpJvpUAGTa/ZoiPNDuRQ==
 
+swiper@^11.1.14:
+  version "11.1.14"
+  resolved "https://registry.yarnpkg.com/swiper/-/swiper-11.1.14.tgz#7901b4955c46dd0ad76fac1e9de2a69f04f34abb"
+  integrity sha512-VbQLQXC04io6AoAjIUWuZwW4MSYozkcP9KjLdrsG/00Q/yiwvhz9RQyt0nHXV10hi9NVnDNy1/wv7Dzq1lkOCQ==
+
 synckit@^0.9.1:
   version "0.9.1"
   resolved "https://registry.yarnpkg.com/synckit/-/synckit-0.9.1.tgz#febbfbb6649979450131f64735aa3f6c14575c88"
