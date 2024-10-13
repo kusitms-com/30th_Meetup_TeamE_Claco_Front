@@ -9,8 +9,8 @@ import { VerticalInfoCard } from "@/components/Main/InfoMationCard";
 
 const SimilarCollectionSection = () => {
   return (
-    <section className="h-[703px]">
-      <div className="w-full h-[62px] bg-gradient-to-b from-secondary-300 to-background-dark opacity-40 shadow-main"></div>
+    <section className="">
+      <div className="w-full h-[62px] bg-gradient-to-b from-secondary-300/60 to-background-dark opacity-40 shadow-main"></div>
       <div className="py-[22px] px-6">
         <section className="mb-[34px]">
           <div className="leading-8 text-grayscale-90 heading2-bold">
