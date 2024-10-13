@@ -1,12 +1,13 @@
 import { LoginPage } from "@/pages/Login/page";
 import { MainPage } from "@/pages/Main/page";
-import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
 import RoutePath from "./routePath";
+import Layout from "@/components/Layout";
 
 const routes: RouteObject[] = [
   {
     path: RoutePath.Login,
-    element: <Outlet />,
+    element: <Layout />,
     children: [
       {
         index: true,
