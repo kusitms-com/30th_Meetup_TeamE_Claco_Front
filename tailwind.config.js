@@ -40,8 +40,10 @@ export default {
           light: "#FBF9F3",
           dark: "#1C1C1C",
         },
-        warning: "#E95547",
-        error: "#8BAFFE",
+        system: {
+          error: "#E95547",
+          positive: "#8BAFFE",
+        },
         common: {
           white: "#FFFFFF",
           black: "#000000",
@@ -54,7 +56,7 @@ export default {
           40: "#7A7A7A",
           50: "#919191",
           60: "#8A8585",
-          70: "#BDBDBD",
+          70: "#B3B3B3",
           80: "#ECEBE7",
           90: "#F1EFEF",
           100: "#FFFFFF",
