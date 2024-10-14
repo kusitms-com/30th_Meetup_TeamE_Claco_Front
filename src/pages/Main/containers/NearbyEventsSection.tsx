@@ -25,7 +25,7 @@ const NearbyEventsSection = () => {
           <Genre genreType={"Elegant"} />
           <Genre genreType={"Classical"} />
         </div>
-        <div className="relative flex justify-center">
+        <div className="relative flex justify-center h-[555px]">
           <Swiper
             pagination={true}
             modules={[Pagination, Autoplay]}
@@ -34,7 +34,7 @@ const NearbyEventsSection = () => {
               delay: 2500,
               disableOnInteraction: false,
             }}
-            className="max-w-[342px]"
+            className="max-w-[342px] rounded-[5px]"
           >
             <SwiperSlide>
               <MainPosterCard />
