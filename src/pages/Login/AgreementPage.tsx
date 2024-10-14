@@ -1,11 +1,16 @@
 import { useEffect, useState } from 'react';
 import backgroundImage from '../../assets/images/loginbackground.png';
+import checkIcon from '@/assets/svgs/check.svg';
+import checkedIcon from '@/assets/svgs/checked.svg';
 import { ConfirmButton } from '@/components/Login/button';
+import { useNavigate } from 'react-router-dom';
 
 export const AgreementPage = () => {
   const [show, setShow] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); 
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     setTimeout(() => {
@@ -25,6 +30,12 @@ export const AgreementPage = () => {
     setIsModalOpen(false); 
   };
 
+  const handleConfirmClick = () => {
+    if (isChecked) {
+        navigate('/create'); 
+    }
+};
+
   return (
     <div
       className='w-full h-screen bg-cover bg-center flex flex-col justify-end'
@@ -35,53 +46,44 @@ export const AgreementPage = () => {
           show ? 'translate-y-0' : 'translate-y-full'
         } ${isModalOpen ? 'hidden' : ''}`} 
       >
-        <div className="flex flex-col px-[1.75rem] pt-[2.13rem] gap-[1.25rem]">
-          <span className="flex flex-col heading1-semibold text-grayscale-80">
+        <div className='flex flex-col px-[1.75rem] pt-[2.13rem] gap-[1.25rem]'>
+          <span className='flex flex-col heading1-semibold text-grayscale-80'>
             <span>환영해요!</span>
             <span>클라코가 클래식 공연의 길잡이가</span>
             <span>되어드릴게요</span>
           </span>
-          <span className="flex flex-col body3-normal text-grayscale-70">
+          <span className='flex flex-col body3-normal text-grayscale-70'>
             <span>클라코 서비스 이용을 위해</span>
             <span>개인정보 수집 및 이용에 대해 동의해 주세요.</span>
           </span>
         </div>
-        <div className="flex flex-col px-[1.25rem] pb-[2.75rem] gap-[2rem]">
+        <div className='flex flex-col px-[1.25rem] pb-[2.75rem] gap-[2rem]'>
           <div className={`flex justify-between items-center bg-grayscale-30 px-[1.25rem] py-[0.88rem] rounded-[0.44rem] border ${
               isChecked ? 'border-primary' : 'border-transparent'
             }`}>
-            <div className="flex gap-[0.94rem] items-center cursor-pointer" onClick={handleCheckClick}>
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="13"
-                viewBox="0 0 16 13"
-                fill="none"
-              >
-                <path
-                  d="M1 6.5L4.7307 11.51C4.82282 11.6297 4.94086 11.727 5.07595 11.7945C5.21104 11.8621 5.35968 11.8981 5.5107 11.9C5.6593 11.9017 5.80641 11.8703 5.94133 11.808C6.07626 11.7458 6.19561 11.6542 6.2907 11.54L15.0007 1"
-                  stroke={isChecked ? '#F47F59' : '#B3B3B3'}
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-              <span className="body1-medium text-grayscale-80">
+            <div className='flex gap-[0.94rem] items-center cursor-pointer' onClick={handleCheckClick}>
+              <img
+                src={isChecked ? checkedIcon : checkIcon}
+                alt='check icon'
+                width='16'
+                height='13'
+              />
+              <span className='body1-medium text-grayscale-80'>
                 개인정보 수집 및 이용 동의
               </span>
             </div>
-            <button className="body4-normal text-grayscale-80 underline" onClick={openModal}>
+            <button className='body4-normal text-grayscale-80 underline' onClick={openModal}>
               약관 보기
             </button>
           </div>
-          <ConfirmButton isChecked={isChecked}>
+          <ConfirmButton isChecked={isChecked} onClick={handleConfirmClick}>
             확인
           </ConfirmButton>
         </div>
       </div>
 
       {isModalOpen && (
-        <div className="flex flex-col items-center justify-center px-[1.3rem] w-full h-full top-0 left-0">
+        <div className='flex flex-col items-center justify-center px-[1.75rem] w-full h-full top-0 left-0'>
           <div className='flex flex-col w-full items-center justify-center px-[1.5rem] bg-background-dark gap-[2.06rem] rounded-[0.63rem]'>
             <span className='headline2-bold text-grayscale-80 pt-[2.5rem]'>
               개인정보 수집 및 이용 동의
