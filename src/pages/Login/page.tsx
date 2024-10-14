@@ -1,6 +1,8 @@
+import { Progress } from "@/components/ui/progress";
+
 export const LoginPage = () => {
   return (
-    <div>
+    <div className="text-common-white">
       <p className="display1-bold">폰트 크기 테스트</p>
       <p className="display2-medium">폰트 크기 테스트</p>
       <p className="title1-bold">폰트 크기 테스트</p>
@@ -41,15 +43,14 @@ export const LoginPage = () => {
         <div className="w-10 h-10 bg-secondary-900"></div>
       </div>
       <div className="flex">
-        <div className="w-10 h-10 bg-background-light"></div>
-        <div className="w-10 h-10 bg-background-dark"></div>
+        <div className="w-10 h-10 bg-system-error"></div>
+        <div className="w-10 h-10 bg-system-positive"></div>
       </div>
-      <div className="w-10 h-10 bg-error"></div>
       <div className="flex">
         <div className="w-10 h-10 bg-common-white"></div>
         <div className="w-10 h-10 bg-common-black"></div>
       </div>
-      <div className="flex">
+      <div className="flex mb-10">
         <div className="w-10 h-10 bg-grayscale-0"></div>
         <div className="w-10 h-10 bg-grayscale-10"></div>
         <div className="w-10 h-10 bg-grayscale-20"></div>
@@ -62,19 +63,7 @@ export const LoginPage = () => {
         <div className="w-10 h-10 bg-grayscale-90"></div>
         <div className="w-10 h-10 bg-grayscale-100"></div>
       </div>
-      <div className="flex">
-        <div className="w-10 h-10 bg-grayscale-0"></div>
-        <div className="w-10 h-10 bg-grayscale-10"></div>
-        <div className="w-10 h-10 bg-grayscale-20"></div>
-        <div className="w-10 h-10 bg-grayscale-30"></div>
-        <div className="w-10 h-10 bg-grayscale-40"></div>
-        <div className="w-10 h-10 bg-grayscale-50"></div>
-        <div className="w-10 h-10 bg-grayscale-60"></div>
-        <div className="w-10 h-10 bg-grayscale-70"></div>
-        <div className="w-10 h-10 bg-grayscale-80"></div>
-        <div className="w-10 h-10 bg-grayscale-90"></div>
-        <div className="w-10 h-10 bg-grayscale-100"></div>
-      </div>
+      <Progress value={33} />
     </div>
   );
 };
