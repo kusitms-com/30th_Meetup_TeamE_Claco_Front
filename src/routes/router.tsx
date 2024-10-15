@@ -4,6 +4,7 @@ import { NicknameCreatePage } from "@/pages/Login/NicknameCreatePage";
 import { UserRegistrationPage } from "@/pages/Onboarding/UserRegistrationPage";
 import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
 import RoutePath from "./routePath";
+import { CompleteRegistrationPage } from "@/pages/Onboarding/CompleteRegistrationPage";
 // import Layout from "@/components/Layout";
 
 const routes: RouteObject[] = [
@@ -26,6 +27,10 @@ const routes: RouteObject[] = [
       {
         path: "/create/profile",
         element: <UserRegistrationPage />,
+      },
+      {
+        path: "/create/complete",
+        element: <CompleteRegistrationPage />,
       },
     ],
   },
