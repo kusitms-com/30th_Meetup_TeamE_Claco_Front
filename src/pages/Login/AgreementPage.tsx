@@ -19,15 +19,12 @@ export const AgreementPage = () => {
   }, []);
 
   const handleCheckClick = () => {
-    setIsChecked(!isChecked);
+    setIsChecked(true);
+    setIsModalOpen(false); 
   };
 
   const openModal = () => {
     setIsModalOpen(true);
-  };
-
-  const closeModal = () => {
-    setIsModalOpen(false); 
   };
 
   const handleConfirmClick = () => {
@@ -42,7 +39,7 @@ export const AgreementPage = () => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div
-        className={`flex flex-col bg-background-dark gap-[3.06rem] rounded-t-[1.88rem] transition-transform duration-700 ${
+        className={`flex flex-col max-h-[27rem] bg-background-dark gap-[3.06rem] rounded-t-[1.88rem] transition-transform duration-700 ${
           show ? 'translate-y-0' : 'translate-y-full'
         } ${isModalOpen ? 'hidden' : ''}`} 
       >
@@ -60,8 +57,9 @@ export const AgreementPage = () => {
         <div className='flex flex-col px-[1.25rem] pb-[2.75rem] gap-[2rem]'>
           <div className={`flex justify-between items-center bg-grayscale-30 px-[1.25rem] py-[0.88rem] rounded-[0.44rem] border ${
               isChecked ? 'border-primary' : 'border-transparent'
-            }`}>
-            <div className='flex gap-[0.94rem] items-center cursor-pointer' onClick={handleCheckClick}>
+            }`}
+            onClick={openModal}>
+            <div className='flex gap-[0.94rem] items-center cursor-pointer'>
               <img
                 src={isChecked ? checkedIcon : checkIcon}
                 alt='check icon'
@@ -72,9 +70,9 @@ export const AgreementPage = () => {
                 개인정보 수집 및 이용 동의
               </span>
             </div>
-            <button className='body4-normal text-grayscale-80 underline' onClick={openModal}>
+            <span className='body4-normal text-grayscale-80 underline'>
               약관 보기
-            </button>
+            </span>
           </div>
           <ConfirmButton isChecked={isChecked} onClick={handleConfirmClick}>
             확인
@@ -99,7 +97,7 @@ export const AgreementPage = () => {
                 수집 및 이용하려는 개인정보의 항목 : 닉네임, 성별, 나이, 위치<br />
                 개인정보 보유 및 이용 기간: 2년
               </span>
-              <button className='flex items-center justify-center w-full py-[0.88rem] bg-primary rounded-[0.31rem] text-body1-medium text-grayscale-90' onClick={closeModal}>
+              <button className='flex items-center justify-center w-full py-[0.88rem] bg-primary rounded-[0.31rem] text-body1-medium text-grayscale-90' onClick={handleCheckClick}>
                 확인
               </button>
             </div>
