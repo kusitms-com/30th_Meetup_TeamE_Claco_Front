@@ -1,33 +1,33 @@
-import { AgreementPage } from '@/pages/Login/AgreementPage';
-import { LoginPage } from '@/pages/Login/LoginPage';
-import { NicknameCreatePage } from '@/pages/Login/NicknameCreatePage';
-import { UserProfilePage } from '@/pages/Onboarding/UserProfilePage';
-import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
+import { AgreementPage } from "@/pages/Login/AgreementPage";
+import { LoginPage } from "@/pages/Login/LoginPage";
+import { NicknameCreatePage } from "@/pages/Login/NicknameCreatePage";
+import { UserRegistrationPage } from "@/pages/Onboarding/UserRegistrationPage";
+import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
 
 const routes: RouteObject[] = [
   {
-    path: '/',
+    path: "/",
     element: <Outlet />,
     children: [
       {
-        path: '',
+        path: "",
         element: <LoginPage />,
       },
       {
-        path: '/agreement',
+        path: "/agreement",
         element: <AgreementPage />,
       },
       {
-        path: '/create',
+        path: "/create",
         element: <NicknameCreatePage />,
       },
       {
-        path: '/create/profile',
-        element: <UserProfilePage />,
+        path: "/create/profile",
+        element: <UserRegistrationPage />,
       },
     ],
   },
-  { path: '*', element: <>Not found page</> },
+  { path: "*", element: <>Not found page</> },
 ];
 
 const Router = createBrowserRouter(routes);
