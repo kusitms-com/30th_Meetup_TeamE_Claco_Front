@@ -1,5 +1,6 @@
-import { LoginPage } from "@/pages/Login/page";
 import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
+import { LoginPage } from "@/pages/Login/page";
+import { MainPage } from "@/pages/Main/page";
 import RoutePath from "./routePath";
 import Layout from "@/components/Layout";
 
