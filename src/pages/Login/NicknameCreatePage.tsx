@@ -48,7 +48,7 @@ export const NicknameCreatePage = () => {
                     <div className={`flex bg-grayscale-30 justify-between rounded-[0.44rem] p-[1.06rem] border ${
                         hasStartedTyping
                             ? (errorMessage ? 'border-system-error' : 'border-system-positive')
-                            : 'border-background-dark'
+                            : 'border-dark'
                     }`}>
                         <input
                             className='bg-grayscale-30 outline-none w-full body2-medium text-grayscale-80'

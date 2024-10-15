@@ -39,7 +39,7 @@ export const AgreementPage = () => {
       style={{ backgroundImage: `url(${backgroundImage})` }}
     >
       <div
-        className={`flex flex-col max-h-[27rem] bg-background-dark gap-[3.06rem] rounded-t-[1.88rem] transition-transform duration-700 ${
+        className={`flex flex-col max-h-[27rem] bg-dark gap-[3.06rem] rounded-t-[1.88rem] transition-transform duration-700 ${
           show ? 'translate-y-0' : 'translate-y-full'
         } ${isModalOpen ? 'hidden' : ''}`} 
       >
@@ -82,7 +82,7 @@ export const AgreementPage = () => {
 
       {isModalOpen && (
         <div className='flex flex-col items-center justify-center px-[1.75rem] w-full h-full top-0 left-0'>
-          <div className='flex flex-col w-full items-center justify-center px-[1.5rem] bg-background-dark gap-[2.06rem] rounded-[0.63rem]'>
+          <div className='flex flex-col w-full items-center justify-center px-[1.5rem] bg-dark gap-[2.06rem] rounded-[0.63rem]'>
             <span className='headline2-bold text-grayscale-80 pt-[2.5rem]'>
               개인정보 수집 및 이용 동의
             </span>
