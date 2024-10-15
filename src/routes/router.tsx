@@ -3,14 +3,16 @@ import { LoginPage } from "@/pages/Login/LoginPage";
 import { NicknameCreatePage } from "@/pages/Login/NicknameCreatePage";
 import { UserRegistrationPage } from "@/pages/Onboarding/UserRegistrationPage";
 import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
+import RoutePath from "./routePath";
+// import Layout from "@/components/Layout";
 
 const routes: RouteObject[] = [
   {
-    path: "/",
+    path: RoutePath.Login,
     element: <Outlet />,
     children: [
       {
-        path: "",
+        index: true,
         element: <LoginPage />,
       },
       {
@@ -27,6 +29,15 @@ const routes: RouteObject[] = [
       },
     ],
   },
+  // {
+  //   path: RoutePath.Login,
+  //   element: <Layout />,
+  //   children: [
+  //     {
+  //       path: RoutePath.Main,
+  //     },
+  //   ],
+  // },
   { path: "*", element: <>Not found page</> },
 ];
 
