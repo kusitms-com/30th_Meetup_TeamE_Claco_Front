@@ -16,7 +16,7 @@ export default function AppContainer({ children }: PropsWithChildren) {
   }, []);
 
   return (
-    <div className="mx-auto max-w-[420px] min-h-real-screen bg-white">
+    <div className="mx-auto max-w-[450px] min-h-real-screen bg-[#1C1C1C]">
       <ReactQuerySetting>
         <RecoilRoot>{children}</RecoilRoot>
       </ReactQuerySetting>

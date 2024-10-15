@@ -1,18 +1,29 @@
-import { LoginPage } from '@/pages/Login/page';
-import { createBrowserRouter, Outlet, RouteObject } from 'react-router-dom';
+import { LoginPage } from "@/pages/Login/page";
+import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
+import RoutePath from "./routePath";
+import Layout from "@/components/Layout";
 
 const routes: RouteObject[] = [
   {
-    path: '/',
+    path: RoutePath.Login,
     element: <Outlet />,
     children: [
       {
-        path: '',
+        index: true,
         element: <LoginPage />,
       },
     ],
   },
-  { path: '*', element: <>Not found page</> },
+  {
+    path: RoutePath.Login,
+    element: <Layout />,
+    children: [
+      {
+        path: RoutePath.Main,
+      },
+    ],
+  },
+  { path: "*", element: <>Not found page</> },
 ];
 
 const Router = createBrowserRouter(routes);
