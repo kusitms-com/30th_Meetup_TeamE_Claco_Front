@@ -2,7 +2,7 @@ import { ConfirmButton } from "@/components/Login/button";
 import { TypeButton } from "@/components/Onboarding/button";
 import { useState } from "react";
 
-export const SelectLocation = () => {
+export const SelectLocation = ({ onConfirm }: { onConfirm: () => void }) => {
   const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
 
   const handleLocationClick = (location: string) => {
@@ -70,7 +70,10 @@ export const SelectLocation = () => {
           </TypeButton>
         </div>
       </div>
-      <ConfirmButton isChecked={selectedLocation.length > 0}>
+      <ConfirmButton
+        isChecked={selectedLocation.length > 0}
+        onClick={onConfirm}
+      >
         다음
       </ConfirmButton>
     </div>

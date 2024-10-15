@@ -2,7 +2,7 @@ import { ConfirmButton } from "@/components/Login/button";
 import { TypeButton } from "@/components/Onboarding/button";
 import { useState } from "react";
 
-export const SelectProfile = () => {
+export const SelectProfile = ({ onConfirm }: { onConfirm: () => void }) => {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
   const [selectedAge, setSelectedAge] = useState<string | null>(null);
 
@@ -16,11 +16,11 @@ export const SelectProfile = () => {
 
   return (
     <div className="flex flex-col justify-between h-full">
-      <div className="flex flex-col gap-[1.5rem]">
+      <div className="flex flex-col gap-[0.9rem]">
         <span className="body1-medium text-grayscale-60">
           성별과 연령대를 알려주세요.
         </span>
-        <div className="flex flex-col gap-[0.87rem]">
+        <div className="flex flex-col gap-[0.5rem]">
           <span className="body1-medium text-grayscale-80">성별</span>
           <div className="grid grid-cols-2 gap-[0.63rem]">
             <TypeButton
@@ -37,7 +37,7 @@ export const SelectProfile = () => {
             </TypeButton>
           </div>
         </div>
-        <div className="flex flex-col gap-[0.87rem]">
+        <div className="flex flex-col gap-[0.5rem]">
           <span className="body1-medium text-grayscale-80">연령대</span>
           <div className="grid grid-cols-2 gap-[0.63rem]">
             <TypeButton
@@ -79,7 +79,10 @@ export const SelectProfile = () => {
           </div>
         </div>
       </div>
-      <ConfirmButton isChecked={!!selectedGender && !!selectedAge}>
+      <ConfirmButton
+        isChecked={!!selectedGender && !!selectedAge}
+        onClick={onConfirm}
+      >
         다음
       </ConfirmButton>
     </div>
