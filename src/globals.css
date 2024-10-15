@@ -66,3 +66,16 @@
     @apply text-[0.75rem] font-normal leading-normal tracking-[-0.01em];
   }
 }
+
+input[type=range] {
+  pointer-events: none;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  height: 0.875rem;
+  width: 0.875rem;
+  border-radius: 50%;
+  background-color: #F1EFEF;
+  -webkit-appearance: none;
+  pointer-events: auto;
+}
