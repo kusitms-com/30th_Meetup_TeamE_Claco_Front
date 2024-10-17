@@ -4,7 +4,7 @@ import logo from '../../assets/images/logo.png';
 export const LoginPage = () => {
   return (
     <div className='w-full h-screen bg-cover bg-center' style={{ backgroundImage: `url(${backgroundImage})` }}>
-      <div className='flex flex-col w-full px-[1.5rem] pt-[30rem] gap-[1.69rem]'>
+      <div className='flex flex-col w-full px-[1.5rem] h-screen justify-end gap-[1.8rem] pb-[11rem]'>
         <div className='flex flex-col pl-[0.63rem]'>
           <div className='flex items-center gap-[0.56rem]'>
             <img className='self-center py-[0.38rem]' src={logo} alt='로고 이미지' />
