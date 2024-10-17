@@ -3,7 +3,7 @@ import Poster7 from "@/assets/images/poster7.gif";
 import Poster12 from "@/assets/images/poster12.gif";
 import { HorizontalInfoCard } from "@/components/Main/InformationCard";
 
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -38,12 +38,8 @@ const PersonalizedSection = () => {
         <div className="flex justify-center mb-[33px]">
           <Swiper
             pagination={true}
-            modules={[Pagination, Autoplay]}
+            modules={[Pagination]}
             spaceBetween={100}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
             className="max-w-[341px] rounded-[5px] relative h-[289px]"
           >
             <SwiperSlide>

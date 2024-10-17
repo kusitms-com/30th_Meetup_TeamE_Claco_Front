@@ -13,10 +13,6 @@ const routes: RouteObject[] = [
         index: true,
         element: <LoginPage />,
       },
-      {
-        path: RoutePath.Main,
-        element: <MainPage />,
-      },
     ],
   },
   {
@@ -25,6 +21,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: RoutePath.Main,
+        element: <MainPage />,
       },
     ],
   },

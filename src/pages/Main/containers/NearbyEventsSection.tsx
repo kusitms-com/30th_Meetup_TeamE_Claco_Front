@@ -2,7 +2,7 @@ import ClacoMain from "@/assets/svgs/Claco_Main.svg?react";
 import { Genre } from "@/components/Main/Genre";
 import { MainPosterCard } from "@/components/Main/MainPosterCard";
 
-import { Pagination, Autoplay } from "swiper/modules";
+import { Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
@@ -28,12 +28,8 @@ const NearbyEventsSection = () => {
         <div className="relative flex justify-center h-[555px]">
           <Swiper
             pagination={true}
-            modules={[Pagination, Autoplay]}
+            modules={[Pagination]}
             spaceBetween={100}
-            autoplay={{
-              delay: 2500,
-              disableOnInteraction: false,
-            }}
             className="max-w-[342px] rounded-[5px]"
           >
             <SwiperSlide>
