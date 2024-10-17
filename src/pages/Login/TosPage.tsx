@@ -5,7 +5,7 @@ import checkedIcon from '@/assets/svgs/checked.svg';
 import { ConfirmButton } from '@/components/Login/button';
 import { useNavigate } from 'react-router-dom';
 
-export const AgreementPage = () => {
+export const TosPage = () => {
   const [show, setShow] = useState(false);
   const [isChecked, setIsChecked] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false); 
@@ -70,7 +70,7 @@ export const AgreementPage = () => {
                 개인정보 수집 및 이용 동의
               </span>
             </div>
-            <span className='body4-normal text-grayscale-80 underline'>
+            <span className='body4-normal text-grayscale-80 underline cursor-pointer'>
               약관 보기
             </span>
           </div>
