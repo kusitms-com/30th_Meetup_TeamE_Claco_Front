@@ -68,7 +68,7 @@ export const NicknameCreatePage = () => {
                 onChange={handleInputChange}
                 maxLength={15}
               />
-              <span className="body4-normal text-grayscale-60">
+              <span className="body4-normal self-center pt-[0.15rem] text-grayscale-60">
                 {nickname.length}/15
               </span>
             </div>
