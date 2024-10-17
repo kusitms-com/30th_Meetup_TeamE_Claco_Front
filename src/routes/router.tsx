@@ -1,10 +1,14 @@
-import { AgreementPage } from "@/pages/Login/AgreementPage";
+import { TosPage } from "@/pages/Login/TosPage";
 import { LoginPage } from "@/pages/Login/LoginPage";
 import { NicknameCreatePage } from "@/pages/Login/NicknameCreatePage";
-import { UserRegistrationPage } from "@/pages/Onboarding/UserRegistrationPage";
 import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
 import RoutePath from "./routePath";
-import { CompleteRegistrationPage } from "@/pages/Onboarding/CompleteRegistrationPage";
+import { CompleteRegistrationPage } from "@/pages/Onboarding/CompleteRegistration/CompleteRegistrationPage";
+import { SelectProfilePage } from "@/pages/Onboarding/UserRegistration/SelectProfilePage";
+import { SelectPricePage } from "@/pages/Onboarding/UserRegistration/SelectPricePage";
+import { SelectLocationPage } from "@/pages/Onboarding/UserRegistration/SelectLocationPage";
+import { SelectConceptPage } from "@/pages/Onboarding/UserRegistration/SelectConceptPage";
+import { SelectFeaturePage } from "@/pages/Onboarding/UserRegistration/SelectFeaturePage";
 // import Layout from "@/components/Layout";
 
 const routes: RouteObject[] = [
@@ -17,8 +21,8 @@ const routes: RouteObject[] = [
         element: <LoginPage />,
       },
       {
-        path: "/agreement",
-        element: <AgreementPage />,
+        path: "/tos",
+        element: <TosPage />,
       },
       {
         path: "/create",
@@ -26,7 +30,23 @@ const routes: RouteObject[] = [
       },
       {
         path: "/create/profile",
-        element: <UserRegistrationPage />,
+        element: <SelectProfilePage />,
+      },
+      {
+        path: "/create/price",
+        element: <SelectPricePage />,
+      },
+      {
+        path: "/create/location",
+        element: <SelectLocationPage />,
+      },
+      {
+        path: "/create/concept",
+        element: <SelectConceptPage />,
+      },
+      {
+        path: "/create/feature",
+        element: <SelectFeaturePage />,
       },
       {
         path: "/create/complete",

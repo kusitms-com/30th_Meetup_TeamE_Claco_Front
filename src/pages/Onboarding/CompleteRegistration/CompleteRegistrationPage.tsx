@@ -38,17 +38,17 @@ export const CompleteRegistrationPage = () => {
             <img
               src={poster1}
               alt="Loading"
-              className="min-w-[10rem] min-h-[14rem] rounded-[0.31rem] opacity-50"
+              className="min-w-[11.375rem] min-h-[15.125rem] rounded-[0.31rem] opacity-50"
             />
             <img
               src={poster2}
               alt="Loading"
-              className="absolute z-10 max-w-[15rem] max-h-[18rem] rounded-[0.31rem]"
+              className="absolute z-10 max-w-[13.75rem] min-h-[18.375rem] rounded-[0.31rem]"
             />
             <img
               src={poster3}
               alt="Loading"
-              className="min-w-[10rem] min-h-[14rem] rounded-[0.31rem] opacity-50"
+              className="min-w-[11.375rem] min-h-[15.125rem] rounded-[0.31rem] opacity-50"
             />
           </div>
           <ConfirmButton isChecked={true}>보러가기</ConfirmButton>
