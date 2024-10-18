@@ -1,4 +1,4 @@
-import { Genre } from "@/components/Main/Genre";
+import { Genre } from "@/components/common/Genre";
 import Poster7 from "@/assets/images/poster7.gif";
 import Poster12 from "@/assets/images/poster12.gif";
 import { HorizontalInfoCard } from "@/components/Main/InformationCard";

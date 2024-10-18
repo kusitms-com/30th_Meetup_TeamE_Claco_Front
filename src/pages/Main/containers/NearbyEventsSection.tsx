@@ -1,5 +1,5 @@
 import ClacoMain from "@/assets/svgs/Claco_Main.svg?react";
-import { Genre } from "@/components/Main/Genre";
+import { Genre } from "@/components/common/Genre";
 import { MainPosterCard } from "@/components/Main/MainPosterCard";
 
 import { Pagination } from "swiper/modules";
