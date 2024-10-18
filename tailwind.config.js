@@ -1,9 +1,15 @@
 /** @type {import('tailwindcss').Config} */
 export default {
-  darkMode: ["class"],
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   theme: {
     extend: {
+      rotate: {
+        12: "12deg",
+        20: "20deg",
+      },
+      brightness: {
+        75: ".75",
+      },
       fontFamily: {
         pretendard: ["Pretendard"],
       },
@@ -58,6 +64,7 @@ export default {
           90: "#E9E9E9",
           100: "#FFFFFF",
         },
+        login: "#FAE64D",
         foreground: "hsl(var(--foreground))",
         card: {
           DEFAULT: "hsl(var(--card))",
@@ -94,6 +101,10 @@ export default {
         lg: "var(--radius)",
         md: "calc(var(--radius) - 2px)",
         sm: "calc(var(--radius) - 4px)",
+      },
+      boxShadow: {
+        main: "0px 0px 4px 0px rgba(0, 0, 0, 0.25)",
+        footer: "0px -2px 4px 0px rgba(184, 184, 184, 0.1)",
       },
     },
     minHeight: {
