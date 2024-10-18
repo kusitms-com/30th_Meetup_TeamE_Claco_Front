@@ -1,7 +1,7 @@
-import loading from "@/assets/loading.gif";
-import poster1 from "@/assets/poster1.gif";
-import poster2 from "@/assets/poster2.gif";
-import poster3 from "@/assets/poster3.gif";
+import loading from "@/assets/images/loading.gif";
+import poster10 from "@/assets/images/poster10.gif";
+import poster6 from "@/assets/images/poster6.gif";
+import poster5 from "@/assets/images/poster5.gif";
 import { ConfirmButton } from "@/components/Login/button";
 import { useEffect, useState } from "react";
 
@@ -36,17 +36,17 @@ export const CompleteRegistrationPage = () => {
           </span>
           <div className="flex justify-center items-center px-[1rem] pb-[1.5rem]">
             <img
-              src={poster1}
+              src={poster10}
               alt="Loading"
               className="min-w-[11.375rem] min-h-[15.125rem] rounded-[0.31rem] opacity-50"
             />
             <img
-              src={poster2}
+              src={poster6}
               alt="Loading"
               className="absolute z-10 max-w-[13.75rem] min-h-[18.375rem] rounded-[0.31rem]"
             />
             <img
-              src={poster3}
+              src={poster5}
               alt="Loading"
               className="min-w-[11.375rem] min-h-[15.125rem] rounded-[0.31rem] opacity-50"
             />
