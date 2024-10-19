@@ -28,8 +28,8 @@ export const SelectProfilePage = () => {
   }
 
   return (
-    <div className="w-full h-screen bg-background-dark">
-      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
+    <div className="w-full h-screen overflow-y-auto bg-background-dark flex flex-col">
+      <div className="flex flex-col flex-grow w-full h-auto px-[1.25rem] pt-[4.75rem] gap-[0.5rem] pb-[4.56rem]">
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
             <img className="mb-[1.19rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
@@ -46,7 +46,7 @@ export const SelectProfilePage = () => {
             <span className="body1-medium text-grayscale-60">
               성별과 연령대를 알려주세요.
             </span>
-            <div className="flex flex-col gap-[0.87rem] mt-[2.12rem] mb-[1.7rem]">
+            <div className="flex flex-col gap-[0.87rem] mt-[2.12rem] mb-[2.88rem]">
               <span className="body1-medium text-grayscale-80">성별</span>
               <div className="grid grid-cols-2 gap-[0.62rem]">
                 <TypeButton
@@ -63,7 +63,7 @@ export const SelectProfilePage = () => {
                 </TypeButton>
               </div>
             </div>
-            <div className="flex flex-col gap-[0.87em]">
+            <div className="flex flex-col gap-[0.87em] mb-[3.5rem]">
               <span className="body1-medium text-grayscale-80">연령대</span>
               <div className="grid grid-cols-2 gap-[0.62rem]">
                 <TypeButton
