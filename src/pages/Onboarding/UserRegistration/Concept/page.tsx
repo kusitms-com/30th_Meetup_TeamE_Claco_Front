@@ -1,4 +1,4 @@
-import { ConceptButton } from "@/components/Onboarding/hobbyRegister";
+import { ConceptButton } from "@/components/Onboarding/Registration";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

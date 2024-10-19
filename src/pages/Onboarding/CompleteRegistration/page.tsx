@@ -2,8 +2,8 @@ import loading from "@/assets/images/loading.gif";
 import poster10 from "@/assets/images/poster10.gif";
 import poster6 from "@/assets/images/poster6.gif";
 import poster5 from "@/assets/images/poster5.gif";
-import { ConfirmButton } from "@/components/Login/button";
 import { useEffect, useState } from "react";
+import { ConfirmButton } from "@/components/common/Button";
 
 export const CompleteRegistrationPage = () => {
   const [showLoading, setShowLoading] = useState(true);

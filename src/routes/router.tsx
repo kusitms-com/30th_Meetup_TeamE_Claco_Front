@@ -1,15 +1,15 @@
-import { TosPage } from "@/pages/Login/TosPage";
-import { LoginPage } from "@/pages/Login/LoginPage";
-import { NicknameCreatePage } from "@/pages/Login/NicknameCreatePage";
+import { TosPage } from "@/pages/Tos/page";
+import { LoginPage } from "@/pages/Login/page";
+import { NicknameCreatePage } from "@/pages/Onboarding/UserRegistration/Nickname/page";
 import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
 import { MainPage } from "@/pages/Main/page";
 import RoutePath from "./routePath";
-import { CompleteRegistrationPage } from "@/pages/Onboarding/CompleteRegistration/CompleteRegistrationPage";
-import { SelectProfilePage } from "@/pages/Onboarding/UserRegistration/SelectProfilePage";
-import { SelectPricePage } from "@/pages/Onboarding/UserRegistration/SelectPricePage";
-import { SelectLocationPage } from "@/pages/Onboarding/UserRegistration/SelectLocationPage";
-import { SelectConceptPage } from "@/pages/Onboarding/UserRegistration/SelectConceptPage";
-import { SelectFeaturePage } from "@/pages/Onboarding/UserRegistration/SelectFeaturePage";
+import { CompleteRegistrationPage } from "@/pages/Onboarding/CompleteRegistration/page";
+import { SelectProfilePage } from "@/pages/Onboarding/UserRegistration/Profile/page";
+import { SelectPricePage } from "@/pages/Onboarding/UserRegistration/Price/page";
+import { SelectLocationPage } from "@/pages/Onboarding/UserRegistration/Location/page";
+import { SelectConceptPage } from "@/pages/Onboarding/UserRegistration/Concept/page";
+import { SelectFeaturePage } from "@/pages/Onboarding/UserRegistration/Feature/page";
 import Layout from "@/components/Layout";
 
 const routes: RouteObject[] = [

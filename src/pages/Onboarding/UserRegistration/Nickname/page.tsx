@@ -1,9 +1,9 @@
-import { ConfirmButton } from "@/components/Login/button";
 import errorIcon from "@/assets/svgs/errorIcon.svg";
 import agreeIcon from "@/assets/svgs/agreeIcon.svg";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { ConfirmButton } from "@/components/common/Button";
 
 export const NicknameCreatePage = () => {
   const [nickname, setNickname] = useState<string>("");
