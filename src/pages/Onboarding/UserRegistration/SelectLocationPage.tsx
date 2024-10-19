@@ -32,7 +32,7 @@ export const SelectLocationPage = () => {
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
             <img className="mb-[1.19rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
-            <Progress value={20} />
+            <Progress value={33.33} />
           </div>
           <span className="heading1-bold text-grayscale-90">
             울랄라님의 취향에 맞는
