@@ -12,24 +12,11 @@ interface Feature {
 
 export const SelectFeaturePage = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
+  const [progressValue, setProgressValue] = useState<number>(55.55);
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [selectedAllFeature, setSelectedAllFeature] = useState<string[]>([]);
 
   const features: Feature[] = [
-    {
-      title: "웅장한",
-      description: [
-        "큰 규모의 오케스트라나",
-        "무대 장치, 강렬한 감정이 느껴지는 공연",
-      ],
-    },
-    {
-      title: "섬세한",
-      description: [
-        "작은 규모의 연주나 무대",
-        "미세한 감정의 변화와 정교함이 돋보이는 공연",
-      ],
-    },
     {
       title: "고전적인",
       description: [
@@ -76,23 +63,27 @@ export const SelectFeaturePage = () => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    if(currentStep === 0)
-      {
-        navigate("/create/concept");
-      }
-    else {
-      setCurrentStep(currentStep-2);
+    if (currentStep === 0) {
+      navigate("/create/concept");
+    } else {
+      setCurrentStep(currentStep - 2);
     }
-  }
+  };
 
   const handleFeatureClick = (feature: string) => {
-    setSelectedFeature(feature); 
+    setSelectedFeature(feature);
   };
 
   const handleNextClick = () => {
     if (selectedFeature) {
-      setSelectedAllFeature((prevFeatures) => [...prevFeatures, selectedFeature]);
+      setSelectedAllFeature((prevFeatures) => [
+        ...prevFeatures,
+        selectedFeature,
+      ]);
       setSelectedFeature(null);
+
+      setProgressValue((prevValue) => Math.min(prevValue + 11.11, 100));
+      if (progressValue === 99.99) setProgressValue(100);
 
       if (currentStep >= features.length - 2) {
         navigate("/create/complete");
@@ -108,8 +99,13 @@ export const SelectFeaturePage = () => {
       <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
-            <img className="mb-[1.19rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
-            <Progress value={20} />
+            <img
+              className="mb-[1.19rem]"
+              src={BackArrow}
+              alt="뒤로가기"
+              onClick={handleBackClick}
+            />
+            <Progress value={progressValue} />
           </div>
           <span className="heading1-bold text-grayscale-90">
             울랄라님의 취향에 맞는
@@ -130,7 +126,9 @@ export const SelectFeaturePage = () => {
                   isChecked={selectedFeature === feature.title}
                   onClick={() => handleFeatureClick(feature.title)}
                 >
-                  <span className="heading1-bold mb-[0.62rem]">{feature.title}</span>
+                  <span className="heading1-bold mb-[0.62rem]">
+                    {feature.title}
+                  </span>
                   <br />
                   <span className="body3-normal">
                     {feature.description.map((line, index) => (
@@ -149,7 +147,7 @@ export const SelectFeaturePage = () => {
             isChecked={!!selectedFeature}
             onClick={handleNextClick}
           >
-          다음
+            다음
           </ConfirmButton>
         </div>
       </div>
