@@ -1,7 +1,8 @@
-import { ConfirmButton } from "@/components/Login/button";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackArrow from "@/assets/svgs/BackArrow.svg";
+import { ConfirmButton } from "@/components/common/Button";
 
 export const SelectPricePage = () => {
   const [minPrice, setMinPrice] = useState<number>(0);
@@ -25,15 +26,22 @@ export const SelectPricePage = () => {
 
   const navigate = useNavigate();
 
+  const handleBackClick = () => {
+    navigate("/create/profile");
+  }
+
   const handleConfirmClick = () => {
     navigate("/create/location");
   }
 
   return (
     <div className="w-full h-screen bg-background-dark">
-      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.45rem] pb-[4rem] gap-[0.75rem]">
-        <div className="flex flex-col gap-[2.12rem]">
-          <Progress value={40} />
+      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
+        <div className="flex flex-col gap-[2.44rem]">
+          <div className="flex-col">
+            <img className="mb-[1.19rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
+            <Progress value={20} />
+          </div>
           <span className="heading1-bold text-grayscale-90">
             울랄라님의 취향에 맞는
             <br />

@@ -1,8 +1,9 @@
-import { ConfirmButton } from "@/components/Login/button";
-import { TypeButton } from "@/components/Onboarding/button";
+import { TypeButton } from "@/components/Onboarding/hobbyRegister";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackArrow from "@/assets/svgs/BackArrow.svg";
+import { ConfirmButton } from "@/components/common/Button";
 
 export const SelectLocationPage = () => {
   const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
@@ -17,15 +18,22 @@ export const SelectLocationPage = () => {
 
   const navigate = useNavigate();
 
+  const handleBackClick = () => {
+    navigate("/create/price");
+  }
+
   const handleConfirmClick = () => {
       navigate("/create/concept");
   }
 
   return (
     <div className="w-full h-screen bg-background-dark">
-      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.45rem] pb-[4rem] gap-[0.75rem]">
-        <div className="flex flex-col gap-[2.12rem]">
-          <Progress value={60} />
+      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
+        <div className="flex flex-col gap-[2.44rem]">
+          <div className="flex-col">
+            <img className="mb-[1.19rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
+            <Progress value={20} />
+          </div>
           <span className="heading1-bold text-grayscale-90">
             울랄라님의 취향에 맞는
             <br />
@@ -33,7 +41,7 @@ export const SelectLocationPage = () => {
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">
-          <div className="flex flex-col gap-[2.87rem]">
+          <div className="flex flex-col gap-[1.56rem]">
             <span className="body1-medium text-grayscale-60">
               선호하는 공연장 위치를 모두 선택해주세요.
             </span>

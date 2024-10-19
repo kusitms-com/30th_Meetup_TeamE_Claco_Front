@@ -1,8 +1,9 @@
-import { ConfirmButton } from "@/components/Login/button";
-import { ConceptButton } from "@/components/Onboarding/button";
+import { FeatureButton } from "@/components/Onboarding/hobbyRegister";
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import BackArrow from "@/assets/svgs/BackArrow.svg";
+import { ConfirmButton } from "@/components/common/Button";
 
 interface Feature {
   title: string;
@@ -74,6 +75,16 @@ export const SelectFeaturePage = () => {
 
   const navigate = useNavigate();
 
+  const handleBackClick = () => {
+    if(currentStep === 0)
+      {
+        navigate("/create/concept");
+      }
+    else {
+      setCurrentStep(currentStep-2);
+    }
+  }
+
   const handleFeatureClick = (feature: string) => {
     setSelectedFeature(feature); 
   };
@@ -85,6 +96,7 @@ export const SelectFeaturePage = () => {
 
       if (currentStep >= features.length - 2) {
         navigate("/create/complete");
+        console.log(selectedAllFeature); // eslint 오류 방지용
       } else {
         setCurrentStep((prevStep) => prevStep + 2);
       }
@@ -93,9 +105,12 @@ export const SelectFeaturePage = () => {
 
   return (
     <div className="w-full h-screen bg-background-dark">
-      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.45rem] pb-[4rem] gap-[0.75rem]">
-        <div className="flex flex-col gap-[2.12rem]">
-          <Progress value={100} />
+      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
+        <div className="flex flex-col gap-[2.44rem]">
+          <div className="flex-col">
+            <img className="mb-[1.19rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
+            <Progress value={20} />
+          </div>
           <span className="heading1-bold text-grayscale-90">
             울랄라님의 취향에 맞는
             <br />
@@ -104,13 +119,13 @@ export const SelectFeaturePage = () => {
         </div>
 
         <div className="flex flex-col justify-between h-full">
-          <div className="flex flex-col gap-[2.87rem]">
+          <div className="flex flex-col gap-[1.56rem]">
             <span className="body1-medium text-grayscale-60">
               선호하는 공연의 특징을 선택해주세요.
             </span>
             <div className="flex flex-col gap-[0.75rem]">
               {features.slice(currentStep, currentStep + 2).map((feature) => (
-                <ConceptButton
+                <FeatureButton
                   key={feature.title}
                   isChecked={selectedFeature === feature.title}
                   onClick={() => handleFeatureClick(feature.title)}
@@ -125,7 +140,7 @@ export const SelectFeaturePage = () => {
                       </span>
                     ))}
                   </span>
-                </ConceptButton>
+                </FeatureButton>
               ))}
             </div>
           </div>
