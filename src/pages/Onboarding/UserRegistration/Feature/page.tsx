@@ -18,6 +18,20 @@ export const SelectFeaturePage = () => {
 
   const features: Feature[] = [
     {
+      title: "웅장한",
+      description: [
+        "큰 규모의 오케스트라나",
+        "무대 장치, 강렬한 감정이 느껴지는 공연",
+      ],
+    },
+    {
+      title: "섬세한",
+      description: [
+        "작은 규모의 연주나 무대",
+        "미세한 감정의 변화와 정교함이 돋보이는 공연",
+      ],
+    },
+    {
       title: "고전적인",
       description: [
         "고전적인 형식과 규칙을 따르는 클래식 공연",
