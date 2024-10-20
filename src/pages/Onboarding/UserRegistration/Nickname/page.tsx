@@ -1,5 +1,6 @@
 import errorIcon from "@/assets/svgs/errorIcon.svg";
 import agreeIcon from "@/assets/svgs/agreeIcon.svg";
+import BackArrow from "@/assets/svgs/BackArrow.svg";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -45,14 +46,19 @@ export const NicknameCreatePage = () => {
     }
   };
 
+  const handleBackClick = () => {
+    navigate("/tos");
+  }
+
   return (
     <div className="w-full h-screen bg-background-dark">
-      <div className="flex flex-col w-full h-full justify-between px-[1.25rem] pt-[9rem] pb-[4rem]">
-        <div className="flex flex-col w-full gap-[1.62rem]">
+      <div className="flex flex-col w-full h-full justify-between px-[1.25rem] pt-[4.75rem] pb-[4rem]">
+        <div className="flex-col">
+          <img className="mb-[3.12rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
           <span className="heading1-bold text-grayscale-80">
             닉네임을 등록해주세요
           </span>
-          <div className="flex flex-col gap-[0.81rem]">
+          <div className="flex flex-col mt-[1.62rem] gap-[0.81rem]">
             <div
               className={`flex bg-grayscale-30 justify-between rounded-[0.44rem] p-[1.06rem] border ${
                 hasStartedTyping
