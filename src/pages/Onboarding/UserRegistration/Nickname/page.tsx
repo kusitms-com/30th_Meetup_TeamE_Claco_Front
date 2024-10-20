@@ -48,13 +48,18 @@ export const NicknameCreatePage = () => {
 
   const handleBackClick = () => {
     navigate("/tos");
-  }
+  };
 
   return (
     <div className="w-full h-screen bg-background-dark">
-      <div className="flex flex-col w-full h-full justify-between px-[1.25rem] pt-[4.75rem] pb-[4rem]">
+      <div className="flex flex-col w-full h-full justify-between px-[24px] pt-[4.75rem] pb-[4rem]">
         <div className="flex-col">
-          <img className="mb-[3.12rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
+          <img
+            className="mb-[3.12rem]"
+            src={BackArrow}
+            alt="뒤로가기"
+            onClick={handleBackClick}
+          />
           <span className="heading1-bold text-grayscale-80">
             닉네임을 등록해주세요
           </span>

@@ -19,7 +19,7 @@ export const CompleteRegistrationPage = () => {
   return (
     <div className="w-full h-screen bg-background-dark">
       {showLoading ? (
-        <div className="flex flex-col w-full h-full px-[1.25rem] pt-[8rem] gap-[6rem]">
+        <div className="flex flex-col w-full h-full px-[24px] pt-[8rem] gap-[6rem]">
           <span className="heading1-bold text-grayscale-90">
             울랄라님에게 딱 맞는
             <br />

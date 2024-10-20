@@ -106,7 +106,7 @@ export const SelectFeaturePage = () => {
 
   return (
     <div className="w-full h-screen bg-background-dark">
-      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
+      <div className="flex flex-col w-full h-full px-[24px] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
             <img

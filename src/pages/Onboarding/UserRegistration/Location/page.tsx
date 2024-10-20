@@ -20,18 +20,23 @@ export const SelectLocationPage = () => {
 
   const handleBackClick = () => {
     navigate("/create/price");
-  }
+  };
 
   const handleConfirmClick = () => {
-      navigate("/create/concept");
-  }
+    navigate("/create/concept");
+  };
 
   return (
     <div className="w-full h-screen bg-background-dark">
-      <div className="flex flex-col w-full h-full px-[1.25rem] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
+      <div className="flex flex-col w-full h-full px-[24px] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
-            <img className="mb-[1.19rem]" src={BackArrow} alt="뒤로가기" onClick={handleBackClick}/>
+            <img
+              className="mb-[1.19rem]"
+              src={BackArrow}
+              alt="뒤로가기"
+              onClick={handleBackClick}
+            />
             <Progress value={33.33} />
           </div>
           <span className="heading1-bold text-grayscale-90">
