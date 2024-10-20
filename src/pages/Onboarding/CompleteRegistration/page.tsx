@@ -34,21 +34,21 @@ export const CompleteRegistrationPage = () => {
             <br />
             클래식 공연을 확인하세요!
           </span>
-          <div className="flex justify-center items-center px-[1rem] pb-[1.5rem]">
+          <div className="flex justify-center items-center px-[1.8rem] pb-[1.5rem]">
             <img
               src={poster10}
               alt="Loading"
-              className="min-w-[11.375rem] min-h-[15.125rem] rounded-[0.31rem] opacity-50"
+              className="min-w-[10rem] min-h-[15rem] rounded-[0.31rem] opacity-50"
             />
             <img
               src={poster6}
               alt="Loading"
-              className="absolute z-10 max-w-[13.75rem] min-h-[18.375rem] rounded-[0.31rem]"
+              className="absolute z-10 max-w-[14rem] min-h-[18rem] rounded-[0.31rem]"
             />
             <img
               src={poster5}
               alt="Loading"
-              className="min-w-[11.375rem] min-h-[15.125rem] rounded-[0.31rem] opacity-50"
+              className="min-w-[10rem] min-h-[15rem] rounded-[0.31rem] opacity-50"
             />
           </div>
           <ConfirmButton isChecked={true}>보러가기</ConfirmButton>
