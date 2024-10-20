@@ -4,7 +4,7 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 
 export const MainPosterCard = () => {
   return (
-    <div className="relative w-[342px] h-[443px] mb-[103px] rounded-[5px]">
+    <div className="relative w-[342px] h-[443px] rounded-[5px]">
       <div className="absolute top-[26px] left-[19px] z-10">
         <BookMark />
       </div>
