@@ -18,50 +18,50 @@ const routes: RouteObject[] = [
     element: <Outlet />,
     children: [
       {
+        path: RoutePath.Login,
+        element: <Layout />,
+        children: [
+          {
+            path: RoutePath.Main,
+            element: <MainPage />,
+          },
+        ],
+      },
+      {
         index: true,
         element: <LoginPage />,
       },
       {
-        path: "/tos",
+        path: RoutePath.Tos,
         element: <TosPage />,
       },
       {
-        path: "/create",
+        path: RoutePath.Create,
         element: <NicknameCreatePage />,
       },
       {
-        path: "/create/profile",
+        path: RoutePath.CreateProfile,
         element: <SelectProfilePage />,
       },
       {
-        path: "/create/price",
+        path: RoutePath.CreatePrice,
         element: <SelectPricePage />,
       },
       {
-        path: "/create/location",
+        path: RoutePath.CreateLocation,
         element: <SelectLocationPage />,
       },
       {
-        path: "/create/concept",
+        path: RoutePath.CreateConcept,
         element: <SelectConceptPage />,
       },
       {
-        path: "/create/feature",
+        path: RoutePath.CreateFeature,
         element: <SelectFeaturePage />,
       },
       {
-        path: "/create/complete",
+        path: RoutePath.CreateComplete,
         element: <CompleteRegistrationPage />,
-      },
-    ],
-  },
-  {
-    path: RoutePath.Login,
-    element: <Layout />,
-    children: [
-      {
-        path: RoutePath.Main,
-        element: <MainPage />,
       },
     ],
   },
