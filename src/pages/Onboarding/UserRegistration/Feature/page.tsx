@@ -4,11 +4,7 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import BackArrow from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
-
-interface Feature {
-  title: string;
-  description: string[];
-}
+import { FeatureType } from "@/types/feature";
 
 export const SelectFeaturePage = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -16,7 +12,7 @@ export const SelectFeaturePage = () => {
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [selectedAllFeature, setSelectedAllFeature] = useState<string[]>([]);
 
-  const features: Feature[] = [
+  const features: FeatureType[] = [
     {
       title: "웅장한",
       description: [
