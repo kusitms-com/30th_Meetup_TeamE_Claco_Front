@@ -16,7 +16,7 @@ import { ReviewDetailPage } from "@/pages/Review/[id]/page";
 
 const routes: RouteObject[] = [
   {
-    path: RoutePath.Login,
+    path: "/",
     element: <Outlet />,
     children: [
       {
@@ -62,25 +62,24 @@ const routes: RouteObject[] = [
         ],
       },
       {
-        path: RoutePath.Main,
         element: <Layout />,
         children: [
           {
             path: RoutePath.Main,
             element: <MainPage />,
           },
-        ],
-      },
-      {
-        path: RoutePath.Review,
-        children: [
           {
-            index: true,
-            element: <ReviewPage />,
-          },
-          {
-            path: ":id",
-            element: <ReviewDetailPage />,
+            path: RoutePath.Review,
+            children: [
+              {
+                index: true,
+                element: <ReviewPage />,
+              },
+              {
+                path: ":id",
+                element: <ReviewDetailPage />,
+              },
+            ],
           },
         ],
       },
