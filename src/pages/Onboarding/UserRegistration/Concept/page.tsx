@@ -67,6 +67,7 @@ export const SelectConceptPage = () => {
           <ConfirmButton
             isChecked={selectedConcept.length > 0}
             onClick={handleConfirmClick}
+            disabled={selectedConcept.length === 0}
           >
             다음
           </ConfirmButton>
