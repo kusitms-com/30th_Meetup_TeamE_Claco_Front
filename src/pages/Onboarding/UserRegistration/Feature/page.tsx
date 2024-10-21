@@ -140,7 +140,7 @@ export const SelectFeaturePage = () => {
                     {feature.title}
                   </span>
                   <br />
-                  <span className="body3-normal">
+                  <span className="caption-13">
                     {feature.description.map((line, index) => (
                       <span key={index}>
                         {line}

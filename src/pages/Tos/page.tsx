@@ -53,7 +53,7 @@ export const TosPage = () => {
             <span>클라코가 클래식 공연의 길잡이가</span>
             <span>되어드릴게요</span>
           </span>
-          <span className='flex flex-col body3-normal text-grayscale-70'>
+          <span className='flex flex-col caption-13 text-grayscale-70'>
             <span>클라코 서비스 이용을 위해</span>
             <span>개인정보 수집 및 이용에 대해 동의해 주세요.</span>
           </span>
@@ -74,7 +74,7 @@ export const TosPage = () => {
                 개인정보 수집 및 이용 동의
               </span>
             </div>
-            <button className='body4-normal text-grayscale-80 underline' onClick={openModal}>
+            <button className='caption-12 text-grayscale-80 underline' onClick={openModal}>
               약관 보기
             </button>
           </div>
@@ -91,7 +91,7 @@ export const TosPage = () => {
               개인정보 수집 및 이용 동의
             </span>
             <div className='flex flex-col w-full items-center justify-center gap-[3rem] pb-[1.69rem]'>
-              <span className='body4-normal text-grayscale-90 justify-start'>
+              <span className='caption-12 text-grayscale-90 justify-start'>
                 제휴 및 제안/문의 수집과 안내를 위하여 개인정보보호법에 따라
                 다음과 같이 귀하의 개인정보를 수집 및 이용하고자 합니다.<br /><br />
                 ※ 귀하께서는 개인정보 제공 및 이용을 거부할 권리가 있으며,

@@ -79,22 +79,22 @@ export const NicknameCreatePage = () => {
                 onChange={handleInputChange}
                 maxLength={15}
               />
-              <span className="body4-normal self-center pt-[0.15rem] text-grayscale-60">
+              <span className="caption-12 tracking-[-0.015rem] self-center text-grayscale-60">
                 {nickname.length}/15
               </span>
             </div>
             {hasStartedTyping && errorMessage ? (
-              <div className="flex body4-normal items-start text-system-error gap-[0.25rem] pb-[0.6rem]">
+              <div className="flex caption-12 items-start text-system-error gap-[0.25rem] pb-[0.6rem]">
                 <img src={errorIcon} alt="errorIcon" />
                 <span className="self-center">{errorMessage}</span>
               </div>
             ) : hasStartedTyping ? (
-              <div className="flex body4-normal items-start text-system-positive gap-[0.25rem] pb-[0.6rem]">
+              <div className="flex caption-12 items-start text-system-positive gap-[0.25rem] pb-[0.6rem]">
                 <img src={agreeIcon} alt="checkIcon" />
                 <span className="self-center">사용 가능한 닉네임이에요</span>
               </div>
             ) : null}
-            <div className="flex flex-col body4-normal text-grayscale-60">
+            <div className="flex flex-col caption-12 text-grayscale-60">
               <span>*최소 2글자 이상 사용할 수 있어요</span>
               <span>*특수문자는 사용할 수 없어요</span>
             </div>
