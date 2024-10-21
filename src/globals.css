@@ -150,17 +150,20 @@
   .body1-regular {
     @apply text-[1rem] font-normal leading-normal tracking-[-0.01em];
   }
+  .body2-semibold {
+    @apply text-[0.875rem] font-semibold leading-normal tracking-[-0.01em];
+  }
   .body2-medium {
-    @apply text-[0.9375rem] font-medium leading-normal tracking-[-0.01em];
+    @apply text-[0.875rem] font-medium leading-normal tracking-[-0.01em];
   }
   .body2-regular {
-    @apply text-[0.9375rem] font-normal leading-normal tracking-[-0.01em];
+    @apply text-[0.875rem] font-normal leading-normal tracking-[-0.01em];
   }
-  .body3-normal {
-    @apply text-[0.8125rem] font-normal leading-normal tracking-[-0.01em];
+  .caption-13 {
+    @apply text-[0.8125rem] font-normal leading-normal tracking-[-0.02em];
   }
-  .body4-normal {
-    @apply text-[0.75rem] font-normal leading-normal tracking-[-0.01em];
+  .caption-12 {
+    @apply text-[0.75rem] font-normal leading-normal tracking-[-0.02em];
   }
 }
 
