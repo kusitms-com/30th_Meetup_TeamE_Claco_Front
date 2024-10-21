@@ -1,4 +1,4 @@
-import Location_Gray from "@/assets/svgs/Location_gray.svg?react";
+import {ReactComponent as Location_Gray} from "@/assets/svgs/Location_gray.svg";
 import { ReactComponent as Calendar } from "@/assets/svgs/Calendar.svg";
 import { InfoCardProps } from "@/types/poster";
 import { useTruncateText } from "@/hooks";
