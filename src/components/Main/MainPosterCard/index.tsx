@@ -1,5 +1,5 @@
 import Poster8 from "@/assets/images/poster8.gif";
-import BookMark from "@/assets/svgs/BookMark.svg?react";
+import { ReactComponent as BookMark } from "@/assets/svgs/BookMark.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
 
 export const MainPosterCard = () => {
