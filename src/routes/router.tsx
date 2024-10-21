@@ -18,16 +18,6 @@ const routes: RouteObject[] = [
     element: <Outlet />,
     children: [
       {
-        path: RoutePath.Login,
-        element: <Layout />,
-        children: [
-          {
-            path: RoutePath.Main,
-            element: <MainPage />,
-          },
-        ],
-      },
-      {
         index: true,
         element: <LoginPage />,
       },
@@ -37,31 +27,47 @@ const routes: RouteObject[] = [
       },
       {
         path: RoutePath.Create,
-        element: <NicknameCreatePage />,
+        element: <Outlet />,
+        children: [
+          {
+            index: true,
+            element: <NicknameCreatePage />,
+          },
+          {
+            path: RoutePath.CreateProfile,
+            element: <SelectProfilePage />,
+          },
+          {
+            path: RoutePath.CreatePrice,
+            element: <SelectPricePage />,
+          },
+          {
+            path: RoutePath.CreateLocation,
+            element: <SelectLocationPage />,
+          },
+          {
+            path: RoutePath.CreateConcept,
+            element: <SelectConceptPage />,
+          },
+          {
+            path: RoutePath.CreateFeature,
+            element: <SelectFeaturePage />,
+          },
+          {
+            path: RoutePath.CreateComplete,
+            element: <CompleteRegistrationPage />,
+          },
+        ],
       },
       {
-        path: RoutePath.CreateProfile,
-        element: <SelectProfilePage />,
-      },
-      {
-        path: RoutePath.CreatePrice,
-        element: <SelectPricePage />,
-      },
-      {
-        path: RoutePath.CreateLocation,
-        element: <SelectLocationPage />,
-      },
-      {
-        path: RoutePath.CreateConcept,
-        element: <SelectConceptPage />,
-      },
-      {
-        path: RoutePath.CreateFeature,
-        element: <SelectFeaturePage />,
-      },
-      {
-        path: RoutePath.CreateComplete,
-        element: <CompleteRegistrationPage />,
+        path: RoutePath.Main,
+        element: <Layout />,
+        children: [
+          {
+            path: RoutePath.Main,
+            element: <MainPage />,
+          },
+        ],
       },
     ],
   },
