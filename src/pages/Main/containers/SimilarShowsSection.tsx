@@ -1,7 +1,7 @@
 import Image1 from "@/assets/images/poster1.gif";
 import Image2 from "@/assets/images/poster6.gif";
 import Image3 from "@/assets/images/poster7.gif";
-import Arrow from "@/assets/svgs/Arrow 2.svg?react";
+import { ReactComponent as Arrow } from "@/assets/svgs/Arrow 2.svg";
 
 const SimilarShowsSection = () => {
   const images = [Image1, Image2, Image3];
@@ -43,7 +43,7 @@ const SimilarShowsSection = () => {
             ))}
           </ul>
         </div>
-        <div className="animate-bounce absolute bottom-[200px] right-6 body3-normal flex-col space-y-[11px] text-common-white cursor-pointer">
+        <div className="animate-bounce absolute bottom-[200px] right-6 caption-13 flex-col space-y-[11px] text-common-white cursor-pointer">
           <Arrow />
           <div>컬렉션 보러가기</div>
         </div>

@@ -1,4 +1,4 @@
-import ClacoMain from "@/assets/svgs/Claco_Main.svg?react";
+import { ReactComponent as ClacoMain } from "@/assets/svgs/Claco_Main.svg";
 import { Genre } from "@/components/common/Genre";
 import { MainPosterCard } from "@/components/Main/MainPosterCard";
 
