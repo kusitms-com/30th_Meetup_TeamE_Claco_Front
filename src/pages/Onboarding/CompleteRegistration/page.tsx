@@ -28,7 +28,7 @@ export const CompleteRegistrationPage = () => {
           <img src={loading} alt="Loading" />
         </div>
       ) : (
-        <div className="flex flex-col justify-between w-full h-full px-[1.25rem] pt-[8rem] pb-[4rem]">
+        <div className="flex flex-col justify-between w-full h-full px-[24px] pt-[8rem] pb-[4rem]">
           <span className="heading1-bold text-grayscale-90">
             울랄라님에게 딱 맞는
             <br />
