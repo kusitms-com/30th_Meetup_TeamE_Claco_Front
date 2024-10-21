@@ -1,7 +1,7 @@
 import { Progress } from "@/components/ui/progress";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import BackArrow from "@/assets/svgs/BackArrow.svg";
+import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
 
 export const SelectPricePage = () => {
@@ -37,12 +37,7 @@ export const SelectPricePage = () => {
       <div className="flex flex-col w-full h-full px-[24px] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
-            <img
-              className="mb-[1.19rem]"
-              src={BackArrow}
-              alt="뒤로가기"
-              onClick={handleBackClick}
-            />
+            <BackArrow className="mb-[1.19rem]" onClick={handleBackClick} />
             <Progress value={22.22} />
           </div>
           <span className="heading1-bold text-grayscale-90">

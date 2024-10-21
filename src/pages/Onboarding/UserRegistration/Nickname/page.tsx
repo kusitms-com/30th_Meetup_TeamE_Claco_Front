@@ -1,6 +1,6 @@
-import errorIcon from "@/assets/svgs/errorIcon.svg";
-import agreeIcon from "@/assets/svgs/agreeIcon.svg";
-import BackArrow from "@/assets/svgs/BackArrow.svg";
+import { ReactComponent as ErrorIcon } from "@/assets/svgs/errorIcon.svg";
+import { ReactComponent as AgreeIcon } from "@/assets/svgs/agreeIcon.svg";
+import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -54,12 +54,7 @@ export const NicknameCreatePage = () => {
     <div className="w-full h-screen bg-background-dark">
       <div className="flex flex-col w-full h-full justify-between px-[24px] pt-[4.75rem] pb-[4rem]">
         <div className="flex-col">
-          <img
-            className="mb-[3.12rem]"
-            src={BackArrow}
-            alt="뒤로가기"
-            onClick={handleBackClick}
-          />
+          <BackArrow className="mb-[3.12rem]" onClick={handleBackClick} />
           <span className="heading1-bold text-grayscale-80">
             닉네임을 등록해주세요
           </span>
@@ -85,12 +80,12 @@ export const NicknameCreatePage = () => {
             </div>
             {hasStartedTyping && errorMessage ? (
               <div className="flex caption-12 items-start text-system-error gap-[0.25rem] pb-[0.6rem]">
-                <img src={errorIcon} alt="errorIcon" />
+                <ErrorIcon />
                 <span className="self-center">{errorMessage}</span>
               </div>
             ) : hasStartedTyping ? (
               <div className="flex caption-12 items-start text-system-positive gap-[0.25rem] pb-[0.6rem]">
-                <img src={agreeIcon} alt="checkIcon" />
+                <AgreeIcon />
                 <span className="self-center">사용 가능한 닉네임이에요</span>
               </div>
             ) : null}

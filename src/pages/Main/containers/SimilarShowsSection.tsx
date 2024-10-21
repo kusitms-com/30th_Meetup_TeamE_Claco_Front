@@ -1,7 +1,7 @@
 import Image1 from "@/assets/images/poster1.gif";
 import Image2 from "@/assets/images/poster6.gif";
 import Image3 from "@/assets/images/poster7.gif";
-import Arrow from "@/assets/svgs/Arrow 2.svg?react";
+import { ReactComponent as Arrow } from "@/assets/svgs/Arrow 2.svg";
 
 const SimilarShowsSection = () => {
   const images = [Image1, Image2, Image3];

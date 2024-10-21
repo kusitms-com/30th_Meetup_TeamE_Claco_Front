@@ -1,4 +1,4 @@
-import Location from "@/assets/svgs/Location.svg?react";
+import { ReactComponent as Location } from "@/assets/svgs/Location.svg";
 import Poster6 from "@/assets/images/poster6.gif";
 import Poster9 from "@/assets/images/poster9.gif";
 import Poster11 from "@/assets/images/poster11.gif";

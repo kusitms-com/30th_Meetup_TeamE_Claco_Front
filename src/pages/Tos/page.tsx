@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import backgroundImage from '../../assets/images/loginbackground.png';
-import checkIcon from '@/assets/svgs/check.svg';
-import checkedIcon from '@/assets/svgs/checked.svg';
+import { ReactComponent as CheckIcon }  from '@/assets/svgs/check.svg';
+import { ReactComponent as CheckedIcon }  from '@/assets/svgs/checked.svg';
 import { useNavigate } from 'react-router-dom';
 import { ConfirmButton } from '@/components/common/Button';
 
@@ -63,13 +63,11 @@ export const TosPage = () => {
               isChecked ? 'border-primary' : 'border-transparent'
             }`}>
             <div className='flex gap-[0.94rem] items-center cursor-pointer' onClick={handleCheckClick}>
-
-              <img
-                src={isChecked ? checkedIcon : checkIcon}
-                alt='check icon'
-                width='16'
-                height='13'
-              />
+            {isChecked ? (
+              <CheckedIcon width="16" height="13" />
+              ) : (
+                <CheckIcon width="16" height="13" />
+              )}
               <span className='body1-medium text-grayscale-80'>
                 개인정보 수집 및 이용 동의
               </span>

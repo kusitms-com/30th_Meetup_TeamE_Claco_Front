@@ -1,8 +1,8 @@
-import Grand from "@/assets/svgs/Grand.svg?react";
-import Romantic from "@/assets/svgs/Romantic.svg?react";
-import Elegant from "@/assets/svgs/Elegant.svg?react";
-import Passionate from "@/assets/svgs/Passionate.svg?react";
-import Classical from "@/assets/svgs/Classical.svg?react";
+import { ReactComponent as Grand } from "@/assets/svgs/Grand.svg";
+import { ReactComponent as Romantic } from "@/assets/svgs/Romantic.svg";
+import { ReactComponent as Elegant } from "@/assets/svgs/Elegant.svg";
+import { ReactComponent as Passionate } from "@/assets/svgs/Passionate.svg";
+import { ReactComponent as Classical } from "@/assets/svgs/Classical.svg";
 import { GenreProps, GenreType } from "@/types/genre";
 
 const GENRE: GenreType[] = [
