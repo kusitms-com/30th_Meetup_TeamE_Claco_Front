@@ -99,6 +99,7 @@ export const SelectLocationPage = () => {
           <ConfirmButton
             isChecked={selectedLocation.length > 0}
             onClick={handleConfirmClick}
+            disabled={selectedLocation.length === 0}
           >
             다음
           </ConfirmButton>

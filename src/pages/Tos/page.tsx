@@ -76,7 +76,7 @@ export const TosPage = () => {
               약관 보기
             </button>
           </div>
-          <ConfirmButton isChecked={isChecked} onClick={handleConfirmClick}>
+          <ConfirmButton isChecked={isChecked} onClick={handleConfirmClick} disabled={!isChecked}>
             확인
           </ConfirmButton>
         </div>

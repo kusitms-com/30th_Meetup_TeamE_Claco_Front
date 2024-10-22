@@ -108,6 +108,7 @@ export const SelectProfilePage = () => {
           <ConfirmButton
             isChecked={!!selectedGender && !!selectedAge}
             onClick={handleConfirmClick}
+            disabled={!(selectedGender && selectedAge)}
           >
             다음
           </ConfirmButton>
