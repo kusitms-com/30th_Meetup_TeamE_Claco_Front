@@ -93,6 +93,7 @@ export const SelectFeaturePage = () => {
           <ConfirmButton
             isChecked={!!selectedFeature}
             onClick={handleNextClick}
+            disabled={!selectedFeature}
           >
             다음
           </ConfirmButton>

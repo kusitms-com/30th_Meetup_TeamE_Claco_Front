@@ -95,7 +95,7 @@ export const NicknameCreatePage = () => {
             </div>
           </div>
         </div>
-        <ConfirmButton isChecked={isChecked} onClick={handleConfirmClick}>
+        <ConfirmButton isChecked={isChecked} onClick={handleConfirmClick} disabled={!isChecked}>
           확인
         </ConfirmButton>
       </div>
