@@ -19,42 +19,18 @@ const routes: RouteObject[] = [
     path: "/",
     element: <Outlet />,
     children: [
-      {
-        index: true,
-        element: <LoginPage />,
-      },
-      {
-        path: RoutePath.Tos,
-        element: <TosPage />,
-      },
+      { index: true, element: <LoginPage /> },
+      { path: RoutePath.Tos, element: <TosPage /> },
       {
         path: RoutePath.Create,
         element: <Outlet />,
         children: [
-          {
-            index: true,
-            element: <NicknameCreatePage />,
-          },
-          {
-            path: RoutePath.CreateProfile,
-            element: <SelectProfilePage />,
-          },
-          {
-            path: RoutePath.CreatePrice,
-            element: <SelectPricePage />,
-          },
-          {
-            path: RoutePath.CreateLocation,
-            element: <SelectLocationPage />,
-          },
-          {
-            path: RoutePath.CreateConcept,
-            element: <SelectConceptPage />,
-          },
-          {
-            path: RoutePath.CreateFeature,
-            element: <SelectFeaturePage />,
-          },
+          { index: true, element: <NicknameCreatePage /> },
+          { path: RoutePath.CreateProfile, element: <SelectProfilePage /> },
+          { path: RoutePath.CreatePrice, element: <SelectPricePage /> },
+          { path: RoutePath.CreateLocation, element: <SelectLocationPage /> },
+          { path: RoutePath.CreateConcept, element: <SelectConceptPage /> },
+          { path: RoutePath.CreateFeature, element: <SelectFeaturePage /> },
           {
             path: RoutePath.CreateComplete,
             element: <CompleteRegistrationPage />,
@@ -64,10 +40,7 @@ const routes: RouteObject[] = [
       {
         element: <Layout />,
         children: [
-          {
-            path: RoutePath.Main,
-            element: <MainPage />,
-          },
+          { path: RoutePath.Main, element: <MainPage /> },
           {
             path: RoutePath.Review,
             children: [
