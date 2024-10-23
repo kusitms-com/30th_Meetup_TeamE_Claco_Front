@@ -1,7 +1,4 @@
-type ReviewTagProps = {
-  isPlace?: boolean;
-  children: string;
-};
+import { ReviewTagProps } from "@/types/review";
 
 export const ReviewTag = ({ isPlace = false, children }: ReviewTagProps) => {
   return (

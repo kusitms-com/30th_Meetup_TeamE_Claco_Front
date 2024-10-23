@@ -4,9 +4,15 @@ import poster6 from "@/assets/images/poster6.gif";
 import poster5 from "@/assets/images/poster5.gif";
 import { useEffect, useState } from "react";
 import { ConfirmButton } from "@/components/common/Button";
+import { useNavigate } from "react-router-dom";
 
 export const CompleteRegistrationPage = () => {
   const [showLoading, setShowLoading] = useState(true);
+  const navigate = useNavigate();
+
+  const gotoMain = () => {
+    navigate("/main");
+  };
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -51,7 +57,9 @@ export const CompleteRegistrationPage = () => {
               className="min-w-[10rem] min-h-[15rem] rounded-[0.31rem] opacity-50"
             />
           </div>
-          <ConfirmButton isChecked={true}>보러가기</ConfirmButton>
+          <ConfirmButton isChecked={true} onClick={gotoMain}>
+            보러가기
+          </ConfirmButton>
         </div>
       )}
     </div>

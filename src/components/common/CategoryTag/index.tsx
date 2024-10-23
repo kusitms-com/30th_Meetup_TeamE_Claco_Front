@@ -1,9 +1,6 @@
-type Category = {
-  categoryType: "dance" | "classical" | "ongoing" | "upcoming";
-  children: React.ReactNode;
-};
+import { CategoryTagProps } from "@/types";
 
-export const CategoryTag = ({ categoryType, children }: Category) => {
+export const CategoryTag = ({ categoryType, children }: CategoryTagProps) => {
   const TagStyle = () => {
     switch (categoryType) {
       case "dance":
