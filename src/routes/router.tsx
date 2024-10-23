@@ -13,31 +13,50 @@ import { SelectFeaturePage } from "@/pages/Onboarding/UserRegistration/Feature/p
 import Layout from "@/components/Layout";
 import { ReviewPage } from "@/pages/Review/page";
 import { ReviewDetailPage } from "@/pages/Review/[id]/page";
+import { ShowDetailPage } from "@/pages/ShowDetail/page";
+import ScrollTop from "@/components/common/ScrollTop";
 
 const routes: RouteObject[] = [
   {
     path: "/",
-    element: <Outlet />,
+    element: (
+      <>
+        <ScrollTop />
+        <Outlet />
+      </>
+    ),
     children: [
       { index: true, element: <LoginPage /> },
       { path: RoutePath.Tos, element: <TosPage /> },
       {
-        path: "create",
+        path: RoutePath.Create,
         children: [
           { index: true, element: <NicknameCreatePage /> },
-          { path: "profile", element: <SelectProfilePage /> },
-          { path: "price", element: <SelectPricePage /> },
-          { path: "location", element: <SelectLocationPage /> },
-          { path: "concept", element: <SelectConceptPage /> },
-          { path: "feature", element: <SelectFeaturePage /> },
-          { path: "complete", element: <CompleteRegistrationPage /> },
+          { path: RoutePath.CreateProfile, element: <SelectProfilePage /> },
+          { path: RoutePath.CreatePrice, element: <SelectPricePage /> },
+          { path: RoutePath.CreateLocation, element: <SelectLocationPage /> },
+          { path: RoutePath.CreateConcept, element: <SelectConceptPage /> },
+          { path: RoutePath.CreateFeature, element: <SelectFeaturePage /> },
+          {
+            path: RoutePath.CreateComplete,
+            element: <CompleteRegistrationPage />,
+          },
         ],
       },
       {
-        path: RoutePath.Review,
+        path: RoutePath.Show,
         children: [
-          { index: true, element: <ReviewPage /> },
-          { path: ":id", element: <ReviewDetailPage /> },
+          { index: true, element: <ShowDetailPage /> },
+          {
+            path: RoutePath.ShowReviews,
+            children: [
+              { index: true, element: <ReviewPage /> },
+              {
+                path: RoutePath.ShowReviewDetail,
+                element: <ReviewDetailPage />,
+              },
+            ],
+          },
         ],
       },
       {

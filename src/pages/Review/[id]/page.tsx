@@ -25,15 +25,14 @@ export const ReviewDetailPage = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const goBack = () => {
-    navigate("/review");
+  const gotoBack = () => {
+    navigate(-1);
   };
   return (
     <div className="pt-[60px] px-6">
-      <section className="flex justify-between mb-[53px]">
-        <BackArrow onClick={goBack} />
+      <section className="relative flex justify-center mb-[53px]">
+        <BackArrow onClick={gotoBack} className="absolute left-0" />
         <div className="headline2-bold">리뷰</div>
-        <div className="w-[11px] h-[20px] bg-inherit"></div>
       </section>
 
       <div className="flex items-center justify-between mb-6">

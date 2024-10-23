@@ -3,12 +3,18 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 import { ReviewCard } from "@/components/Review/ReviewCard";
 
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const options: string[] = ["별점 높은 순", "별점 낮은 순", "최신 순"];
 
 export const ReviewPage = () => {
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectOption, setSelectOption] = useState<string>(options[0]);
+  const navigate = useNavigate();
+
+  const gotoBack = () => {
+    navigate(-1);
+  };
 
   const dropdownRef = useRef<HTMLDivElement>(null);
 
@@ -30,10 +36,9 @@ export const ReviewPage = () => {
 
   return (
     <div className="pt-[60px] px-6">
-      <section className="flex justify-between mb-[53px]">
-        <BackArrow />
+      <section className="relative flex justify-center mb-[53px]">
+        <BackArrow onClick={gotoBack} className="absolute left-0" />
         <div className="headline2-bold">리뷰</div>
-        <div className="w-[11px] h-[20px] bg-inherit"></div>
       </section>
       <section className="flex-col space-y-[10px] mb-[3px]">
         <div className="flex space-x-2">

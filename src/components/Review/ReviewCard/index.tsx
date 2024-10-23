@@ -7,9 +7,14 @@ import Profile from "@/assets/images/profile.png";
 import { useTruncateText } from "@/hooks";
 import { useState } from "react";
 import { ReviewTag } from "@/components/common/ReviewTag";
+import { useNavigate } from "react-router-dom";
 
 export const ReviewCard = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const gotoReviewDetail = () => {
+    navigate("/show/1/reviews/1");
+  };
   const _review =
     "크리스마스 밤, 클라라의 집에서 뭐가 벌어지는 것 같긴한데, 내용이 어떻게 될까요. 저는 모르겠습니다만 이렇게 두줄이 넘어가면 말줄임이 되어야 하지 않을까";
 
@@ -76,7 +81,7 @@ export const ReviewCard = () => {
       <div className="flex justify-between caption-12">
         <div className="text-grayscale-50">2024.11.11</div>
         <div className="flex items-center space-x-2 text-grayscale-60">
-          <div className="">더 보기</div>
+          <div onClick={gotoReviewDetail}>더 보기</div>
           <BackArrow
             width="5"
             height="11"
