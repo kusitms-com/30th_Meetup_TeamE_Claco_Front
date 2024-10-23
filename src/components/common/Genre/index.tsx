@@ -1,67 +1,50 @@
-import { ReactComponent as Grand } from "@/assets/svgs/Grand.svg";
+import { ReactComponent as Grand } from "@/assets/svgs/Majestic.svg";
 import { ReactComponent as Romantic } from "@/assets/svgs/Romantic.svg";
-import { ReactComponent as Elegant } from "@/assets/svgs/Elegant.svg";
-import { ReactComponent as Passionate } from "@/assets/svgs/Passionate.svg";
+import { ReactComponent as Lyrical } from "@/assets/svgs/Lyrical.svg";
+import { ReactComponent as Fresh } from "@/assets/svgs/Fresh.svg";
 import { ReactComponent as Classical } from "@/assets/svgs/Classical.svg";
 import { GenreProps, GenreType } from "@/types/genre";
 
 const GENRE: GenreType[] = [
-  { type: "Dynamic", content: "동화적인" },
+  { type: "Majestic", content: "웅장한" },
+  { type: "Delicate", content: "섬세한" },
+
   { type: "Classical", content: "고전적인" },
   { type: "Modern", content: "현대적인" },
+
+  { type: "Lyrical", content: "서정적인" },
+  { type: "Dynamic", content: "역동적인" },
+
   { type: "Romantic", content: "낭만적인" },
-  { type: "Lyrical", content: "서사적인" },
-  { type: "Elegant", content: "우아한" },
-  { type: "Grand", content: "웅장한" },
-  { type: "Passionate", content: "격정적인" },
-  { type: "Restrained", content: "절제된" },
-  { type: "Imaginative", content: "창의적인" },
-  { type: "Innovative", content: "신비로운" },
-  { type: "Natural", content: "자연적인" },
-  { type: "Movie_ost", content: "영화 OST" },
-  { type: "Spectacular", content: "회망적인" },
-  { type: "Dramatic", content: "역동적인" },
-  { type: "Calm", content: "잔잔한" },
-  { type: "Majestic", content: "웅장한" },
+  { type: "Tragic", content: "비극적인" },
+
+  { type: "Familiar", content: "친숙한" },
+  { type: "Fresh", content: "새로운" },
 ];
 
 export const Genre = ({ genreType }: GenreProps) => {
   const genreLogo = () => {
     switch (genreType) {
-      case "Dynamic":
-        return <Classical />;
+      case "Majestic":
+        return <Grand />;
+      case "Delicate":
+        return <Grand />;
       case "Classical":
         return <Classical />;
       case "Modern":
         return <Classical />;
+      case "Lyrical":
+        return <Lyrical />;
+      case "Dynamic":
+        return <Lyrical />;
       case "Romantic":
         return <Romantic />;
-      case "Lyrical":
-        return <Classical />;
-      case "Elegant":
-        return <Elegant />;
-      case "Grand":
+      case "Tragic":
         return <Grand />;
-      case "Passionate":
-        return <Passionate />;
-      case "Restrained":
-        return <Classical />;
-      case "Imaginative":
-        return <Classical />;
-      case "Innovative":
-        return <Classical />;
-      case "Natural":
-        return <Classical />;
-      case "Movie_ost":
-        return <Classical />;
-      case "Spectacular":
-        return <Classical />;
-      case "Dramatic":
-        return <Classical />;
-      case "Calm":
-        return <Classical />;
-      case "Majestic":
-        return <Classical />;
+      case "Familiar":
+        return <Grand />;
+      case "Fresh":
+        return <Fresh />;
       default:
         return null; // 또는 기본 아이콘을 반환할 수 있습니다
     }

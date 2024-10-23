@@ -6,6 +6,7 @@ import Review from "@/assets/images/review.png";
 import Profile from "@/assets/images/profile.png";
 import { useTruncateText } from "@/hooks";
 import { useState } from "react";
+import { ReviewTag } from "@/components/common/ReviewTag";
 
 export const ReviewCard = () => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
@@ -60,18 +61,16 @@ export const ReviewCard = () => {
       </div>
 
       <div className="flex space-x-2 overflow-x-auto scrollbar-hide mb-[19px]">
-        <div className="rounded-[50px] bg-grayscale-30 inline-flex caption-13 px-[13px] py-[8.5px] whitespace-nowrap">
-          울림이 좋아요
-        </div>
-        <div className="rounded-[50px] bg-grayscale-30 inline-flex caption-13 px-[13px] py-[8.5px] whitespace-nowrap">
-          울림이 좋아요
-        </div>
-        <div className="rounded-[50px] bg-grayscale-30 inline-flex caption-13 px-[13px] py-[8.5px] whitespace-nowrap">
-          울림이 좋아요
-        </div>
-        <div className="rounded-[50px] bg-grayscale-30 inline-flex caption-13 px-[13px] py-[8.5px] whitespace-nowrap">
-          울림이 좋아요
-        </div>
+        <ReviewTag>음향이 좋아요</ReviewTag>
+        <ReviewTag>음향이 나빠요</ReviewTag>
+        <ReviewTag>좌석 간격이 넓어요</ReviewTag>
+        <ReviewTag>좌석 간격이 좁아요</ReviewTag>
+        <ReviewTag>좌석이 편안해요</ReviewTag>
+        <ReviewTag>좌석이 불편해요</ReviewTag>
+        <ReviewTag>시야가 탁 트여있어요</ReviewTag>
+        <ReviewTag>시야 확보가 어려워요</ReviewTag>
+        <ReviewTag>주차가 편리해요</ReviewTag>
+        <ReviewTag>주차 공간이 부족해요</ReviewTag>
       </div>
 
       <div className="flex justify-between caption-12">

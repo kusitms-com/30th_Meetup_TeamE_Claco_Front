@@ -22,43 +22,31 @@ const routes: RouteObject[] = [
       { index: true, element: <LoginPage /> },
       { path: RoutePath.Tos, element: <TosPage /> },
       {
-        path: RoutePath.Create,
-        element: <Outlet />,
+        path: "create",
         children: [
           { index: true, element: <NicknameCreatePage /> },
-          { path: RoutePath.CreateProfile, element: <SelectProfilePage /> },
-          { path: RoutePath.CreatePrice, element: <SelectPricePage /> },
-          { path: RoutePath.CreateLocation, element: <SelectLocationPage /> },
-          { path: RoutePath.CreateConcept, element: <SelectConceptPage /> },
-          { path: RoutePath.CreateFeature, element: <SelectFeaturePage /> },
-          {
-            path: RoutePath.CreateComplete,
-            element: <CompleteRegistrationPage />,
-          },
+          { path: "profile", element: <SelectProfilePage /> },
+          { path: "price", element: <SelectPricePage /> },
+          { path: "location", element: <SelectLocationPage /> },
+          { path: "concept", element: <SelectConceptPage /> },
+          { path: "feature", element: <SelectFeaturePage /> },
+          { path: "complete", element: <CompleteRegistrationPage /> },
+        ],
+      },
+      {
+        path: RoutePath.Review,
+        children: [
+          { index: true, element: <ReviewPage /> },
+          { path: ":id", element: <ReviewDetailPage /> },
         ],
       },
       {
         element: <Layout />,
-        children: [
-          { path: RoutePath.Main, element: <MainPage /> },
-          {
-            path: RoutePath.Review,
-            children: [
-              {
-                index: true,
-                element: <ReviewPage />,
-              },
-              {
-                path: ":id",
-                element: <ReviewDetailPage />,
-              },
-            ],
-          },
-        ],
+        children: [{ path: RoutePath.Main, element: <MainPage /> }],
       },
     ],
   },
-  { path: "*", element: <>Not found page</> },
+  { path: "*", element: <div>Not found page</div> },
 ];
 
 const Router = createBrowserRouter(routes);
