@@ -22,11 +22,11 @@ const PersonalizedSection = () => {
 
         {/* 디자인 수정 예상 */}
         <div className="flex justify-between mb-[53px]">
-          <Genre genreType={"Grand"} />
-          <Genre genreType={"Romantic"} />
-          <Genre genreType={"Passionate"} />
-          <Genre genreType={"Elegant"} />
-          <Genre genreType={"Classical"} />
+          <Genre genreType={"Majestic"} />
+          <Genre genreType={"Majestic"} />
+          <Genre genreType={"Majestic"} />
+          <Genre genreType={"Majestic"} />
+          <Genre genreType={"Majestic"} />
         </div>
         <div className="flex justify-center mb-8">
           <img

@@ -1,9 +1,6 @@
-type Category = {
-  categoryType: "dance" | "classical" | "ongoing" | "upcoming";
-  children: React.ReactNode;
-};
+import { CategoryTagProps } from "@/types";
 
-export const CategoryTag = ({ categoryType, children }: Category) => {
+export const CategoryTag = ({ categoryType, children }: CategoryTagProps) => {
   const TagStyle = () => {
     switch (categoryType) {
       case "dance":
@@ -20,7 +17,7 @@ export const CategoryTag = ({ categoryType, children }: Category) => {
   };
   return (
     <div
-      className={`max-h-6 inline-flex items-center body4-normal text-common-white rounded-[20px] px-2 py-[3px] ${TagStyle()}`}
+      className={`max-h-6 inline-flex items-center caption-12 text-common-white rounded-[20px] px-2 py-[3px] ${TagStyle()}`}
     >
       {children}
     </div>

@@ -114,5 +114,5 @@ export default {
       "real-screen": "calc(var(--vh) * 100)",
     },
   },
-  plugins: [require("tailwindcss-animate")],
+  plugins: [require("tailwind-scrollbar-hide"), require("tailwindcss-animate")],
 };

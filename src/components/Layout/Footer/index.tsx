@@ -2,14 +2,8 @@ import { ReactComponent as Home } from "@/assets/svgs/home.svg";
 import { ReactComponent as Search } from "@/assets/svgs/search.svg";
 import { ReactComponent as Ticket } from "@/assets/svgs/ticket.svg";
 import { ReactComponent as User } from "@/assets/svgs/user.svg";
+import { FooterState } from "@/types";
 import { useState } from "react";
-
-type FooterState = {
-  home: boolean;
-  search: boolean;
-  ticket: boolean;
-  user: boolean;
-};
 
 const Footer = () => {
   const [isActive, setIsActive] = useState<FooterState>({

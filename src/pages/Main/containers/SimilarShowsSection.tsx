@@ -43,7 +43,7 @@ const SimilarShowsSection = () => {
             ))}
           </ul>
         </div>
-        <div className="animate-bounce absolute bottom-[200px] right-6 body3-normal flex-col space-y-[11px] text-common-white cursor-pointer">
+        <div className="animate-bounce absolute bottom-[200px] right-6 caption-13 flex-col space-y-[11px] text-common-white cursor-pointer">
           <Arrow />
           <div>컬렉션 보러가기</div>
         </div>

@@ -1,4 +1,4 @@
-import {ReactComponent as ClacoMain} from "@/assets/svgs/Claco_Main.svg";
+import { ReactComponent as ClacoMain } from "@/assets/svgs/Claco_Main.svg";
 import { Genre } from "@/components/common/Genre";
 import { MainPosterCard } from "@/components/Main/MainPosterCard";
 
@@ -19,10 +19,10 @@ const NearbyEventsSection = () => {
           좋아하실만한 공연을 준비했어요
         </div>
         <div className="flex justify-between mb-12">
-          <Genre genreType={"Grand"} />
+          <Genre genreType={"Majestic"} />
           <Genre genreType={"Romantic"} />
-          <Genre genreType={"Passionate"} />
-          <Genre genreType={"Elegant"} />
+          <Genre genreType={"Lyrical"} />
+          <Genre genreType={"Fresh"} />
           <Genre genreType={"Classical"} />
         </div>
         <div className="relative flex justify-center h-[555px]">
