@@ -1,7 +1,7 @@
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { ReviewCard } from "@/components/Review/ReviewCard";
-import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const/MockData";
+import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
 
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
