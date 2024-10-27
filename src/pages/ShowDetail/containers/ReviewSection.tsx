@@ -1,8 +1,9 @@
 import { ReviewSummaryCard } from "@/components/ShowDetail/ReviewSummaryCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
+import { forwardRef } from "react";
 
-const ReviewSection = () => {
+const ReviewSection = forwardRef<HTMLDivElement>((_, ref) => {
   const reviews = [
     {
       username: "울랄라",
@@ -32,8 +33,8 @@ const ReviewSection = () => {
   ];
 
   return (
-    <section>
-      <div className="pb-[86px]">
+    <section ref={ref}>
+      <div className="px-6 pb-[86px]">
         <div className="space-x-[14px] mb-6">
           <span className="headline2-bold text-grayscale-80">감상 리뷰</span>
           <a
@@ -65,6 +66,6 @@ const ReviewSection = () => {
       </div>
     </section>
   );
-};
+});
 
 export default ReviewSection;

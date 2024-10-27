@@ -1,4 +1,6 @@
-const ShowInfoSection = () => {
+import { forwardRef } from "react";
+
+const ShowInfoSection = forwardRef<HTMLDivElement>((_, ref) => {
   // const copyAddress = () => {
   //   const url =
   //   navigator.clipboard.writeText(url)
@@ -17,8 +19,8 @@ const ShowInfoSection = () => {
   };
 
   return (
-    <section>
-      <div className="pb-[103px]">
+    <section ref={ref}>
+      <div className="px-6 pb-[103px]">
         <span className="headline2-bold text-grayscale-80">공연 정보</span>
 
         <div className="flex-col space-y-5 mt-6">
@@ -88,6 +90,6 @@ const ShowInfoSection = () => {
       </div>
     </section>
   );
-};
+});
 
 export default ShowInfoSection;

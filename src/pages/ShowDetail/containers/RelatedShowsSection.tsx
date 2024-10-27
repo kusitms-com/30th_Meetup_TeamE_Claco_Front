@@ -3,11 +3,12 @@ import { VerticalInfoCard } from "@/components/Main/InformationCard";
 import Poster6 from "@/assets/images/poster6.gif";
 import Poster9 from "@/assets/images/poster9.gif";
 import Poster11 from "@/assets/images/poster11.gif";
+import { forwardRef } from "react";
 
-const RelatedShowsSection = () => {
+const RelatedShowsSection = forwardRef<HTMLDivElement>((_, ref) => {
   return (
-    <section>
-      <div className="pb-[161px]">
+    <section ref={ref}>
+      <div className="px-6 pb-[161px]">
         <span className="headline2-bold text-grayscale-80">비슷한 공연</span>
         <section className="mt-6">
           <Swiper
@@ -46,6 +47,6 @@ const RelatedShowsSection = () => {
       </div>
     </section>
   );
-};
+});
 
 export default RelatedShowsSection;

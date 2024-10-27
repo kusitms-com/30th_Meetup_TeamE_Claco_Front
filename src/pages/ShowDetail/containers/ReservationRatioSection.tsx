@@ -11,6 +11,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { forwardRef } from "react";
 
 ChartJS.register(
   CategoryScale,
@@ -21,7 +22,7 @@ ChartJS.register(
   ChartDataLabels,
 );
 
-const ReservationRatioSection = () => {
+const ReservationRatioSection = forwardRef<HTMLDivElement>((_, ref) => {
   const chartData = [27, 36, 20, 6, 6];
   const maxDataValue = Math.max(...chartData);
   const malePercentage = 22;
@@ -107,11 +108,11 @@ const ReservationRatioSection = () => {
   };
 
   return (
-    <section>
-      <div className="pb-[103px]">
+    <section ref={ref}>
+      <div className="px-6 pb-[103px]">
         <span className="headline2-bold text-grayscale-80">예매자 비율</span>
 
-        <div className="w-[249px] mt-10 mx-[46px] mb-9">
+        <div className="w-[249px] mt-10 mx-[46px] mx-auto mb-9">
           <Bar data={ageGroupData} options={options} />
         </div>
 
@@ -128,7 +129,9 @@ const ReservationRatioSection = () => {
             </div>
           </div>
           <div className="flex space-x-1 items-center justify-center rounded-[5px] bg-grayscale-20 pl-6 pr-9 py-[22px]">
-            <Female className={!isMaleHigher ? "change-gender-fillcolor" : ""} />
+            <Female
+              className={!isMaleHigher ? "change-gender-fillcolor" : ""}
+            />
             <div className="flex flex-col space-y-1">
               <span className="body1-medium text-white">여성</span>
               <span
@@ -142,5 +145,5 @@ const ReservationRatioSection = () => {
       </div>
     </section>
   );
-};
+});
 export default ReservationRatioSection;

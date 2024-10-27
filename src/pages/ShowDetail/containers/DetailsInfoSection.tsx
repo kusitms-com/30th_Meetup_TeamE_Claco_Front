@@ -1,8 +1,8 @@
 import Poster10_detail from "@/assets/images/poster10_detail.jpg";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
-import { useState } from "react";
+import { forwardRef, useState } from "react";
 
-const DetailsInfoSection = () => {
+const DetailsInfoSection = forwardRef<HTMLDivElement>((_, ref) => {
   const [showFullImage, setShowFullImage] = useState(false);
 
   const toggleFullImageView = () => {
@@ -10,8 +10,8 @@ const DetailsInfoSection = () => {
   };
 
   return (
-    <section>
-      <div className="pb-[100px]">
+    <section ref={ref}>
+      <div className="px-6 pb-[100px]">
         <span className="headline2-bold text-grayscale-80">상세정보</span>
         <div className="flex flex-col items-center space-y-[22px]">
           <div
@@ -36,6 +36,6 @@ const DetailsInfoSection = () => {
       </div>
     </section>
   );
-};
+});
 
 export default DetailsInfoSection;
