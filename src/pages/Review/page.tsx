@@ -1,6 +1,7 @@
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { ReviewCard } from "@/components/Review/ReviewCard";
+import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const/MockData";
 
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -86,8 +87,8 @@ export const ReviewPage = () => {
           </div>
         </div>
         <div className="flex-col space-y-[11px] pb-[100px]">
-          {[...Array(4)].map((_, index) => (
-            <ReviewCard key={index} />
+          {REVIEW_MOCK_DATA.map((review) => (
+            <ReviewCard key={review.reviewId} review={review} />
           ))}
         </div>
       </section>
