@@ -7,23 +7,32 @@ import { ReactComponent as Megaphone } from "@/assets/svgs/Megaphone.svg";
 import { ReactComponent as Book } from "@/assets/svgs/Book.svg";
 import { Genre } from "@/components/common/Genre";
 import { useNavigate } from "react-router-dom";
+import { useState } from "react";
 
 const TopShowInfoSection = () => {
   const navigate = useNavigate();
+  const [isExpanded, setIsExpanded] = useState(false);
 
   const gotoBack = () => {
     navigate(-1);
   };
 
+  const toggleExpanded = () => {
+    setIsExpanded(!isExpanded);
+  };
+
+  const description =
+    "특유의 감수성으로 풍부하고 섬세한 연주를 선보이는 유명 피아니스트 랑랑의 공연이에요 섬세한 연주를 선보이는 유명 피아니스트 랑랑의 공연이에요";
+
   return (
-    <section>
+    <section className="px-6">
       <ClacoMain className="mb-[38px]" />
 
       <BackArrow
         width="8"
         height="15"
         viewBox="0 0 11 20"
-        className="mb-[37px]"
+        className="mb-[37px] cursor-pointer"
         onClick={gotoBack}
       />
 
@@ -64,26 +73,47 @@ const TopShowInfoSection = () => {
               <span>20,000원-90,000원</span>
             </div>
           </div>
-          <a href="" className="caption-12 text-grayscale-70 underline">
+          <a href="#" className="caption-12 text-grayscale-70 underline">
             예매하러가기
           </a>
         </div>
       </div>
 
-      <div className="flex flex-col bg-grayscale-20 rounded-[5px] px-[21px] pt-[30px] pb-[35px] mb-[66px]">
+      <div className="flex flex-col bg-grayscale-20 rounded-[5px] px-[21px] pt-[30px] pb-[35px] mb-[26px]">
         <div className="flex space-x-2 items-center mb-[18px]">
           <Megaphone />
           <span className="headline2-bold">Claco 큐레이션</span>
         </div>
-        <span className="body2-medium text-grayscale-70 mb-7">
-          특유의 감수성으로 풍부하고 섬세한 연주를 선보이는 유명 피아니스트
-          랑랑의 공연이에요...섬세한.. 더 보기
-        </span>
+
+        <p
+          className={`relative body2-medium text-grayscale-70 mb-7 overflow-hidden ${
+            isExpanded ? "max-h-none" : "max-h-[41px]"
+          }`}
+        >
+          {isExpanded ? (
+            description
+          ) : (
+            <>
+              {description.slice(0, 48)}
+              <span className="relative">
+                <span className="absolute inset-y-0 right-0 w-6 bg-gradient-to-r from-transparent to-[#242424]/80"></span>
+                {description.slice(48, 51)}
+              </span>
+              <button
+                onClick={toggleExpanded}
+                className="body2-medium text-grayscale-80 ml-1"
+              >
+                더 보기
+              </button>
+            </>
+          )}
+        </p>
+
         <div className="flex space-x-2 items-center mb-[22px]">
           <Book />
           <span className="headline2-bold">공연 성격 분석</span>
         </div>
-        <div className="flex justify-center space-x-[14px] px-[11px]">
+        <div className="flex justify-between px-[13px]">
           <Genre
             genreType={"Majestic"}
             className="caption-12 text-grayscale-70"
