@@ -8,6 +8,7 @@ import "swiper/css/thumbs";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ReactComponent as Like } from "@/assets/svgs/Like.svg";
 import { ReactComponent as Star } from "@/assets/svgs/StarRating.svg";
+import { ReactComponent as X } from "@/assets/svgs/X-icon.svg";
 import { ReviewTag } from "@/components/common/ReviewTag";
 import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
 import { useEffect, useState } from "react";
@@ -80,11 +81,17 @@ export const ReviewDetailPage = () => {
             >
               {REVIEW_MOCK_DATA[4].reviewImageList.map((image, index) => (
                 <SwiperSlide key={index}>
-                  <img
-                    src={image}
-                    alt="리뷰 이미지"
-                    className="object-contain w-screen"
-                  />
+                  <div className="relative">
+                    <X
+                      className="absolute top-5 left-5 max-[375px]:left-14"
+                      onClick={handleImageClick}
+                    />
+                    <img
+                      src={image}
+                      alt="리뷰 이미지"
+                      className="object-contain w-screen max-[375px]:h-[400px]"
+                    />
+                  </div>
                 </SwiperSlide>
               ))}
             </Swiper>

@@ -47,8 +47,8 @@ export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
             alt="공연 이미지"
             className="min-w-[90px] h-[90px] rounded-[5px] object-fill"
           />
-          <div className="absolute bottom-0 right-0 w-[19px] h-[19px] bg-[#8A8585] text-center caption-12 rounded-br-[5px]">
-            3
+          <div className="absolute bottom-0 right-0 w-[19px] h-[19px] bg-[#8A8585] caption-12 rounded-br-[5px] flex justify-center items-center">
+            <span className="text-center">3</span>
           </div>
         </div>
         <div className="flex-col space-y-2">
@@ -59,7 +59,7 @@ export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
             </div>
           </div>
           <div className="body2-medium">
-            {useTruncateText(review.reviewContent, 50)}
+            {useTruncateText(review.reviewContent, 60)}
           </div>
         </div>
       </div>

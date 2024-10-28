@@ -49,6 +49,12 @@
 
   html {
     background-color: #f2f2f2;
+    @media (max-width: 450px) {
+      font-size: 15px;
+    }
+    @media (max-width: 375px) {
+      font-size: 12px;
+    }
   }
 
   body {
