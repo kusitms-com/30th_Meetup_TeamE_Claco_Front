@@ -9,9 +9,10 @@ import { ReviewCardType } from "@/types";
 
 type ReviewCardProps = {
   review: ReviewCardType;
+  onClick: () => void;
 };
 
-export const ReviewCard = ({ review }: ReviewCardProps) => {
+export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
 
   const navigate = useNavigate();
@@ -40,7 +41,7 @@ export const ReviewCard = ({ review }: ReviewCardProps) => {
       </div>
 
       <div className="flex space-x-[14px] max-h-[90px] mb-[19px]">
-        <div className="relative" onClick={() => null}>
+        <div className="relative" onClick={onClick}>
           <img
             src={review.reviewImageList[0]}
             alt="공연 이미지"
