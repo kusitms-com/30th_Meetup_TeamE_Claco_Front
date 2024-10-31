@@ -58,9 +58,9 @@ export const NicknameCreatePage = () => {
           <span className="heading1-bold text-grayscale-80">
             닉네임을 등록해주세요
           </span>
-          <div className="flex flex-col mt-[1.62rem] gap-[0.81rem] h-[514px]">
+          <div className="flex flex-col mt-[1.62rem] gap-[0.81rem]">
             <div
-              className={`flex bg-grayscale-30 justify-between rounded-[0.44rem] p-[1.06rem] border ${
+              className={`flex bg-grayscale-30 rounded-[0.44rem] p-[1.06rem] border ${
                 hasStartedTyping
                   ? errorMessage
                     ? "border-system-error"

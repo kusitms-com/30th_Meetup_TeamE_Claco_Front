@@ -47,7 +47,7 @@ export const SelectPricePage = () => {
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">
-          <div className="flex flex-col mb-[312px]">
+          <div className="flex flex-col mb-[321px]">
             <span className="body1-medium text-grayscale-60">
               선호하는 티켓 가격 범위를 설정해주세요.
             </span>
