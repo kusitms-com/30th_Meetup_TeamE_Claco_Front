@@ -45,7 +45,7 @@ export const SelectConceptPage = () => {
             <span className="body1-medium text-grayscale-60">
               선호하는 클래식 공연 유형을 모두 선택해주세요.
             </span>
-            <div className="flex flex-col gap-[0.75rem]">
+            <div className="flex flex-col gap-[0.75rem] slide-up">
               <ConceptButton
                 isChecked={selectedConcept.includes("1")}
                 onClick={() => handleConceptClick("1")}
