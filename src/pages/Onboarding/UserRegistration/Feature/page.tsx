@@ -62,11 +62,14 @@ export const SelectFeaturePage = () => {
         </div>
 
         <div className="flex flex-col justify-between h-full">
-          <div className="flex flex-col gap-[1.56rem] mb-[107px]">
+          <div className="flex flex-col gap-[1.56rem]">
             <span className="body1-medium text-grayscale-60">
               선호하는 공연의 특징을 선택해주세요.
             </span>
-            <div className="flex flex-col gap-[0.75rem]">
+            <div
+              key={currentStep}
+              className="flex flex-col gap-[15px] mb-[107px] slide-up"
+            >
               {features.slice(currentStep, currentStep + 2).map((feature) => (
                 <FeatureButton
                   key={feature.title}
