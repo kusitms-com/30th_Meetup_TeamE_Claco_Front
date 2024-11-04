@@ -133,7 +133,7 @@ export const ReviewDetailPage = () => {
             />
             <div className="headline2-bold">{REVIEW_MOCK_DATA[4].nickName}</div>
             <div className="flex items-center space-x-1 ml-[3px]">
-              <Star />
+              <Star className="text-secondary2-100/100" />
               <div className="body2-medium text-secondary2-100/100">
                 {REVIEW_MOCK_DATA[4].starRating}
               </div>
