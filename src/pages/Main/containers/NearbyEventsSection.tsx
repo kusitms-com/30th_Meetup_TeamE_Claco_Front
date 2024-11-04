@@ -15,8 +15,7 @@ const NearbyEventsSection = () => {
           <ClacoMain />
         </div>
         <div className="mb-5 leading-8 text-grayscale-90 heading2-bold">
-          울랄라님이 <br />
-          좋아하실만한 공연을 준비했어요
+          달보라님의 클래식 취향
         </div>
         <div className="flex justify-between mb-12">
           <Genre genreType={"Majestic"} />

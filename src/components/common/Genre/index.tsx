@@ -1,8 +1,14 @@
-import { ReactComponent as Grand } from "@/assets/svgs/Majestic.svg";
-import { ReactComponent as Romantic } from "@/assets/svgs/Romantic.svg";
-import { ReactComponent as Lyrical } from "@/assets/svgs/Lyrical.svg";
-import { ReactComponent as Fresh } from "@/assets/svgs/Fresh.svg";
-import { ReactComponent as Classical } from "@/assets/svgs/Classical.svg";
+import { ReactComponent as Majestic } from "@/assets/svgs/Genre/Majestic.svg";
+import { ReactComponent as Delicate } from "@/assets/svgs/Genre/Delicate.svg";
+
+import { ReactComponent as Lyrical } from "@/assets/svgs/Genre/Lyrical.svg";
+
+import { ReactComponent as Romantic } from "@/assets/svgs/Genre/Romantic.svg";
+import { ReactComponent as Tragic } from "@/assets/svgs/Genre/Tragic.svg";
+
+import { ReactComponent as Familiar } from "@/assets/svgs/Genre/Familiar.svg";
+import { ReactComponent as Fresh } from "@/assets/svgs/Genre/Fresh.svg";
+
 import { GenreProps, GenreType } from "@/types/genre";
 
 const GENRE: GenreType[] = [
@@ -26,13 +32,13 @@ export const Genre = ({ genreType, className, size = 48 }: GenreProps) => {
   const genreLogo = () => {
     switch (genreType) {
       case "Majestic":
-        return <Grand width={size} height={size} viewBox="0 0 48 48" />;
+        return <Majestic width={size} height={size} viewBox="0 0 48 48" />;
       case "Delicate":
-        return <Grand width={size} height={size} viewBox="0 0 48 48" />;
+        return <Delicate width={size} height={size} viewBox="0 0 48 48" />;
       case "Classical":
-        return <Classical width={size} height={size} viewBox="0 0 48 48" />;
+        return <Lyrical width={size} height={size} viewBox="0 0 48 48" />;
       case "Modern":
-        return <Classical width={size} height={size} viewBox="0 0 48 48" />;
+        return <Lyrical width={size} height={size} viewBox="0 0 48 48" />;
       case "Lyrical":
         return <Lyrical width={size} height={size} viewBox="0 0 48 48" />;
       case "Dynamic":
@@ -40,9 +46,9 @@ export const Genre = ({ genreType, className, size = 48 }: GenreProps) => {
       case "Romantic":
         return <Romantic width={size} height={size} viewBox="0 0 48 48" />;
       case "Tragic":
-        return <Grand width={size} height={size} viewBox="0 0 48 48" />;
+        return <Tragic width={size} height={size} viewBox="0 0 48 48" />;
       case "Familiar":
-        return <Grand width={size} height={size} viewBox="0 0 48 48" />;
+        return <Familiar width={size} height={size} viewBox="0 0 48 48" />;
       case "Fresh":
         return <Fresh width={size} height={size} viewBox="0 0 48 48" />;
       default:
