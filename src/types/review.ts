@@ -1,6 +1,8 @@
 export type ReviewTagProps = {
   isPlace?: boolean;
   children: string;
+  onClick?: () => void;
+  isSelected?: boolean;
 };
 
 export type ReviewSummaryCardProps = {
