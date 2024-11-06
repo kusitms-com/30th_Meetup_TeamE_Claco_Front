@@ -8,7 +8,7 @@ import dynamic from "@/assets/images/Genre/dynamic.png";
 import romantic from "@/assets/images/Genre/romantic.png";
 import tragic from "@/assets/images/Genre/tragic.png";
 
-export const SimilarKeyWordRecommned = () => {
+export const SimilarKeyWordRecommend = () => {
   const USER_GENRE = [
     { imgUrl: dynamic, keyWord: "dynamic" },
     { imgUrl: romantic, keyWord: "romantic" },

@@ -30,7 +30,20 @@ const Footer = () => {
 
   const handleFooter = (category: string) => {
     setIsActive(category);
-    navigate("show/1");
+    switch (category) {
+      case "추천":
+        navigate("/main");
+        return;
+      case "둘러보기":
+        navigate("/main");
+        return;
+      case "티켓":
+        navigate("/ticket");
+        return;
+      case "마이페이지":
+        navigate("/main");
+        return;
+    }
   };
 
   return (
