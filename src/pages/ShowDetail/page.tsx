@@ -2,9 +2,10 @@ import { useRef, useState, useEffect } from "react";
 import ShowInfoSection from "./containers/ShowInfoSection";
 import ReservationRatioSection from "./containers/ReservationRatioSection";
 import DetailsInfoSection from "./containers/DetailsInfoSection";
-import ReviewSection from "./containers/ReviewSection";
+
 import TopShowInfoSection from "./containers/TopShowInfoSection";
 import RelatedShowsSection from "./containers/RelatedShowsSection";
+import ReviewSection from "./containers/ReviewSection";
 
 export const ShowDetailPage = () => {
   const [selectedTab, setSelectedTab] = useState("공연 정보");
