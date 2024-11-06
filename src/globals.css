@@ -47,8 +47,18 @@
       url("./assets/fonts/Pretendard-Regular.subset.woff") format("woff");
   }
 
+  @font-face {
+    font-family: UnicaOne;
+    font-weight: 400;
+    font-display: swap;
+    src:
+      local("UnicaOne-Regular"),
+      url("./assets/fonts/UnicaOne-Regular.woff2") format("woff2"),
+      url("./assets/fonts/UnicaOne-Regular.woff") format("woff");
+  }
+
   html {
-    background-color: #f2f2f2;
+    background-color: #1c1c1c;
     @media (max-width: 450px) {
       font-size: 15px;
     }
