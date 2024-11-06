@@ -2,7 +2,7 @@ import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
-import { Concept } from "@/components/common/Onboarding/Concept";
+import { Concept } from "@/components/common/Concept";
 import { useState } from "react";
 
 export const SelectConceptPage = () => {

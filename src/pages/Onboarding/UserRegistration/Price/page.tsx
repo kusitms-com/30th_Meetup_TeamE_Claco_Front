@@ -2,7 +2,7 @@ import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
-import { Price } from "@/components/common/Onboarding/Price";
+import { Price } from "@/components/common/Price";
 import { useState } from "react";
 
 export const SelectPricePage = () => {

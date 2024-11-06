@@ -3,7 +3,7 @@ import { Progress } from "@/components/ui/progress";
 import { useNavigate } from "react-router-dom";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
-import { Profile } from "@/components/common/Onboarding/Profile";
+import { Profile } from "@/components/common/Profile";
 import { useState } from "react";
 
 export const SelectProfilePage = () => {
