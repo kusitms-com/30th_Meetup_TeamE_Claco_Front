@@ -20,6 +20,7 @@ export const SelectFeaturePage = () => {
     } else {
       setCurrentStep(currentStep - 2);
     }
+    setProgressValue((prevValue) => Math.min(prevValue - 11.11, 100));
   };
 
   const handleFeatureClick = (feature: string) => {
