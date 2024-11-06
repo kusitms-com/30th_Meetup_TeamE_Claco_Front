@@ -10,4 +10,5 @@ export type Category = "dance" | "classical" | "ongoing" | "upcoming";
 export type CategoryTagProps = {
   categoryType: Category;
   children: React.ReactNode;
+  className?: string;
 };

@@ -53,7 +53,7 @@ export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
         </div>
         <div className="flex-col space-y-2">
           <div className="flex items-center space-x-1">
-            <Star />
+            <Star className="text-secondary2-100/100"/>
             <div className="body2-medium text-secondary2-100/100">
               {review.starRating}
             </div>

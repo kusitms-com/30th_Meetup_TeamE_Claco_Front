@@ -15,6 +15,11 @@ import { ReviewPage } from "@/pages/Review/page";
 import { ReviewDetailPage } from "@/pages/Review/[id]/page";
 import { ShowDetailPage } from "@/pages/ShowDetail/page";
 import ScrollTop from "@/components/common/ScrollTop";
+import { TicketTitlePage } from "@/pages/Ticket/Title/page";
+import { TicketDetailPage } from "@/pages/Ticket/Detail/page";
+import { TicketReviewPage } from "@/pages/Ticket/Review/page";
+import { TicketPage } from "@/pages/Ticket/page";
+import { TicketDownloadPage } from "@/pages/Ticket/Download/page";
 
 const routes: RouteObject[] = [
   {
@@ -55,6 +60,29 @@ const routes: RouteObject[] = [
           {
             path: RoutePath.ShowReviewDetail,
             element: <ReviewDetailPage />,
+          },
+        ],
+      },
+      {
+        path: RoutePath.Ticket,
+        element: <Layout />,
+        children: [{ index: true, element: <TicketPage /> }],
+      },
+      {
+        path: RoutePath.TicketTitle,
+        children: [
+          { index: true, element: <TicketTitlePage/> },
+          {
+            path: RoutePath.TicketDetail,
+            element: <TicketDetailPage />,
+          },
+          {
+            path: RoutePath.TicketReview,
+            element: <TicketReviewPage />,
+          },
+          {
+            path: RoutePath.TicketDownload,
+            element: <TicketDownloadPage />,
           },
         ],
       },

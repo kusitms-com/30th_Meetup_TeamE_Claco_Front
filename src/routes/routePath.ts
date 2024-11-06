@@ -23,6 +23,13 @@ const RoutePath = {
   /*공연 리뷰 보기 페이지 */
   ShowReviews: "/show/:id/reviews",
   ShowReviewDetail: "/show/:id/reviews/:reviewId",
+
+  /*티켓 등록 페이지 */
+  Ticket: "/ticket",
+  TicketTitle: "/ticket/create",
+  TicketDetail: "/ticket/create/detail",
+  TicketReview: "/ticket/create/review",
+  TicketDownload: "/ticket/create/download",
 } as const;
 
 export default RoutePath;
