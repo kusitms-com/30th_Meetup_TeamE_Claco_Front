@@ -9,7 +9,20 @@ import { Genre } from "@/components/common/Genre";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
+import grand from "@/assets/images/Genre/grand.png";
+import delicate from "@/assets/images/Genre/delicate.png";
+import classical from "@/assets/images/Genre/classical.png";
+import modern from "@/assets/images/Genre/modern.png";
+import lyrical from "@/assets/images/Genre/lyrical.png";
+
 const TopShowInfoSection = () => {
+  const USER_GENRE = [
+    { imgUrl: grand, keyWord: "grand" },
+    { imgUrl: delicate, keyWord: "delicate" },
+    { imgUrl: classical, keyWord: "classical" },
+    { imgUrl: modern, keyWord: "modern" },
+    { imgUrl: lyrical, keyWord: "lyrical" },
+  ];
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
 
@@ -73,7 +86,7 @@ const TopShowInfoSection = () => {
               <span>20,000원-90,000원</span>
             </div>
           </div>
-          <a href="#" className="caption-12 text-grayscale-70 underline">
+          <a href="#" className="underline caption-12 text-grayscale-70">
             예매하러가기
           </a>
         </div>
@@ -101,7 +114,7 @@ const TopShowInfoSection = () => {
               </span>
               <button
                 onClick={toggleExpanded}
-                className="body2-medium text-grayscale-80 ml-1"
+                className="ml-1 body2-medium text-grayscale-80"
               >
                 더 보기
               </button>
@@ -114,31 +127,14 @@ const TopShowInfoSection = () => {
           <span className="headline2-bold">공연 성격 분석</span>
         </div>
         <div className="flex justify-between px-[13px]">
-          <Genre
-            genreType={"Majestic"}
-            className="caption-12 text-grayscale-70"
-            size={43}
-          />
-          <Genre
-            genreType={"Romantic"}
-            className="caption-12 text-grayscale-70"
-            size={43}
-          />
-          <Genre
-            genreType={"Lyrical"}
-            className="caption-12 text-grayscale-70"
-            size={43}
-          />
-          <Genre
-            genreType={"Fresh"}
-            className="caption-12 text-grayscale-70"
-            size={43}
-          />
-          <Genre
-            genreType={"Classical"}
-            className="caption-12 text-grayscale-70"
-            size={43}
-          />
+          {USER_GENRE.map((item, index) => (
+            <Genre
+              key={index}
+              genreType={item.imgUrl}
+              genreKeyword={item.keyWord}
+              className="caption-12 text-grayscale-70 w-[43px] h-[43px]"
+            />
+          ))}
         </div>
       </div>
     </section>
