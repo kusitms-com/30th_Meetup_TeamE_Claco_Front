@@ -8,6 +8,15 @@ export const KeywordTags = ({ selectedTags, onTagClick }: KeywordTagProps) => {
     keyof typeof tagMap
   >;
 
+  const handleClick = (tag: keyof typeof tagMap) => {
+    const englishTag = tagMap[tag];
+    if (selectedTags.includes(englishTag)) {
+      onTagClick(englishTag);
+    } else if (selectedTags.length < 5) {
+      onTagClick(englishTag);
+    }
+  };
+
   return (
     <div className="flex flex-col mt-8">
       <span className="body2-semibold text-grayscale-60">
@@ -19,14 +28,7 @@ export const KeywordTags = ({ selectedTags, onTagClick }: KeywordTagProps) => {
             {tags.slice(startIndex, startIndex + 4).map((tag) => (
               <ReviewTag
                 key={tag}
-                onClick={() => {
-                  const englishTag = tagMap[tag];
-                  if (selectedTags.includes(englishTag)) {
-                    onTagClick(englishTag);
-                  } else if (selectedTags.length < 5) {
-                    onTagClick(englishTag);
-                  }
-                }}
+                onClick={() => handleClick(tag)}
                 isSelected={selectedTags.includes(tagMap[tag])}
                 isPlace={true}
               >
