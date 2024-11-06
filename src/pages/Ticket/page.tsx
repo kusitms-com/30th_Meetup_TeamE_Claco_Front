@@ -1,3 +1,5 @@
+// const USER_STATE = true; // 초기 유저와 클라코북 보유 중인 유저 분리를 위한 테스트 상수
+
 export const TicketPage = () => {
   return (
     <div className="flex flex-col pt-[46px] items-center justify-center">
