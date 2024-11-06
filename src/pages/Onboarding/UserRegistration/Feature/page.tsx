@@ -24,25 +24,20 @@ export const SelectFeaturePage = () => {
 
   const handleFeatureClick = (feature: string) => {
     setSelectedFeature(feature);
-  };
+    setSelectedAllFeature((prevFeatures) => [...prevFeatures, feature]);
 
-  const handleNextClick = () => {
-    if (selectedFeature) {
-      setSelectedAllFeature((prevFeatures) => [
-        ...prevFeatures,
-        selectedFeature,
-      ]);
+    if (currentStep < features.length - 2) {
+      setCurrentStep((prevStep) => prevStep + 2);
       setSelectedFeature(null);
 
       setProgressValue((prevValue) => Math.min(prevValue + 11.11, 100));
-      if (progressValue === 99.99) setProgressValue(100);
+    }
+  };
 
-      if (currentStep >= features.length - 2) {
-        navigate("/create/complete");
-        console.log(selectedAllFeature); // eslint 오류 방지용
-      } else {
-        setCurrentStep((prevStep) => prevStep + 2);
-      }
+  const handleNextClick = () => {
+    if (currentStep >= features.length - 2) {
+      navigate("/create/complete");
+      console.log(selectedAllFeature);
     }
   };
 
@@ -75,19 +70,24 @@ export const SelectFeaturePage = () => {
                   key={feature.title}
                   isChecked={selectedFeature === feature.title}
                   onClick={() => handleFeatureClick(feature.title)}
+                  className="flex items-center p-[19px]"
                 >
-                  <span className="heading1-bold mb-[0.62rem]">
-                    {feature.title}
-                  </span>
-                  <br />
-                  <span className="caption-13">
-                    {feature.description.map((line, index) => (
-                      <span key={index}>
-                        {line}
-                        <br />
-                      </span>
-                    ))}
-                  </span>
+                  <img
+                    src={feature.image}
+                    alt={feature.title}
+                    className="w-[122px] h-[122px] mr-[14px] p-4"
+                  />
+                  <div className="flex flex-col text-left">
+                    <span className="heading1-bold mb-1">{feature.title}</span>
+                    <span className="caption-13 text-grayscale-60">
+                      {feature.description.map((line, index) => (
+                        <span key={index}>
+                          {line}
+                          <br />
+                        </span>
+                      ))}
+                    </span>
+                  </div>
                 </FeatureButton>
               ))}
             </div>
