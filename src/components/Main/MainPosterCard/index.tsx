@@ -1,12 +1,12 @@
 import Poster8 from "@/assets/images/poster8.gif";
-import { ReactComponent as BookMark } from "@/assets/svgs/BookMark.svg";
+import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
 
 export const MainPosterCard = () => {
   return (
     <div className="relative w-[342px] h-[443px] rounded-[5px]">
       <div className="absolute top-[26px] left-[19px] z-10">
-        <BookMark />
+        <Heart width="22" height="18" viewBox="0 0 15 13" />
       </div>
       <img
         src={Poster8}
