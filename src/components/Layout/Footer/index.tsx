@@ -15,7 +15,7 @@ const CATEGORIES = [
     image: <Search />,
   },
   {
-    text: "티켓",
+    text: "클라코북",
     image: <Ticket />,
   },
   {
