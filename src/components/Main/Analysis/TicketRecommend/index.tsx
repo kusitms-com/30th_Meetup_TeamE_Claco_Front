@@ -85,7 +85,7 @@ export const TicketRecommend = () => {
       position < -1 ? position + 3 : position > 1 ? position - 3 : position;
 
     if (normalizedPosition === 0) {
-      return `${baseStyle} left-1/2 -translate-x-1/2 z-30 scale-100 opacity-100`;
+      return `${baseStyle} left-1/2 -translate-x-1/2 z-40 scale-100 opacity-100`;
     } else if (normalizedPosition === 1) {
       return `${baseStyle} left-[110%] -translate-x-1/2 z-20 scale-75 opacity-30`;
     } else {
@@ -109,7 +109,7 @@ export const TicketRecommend = () => {
             <ClacoTicket data={review} />
           </div>
         ))}
-        <div className="z-50 absolute bottom-0 w-screen h-[186px] bg-gradient-to-t from-[#8F9AF8]/100 to-[#1C1C1C]/0 opacity-50" />
+        <div className="z-30 absolute bottom-0 w-screen h-[186px] bg-gradient-to-t from-[#8F9AF8]/100 to-[#1C1C1C]/0 opacity-50" />
       </div>
 
       {/* 리뷰 영역 */}
