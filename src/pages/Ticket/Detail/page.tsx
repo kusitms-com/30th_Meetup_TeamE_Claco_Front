@@ -218,17 +218,17 @@ export const TicketDetailPage = () => {
               {isAdding ? (
                 <Modal
                   isDualButton={false}
-                  singleButtonText="확인"
+                  singleButtonText="추가하기"
                   onSingleButtonClick={handleAddCasting}
                   isSingleButtonDisabled={newCasting.trim() === ""}
                   onClose={handleCloseCastingModal}
                 >
-                  <div className="w-full flex flex-col items-center justify-center mt-[18.45px] mb-[16px] gap-[18.1px]">
+                  <div className="w-full flex flex-col items-center justify-center mt-[12.45px] mb-[37px] gap-[13.1px]">
                     <span className="headline2-bold text-grayscale-80">
                       캐스팅을 입력해주세요
                     </span>
                     <input
-                      className="w-full rounded-[7px] text-center body2-medium text-grayscale-80 bg-grayscale-30 outline-none px-3 py-3"
+                      className="w-full h-[52px] rounded-[7px] text-center body2-medium text-grayscale-80 bg-grayscale-30 outline-none px-3"
                       value={newCasting}
                       onChange={(e) => setNewCasting(e.target.value)}
                     />
