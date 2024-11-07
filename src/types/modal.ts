@@ -6,6 +6,7 @@ export type ModalProps = {
   onPositiveButtonClick?: () => void;
   onNegativeButtonClick?: () => void;
   onSingleButtonClick?: () => void;
+  isSingleButtonDisabled?: boolean,
   onClose?: () => void;
   children?: React.ReactNode;
 };
