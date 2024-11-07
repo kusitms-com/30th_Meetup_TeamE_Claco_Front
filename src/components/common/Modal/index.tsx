@@ -9,6 +9,7 @@ export const Modal = ({
   onPositiveButtonClick,
   onNegativeButtonClick,
   onSingleButtonClick,
+  isSingleButtonDisabled = false,
   onClose,
   children,
 }: ModalProps) => {
@@ -37,8 +38,18 @@ export const Modal = ({
             </button>
           </div>
         ) : (
-          <div className="flex items-center justify-center py-[14px] rounded-[0.3125rem] body1-medium bg-grayscale-30 text-grayscale-60">
-            <button onClick={onSingleButtonClick}>{singleButtonText}</button>
+          <div className="flex items-center justify-center">
+            <button
+              onClick={onSingleButtonClick}
+              disabled={isSingleButtonDisabled}
+              className={`px-[140px] py-[14px] rounded-[0.3125rem] body1-medium ${
+                isSingleButtonDisabled
+                  ? "bg-grayscale-30 text-grayscale-60"
+                  : "bg-primary text-grayscale-80"
+              }`}
+            >
+              {singleButtonText}
+            </button>
           </div>
         )}
       </div>

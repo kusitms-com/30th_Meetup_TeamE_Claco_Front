@@ -27,18 +27,18 @@ export const TicketReviewPage = () => {
   const [reviewText, setReviewText] = useState<string>("");
   const [files, setFiles] = useState<File[]>([]);
   const [isComplete, setIsComplete] = useState<boolean>(false);
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleOpenPopup = () => {
-    setIsPopupOpen(true);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
   };
 
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const handleBackClick = () => {
-    handleOpenPopup();
+    handleOpenModal();
   };
 
   const handleKeywordTagClick = (tag: string) => {
@@ -96,14 +96,14 @@ export const TicketReviewPage = () => {
         <Progress value={80} />
       </div>
 
-      {isPopupOpen && (
+      {isModalOpen && (
         <Modal
           isDualButton={true}
           positiveButtonText="계속하기"
           negativeButtonText="나가기"
-          onPositiveButtonClick={handleClosePopup}
+          onPositiveButtonClick={handleCloseModal}
           onNegativeButtonClick={() => navigate("/ticket/create/detail")}
-          onClose={handleClosePopup}
+          onClose={handleCloseModal}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
             <span className="headline2-bold text-grayscale-80">
