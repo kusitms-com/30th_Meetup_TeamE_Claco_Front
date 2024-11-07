@@ -76,7 +76,7 @@ export const SelectFeaturePage = () => {
                   <img
                     src={feature.image}
                     alt={feature.title}
-                    className="w-[122px] h-[122px] mr-[14px] p-4"
+                    className="w-[122px] h-[122px] mr-[14px] p-2 object-contain"
                   />
                   <div className="flex flex-col text-left">
                     <span className="heading1-bold mb-1">{feature.title}</span>
