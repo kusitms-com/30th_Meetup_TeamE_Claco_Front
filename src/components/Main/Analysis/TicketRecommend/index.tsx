@@ -87,9 +87,9 @@ export const TicketRecommend = () => {
     if (normalizedPosition === 0) {
       return `${baseStyle} left-1/2 -translate-x-1/2 z-40 scale-100 opacity-100`;
     } else if (normalizedPosition === 1) {
-      return `${baseStyle} left-[110%] -translate-x-1/2 z-20 scale-75 opacity-30`;
+      return `${baseStyle} left-[115%] -translate-x-1/2 z-20 scale-100 opacity-30`;
     } else {
-      return `${baseStyle} left-[-10%] -translate-x-1/2 z-10 scale-75 opacity-30`;
+      return `${baseStyle} left-[-15%] -translate-x-1/2 z-10 scale-100 opacity-30`;
     }
   };
 
