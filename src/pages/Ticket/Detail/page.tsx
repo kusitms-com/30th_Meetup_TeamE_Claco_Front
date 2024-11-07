@@ -11,19 +11,19 @@ import { SearchCard } from "@/components/common/Search/Card";
 import { Modal } from "@/components/common/Modal";
 
 export const TicketDetailPage = () => {
-  const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleOpenPopup = () => {
-    setIsPopupOpen(true);
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
   };
 
-  const handleClosePopup = () => {
-    setIsPopupOpen(false);
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
   };
 
   const handleBackClick = () => {
-    handleOpenPopup();
+    handleOpenModal();
   };
 
   const handleConfirmClick = () => {
@@ -77,6 +77,11 @@ export const TicketDetailPage = () => {
     setCastingList(castingList.filter((_, i) => i !== index));
   };
 
+  const handleCloseCastingModal = () => {
+    setIsAdding(false);
+    setNewCasting("");
+  };
+
   return (
     <div className="relative flex flex-col min-h-screen px-6 pt-[46px] pb-[60px]">
       <div className="flex flex-col gap-[33px]">
@@ -93,14 +98,14 @@ export const TicketDetailPage = () => {
         <Progress value={50} />
       </div>
 
-      {isPopupOpen && (
+      {isModalOpen && (
         <Modal
           isDualButton={true}
           positiveButtonText="계속하기"
           negativeButtonText="나가기"
-          onPositiveButtonClick={handleClosePopup}
+          onPositiveButtonClick={handleCloseModal}
           onNegativeButtonClick={() => navigate("/ticket/create")}
-          onClose={handleClosePopup}
+          onClose={handleCloseModal}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
             <span className="headline2-bold text-grayscale-80">
@@ -133,97 +138,113 @@ export const TicketDetailPage = () => {
             endDate={new Date(2024, 10, 27)}
           />
         </div>
-        <div className="flex flex-col mb-10 gap-5">
-          <div className="flex">
-            <span className="headline2-bold text-grayscale-80">
-              관람 회차를 선택해주세요
-            </span>
-            <Required />
-          </div>
-          <div className="flex flex-wrap gap-[10px] justify-center">
-            {availableShowTimes.map((showTime) => (
-              <button
-                key={showTime.time}
-                onClick={() => handleShowTimeClick(showTime.time)}
-                className={`rounded-[5px] flex-1 items-center justify-center py-[14px] px-[61px] ${
-                  selectedShowTime === showTime.time
-                    ? "bg-grayscale-80 text-grayscale-20"
-                    : "bg-grayscale-30 text-grayscale-80"
-                }`}
-              >
-                <span className="body1-medium">{showTime.time}</span>
-              </button>
-            ))}
-          </div>
-        </div>
 
-        <div className="flex flex-col mb-10 gap-5">
-          <div className="flex">
-            <span className="headline2-bold text-grayscale-80">공연장</span>
-            <Required />
-          </div>
-          <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
-            <span className="body2-medium text-grayscale-80">
-              세종 문화 회관
-            </span>
-          </div>
-        </div>
+        {selectedDate && (
+          <>
+            <div className="flex flex-col mb-10 gap-5">
+              <div className="flex">
+                <span className="headline2-bold text-grayscale-80">
+                  관람 회차를 선택해주세요
+                </span>
+                <Required />
+              </div>
+              <div className="flex flex-wrap gap-[10px] justify-center">
+                {availableShowTimes.map((showTime) => (
+                  <button
+                    key={showTime.time}
+                    onClick={() => handleShowTimeClick(showTime.time)}
+                    className={`rounded-[5px] flex-1 items-center justify-center py-[14px] px-[61px] ${
+                      selectedShowTime === showTime.time
+                        ? "bg-grayscale-80 text-grayscale-20"
+                        : "bg-grayscale-30 text-grayscale-80"
+                    }`}
+                  >
+                    <span className="body1-medium">{showTime.time}</span>
+                  </button>
+                ))}
+              </div>
+            </div>
 
-        <div className="flex flex-col mb-10 gap-5">
-          <div className="flex items-center gap-1">
-            <span className="headline2-bold text-grayscale-80">
-              관람 좌석을 입력해주세요
-            </span>
-            <span className="body2-medium text-grayscale-60">(선택)</span>
-          </div>
-          <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
-            <input className="body2-medium text-grayscale-60 outline-none bg-grayscale-30 flex w-full" />
-          </div>
-        </div>
+            <div className="flex flex-col mb-10 gap-5">
+              <div className="flex">
+                <span className="headline2-bold text-grayscale-80">공연장</span>
+                <Required />
+              </div>
+              <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
+                <span className="body2-medium text-grayscale-80">
+                  세종 문화 회관
+                </span>
+              </div>
+            </div>
 
-        <div className="flex flex-col mb-10">
-          <div className="flex mb-5">
-            <span className="headline2-bold text-grayscale-80">
-              캐스팅을 입력해주세요
-            </span>
-            <Required />
-          </div>
-          <div className="grid grid-cols-2 gap-4">
-            {castingList.map((casting, index) => (
-              <div
-                key={index}
-                className="flex items-center h-[52px] border border-grayscale-30 justify-between bg-grayscale-30 rounded-[7px] px-4"
-              >
-                <div className="body2-medium text-grayscale-80 w-full overflow-hidden whitespace-nowrap relative">
-                  {casting}
-                  <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-grayscale-30 to-transparent pointer-events-none"></div>
+            <div className="flex flex-col mb-10 gap-5">
+              <div className="flex items-center gap-1">
+                <span className="headline2-bold text-grayscale-80">
+                  관람 좌석을 입력해주세요
+                </span>
+                <span className="body2-medium text-grayscale-60">(선택)</span>
+              </div>
+              <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
+                <input className="body2-medium text-grayscale-60 outline-none bg-grayscale-30 flex w-full" />
+              </div>
+            </div>
+          </>
+        )}
+
+        {selectedShowTime && (
+          <div className="flex flex-col mb-10">
+            <div className="flex mb-5">
+              <span className="headline2-bold text-grayscale-80">
+                캐스팅을 입력해주세요
+              </span>
+              <Required />
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {castingList.map((casting, index) => (
+                <div
+                  key={index}
+                  className="flex items-center h-[52px] border border-grayscale-30 justify-between bg-grayscale-30 rounded-[7px] px-4"
+                >
+                  <div className="body2-medium text-grayscale-80 w-full overflow-hidden whitespace-nowrap relative">
+                    {casting}
+                    <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-grayscale-30 to-transparent pointer-events-none"></div>
+                  </div>
+                  <button onClick={() => handleRemoveCasting(index)}>
+                    <Remove />
+                  </button>
                 </div>
-                <button onClick={() => handleRemoveCasting(index)}>
-                  <Remove />
-                </button>
-              </div>
-            ))}
+              ))}
 
-            {isAdding ? (
-              <div className="flex items-center border border-grayscale-30 h-[52px] bg-grayscale-30 rounded-[7px] px-4">
-                <input
-                  type="text"
-                  value={newCasting}
-                  onChange={(e) => setNewCasting(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && handleAddCasting()}
-                  className="body2-medium text-grayscale-80 bg-grayscale-30 outline-none w-full"
-                />
-              </div>
-            ) : (
-              <button
-                onClick={() => setIsAdding(true)}
-                className="flex items-center justify-center h-[52px] bg-none border border-grayscale-30 rounded-[7px]"
-              >
-                <Plus className="text-grayscale-80" />
-              </button>
-            )}
+              {isAdding ? (
+                <Modal
+                  isDualButton={false}
+                  singleButtonText="추가하기"
+                  onSingleButtonClick={handleAddCasting}
+                  isSingleButtonDisabled={newCasting.trim() === ""}
+                  onClose={handleCloseCastingModal}
+                >
+                  <div className="w-full flex flex-col items-center justify-center mt-[12.45px] mb-[37px] gap-[13.1px]">
+                    <span className="headline2-bold text-grayscale-80">
+                      캐스팅을 입력해주세요
+                    </span>
+                    <input
+                      className="w-full h-[52px] rounded-[7px] text-center body2-medium text-grayscale-80 bg-grayscale-30 outline-none px-3"
+                      value={newCasting}
+                      onChange={(e) => setNewCasting(e.target.value)}
+                    />
+                  </div>
+                </Modal>
+              ) : (
+                <button
+                  onClick={() => setIsAdding(true)}
+                  className="flex items-center justify-center h-[52px] bg-none border border-grayscale-30 rounded-[7px]"
+                >
+                  <Plus className="text-grayscale-80" />
+                </button>
+              )}
+            </div>
           </div>
-        </div>
+        )}
       </div>
       <ConfirmButton
         isChecked={isValid}
