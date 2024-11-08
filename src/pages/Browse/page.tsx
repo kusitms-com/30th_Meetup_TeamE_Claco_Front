@@ -196,11 +196,12 @@ export const BrowsePage = () => {
               <ShowFilterTab
                 activeTab={activeTab}
                 onTabClick={handleTabClick}
+                className="mt-6 mb-[14px]"
               />
               <div className="flex flex-col gap-[15px] mb-3">
-                <div className="flex items-center justify-between gap-3">
-                  {priceRange || selectedLocation || dateRange ? (
-                    <div className="flex gap-1 overflow-x-auto scrollbar-none">
+                <div className="flex items-center justify-between gap-3 py-1">
+                  {priceRange || selectedLocation || dateRange || selectedFeature ? (
+                    <div className="flex text-center gap-[5px] pl-1 overflow-x-auto scrollbar-none">
                       {priceRange && (
                         <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
                           {priceRange}

@@ -35,3 +35,9 @@ export type ClacoPickProps = {
   userName: string;
   picks: { imageSrc: string; title: string }[];
 };
+
+export type ShowFilterTabProps = {
+  activeTab: string;
+  onTabClick: (tab: string) => void;
+  className?: string;
+}
