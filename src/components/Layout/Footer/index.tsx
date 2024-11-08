@@ -35,7 +35,7 @@ const Footer = () => {
         navigate("/main");
         return;
       case "둘러보기":
-        navigate("/main");
+        navigate("/browse");
         return;
       case "티켓":
         navigate("/ticket");
