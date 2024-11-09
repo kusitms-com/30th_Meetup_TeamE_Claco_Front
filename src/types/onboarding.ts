@@ -1,9 +1,18 @@
-export type ProfileProps = {
+export type GenderProps = {
   selectedGender: string | null;
-  selectedAge: string | null;
   onGenderSelect: (gender: string) => void;
-  onAgeSelect: (age: string) => void;
 };
+
+export type AgeProps = {
+  selectedAge: string | null;
+  onAgeSelect: (age: string) => void;
+}
+
+export type NicknameProps = {
+  isChecked: boolean;
+  setIsChecked: (value: boolean) => void;
+  setNickname: (value: string) => void;
+}
 
 export type PriceProps = {
   minPrice: number;
