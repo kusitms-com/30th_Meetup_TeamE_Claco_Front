@@ -1,14 +1,25 @@
 import { useState } from "react";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { CalendarProps } from "@/types";
+import { CalendarDay } from "./CalendarDay";
 
 export const Calendar = ({
-  selectedDate,
+  mode = "single",
+  selectedDate = null,
   onDateSelect,
   startDate,
   endDate,
+  rangeStart = null,
+  rangeEnd = null,
+  onRangeSelect,
 }: CalendarProps) => {
   const [currentDate, setCurrentDate] = useState(new Date());
+  const [internalRangeStart, setInternalRangeStart] = useState<Date | null>(
+    rangeStart,
+  );
+  const [internalRangeEnd, setInternalRangeEnd] = useState<Date | null>(
+    rangeEnd,
+  );
 
   const getYear = () => currentDate.getFullYear();
   const getMonth = () => currentDate.getMonth();
@@ -24,8 +35,21 @@ export const Calendar = ({
 
   const handleDateClick = (day: number) => {
     const date = new Date(getYear(), getMonth(), day);
-    if (onDateSelect) {
-      onDateSelect(date);
+    if (mode === "single") {
+      if (onDateSelect) onDateSelect(date);
+    } else if (mode === "range") {
+      if (!internalRangeStart || (internalRangeStart && internalRangeEnd)) {
+        setInternalRangeStart(date);
+        setInternalRangeEnd(null);
+      } else {
+        if (date < internalRangeStart) {
+          setInternalRangeStart(date);
+        } else {
+          setInternalRangeEnd(date);
+          if (onRangeSelect && internalRangeStart)
+            onRangeSelect(internalRangeStart, date);
+        }
+      }
     }
   };
 
@@ -43,6 +67,15 @@ export const Calendar = ({
   const isDateInRange = (date: Date) => {
     if (!startDate || !endDate) return true;
     return date >= startDate && date <= endDate;
+  };
+
+  const isWithinSelectedRange = (date: Date) => {
+    return (
+      internalRangeStart &&
+      internalRangeEnd &&
+      date >= internalRangeStart &&
+      date <= internalRangeEnd
+    );
   };
 
   return (
@@ -72,26 +105,34 @@ export const Calendar = ({
           const date = day ? new Date(getYear(), getMonth(), day) : null;
           const isInRange = date && isDateInRange(date);
           const isSelected =
+            mode === "single" &&
             date &&
             selectedDate &&
             selectedDate.toDateString() === date.toDateString();
+          const isWithinRange =
+            mode === "range" && date && isWithinSelectedRange(date);
+          const isRangeStart =
+            mode === "range" &&
+            date &&
+            internalRangeStart &&
+            date.toDateString() === internalRangeStart.toDateString();
+          const isRangeEnd =
+            mode === "range" &&
+            date &&
+            internalRangeEnd &&
+            date.toDateString() === internalRangeEnd.toDateString();
 
           return (
-            <div
+            <CalendarDay
               key={index}
-              className={`flex items-center justify-center w-9 h-9 body1-medium rounded-full ${
-                day
-                  ? isSelected
-                    ? "bg-grayscale-80 text-grayscale-30"
-                    : isInRange
-                      ? "text-grayscale-80 hover:bg-grayscale-80 hover:text-grayscale-30 cursor-pointer"
-                      : "text-grayscale-50"
-                  : ""
-              }`}
+              day={day}
+              isSelected={!!isSelected}
+              isInRange={!!isInRange}
+              isWithinRange={!!isWithinRange}
+              isRangeStart={!!isRangeStart}
+              isRangeEnd={!!isRangeEnd}
               onClick={() => day && isInRange && handleDateClick(day)}
-            >
-              {day}
-            </div>
+            />
           );
         })}
       </div>

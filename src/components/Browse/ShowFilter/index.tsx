@@ -6,6 +6,7 @@ import { Price } from "@/components/common/Price";
 import { useState } from "react";
 import { ShowFeatureFilter } from "./ShowFeatureFilter";
 import { ShowFilterProps } from "@/types";
+import { Calendar } from "@/components/common/Calendar";
 
 const features = [
   "웅장한",
@@ -25,6 +26,8 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
   const [maxPrice, setMaxPrice] = useState<number>(1000000);
   const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
+  const [rangeStart, setRangeStart] = useState<Date | null>(null);
+  const [rangeEnd, setRangeEnd] = useState<Date | null>(null);
 
   const handleApply = () => {
     const priceRange = `${minPrice}~${maxPrice}원`;
@@ -55,6 +58,8 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
     setMaxPrice(1000000);
     setSelectedLocation([]);
     setSelectedFeatures([]);
+    setRangeStart(null);
+    setRangeEnd(null);
   };
 
   return (
@@ -94,8 +99,19 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
             onLocationClick={handleLocationClick}
           />
         </div>
-        <div className="mb-[58px]">
+        <div className="flex flex-col mb-[58px] gap-8">
           <span className="headline1-bold text-grayscale-90">공연 날짜</span>
+          <Calendar
+            mode="range"
+            rangeStart={rangeStart}
+            rangeEnd={rangeEnd}
+            onRangeSelect={(start, end) => {
+              setRangeStart(start);
+              setRangeEnd(end);
+            }}
+            startDate={new Date(2024, 9, 1)}
+            endDate={new Date(2024, 10, 31)}
+          />
         </div>
         <div className="mb-[38px]">
           <div className="flex flex-col gap-[7px] mb-[27px]">

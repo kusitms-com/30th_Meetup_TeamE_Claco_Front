@@ -1,6 +1,20 @@
 export type CalendarProps = {
-  selectedDate: Date | null;
+  mode?: "single" | "range";
+  selectedDate?: Date | null;
   onDateSelect?: (date: Date) => void;
   startDate?: Date;
   endDate?: Date;
+  rangeStart?: Date | null;
+  rangeEnd?: Date | null;
+  onRangeSelect?: (start: Date, end: Date) => void;
+};
+
+export type CalendarDayProps = {
+  day: number | null;
+  isSelected: boolean;
+  isInRange: boolean;
+  isWithinRange: boolean;
+  isRangeStart: boolean;
+  isRangeEnd: boolean;
+  onClick: () => void;
 };
