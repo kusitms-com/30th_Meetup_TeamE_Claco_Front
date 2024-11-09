@@ -33,20 +33,18 @@ export const CreateEditModal = ({
 
   return (
     <Modal
-      isDualButton={false}
-      singleButtonText="확인"
-      onSingleButtonClick={() =>
+      title={`클라코북 ${action === "add" ? "추가" : "수정"}`}
+      positiveButtonText="확인"
+      negativeButtonText="취소"
+      onNegativeButtonClick={onClose}
+      onPositiveButtonClick={() =>
         onConfirm({
           id: id ?? null,
           title: title,
           color: colorState,
         })
       }
-      onClose={onClose}
-      isSingleButtonDisabled={
-        title.length === 0 || colorState.trim().length === 0
-      }
-      title={`클라코북 ${action === "add" ? "추가" : "수정"}`}
+      disabled={title.length === 0 || colorState.trim().length === 0}
     >
       <div className="flex flex-col items-center justify-center mb-[30px] space-y-[21px]">
         <div className="flex flex-col items-center justify-center w-full space-y-2">
@@ -70,17 +68,17 @@ export const CreateEditModal = ({
           <div className="body1-medium text-[#F1EFEF] text-left w-full">
             색상
           </div>
-          <div className="flex items-center justify-between w-full">
+          <div className="flex items-center justify-center gap-[7px] w-[302px]">
             <div
-              className={`w-[98px] h-[38px] rounded-[5px] bg-[#DD6339] ${colorState === "#DD6339" ? "border-[1px] border-grayscale-80" : ""}`}
+              className={`w-[96px] h-[38px] rounded-[5px] bg-[#DD6339] ${colorState === "#DD6339" ? "border-[1px] border-grayscale-80" : ""}`}
               onClick={() => setColorState("#DD6339")}
             />
             <div
-              className={`w-[98px] h-[38px] rounded-[5px] bg-[#D499B8] ${colorState === "#D499B8" ? "border-[1px] border-grayscale-80" : ""}`}
+              className={`w-[96px] h-[38px] rounded-[5px] bg-[#D499B8] ${colorState === "#D499B8" ? "border-[1px] border-grayscale-80" : ""}`}
               onClick={() => setColorState("#D499B8")}
             />
             <div
-              className={`w-[98px] h-[38px] rounded-[5px] bg-[#9E8D8E] ${colorState === "#9E8D8E" ? "border-[1px] border-grayscale-80" : ""}`}
+              className={`w-[96px] h-[38px] rounded-[5px] bg-[#9E8D8E] ${colorState === "#9E8D8E" ? "border-[1px] border-grayscale-80" : ""}`}
               onClick={() => setColorState("#9E8D8E")}
             />
           </div>

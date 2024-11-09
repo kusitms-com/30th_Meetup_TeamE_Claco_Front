@@ -100,12 +100,10 @@ export const TicketDetailPage = () => {
 
       {isModalOpen && (
         <Modal
-          isDualButton={true}
-          positiveButtonText="계속하기"
-          negativeButtonText="나가기"
-          onPositiveButtonClick={handleCloseModal}
-          onNegativeButtonClick={() => navigate("/ticketbook")}
-          onClose={handleCloseModal}
+          positiveButtonText="확인"
+          negativeButtonText="취소"
+          onPositiveButtonClick={() => navigate("/ticketbook")}
+          onNegativeButtonClick={handleCloseModal}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
             <span className="headline2-bold text-grayscale-80">
@@ -217,11 +215,11 @@ export const TicketDetailPage = () => {
 
               {isAdding ? (
                 <Modal
-                  isDualButton={false}
-                  singleButtonText="추가하기"
-                  onSingleButtonClick={handleAddCasting}
-                  isSingleButtonDisabled={newCasting.trim() === ""}
-                  onClose={handleCloseCastingModal}
+                  positiveButtonText="확인"
+                  negativeButtonText="취소"
+                  onPositiveButtonClick={handleAddCasting}
+                  onNegativeButtonClick={handleCloseCastingModal}
+                  disabled={newCasting.trim() === ""}
                 >
                   <div className="w-full flex flex-col items-center justify-center mt-[12.45px] mb-[37px] gap-[13.1px]">
                     <span className="headline2-bold text-grayscale-80">

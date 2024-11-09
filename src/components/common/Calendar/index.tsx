@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
+import { ReactComponent as RightArrow } from "@/assets/svgs/RightArrow.svg";
 import { CalendarProps } from "@/types";
 
 export const Calendar = ({
@@ -46,7 +47,7 @@ export const Calendar = ({
   };
 
   return (
-    <div className="mx-auto flex-col items-center justify-center bg-grayscale-20 px-8 py-[23px] rounded-[5px]">
+    <div className="mx-auto flex-col items-center justify-center bg-grayscale-20 px-8 py-[23px] rounded-[5px] ">
       <div className="flex justify-between items-center mb-[35px]">
         <BackArrow
           width="18"
@@ -58,11 +59,11 @@ export const Calendar = ({
         <span className="text-grayscale-80 headline2-bold">
           {`${getYear()}년 ${getMonth() + 1}월`}
         </span>
-        <BackArrow
+        <RightArrow
           width="18"
           height="18"
           viewBox="0 0 11 20"
-          className="cursor-pointer text-grayscale-60 rotate-180"
+          className="cursor-pointer text-grayscale-60"
           onClick={() => changeMonth(1)}
         />
       </div>

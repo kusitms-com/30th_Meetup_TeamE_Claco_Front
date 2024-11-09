@@ -99,12 +99,10 @@ export const TicketReviewPage = () => {
 
       {isModalOpen && (
         <Modal
-          isDualButton={true}
           positiveButtonText="계속하기"
           negativeButtonText="나가기"
           onPositiveButtonClick={handleCloseModal}
           onNegativeButtonClick={() => navigate("/ticketbook/ticket/detail")}
-          onClose={handleCloseModal}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
             <span className="headline2-bold text-grayscale-80">
