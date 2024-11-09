@@ -41,7 +41,7 @@ const Footer = () => {
         navigate("/ticket");
         return;
       case "마이페이지":
-        navigate("/main");
+        navigate("/mypage");
         return;
     }
   };

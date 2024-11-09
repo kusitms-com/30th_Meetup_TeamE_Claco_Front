@@ -20,6 +20,7 @@ import { TicketDetailPage } from "@/pages/Ticket/Detail/page";
 import { TicketReviewPage } from "@/pages/Ticket/Review/page";
 import { TicketPage } from "@/pages/Ticket/page";
 import { TicketDownloadPage } from "@/pages/Ticket/Download/page";
+import { MyPage } from "@/pages/Mypage/page";
 
 const routes: RouteObject[] = [
   {
@@ -85,6 +86,11 @@ const routes: RouteObject[] = [
             element: <TicketDownloadPage />,
           },
         ],
+      },
+      {
+        path: RoutePath.MyPage,
+        element: <Layout />,
+        children: [{ index: true, element: <MyPage/> }],
       },
       {
         element: <Layout />,
