@@ -24,12 +24,16 @@ const RoutePath = {
   ShowReviews: "/show/:id/reviews",
   ShowReviewDetail: "/show/:id/reviews/:reviewId",
 
-  /*티켓 등록 페이지 */
-  Ticket: "/ticket",
-  TicketTitle: "/ticket/create",
-  TicketDetail: "/ticket/create/detail",
-  TicketReview: "/ticket/create/review",
-  TicketDownload: "/ticket/create/download",
+  /*클라코북 페이지 */
+  ClacoBook: "/ticketbook",
+  ClacoBookDetail: "/ticketbook/:id",
+  ClacoTicketDetail: "/ticketbook/:id/:tId",
+
+  Ticket: "/ticketbook/ticket",
+  TicketSearch: "/ticketbook/ticket/search",
+  TicketDetail: "/ticketbook/ticket/detail",
+  TicketReview: "/ticketbook/ticket/review",
+  TicketDownload: "/ticketbook/ticket/download",
 } as const;
 
 export default RoutePath;

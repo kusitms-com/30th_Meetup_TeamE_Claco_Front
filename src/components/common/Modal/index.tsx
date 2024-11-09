@@ -11,16 +11,24 @@ export const Modal = ({
   onSingleButtonClick,
   isSingleButtonDisabled = false,
   onClose,
+  title,
   children,
 }: ModalProps) => {
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-[#111111] bg-opacity-80 z-50">
-      <div className="bg-grayscale-20 pt-5 pb-[30px] px-5 rounded-[5px]">
-        <div className="flex justify-end">
-          <Remove onClick={onClose} />
+    <div className="fixed inset-0 flex justify-center items-center bg-[#111111] bg-opacity-80 z-60">
+      <div className="relative bg-grayscale-20 pt-5 pb-[30px] px-5 rounded-[5px]">
+        <div className="pt-[5px] text-center headline2-bold text-grayscale-80">
+          {title}
         </div>
-
-        {children && <>{children}</>}
+        <div className="absolute top-3 right-3">
+          <Remove
+            viewBox="0 0 22 22"
+            width={34}
+            height={34}
+            onClick={onClose}
+          />
+        </div>
+        <div className="mt-[33px]">{children && <>{children}</>}</div>
 
         {isDualButton ? (
           <div className="flex items-center justify-center gap-[10px]">

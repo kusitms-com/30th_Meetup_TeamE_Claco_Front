@@ -27,7 +27,7 @@ export const TicketDetailPage = () => {
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticket/create/review");
+    navigate("/ticketbook/ticket/review");
   };
 
   const showTimesByDate: { [key: string]: { time: string }[] } = {
@@ -85,7 +85,7 @@ export const TicketDetailPage = () => {
   return (
     <div className="relative flex flex-col min-h-screen px-6 pt-[46px] pb-[60px]">
       <div className="flex flex-col gap-[33px]">
-        <div className="flex items-center relative justify-center">
+        <div className="relative flex items-center justify-center">
           <BackArrow
             width="9"
             height="18"
@@ -104,7 +104,7 @@ export const TicketDetailPage = () => {
           positiveButtonText="계속하기"
           negativeButtonText="나가기"
           onPositiveButtonClick={handleCloseModal}
-          onNegativeButtonClick={() => navigate("/ticket/create")}
+          onNegativeButtonClick={() => navigate("/ticketbook")}
           onClose={handleCloseModal}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
@@ -141,7 +141,7 @@ export const TicketDetailPage = () => {
 
         {selectedDate && (
           <>
-            <div className="flex flex-col mb-10 gap-5">
+            <div className="flex flex-col gap-5 mb-10">
               <div className="flex">
                 <span className="headline2-bold text-grayscale-80">
                   관람 회차를 선택해주세요
@@ -165,7 +165,7 @@ export const TicketDetailPage = () => {
               </div>
             </div>
 
-            <div className="flex flex-col mb-10 gap-5">
+            <div className="flex flex-col gap-5 mb-10">
               <div className="flex">
                 <span className="headline2-bold text-grayscale-80">공연장</span>
                 <Required />
@@ -177,7 +177,7 @@ export const TicketDetailPage = () => {
               </div>
             </div>
 
-            <div className="flex flex-col mb-10 gap-5">
+            <div className="flex flex-col gap-5 mb-10">
               <div className="flex items-center gap-1">
                 <span className="headline2-bold text-grayscale-80">
                   관람 좌석을 입력해주세요
@@ -185,7 +185,7 @@ export const TicketDetailPage = () => {
                 <span className="body2-medium text-grayscale-60">(선택)</span>
               </div>
               <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
-                <input className="body2-medium text-grayscale-60 outline-none bg-grayscale-30 flex w-full" />
+                <input className="flex w-full outline-none body2-medium text-grayscale-60 bg-grayscale-30" />
               </div>
             </div>
           </>
@@ -205,9 +205,9 @@ export const TicketDetailPage = () => {
                   key={index}
                   className="flex items-center h-[52px] border border-grayscale-30 justify-between bg-grayscale-30 rounded-[7px] px-4"
                 >
-                  <div className="body2-medium text-grayscale-80 w-full overflow-hidden whitespace-nowrap relative">
+                  <div className="relative w-full overflow-hidden body2-medium text-grayscale-80 whitespace-nowrap">
                     {casting}
-                    <div className="absolute right-0 top-0 h-full w-8 bg-gradient-to-l from-grayscale-30 to-transparent pointer-events-none"></div>
+                    <div className="absolute top-0 right-0 w-8 h-full pointer-events-none bg-gradient-to-l from-grayscale-30 to-transparent"></div>
                   </div>
                   <button onClick={() => handleRemoveCasting(index)}>
                     <Remove />

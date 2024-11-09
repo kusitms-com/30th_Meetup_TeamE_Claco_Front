@@ -31,8 +31,12 @@ const REVIEW_MOCK_DATA: REVIEW_MOCK_DATA_type[] = [
 ];
 
 export const TicketRecommend = () => {
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
+    null
+  );
+  const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(
+    null
+  );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const [reviewContent, setReviewContent] = useState(REVIEW_MOCK_DATA[0]);
@@ -40,19 +44,34 @@ export const TicketRecommend = () => {
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    setTouchStart({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
   };
 
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    setTouchEnd({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
   };
 
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
 
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 0;
-    const isRightSwipe = distance < 0;
+    const xDistance = touchStart.x - touchEnd.x;
+    const yDistance = Math.abs(touchStart.y - touchEnd.y);
+
+    if (yDistance > Math.abs(xDistance)) {
+      return;
+    }
+
+    const minSwipeDistance = 50;
+    const isLeftSwipe = xDistance > minSwipeDistance;
+    const isRightSwipe = xDistance < -minSwipeDistance;
+
+    if (!isLeftSwipe && !isRightSwipe) return;
 
     setIsReviewVisible(false);
 

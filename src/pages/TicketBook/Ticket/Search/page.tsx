@@ -7,18 +7,18 @@ import { SearchCardProps } from "@/types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const TicketTitlePage = () => {
+export const TicketSearchPage = () => {
   const [selectedShow, setSelectedShow] = useState<number | null>(null);
   const [searchQuery, setSearchQuery] = useState<string>("");
 
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/ticket");
+    navigate("/ticketbook");
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticket/create/detail");
+    navigate("/ticketbook/ticket/detail");
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -51,13 +51,13 @@ export const TicketTitlePage = () => {
   ];
 
   const filteredShows = shows.filter((show) =>
-    show.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    show.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
   return (
     <div className="relative flex flex-col h-screen px-6 pt-[46px] pb-[60px]">
       <div className="flex flex-col gap-[33px]">
-        <div className="flex items-center relative justify-center">
+        <div className="relative flex items-center justify-center">
           <BackArrow
             width="9"
             height="18"

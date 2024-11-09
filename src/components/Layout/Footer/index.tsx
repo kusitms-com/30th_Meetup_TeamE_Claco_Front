@@ -15,7 +15,7 @@ const CATEGORIES = [
     image: <Search />,
   },
   {
-    text: "클라코북",
+    text: "티켓북",
     image: <Ticket />,
   },
   {
@@ -37,8 +37,8 @@ const Footer = () => {
       case "둘러보기":
         navigate("/main");
         return;
-      case "클라코북":
-        navigate("/ticket");
+      case "티켓북":
+        navigate("/ticketbook");
         return;
       case "마이페이지":
         navigate("/main");
