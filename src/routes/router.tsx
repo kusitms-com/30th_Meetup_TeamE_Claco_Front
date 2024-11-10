@@ -1,25 +1,27 @@
+import Layout from "@/components/Layout";
+import RoutePath from "./routePath";
+import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
+import ScrollTop from "@/components/common/ScrollTop";
+
 import { TosPage } from "@/pages/Tos/page";
 import { LoginPage } from "@/pages/Login/page";
 import { NicknameCreatePage } from "@/pages/Onboarding/UserRegistration/Nickname/page";
-import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
 import { MainPage } from "@/pages/Main/page";
-import RoutePath from "./routePath";
 import { CompleteRegistrationPage } from "@/pages/Onboarding/CompleteRegistration/page";
 import { SelectProfilePage } from "@/pages/Onboarding/UserRegistration/Profile/page";
 import { SelectPricePage } from "@/pages/Onboarding/UserRegistration/Price/page";
 import { SelectLocationPage } from "@/pages/Onboarding/UserRegistration/Location/page";
 import { SelectConceptPage } from "@/pages/Onboarding/UserRegistration/Concept/page";
 import { SelectFeaturePage } from "@/pages/Onboarding/UserRegistration/Feature/page";
-import Layout from "@/components/Layout";
 import { ReviewPage } from "@/pages/Review/page";
 import { ReviewDetailPage } from "@/pages/Review/[id]/page";
 import { ShowDetailPage } from "@/pages/ShowDetail/page";
-import ScrollTop from "@/components/common/ScrollTop";
-import { TicketTitlePage } from "@/pages/Ticket/Title/page";
-import { TicketDetailPage } from "@/pages/Ticket/Detail/page";
-import { TicketReviewPage } from "@/pages/Ticket/Review/page";
-import { TicketPage } from "@/pages/Ticket/page";
-import { TicketDownloadPage } from "@/pages/Ticket/Download/page";
+import { TestPage } from "@/pages/Test/page";
+// import { ClacoBookPage } from "@/pages/TicketBook/page";
+// import { TicketSearchPage } from "@/pages/TicketBook/Ticket/Search/page";
+// import { TicketDetailPage } from "@/pages/TicketBook/Ticket/Detail/page";
+// import { TicketReviewPage } from "@/pages/TicketBook/Ticket/Review/page";
+// import { TicketDownloadPage } from "@/pages/TicketBook/Ticket/Download/page";
 
 const routes: RouteObject[] = [
   {
@@ -57,33 +59,28 @@ const routes: RouteObject[] = [
         path: RoutePath.ShowReviews,
         children: [
           { index: true, element: <ReviewPage /> },
-          {
-            path: RoutePath.ShowReviewDetail,
-            element: <ReviewDetailPage />,
-          },
+          { path: RoutePath.ShowReviewDetail, element: <ReviewDetailPage /> },
         ],
       },
       {
-        path: RoutePath.Ticket,
+        path: RoutePath.ClacoBook,
         element: <Layout />,
-        children: [{ index: true, element: <TicketPage /> }],
+        children: [
+          // { index: true, element: <ClacoBookPage /> },
+          { path: ":id/:tId", element: <>하나의 클라코티켓 상세보기</> },
+        ],
       },
       {
-        path: RoutePath.TicketTitle,
+        path: `${RoutePath.ClacoBook}/:id`,
+        element: <TestPage />,
+      },
+      {
+        path: RoutePath.Ticket,
         children: [
-          { index: true, element: <TicketTitlePage/> },
-          {
-            path: RoutePath.TicketDetail,
-            element: <TicketDetailPage />,
-          },
-          {
-            path: RoutePath.TicketReview,
-            element: <TicketReviewPage />,
-          },
-          {
-            path: RoutePath.TicketDownload,
-            element: <TicketDownloadPage />,
-          },
+          // { path: RoutePath.TicketSearch, element: <TicketSearchPage /> },
+          // { path: RoutePath.TicketDetail, element: <TicketDetailPage /> },
+          // { path: RoutePath.TicketReview, element: <TicketReviewPage /> },
+          // { path: RoutePath.TicketDownload, element: <TicketDownloadPage /> },
         ],
       },
       {
