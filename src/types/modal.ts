@@ -1,12 +1,9 @@
 export type ModalProps = {
-  isDualButton: boolean;
-  positiveButtonText?: string;
-  negativeButtonText?: string;
-  singleButtonText?: string;
+  title?: string;
+  children?: React.ReactNode;
+  positiveButtonText: string;
+  negativeButtonText: string;
+  disabled?: boolean;
   onPositiveButtonClick?: () => void;
   onNegativeButtonClick?: () => void;
-  onSingleButtonClick?: () => void;
-  isSingleButtonDisabled?: boolean,
-  onClose?: () => void;
-  children?: React.ReactNode;
 };

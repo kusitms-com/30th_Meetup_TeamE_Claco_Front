@@ -7,7 +7,7 @@ export const TicketDownloadPage = () => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/ticket/create/review");
+    navigate("/ticketbook/ticket/review");
   };
 
   return (

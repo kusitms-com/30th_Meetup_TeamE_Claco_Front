@@ -48,13 +48,13 @@
   }
 
   @font-face {
-    font-family: UnicaOne;
+    font-family: Nonchalance;
     font-weight: 400;
     font-display: swap;
     src:
-      local("UnicaOne-Regular"),
-      url("./assets/fonts/UnicaOne-Regular.woff2") format("woff2"),
-      url("./assets/fonts/UnicaOne-Regular.woff") format("woff");
+      local("Nonchalance Medium"),
+      url("./assets/fonts/Nonchalance\ Medium.woff2") format("woff2"),
+      url("./assets/fonts/Nonchalance\ Medium.woff") format("woff");
   }
 
   html {
