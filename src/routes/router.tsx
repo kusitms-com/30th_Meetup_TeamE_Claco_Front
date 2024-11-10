@@ -16,12 +16,11 @@ import { SelectFeaturePage } from "@/pages/Onboarding/UserRegistration/Feature/p
 import { ReviewPage } from "@/pages/Review/page";
 import { ReviewDetailPage } from "@/pages/Review/[id]/page";
 import { ShowDetailPage } from "@/pages/ShowDetail/page";
-import { TestPage } from "@/pages/Test/page";
-// import { ClacoBookPage } from "@/pages/TicketBook/page";
-// import { TicketSearchPage } from "@/pages/TicketBook/Ticket/Search/page";
-// import { TicketDetailPage } from "@/pages/TicketBook/Ticket/Detail/page";
-// import { TicketReviewPage } from "@/pages/TicketBook/Ticket/Review/page";
-// import { TicketDownloadPage } from "@/pages/TicketBook/Ticket/Download/page";
+import { ClacoBookPage } from "@/pages/TicketBook/page";
+import { TicketSearchPage } from "@/pages/TicketBook/Ticket/Search/page";
+import { TicketDetailPage } from "@/pages/TicketBook/Ticket/Detail/page";
+import { TicketReviewPage } from "@/pages/TicketBook/Ticket/Review/page";
+import { TicketDownloadPage } from "@/pages/TicketBook/Ticket/Download/page";
 
 const routes: RouteObject[] = [
   {
@@ -66,21 +65,21 @@ const routes: RouteObject[] = [
         path: RoutePath.ClacoBook,
         element: <Layout />,
         children: [
-          // { index: true, element: <ClacoBookPage /> },
+          { index: true, element: <ClacoBookPage /> },
           { path: ":id/:tId", element: <>하나의 클라코티켓 상세보기</> },
         ],
       },
       {
         path: `${RoutePath.ClacoBook}/:id`,
-        element: <TestPage />,
+        element: <>하나의 클라코북 상세보기</>,
       },
       {
         path: RoutePath.Ticket,
         children: [
-          // { path: RoutePath.TicketSearch, element: <TicketSearchPage /> },
-          // { path: RoutePath.TicketDetail, element: <TicketDetailPage /> },
-          // { path: RoutePath.TicketReview, element: <TicketReviewPage /> },
-          // { path: RoutePath.TicketDownload, element: <TicketDownloadPage /> },
+          { path: RoutePath.TicketSearch, element: <TicketSearchPage /> },
+          { path: RoutePath.TicketDetail, element: <TicketDetailPage /> },
+          { path: RoutePath.TicketReview, element: <TicketReviewPage /> },
+          { path: RoutePath.TicketDownload, element: <TicketDownloadPage /> },
         ],
       },
       {

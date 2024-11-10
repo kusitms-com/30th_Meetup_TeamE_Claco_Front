@@ -1,4 +1,4 @@
-import { ReactComponent as ClacoBook } from "@/assets/svgs/ClacoBook.svg";
+import { ReactComponent as ClacoTicketContainer } from "@/assets/svgs/Claco_Ticket.svg";
 import Image from "@/assets/images/poster6.gif";
 import { Genre } from "@/components/common/Genre";
 
@@ -27,30 +27,31 @@ export const ClacoTicket = ({ data }: ClacoTicketProps) => {
       <img
         src={Image}
         alt="claco book 포스터 이미지"
-        className="absolute top-[11.41px] left-[12.13px] w-[208.42px] h-[278.2px] rounded-[5px]"
+        className="absolute top-[7.54px] left-[7px] w-[199px] h-[266px] rounded-[5px]"
       />
-      <div className="absolute bottom-[106.02px] left-[52px] font-unicaOne text-dark text-[26.31px]">
-        2024. 10. 16
+      <div className="absolute bottom-[105px] left-[40.5px]">
+        <div className="flex flex-col">
+          <div className="font-Nonchalance text-dark text-[26.31px]">
+            2024. 10. 16
+          </div>
+          <div className="text-center font-medium text-[10px] text-dark">
+            <div>{data.title}</div>
+            <div>LG ART CENTER</div>
+          </div>
+        </div>
       </div>
-      <div className="absolute bottom-[71.8px] w-full body2-medium text-center text-dark">
-        <div>{data.title}</div>
-        <div>LG ART CENTER</div>
-      </div>
-      <div className="absolute bottom-[35.18px] w-full px-[19px] flex justify-between">
+      <div className="absolute bottom-[55.18px] px-[13px] w-[213px] flex justify-between">
         {USER_GENRE.map((item, index) => (
           <Genre
             key={index}
             genreType={item.imgUrl}
             genreKeyword={item.keyWord}
-            isShow={true}
-            className="w-[29px] h-[29px]"
+            className="w-[29px] h-[29px] text-primary-800 font-medium text-[8px]"
           />
         ))}
       </div>
-      <div className="absolute bottom-[10.96px] w-full body2-medium text-center text-dark">
-        Claco
-      </div>
-      <ClacoBook />
+
+      <ClacoTicketContainer />
     </div>
   );
 };
