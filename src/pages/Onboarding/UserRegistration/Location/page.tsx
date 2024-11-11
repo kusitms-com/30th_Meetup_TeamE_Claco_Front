@@ -44,7 +44,7 @@ export const SelectLocationPage = () => {
             <span className="body1-medium text-grayscale-60">
               선호하는 공연장 위치를 모두 선택해주세요.
             </span>
-            <div className="slide-up">
+            <div className="slide-up mb-[166px]">
               <Location
                 selectedLocation={selectedLocation}
                 onLocationClick={handleLocationClick}
