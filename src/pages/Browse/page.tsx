@@ -8,6 +8,7 @@ import poster4 from "@/assets/images/poster4.gif";
 import poster8 from "@/assets/images/poster8.gif";
 import { ReactComponent as Filter } from "@/assets/svgs/filter.svg";
 import { ReactComponent as Refresh } from "@/assets/svgs/refresh.svg";
+import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { SearchCard } from "@/components/common/Search/Card";
 import { ClacoPick } from "@/components/Browse/ClacoPick";
 import { ShowFilterTab } from "@/components/common/ShowFilterTab";
@@ -121,6 +122,12 @@ export const BrowsePage = () => {
     setSelectedFeature("");
   };
 
+  const handleBackClick = () => {
+    setQuery("");
+    setShowSearchResults(false);
+    setSelectedShow(null);
+  };
+
   const [showData, setShowData] = useState<Show[]>(
     initialShowData.map((show) => ({
       ...show,
@@ -162,9 +169,15 @@ export const BrowsePage = () => {
   return (
     <div className="px-6 pb-[110px] min-h-screen relative">
       <div className="flex flex-col items-center justify-center">
-        <span className="headline2-bold text-grayscale-80 mt-[46px] mb-[30px]">
-          둘러보기
-        </span>
+        <div className="mt-[46px] mb-[30px] flex items-center relative w-full justify-center">
+          {(showAllResults || selectedShow || filteredData.length === 0) && (
+            <BackArrow
+              onClick={handleBackClick}
+              className="absolute left-0 cursor-pointer"
+            />
+          )}
+          <span className="headline2-bold text-grayscale-80">둘러보기</span>
+        </div>
         <SearchBar
           value={query}
           onChange={handleSearchChange}
@@ -292,14 +305,16 @@ export const BrowsePage = () => {
                 </span>
               </div>
 
-              <ClacoPick
-                userName="울랄라"
-                picks={[
-                  { imageSrc: poster8, title: "랑랑 피아노 리사이틀" },
-                  { imageSrc: poster3, title: "빈 필하모닉" },
-                  { imageSrc: poster4, title: "피아노 리사이틀" },
-                ]}
-              />
+              <div className="w-full max-w-screen-sm">
+                <ClacoPick
+                  userName="울랄라"
+                  picks={[
+                    { imageSrc: poster8, title: "랑랑 피아노 리사이틀" },
+                    { imageSrc: poster3, title: "빈 필하모닉" },
+                    { imageSrc: poster4, title: "피아노 리사이틀" },
+                  ]}
+                />
+              </div>
             </div>
           )}
         </>

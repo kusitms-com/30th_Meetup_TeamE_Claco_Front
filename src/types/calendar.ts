@@ -10,6 +10,7 @@ export type CalendarProps = {
 };
 
 export type CalendarDayProps = {
+  mode?: "single" | "range";
   day: number | null;
   isSelected: boolean;
   isInRange: boolean;

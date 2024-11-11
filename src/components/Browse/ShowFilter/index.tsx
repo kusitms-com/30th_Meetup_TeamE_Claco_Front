@@ -32,7 +32,19 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
   const handleApply = () => {
     const priceRange = `${minPrice}~${maxPrice}원`;
     const location = selectedLocation.join(", ");
-    const dateRange = "2024.10.10~2024.10.24";
+    let dateRange = "";
+    if (rangeStart && rangeEnd) {
+      const startYear = rangeStart.getFullYear();
+      const startMonth = String(rangeStart.getMonth() + 1).padStart(2, "0");
+      const startDate = String(rangeStart.getDate()).padStart(2, "0");
+
+      const endYear = rangeEnd.getFullYear();
+      const endMonth = String(rangeEnd.getMonth() + 1).padStart(2, "0");
+      const endDate = String(rangeEnd.getDate()).padStart(2, "0");
+
+      dateRange = `${startYear}.${startMonth}.${startDate}~${endYear}.${endMonth}.${endDate}`;
+    }
+
     const feature = selectedFeatures.join(", ");
     onApply(priceRange, location, dateRange, feature);
   };
@@ -63,8 +75,8 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
   };
 
   return (
-    <div className="fixed inset-0 bg-dark flex justify-center items-center">
-      <div className="w-full px-6 pt-[46px] pb-[100px] bg-dark overflow-y-auto max-h-screen">
+    <div className="fixed inset-0 flex justify-center items-center z-50">
+      <div className="px-6 pt-[46px] pb-[100px] h-screen bg-dark overflow-y-auto">
         <div className="flex items-center justify-between mb-10">
           <Refresh
             width="18"
@@ -109,8 +121,6 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
               setRangeStart(start);
               setRangeEnd(end);
             }}
-            startDate={new Date(2024, 9, 1)}
-            endDate={new Date(2024, 10, 31)}
           />
         </div>
         <div className="mb-[38px]">

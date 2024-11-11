@@ -35,8 +35,11 @@ export const Calendar = ({
 
   const handleDateClick = (day: number) => {
     const date = new Date(getYear(), getMonth(), day);
+
     if (mode === "single") {
-      if (onDateSelect) onDateSelect(date);
+      if (isDateInRange(date) && onDateSelect) {
+        onDateSelect(date);
+      }
     } else if (mode === "range") {
       if (!internalRangeStart || (internalRangeStart && internalRangeEnd)) {
         setInternalRangeStart(date);
@@ -46,8 +49,9 @@ export const Calendar = ({
           setInternalRangeStart(date);
         } else {
           setInternalRangeEnd(date);
-          if (onRangeSelect && internalRangeStart)
+          if (onRangeSelect && internalRangeStart) {
             onRangeSelect(internalRangeStart, date);
+          }
         }
       }
     }
@@ -79,7 +83,7 @@ export const Calendar = ({
   };
 
   return (
-    <div className="mx-auto flex-col items-center justify-center bg-grayscale-20 px-8 py-[23px] rounded-[5px]">
+    <div className="mx-auto flex-col items-center justify-center bg-grayscale-20 py-[23px] px-8 rounded-[5px]">
       <div className="flex justify-between items-center mb-[35px]">
         <BackArrow
           width="18"
@@ -100,10 +104,10 @@ export const Calendar = ({
         />
       </div>
 
-      <div className="grid grid-cols-7 gap-6 place-items-center">
+      <div className="grid grid-cols-7 place-items-center">
         {getCalendarDays().map((day, index) => {
           const date = day ? new Date(getYear(), getMonth(), day) : null;
-          const isInRange = date && isDateInRange(date);
+          const isInRange = mode === "single" && date && isDateInRange(date);
           const isSelected =
             mode === "single" &&
             date &&
@@ -124,6 +128,7 @@ export const Calendar = ({
 
           return (
             <CalendarDay
+              mode={mode}
               key={index}
               day={day}
               isSelected={!!isSelected}
@@ -131,7 +136,7 @@ export const Calendar = ({
               isWithinRange={!!isWithinRange}
               isRangeStart={!!isRangeStart}
               isRangeEnd={!!isRangeEnd}
-              onClick={() => day && isInRange && handleDateClick(day)}
+              onClick={() => day && handleDateClick(day)}
             />
           );
         })}

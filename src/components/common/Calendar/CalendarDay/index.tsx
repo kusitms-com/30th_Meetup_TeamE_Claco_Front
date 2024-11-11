@@ -7,27 +7,34 @@ export const CalendarDay = ({
   isWithinRange,
   isRangeStart,
   isRangeEnd,
+  mode,
   onClick,
 }: CalendarDayProps) => {
   return (
-    <div className="relative flex items-center justify-center">
-      {isWithinRange && !isRangeStart && !isRangeEnd && (
-        <div className="w-full h-full absolute left-0 top-0 bg-grayscale-30" />
+    <div className="relative flex items-center justify-center w-10 h-10 px-4">
+      {isWithinRange && (
+        <div
+          className={`absolute inset-0 z-30 ${
+            isRangeStart ? "rounded-l-full" : isRangeEnd ? "rounded-r-full" : ""
+          } bg-grayscale-30`}
+        />
       )}
 
       <div
-        className={`flex items-center justify-center rounded-full w-9 h-9 body1-medium ${
+        className={`flex items-center justify-center rounded-full px-4 w-10 h-10 body1-medium z-50 ${
           day
-            ? isSelected
+            ? isSelected || isRangeStart || isRangeEnd
               ? "bg-grayscale-80 text-grayscale-30"
-              : isRangeStart
-                ? "bg-grayscale-80 text-grayscale-30"
-                : isRangeEnd
-                  ? "bg-grayscale-80 text-grayscale-30"
-                  : "text-grayscale-60 cursor-pointer"
-            : "text-grayscale-60"
-        } relative z-10`}
-        onClick={day && isInRange ? onClick : undefined}
+              : isInRange
+                ? "text-grayscale-80"
+                : !isWithinRange && mode !== "single"
+                  ? "text-grayscale-60"
+                  : isWithinRange
+                    ? "text-grayscale-60"
+                    : "text-grayscale-50"
+            : ""
+        }`}
+        onClick={day ? onClick : undefined}
       >
         {day}
       </div>

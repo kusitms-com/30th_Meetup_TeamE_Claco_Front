@@ -1,5 +1,6 @@
 import { ClacoPickProps } from "@/types";
 import { ClacoPickShow } from "./ClacoPickShow";
+import { Swiper, SwiperSlide } from "swiper/react";
 
 export const ClacoPick = ({ userName, picks }: ClacoPickProps) => {
   return (
@@ -11,14 +12,23 @@ export const ClacoPick = ({ userName, picks }: ClacoPickProps) => {
         </span>
       </div>
 
-      <div className="flex gap-[13.84px]">
-        {picks.map((pick, index) => (
-          <ClacoPickShow
-            key={index}
-            imageSrc={pick.imageSrc}
-            title={pick.title}
-          />
-        ))}
+      <div className="flex justify-center overflow-x-auto">
+        <Swiper
+          slidesPerView={"auto"}
+          pagination={{
+            clickable: true,
+          }}
+          className="max-w-screen-sm"
+        >
+          {picks.map((pick, index) => (
+            <SwiperSlide
+              key={index}
+              className="w-[114px] rounded-[5px] mr-[13.84px]"
+            >
+              <ClacoPickShow imageSrc={pick.imageSrc} title={pick.title} />
+            </SwiperSlide>
+          ))}
+        </Swiper>
       </div>
     </div>
   );
