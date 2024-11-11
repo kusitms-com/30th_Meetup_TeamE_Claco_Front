@@ -1,5 +1,6 @@
 import { SearchBar } from "@/components/common/Search/Bar";
 import { useState } from "react";
+import { useDebouncedState } from "@/hooks/useDebouncedState";
 import poster2 from "@/assets/images/poster2.gif";
 import poster3 from "@/assets/images/poster3.webp";
 import poster10 from "@/assets/images/poster10.gif";
@@ -31,7 +32,7 @@ const initialShowData: Show[] = [
     id: 2,
     posterImage: poster3,
     showType: "classical",
-    isOngoing: true,
+    isOngoing: false,
     defaultLiked: false,
     title: "유니버설발레단 (호두까기 인형) - 성남",
     location: "예술의 전당 오페라 극장",
@@ -54,8 +55,9 @@ const initialShowData: Show[] = [
 ];
 
 export const BrowsePage = () => {
-  const [searchQuery, setSearchQuery] = useState<string>("");
   const [activeTab, setActiveTab] = useState<string>("전체");
+  const [query, setQuery] = useState<string>("");
+  const debouncedQuery = useDebouncedState(query, 1000);
   const [showSearchResults, setShowSearchResults] = useState<boolean>(false);
   const [selectedShow, setSelectedShow] = useState<Show | null>(null);
   const [showAllResults, setShowAllResults] = useState<boolean>(false);
@@ -68,7 +70,7 @@ export const BrowsePage = () => {
   const [selectedFeature, setSelectedFeature] = useState<string>("");
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value.trim());
+    setQuery(e.target.value.trim());
     setShowSearchResults(e.target.value.trim().length > 0);
     setSelectedShow(null);
     setShowAllResults(false);
@@ -152,19 +154,19 @@ export const BrowsePage = () => {
 
   const filteredData = categoryFilteredData.filter((show) => {
     return (
-      searchQuery === "" ||
-      show.title.toLowerCase().includes(searchQuery.toLowerCase())
+      debouncedQuery === "" ||
+      show.title.toLowerCase().includes(debouncedQuery.toLowerCase())
     );
   });
 
   return (
-    <div className="px-6 pb-[110px] min-h-screen">
+    <div className="px-6 pb-[110px] min-h-screen relative">
       <div className="flex flex-col items-center justify-center">
         <span className="headline2-bold text-grayscale-80 mt-[46px] mb-[30px]">
           둘러보기
         </span>
         <SearchBar
-          value={searchQuery}
+          value={query}
           onChange={handleSearchChange}
           onKeyDown={handleKeyDown}
         >
@@ -176,7 +178,7 @@ export const BrowsePage = () => {
         <ShowFilter onClose={closeFilter} onApply={applyFilter} />
       ) : (
         <>
-          {searchQuery && showSearchResults && !showAllResults && (
+          {debouncedQuery && showSearchResults && !showAllResults && (
             <div className="mt-4 flex flex-col gap-3">
               {filteredData.map((show) => (
                 <SearchCard
@@ -191,7 +193,7 @@ export const BrowsePage = () => {
             </div>
           )}
 
-          {!searchQuery && !selectedShow && !showAllResults && (
+          {!debouncedQuery && !selectedShow && !showAllResults && (
             <>
               <ShowFilterTab
                 activeTab={activeTab}
@@ -200,7 +202,10 @@ export const BrowsePage = () => {
               />
               <div className="flex flex-col gap-[15px] mb-3">
                 <div className="flex items-center justify-between gap-3 py-1">
-                  {priceRange || selectedLocation || dateRange || selectedFeature ? (
+                  {priceRange ||
+                  selectedLocation ||
+                  dateRange ||
+                  selectedFeature ? (
                     <div className="flex text-center gap-[5px] pl-1 overflow-x-auto scrollbar-none">
                       {priceRange && (
                         <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
@@ -262,14 +267,6 @@ export const BrowsePage = () => {
                       {...selectedShow}
                       toggleLike={toggleLikeForSelectedShow}
                     />
-                    <ClacoPick
-                      userName="울랄라"
-                      picks={[
-                        { imageSrc: poster8, title: "랑랑 피아노 리사이틀" },
-                        { imageSrc: poster3, title: "빈 필하모닉" },
-                        { imageSrc: poster4, title: "피아노 리사이틀" },
-                      ]}
-                    />
                   </div>
                 ) : (
                   filteredData.map((show) => (
@@ -280,21 +277,11 @@ export const BrowsePage = () => {
                     />
                   ))
                 )}
-                {!selectedShow && (
-                  <ClacoPick
-                    userName="울랄라"
-                    picks={[
-                      { imageSrc: poster8, title: "랑랑 피아노 리사이틀" },
-                      { imageSrc: poster3, title: "빈 필하모닉" },
-                      { imageSrc: poster4, title: "피아노 리사이틀" },
-                    ]}
-                  />
-                )}
               </div>
             </div>
           )}
 
-          {searchQuery && filteredData.length === 0 && (
+          {debouncedQuery && filteredData.length === 0 && (
             <div className="flex flex-col items-center mt-[121px]">
               <div className="flex flex-col gap-1 mb-[112px]">
                 <span className="headline1-bold text-grayscale-90">
