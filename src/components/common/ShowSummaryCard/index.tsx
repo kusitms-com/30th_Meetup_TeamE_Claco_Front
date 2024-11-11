@@ -53,12 +53,9 @@ export const ShowSummaryCard = ({
 
       <div className="flex flex-col ml-4 max-w-[207px]">
         <div className="flex flex-col max-w-[186px]">
-          {isOngoing && (
-            <span className="caption-12 text-grayscale-80 border border-grayscale-70 px-2 py-[3px] rounded-[20px] self-start mb-[9px]">
-              공연 중
-            </span>
-          )}
-
+          <span className="caption-12 text-grayscale-80 border border-grayscale-70 px-2 py-[3px] rounded-[20px] self-start mb-[9px]">
+            {isOngoing ? "공연 중" : "공연 예정"}
+          </span>
           <span className="body2-semibold text-grayscale-80 mb-[10px]">
             {title}
           </span>
