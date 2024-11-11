@@ -25,7 +25,7 @@ export const Toast = ({ message, setToast }: ToastProps) => {
 
   return (
     <div
-      className={`fixed bottom-[80px] z-100 flex h-[55px] w-[342px] items-center justify-center rounded-[5px] bg-grayscale-30 transition-all duration-500 ease-in-out
+      className={`fixed bottom-[80px] z-[9999] flex h-[55px] w-[342px] items-center justify-center rounded-[5px] bg-grayscale-30 transition-all duration-500 ease-in-out
         ${isVisible ? "opacity-100" : "opacity-0 translate-y-2"}`}
     >
       <p className="text-[#ECEBE7] body2-semibold">{message}</p>

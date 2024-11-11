@@ -6,8 +6,9 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { useState } from "react";
 import { ClacoBook, ClacoBookType } from "@/components/Ticket/ClacoBook";
 import { CreateEditModal } from "@/components/Ticket/Modal/CreateEdit";
-import { DeleteModal } from "@/components/Ticket/Modal/Delete";
+import { DeleteClacoBookModal } from "@/components/Ticket/Modal/Delete/ClacoBook";
 import { Toast } from "@/libraries/toast/Toast";
+import { useNavigate } from "react-router-dom";
 
 const CLACO_BOOK_MOCK_DATA = [
   { id: 1, title: "조성진 모음집", color: "#DD6339" },
@@ -23,6 +24,7 @@ export const ClacoBookPage = () => {
   const [selectClacoBook, setSelectClacoBook] = useState<ClacoBookType>(
     CLACO_BOOK_MOCK_DATA[0]
   );
+  const navigate = useNavigate();
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -55,11 +57,15 @@ export const ClacoBookPage = () => {
     else handleOpenModal();
   };
 
+  const handleClacoBookDetail = (id: number, title: string) => {
+    navigate(`/ticketbook/${id}?title=${title}`);
+  };
+
   return (
     <div className="flex flex-col pt-[46px] items-center justify-center px-6">
       {CLACO_BOOK_MOCK_DATA.length === 0 ? (
         <span className="headline2-bold text-grayscale-80 mb-[152px] h-[26px]">
-          클라코북
+          티켓북
         </span>
       ) : (
         <div className="flex justify-between items-center w-full mb-[56px] h-[26px]">
@@ -102,13 +108,25 @@ export const ClacoBookPage = () => {
           <div className="pb-[100px]">
             <RadioGroup defaultValue={"1"} className="flex flex-col gap-[35px]">
               {CLACO_BOOK_MOCK_DATA.map((book) => (
-                <ClacoBook key={book.id} data={book} isEditing={isEditing}>
-                  <RadioGroupItem
-                    value={String(book.id)}
-                    id={String(book.id)}
-                    onClick={() => setSelectClacoBook(book)}
-                  />
-                </ClacoBook>
+                <div
+                  key={book.id}
+                  onClick={() => {
+                    if (!isEditing) {
+                      handleClacoBookDetail(book.id, book.title);
+                    }
+                  }}
+                >
+                  <ClacoBook data={book} isEditing={isEditing}>
+                    <RadioGroupItem
+                      value={String(book.id)}
+                      id={String(book.id)}
+                      onClick={(e: React.MouseEvent) => {
+                        e.stopPropagation();
+                        setSelectClacoBook(book);
+                      }}
+                    />
+                  </ClacoBook>
+                </div>
               ))}
             </RadioGroup>
           </div>
@@ -117,7 +135,7 @@ export const ClacoBookPage = () => {
           {isModalOpen && (
             <>
               {action === "delete" ? (
-                <DeleteModal
+                <DeleteClacoBookModal
                   clacoBook={selectClacoBook}
                   onClose={handleCloseModal}
                   onConfirm={handleDelete}
@@ -168,7 +186,7 @@ export const ClacoBookPage = () => {
           </div>
 
           <a
-            href="/ticketbook/ticket/search"
+            href="/ticketcreate/search"
             className="rounded-[5px] px-[89px] py-[14px] text-center bg-grayscale-30 text-grayscale-80 cursor-pointer"
           >
             공연 후기 등록하기

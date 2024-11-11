@@ -18,7 +18,7 @@ export const TicketSearchPage = () => {
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticketbook/ticket/detail");
+    navigate("/ticketcreate/info");
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {

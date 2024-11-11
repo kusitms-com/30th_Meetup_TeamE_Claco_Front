@@ -1,5 +1,5 @@
 import { Modal } from "@/components/common/Modal";
-import { ClacoBookType } from "../../ClacoBook";
+import { ClacoBookType } from "../../../ClacoBook";
 
 export type DeleteModalProps = {
   clacoBook: ClacoBookType;
@@ -7,7 +7,7 @@ export type DeleteModalProps = {
   onConfirm: (clacoBookId: number) => void;
 };
 
-export const DeleteModal = ({
+export const DeleteClacoBookModal = ({
   clacoBook,
   onClose,
   onConfirm,

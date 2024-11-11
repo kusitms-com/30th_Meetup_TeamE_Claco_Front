@@ -17,10 +17,12 @@ import { ReviewPage } from "@/pages/Review/page";
 import { ReviewDetailPage } from "@/pages/Review/[id]/page";
 import { ShowDetailPage } from "@/pages/ShowDetail/page";
 import { ClacoBookPage } from "@/pages/TicketBook/page";
-import { TicketSearchPage } from "@/pages/TicketBook/Ticket/Search/page";
-import { TicketDetailPage } from "@/pages/TicketBook/Ticket/Detail/page";
-import { TicketReviewPage } from "@/pages/TicketBook/Ticket/Review/page";
-import { TicketDownloadPage } from "@/pages/TicketBook/Ticket/Download/page";
+import { ClacoBookDetailPage } from "@/pages/TicketBook/[id]/page";
+import { TicketInfoPage } from "@/pages/TicketCreate/Info/page";
+import { TicketSearchPage } from "@/pages/TicketCreate/Search/page";
+import { TicketReviewPage } from "@/pages/TicketCreate/Review/page";
+import { TicketDownloadPage } from "@/pages/TicketCreate/Download/page";
+import { ClacoTicketDetailPage } from "@/pages/Ticket/[id]/page";
 
 const routes: RouteObject[] = [
   {
@@ -50,10 +52,10 @@ const routes: RouteObject[] = [
         ],
       },
       {
-        path: RoutePath.Show,
         element: <Layout />,
-        children: [{ index: true, element: <ShowDetailPage /> }],
+        children: [{ path: RoutePath.Main, element: <MainPage /> }],
       },
+      { path: RoutePath.Show, element: <ShowDetailPage /> },
       {
         path: RoutePath.ShowReviews,
         children: [
@@ -62,29 +64,20 @@ const routes: RouteObject[] = [
         ],
       },
       {
-        path: RoutePath.ClacoBook,
+        path: RoutePath.TicketBook,
         element: <Layout />,
-        children: [
-          { index: true, element: <ClacoBookPage /> },
-          { path: ":id/:tId", element: <>하나의 클라코티켓 상세보기</> },
-        ],
+        children: [{ index: true, element: <ClacoBookPage /> }],
       },
+      { path: RoutePath.TicketDetail, element: <ClacoTicketDetailPage /> },
+      { path: RoutePath.TicketBookDetail, element: <ClacoBookDetailPage /> },
       {
-        path: `${RoutePath.ClacoBook}/:id`,
-        element: <>하나의 클라코북 상세보기</>,
-      },
-      {
-        path: RoutePath.Ticket,
+        path: RoutePath.TicketCreate,
         children: [
           { path: RoutePath.TicketSearch, element: <TicketSearchPage /> },
-          { path: RoutePath.TicketDetail, element: <TicketDetailPage /> },
+          { path: RoutePath.TicketInfo, element: <TicketInfoPage /> },
           { path: RoutePath.TicketReview, element: <TicketReviewPage /> },
           { path: RoutePath.TicketDownload, element: <TicketDownloadPage /> },
         ],
-      },
-      {
-        element: <Layout />,
-        children: [{ path: RoutePath.Main, element: <MainPage /> }],
       },
     ],
   },

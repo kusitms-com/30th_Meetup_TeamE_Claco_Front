@@ -1,6 +1,6 @@
 import { ReviewTag } from "@/components/common/ReviewTag";
 import { ReactComponent as Required } from "@/assets/svgs/required.svg";
-import { seatTags1, seatTags2 } from "@/pages/TicketBook/const";
+import { seatTags1, seatTags2 } from "@/pages/TicketCreate/const";
 import { ReviewQuestionProps, SeatQuestionsProps } from "@/types";
 
 export const ReviewQuestion = ({
