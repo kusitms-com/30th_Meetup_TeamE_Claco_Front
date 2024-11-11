@@ -4,7 +4,7 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 interface ShowSummaryCardProps {
   posterImage: string;
   showType: string;
-  isOngoing: boolean;
+  status: string;
   isLiked: boolean;
   toggleLike: () => void;
   title: string;
@@ -16,7 +16,7 @@ interface ShowSummaryCardProps {
 export const ShowSummaryCard = ({
   posterImage,
   showType,
-  isOngoing,
+  status,
   isLiked,
   toggleLike,
   title,
@@ -32,6 +32,7 @@ export const ShowSummaryCard = ({
           alt="poster"
           className="w-[131px] h-[172px] rounded-[5px] object-cover"
         />
+        <div className="absolute top-0 left-0 w-full h-[70px] bg-gradient-to-b from-[rgba(0,0,0,0.40)] to-[rgba(102,102,102,0.00)] pointer-events-none"></div>
 
         <div className="absolute top-[10px] left-2 ">
           {showType === "dance" && (
@@ -54,7 +55,11 @@ export const ShowSummaryCard = ({
       <div className="flex flex-col ml-4 max-w-[207px]">
         <div className="flex flex-col max-w-[186px]">
           <span className="caption-12 text-grayscale-80 border border-grayscale-70 px-2 py-[3px] rounded-[20px] self-start mb-[9px]">
-            {isOngoing ? "공연 중" : "공연 예정"}
+            {status === "upcoming"
+              ? "공연 예정"
+              : status === "inProgress"
+                ? "공연 중"
+                : "공연 종료"}
           </span>
           <span className="body2-semibold text-grayscale-80 mb-[10px]">
             {title}

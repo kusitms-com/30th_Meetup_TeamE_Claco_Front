@@ -4,6 +4,7 @@ import { useDebouncedState } from "@/hooks/useDebouncedState";
 import poster2 from "@/assets/images/poster2.gif";
 import poster3 from "@/assets/images/poster3.webp";
 import poster10 from "@/assets/images/poster10.gif";
+import poster13 from "@/assets/images/poster13.png";
 import poster4 from "@/assets/images/poster4.gif";
 import poster8 from "@/assets/images/poster8.gif";
 import { ReactComponent as Filter } from "@/assets/svgs/filter.svg";
@@ -21,7 +22,7 @@ const initialShowData: Show[] = [
     id: 1,
     posterImage: poster10,
     showType: "dance",
-    isOngoing: true,
+    status: "upcoming",
     defaultLiked: true,
     title: "유니버설발레단 (호두까기 인형) - 성남",
     location: "예술의 전당 오페라 극장",
@@ -31,11 +32,11 @@ const initialShowData: Show[] = [
   },
   {
     id: 2,
-    posterImage: poster3,
+    posterImage: poster13,
     showType: "classical",
-    isOngoing: false,
+    status: "inProgress",
     defaultLiked: false,
-    title: "유니버설발레단 (호두까기 인형) - 성남",
+    title: "대니 구 크리스마스 콘서트 <HOME>",
     location: "예술의 전당 오페라 극장",
     date: "2024.11.30",
     keywords: ["섬세한", "역동적인", "서정적인", "웅장한", "새로운"],
@@ -44,10 +45,10 @@ const initialShowData: Show[] = [
   {
     id: 3,
     posterImage: poster2,
-    showType: "classical",
-    isOngoing: true,
+    showType: "dance",
+    status: "completed",
     defaultLiked: false,
-    title: "유니버설발레단 (호두까기 인형) - 성남",
+    title: "라트라비아타",
     location: "예술의 전당 오페라 극장",
     date: "2024.11.30",
     keywords: ["섬세한", "역동적인", "서정적인", "웅장한", "새로운"],
@@ -78,7 +79,7 @@ export const BrowsePage = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
+    if (e.key === "Enter" && filteredData.length === 0) {
       setShowAllResults(true);
       setShowSearchResults(false);
     }
@@ -178,96 +179,102 @@ export const BrowsePage = () => {
           )}
           <span className="headline2-bold text-grayscale-80">둘러보기</span>
         </div>
-        <SearchBar
-          value={query}
-          onChange={handleSearchChange}
-          onKeyDown={handleKeyDown}
-        >
-          공연명, 출연자, 극단 등을 검색하세요.
-        </SearchBar>
+        <div className="relative w-full">
+          <SearchBar
+            value={query}
+            onChange={handleSearchChange}
+            onKeyDown={handleKeyDown}
+          >
+            공연명, 출연자, 극단 등을 검색하세요.
+          </SearchBar>
+
+          {debouncedQuery &&
+            showSearchResults &&
+            !showAllResults &&
+            filteredData.length !== 0 && (
+              <div className="absolute flex flex-col w-full bg-grayscale-20 z-50 p-2 gap-3">
+                {filteredData.length > 0
+                  ? filteredData.map((show) => (
+                      <SearchCard
+                        key={show.id}
+                        id={show.id}
+                        title={show.title}
+                        date={show.date}
+                        categoryType={show.showType}
+                        onClick={() => handleSearchCardClick(show)}
+                      />
+                    ))
+                  : ""}
+              </div>
+            )}
+        </div>
       </div>
+      {!debouncedQuery && !selectedShow && !showAllResults && (
+        <>
+          <ShowFilterTab
+            activeTab={activeTab}
+            onTabClick={handleTabClick}
+            className="mt-6 mb-[14px]"
+          />
+          <div className="flex flex-col gap-[15px] mb-3">
+            <div className="flex items-center justify-between gap-3 py-1">
+              {priceRange ||
+              selectedLocation ||
+              dateRange ||
+              selectedFeature ? (
+                <div className="flex text-center gap-[5px] pl-1 overflow-x-auto scrollbar-none">
+                  {priceRange && (
+                    <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
+                      {priceRange}
+                    </div>
+                  )}
+                  {selectedLocation && (
+                    <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
+                      {selectedLocation}
+                    </div>
+                  )}
+                  {dateRange && (
+                    <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
+                      {dateRange}
+                    </div>
+                  )}
+                  {selectedFeature && (
+                    <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
+                      {selectedFeature}
+                    </div>
+                  )}
+                </div>
+              ) : (
+                <span className="headline1-bold text-grayscale-80">
+                  최근 공연
+                </span>
+              )}
+              <div className="flex gap-2">
+                <Filter onClick={handleFilterClick} />
+                <Refresh onClick={handleRefreshClick} />
+              </div>
+            </div>
+            <span className="caption-12 text-grayscale-60">
+              총 {totalShows}개
+            </span>
+          </div>
+
+          <div className="flex flex-col gap-[29px]">
+            {categoryFilteredData.map((show) => (
+              <ShowSummaryCard
+                key={show.id}
+                {...show}
+                toggleLike={() => toggleLike(show.id)}
+              />
+            ))}
+          </div>
+        </>
+      )}
 
       {showFilter ? (
         <ShowFilter onClose={closeFilter} onApply={applyFilter} />
       ) : (
         <>
-          {debouncedQuery && showSearchResults && !showAllResults && (
-            <div className="mt-4 flex flex-col gap-3">
-              {filteredData.map((show) => (
-                <SearchCard
-                  key={show.id}
-                  id={show.id}
-                  title={show.title}
-                  date={show.date}
-                  categoryType={show.showType}
-                  onClick={() => handleSearchCardClick(show)}
-                />
-              ))}
-            </div>
-          )}
-
-          {!debouncedQuery && !selectedShow && !showAllResults && (
-            <>
-              <ShowFilterTab
-                activeTab={activeTab}
-                onTabClick={handleTabClick}
-                className="mt-6 mb-[14px]"
-              />
-              <div className="flex flex-col gap-[15px] mb-3">
-                <div className="flex items-center justify-between gap-3 py-1">
-                  {priceRange ||
-                  selectedLocation ||
-                  dateRange ||
-                  selectedFeature ? (
-                    <div className="flex text-center gap-[5px] pl-1 overflow-x-auto scrollbar-none">
-                      {priceRange && (
-                        <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
-                          {priceRange}
-                        </div>
-                      )}
-                      {selectedLocation && (
-                        <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
-                          {selectedLocation}
-                        </div>
-                      )}
-                      {dateRange && (
-                        <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
-                          {dateRange}
-                        </div>
-                      )}
-                      {selectedFeature && (
-                        <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
-                          {selectedFeature}
-                        </div>
-                      )}
-                    </div>
-                  ) : (
-                    <span className="headline1-bold text-grayscale-80">
-                      최근 공연
-                    </span>
-                  )}
-                  <div className="flex gap-2">
-                    <Filter onClick={handleFilterClick} />
-                    <Refresh onClick={handleRefreshClick} />
-                  </div>
-                </div>
-                <span className="caption-12 text-grayscale-60">
-                  총 {totalShows}개
-                </span>
-              </div>
-
-              <div className="flex flex-col gap-[10px]">
-                {categoryFilteredData.map((show) => (
-                  <ShowSummaryCard
-                    key={show.id}
-                    {...show}
-                    toggleLike={() => toggleLike(show.id)}
-                  />
-                ))}
-              </div>
-            </>
-          )}
-
           {(showAllResults || selectedShow) && (
             <div className="mt-[25px]">
               <span className="headline1-bold text-grayscale-80">
