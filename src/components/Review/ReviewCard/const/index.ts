@@ -13,7 +13,7 @@ export const REVIEW_MOCK_DATA: ReviewCardType[] = [
   {
     reviewId: 1,
     profileImage: Profile,
-    reviewImageList: [Review, Review1, Review2],
+    reviewImageList: [Review6, Review1],
     nickName: "울랄라",
     starRating: "4.0",
     reviewContent:
@@ -32,7 +32,7 @@ export const REVIEW_MOCK_DATA: ReviewCardType[] = [
   {
     reviewId: 2,
     profileImage: Profile,
-    reviewImageList: [Review3, Review4, Review5],
+    reviewImageList: [Review, Review4, Review5],
     nickName: "발레러버",
     starRating: "4.5",
     reviewContent:
@@ -50,7 +50,7 @@ export const REVIEW_MOCK_DATA: ReviewCardType[] = [
   {
     reviewId: 3,
     profileImage: Profile,
-    reviewImageList: [Review6, Review7, Review1],
+    reviewImageList: [],
     nickName: "공연매니아",
     starRating: "3.5",
     reviewContent:
@@ -87,7 +87,7 @@ export const REVIEW_MOCK_DATA: ReviewCardType[] = [
   {
     reviewId: 5,
     profileImage: Profile,
-    reviewImageList: [Review4, Review2, Review7, Review5, Review3],
+    reviewImageList: [Review4, Review2, Review7],
     nickName: "드라큘미",
     starRating: "5.0",
     reviewContent:

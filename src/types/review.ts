@@ -14,7 +14,7 @@ export type ReviewSummaryCardProps = {
 export type ReviewCardType = {
   reviewId: number;
   profileImage: string;
-  reviewImageList: string[];
+  reviewImageList: string[] | null;
   nickName: string;
   starRating: string;
   reviewContent: string;

@@ -4,8 +4,6 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 import Poster10 from "@/assets/images/poster10.gif";
 import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { ReactComponent as Megaphone } from "@/assets/svgs/Megaphone.svg";
-import { ReactComponent as Book } from "@/assets/svgs/Book.svg";
-import { Genre } from "@/components/common/Genre";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -14,14 +12,15 @@ import delicate from "@/assets/images/Genre/delicate.png";
 import classical from "@/assets/images/Genre/classical.png";
 import modern from "@/assets/images/Genre/modern.png";
 import lyrical from "@/assets/images/Genre/lyrical.png";
+import { PerformanceAttributes } from "@/components/Ticket/PerformanceAttributes";
 
 const TopShowInfoSection = () => {
   const USER_GENRE = [
-    { imgUrl: grand, keyWord: "grand" },
-    { imgUrl: delicate, keyWord: "delicate" },
-    { imgUrl: classical, keyWord: "classical" },
-    { imgUrl: modern, keyWord: "modern" },
-    { imgUrl: lyrical, keyWord: "lyrical" },
+    { imgURL: grand, category: "grand" },
+    { imgURL: delicate, category: "delicate" },
+    { imgURL: classical, category: "classical" },
+    { imgURL: modern, category: "modern" },
+    { imgURL: lyrical, category: "lyrical" },
   ];
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -122,20 +121,10 @@ const TopShowInfoSection = () => {
           )}
         </p>
 
-        <div className="flex space-x-2 items-center mb-[22px]">
-          <Book />
-          <span className="headline2-bold">공연 성격 분석</span>
-        </div>
-        <div className="flex justify-between px-[13px]">
-          {USER_GENRE.map((item, index) => (
-            <Genre
-              key={index}
-              genreType={item.imgUrl}
-              genreKeyword={item.keyWord}
-              className="caption-12 text-grayscale-70 w-[43px] h-[43px]"
-            />
-          ))}
-        </div>
+        <PerformanceAttributes
+          categories={USER_GENRE}
+          title={"공연 성격 분석"}
+        />
       </div>
     </section>
   );

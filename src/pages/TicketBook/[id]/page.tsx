@@ -85,6 +85,7 @@ export const ClacoBookDetailPage = () => {
       canvas.toBlob((blob) => {
         if (blob !== null) {
           saveAs(blob, "MyClacoTicket.png");
+          setToast(true);
         }
       });
     } catch (error) {
@@ -111,7 +112,6 @@ export const ClacoBookDetailPage = () => {
       onDownloadBtn();
     }
     setIsModalOpen(false);
-    setToast(true);
   };
 
   const handleSlideChange = (swiper: SwiperType) => {

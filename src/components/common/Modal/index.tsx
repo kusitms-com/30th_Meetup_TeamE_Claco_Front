@@ -10,7 +10,10 @@ export const Modal = ({
   disabled,
 }: ModalProps) => {
   return (
-    <div className="fixed inset-0 flex justify-center items-center bg-[#111111] bg-opacity-80 z-[9999]">
+    <div
+      className="fixed inset-0 flex justify-center items-center bg-[#111111] bg-opacity-80 z-[9999]"
+      onClick={onNegativeButtonClick}
+    >
       <div className="relative bg-grayscale-20 pt-5 pb-[30px] px-5 rounded-[5px] min-w-[342px]">
         <div className="pt-[5px] text-center headline2-bold text-grayscale-80">
           {title}

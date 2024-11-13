@@ -79,7 +79,7 @@ export const ReviewDetailPage = () => {
               modules={[FreeMode, Thumbs]}
               className="mb-11"
             >
-              {REVIEW_MOCK_DATA[4].reviewImageList.map((image, index) => (
+              {REVIEW_MOCK_DATA[4].reviewImageList?.map((image, index) => (
                 <SwiperSlide key={index}>
                   <div className="relative">
                     <X
@@ -104,7 +104,7 @@ export const ReviewDetailPage = () => {
                 watchSlidesProgress={true}
                 modules={[FreeMode, Thumbs]}
               >
-                {REVIEW_MOCK_DATA[4].reviewImageList.map((image, index) => (
+                {REVIEW_MOCK_DATA[4].reviewImageList?.map((image, index) => (
                   <SwiperSlide key={index}>
                     <img
                       src={image}
@@ -149,7 +149,7 @@ export const ReviewDetailPage = () => {
           {REVIEW_MOCK_DATA[4].reviewContent}
         </div>
         <div className="flex space-x-[11px] mb-[35px] overflow-scroll scrollbar-hide">
-          {REVIEW_MOCK_DATA[4].reviewImageList.map((image, index) => (
+          {REVIEW_MOCK_DATA[1].reviewImageList?.map((image, index) => (
             <img
               onClick={() => {
                 handleImageClick();
