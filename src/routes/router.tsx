@@ -1,26 +1,29 @@
+import Layout from "@/components/Layout";
+import RoutePath from "./routePath";
+import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
+import ScrollTop from "@/components/common/ScrollTop";
+
 import { TosPage } from "@/pages/Tos/page";
 import { LoginPage } from "@/pages/Login/page";
 import { NicknameCreatePage } from "@/pages/Onboarding/UserRegistration/Nickname/page";
-import { createBrowserRouter, Outlet, RouteObject } from "react-router-dom";
 import { MainPage } from "@/pages/Main/page";
-import RoutePath from "./routePath";
 import { CompleteRegistrationPage } from "@/pages/Onboarding/CompleteRegistration/page";
 import { SelectProfilePage } from "@/pages/Onboarding/UserRegistration/Profile/page";
 import { SelectPricePage } from "@/pages/Onboarding/UserRegistration/Price/page";
 import { SelectLocationPage } from "@/pages/Onboarding/UserRegistration/Location/page";
 import { SelectConceptPage } from "@/pages/Onboarding/UserRegistration/Concept/page";
 import { SelectFeaturePage } from "@/pages/Onboarding/UserRegistration/Feature/page";
-import Layout from "@/components/Layout";
 import { ReviewPage } from "@/pages/Review/page";
 import { ReviewDetailPage } from "@/pages/Review/[id]/page";
 import { ShowDetailPage } from "@/pages/ShowDetail/page";
-import ScrollTop from "@/components/common/ScrollTop";
-import { TicketTitlePage } from "@/pages/Ticket/Title/page";
-import { TicketDetailPage } from "@/pages/Ticket/Detail/page";
-import { TicketReviewPage } from "@/pages/Ticket/Review/page";
-import { TicketPage } from "@/pages/Ticket/page";
-import { TicketDownloadPage } from "@/pages/Ticket/Download/page";
 import { BrowsePage } from "@/pages/Browse/page";
+import { ClacoBookPage } from "@/pages/TicketBook/page";
+import { ClacoBookDetailPage } from "@/pages/TicketBook/[id]/page";
+import { TicketInfoPage } from "@/pages/TicketCreate/Info/page";
+import { TicketSearchPage } from "@/pages/TicketCreate/Search/page";
+import { TicketReviewPage } from "@/pages/TicketCreate/Review/page";
+import { TicketDownloadPage } from "@/pages/TicketCreate/Download/page";
+import { ClacoTicketDetailPage } from "@/pages/Ticket/[id]/page";
 
 const routes: RouteObject[] = [
   {
@@ -50,41 +53,15 @@ const routes: RouteObject[] = [
         ],
       },
       {
-        path: RoutePath.Show,
         element: <Layout />,
-        children: [{ index: true, element: <ShowDetailPage /> }],
+        children: [{ path: RoutePath.Main, element: <MainPage /> }],
       },
+      { path: RoutePath.Show, element: <ShowDetailPage /> },
       {
         path: RoutePath.ShowReviews,
         children: [
           { index: true, element: <ReviewPage /> },
-          {
-            path: RoutePath.ShowReviewDetail,
-            element: <ReviewDetailPage />,
-          },
-        ],
-      },
-      {
-        path: RoutePath.Ticket,
-        element: <Layout />,
-        children: [{ index: true, element: <TicketPage /> }],
-      },
-      {
-        path: RoutePath.TicketTitle,
-        children: [
-          { index: true, element: <TicketTitlePage/> },
-          {
-            path: RoutePath.TicketDetail,
-            element: <TicketDetailPage />,
-          },
-          {
-            path: RoutePath.TicketReview,
-            element: <TicketReviewPage />,
-          },
-          {
-            path: RoutePath.TicketDownload,
-            element: <TicketDownloadPage />,
-          },
+          { path: RoutePath.ShowReviewDetail, element: <ReviewDetailPage /> },
         ],
       },
       {
@@ -93,8 +70,20 @@ const routes: RouteObject[] = [
         children: [{ index: true, element: <BrowsePage/> }],
       },
       {
+        path: RoutePath.TicketBook,
         element: <Layout />,
-        children: [{ path: RoutePath.Main, element: <MainPage /> }],
+        children: [{ index: true, element: <ClacoBookPage /> }],
+      },
+      { path: RoutePath.TicketDetail, element: <ClacoTicketDetailPage /> },
+      { path: RoutePath.TicketBookDetail, element: <ClacoBookDetailPage /> },
+      {
+        path: RoutePath.TicketCreate,
+        children: [
+          { path: RoutePath.TicketSearch, element: <TicketSearchPage /> },
+          { path: RoutePath.TicketInfo, element: <TicketInfoPage /> },
+          { path: RoutePath.TicketReview, element: <TicketReviewPage /> },
+          { path: RoutePath.TicketDownload, element: <TicketDownloadPage /> },
+        ],
       },
     ],
   },

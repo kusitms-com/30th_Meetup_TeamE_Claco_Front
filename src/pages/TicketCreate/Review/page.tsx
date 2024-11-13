@@ -3,7 +3,7 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ConfirmButton } from "@/components/common/Button";
-import { accessibilityTags, sightTags, soundTags } from "../const";
+
 import { ReviewInput } from "@/components/Ticket/AudienceReview/ReviewContents";
 import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 import { KeywordTags } from "@/components/Ticket/AudienceReview/KeywordTags";
@@ -12,6 +12,7 @@ import {
   SeatQuestions,
 } from "@/components/Ticket/AudienceReview/ReviewQuestions";
 import { Modal } from "@/components/common/Modal";
+import { accessibilityTags, sightTags, soundTags } from "../const";
 
 export const TicketReviewPage = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ export const TicketReviewPage = () => {
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticket/create/download");
+    navigate("/ticketcreate/download");
   };
 
   useEffect(() => {
@@ -83,7 +84,7 @@ export const TicketReviewPage = () => {
   return (
     <div className="flex flex-col min-h-screen px-6 pt-[46px] pb-[60px]">
       <div className="flex flex-col gap-[33px]">
-        <div className="flex items-center relative justify-center">
+        <div className="relative flex items-center justify-center">
           <BackArrow
             width="9"
             height="18"
@@ -98,12 +99,10 @@ export const TicketReviewPage = () => {
 
       {isModalOpen && (
         <Modal
-          isDualButton={true}
           positiveButtonText="계속하기"
           negativeButtonText="나가기"
           onPositiveButtonClick={handleCloseModal}
-          onNegativeButtonClick={() => navigate("/ticket/create/detail")}
-          onClose={handleCloseModal}
+          onNegativeButtonClick={() => navigate("/ticketbook")}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
             <span className="headline2-bold text-grayscale-80">

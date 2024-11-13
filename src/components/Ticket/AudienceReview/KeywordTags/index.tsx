@@ -1,5 +1,5 @@
 import { ReviewTag } from "@/components/common/ReviewTag";
-import { tagMap } from "@/pages/Ticket/const";
+import { tagMap } from "@/pages/TicketCreate/const";
 import { KeywordTagProps } from "@/types";
 
 export const KeywordTags = ({ selectedTags, onTagClick }: KeywordTagProps) => {

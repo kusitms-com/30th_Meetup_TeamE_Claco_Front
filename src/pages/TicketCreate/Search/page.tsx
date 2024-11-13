@@ -8,7 +8,7 @@ import { SearchCardProps } from "@/types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const TicketTitlePage = () => {
+export const TicketSearchPage = () => {
   const [selectedShow, setSelectedShow] = useState<number | null>(null);
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebouncedState(query, 1000);
@@ -16,11 +16,11 @@ export const TicketTitlePage = () => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/ticket");
+    navigate("/ticketbook");
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticket/create/detail");
+    navigate("/ticketcreate/info");
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -59,7 +59,7 @@ export const TicketTitlePage = () => {
   return (
     <div className="relative flex flex-col h-screen px-6 pt-[46px] pb-[60px]">
       <div className="flex flex-col gap-[33px]">
-        <div className="flex items-center relative justify-center">
+        <div className="relative flex items-center justify-center">
           <BackArrow
             width="9"
             height="18"
