@@ -271,7 +271,3 @@ input[type="range"]::-webkit-slider-thumb {
 .slide-up {
   animation: slideUp 1s ease-out;
 }
-
-.scrollbar-none::-webkit-scrollbar {
-  display: none;
-}

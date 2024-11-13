@@ -72,7 +72,7 @@ export const ShowSummaryCard = ({
           <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#3F3F3F] to-transparent mb-[10px]"></div>
         </div>
 
-        <div className="flex overflow-x-auto whitespace-nowrap space-x-[6px] scrollbar-none">
+        <div className="flex overflow-x-auto whitespace-nowrap space-x-[6px] scrollbar-hide">
           {keywords.map((keyword, index) => (
             <span
               key={index}
