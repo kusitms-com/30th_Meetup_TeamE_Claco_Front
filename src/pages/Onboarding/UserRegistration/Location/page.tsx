@@ -10,11 +10,11 @@ export const SelectLocationPage = () => {
   const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
 
   const handleBackClick = () => {
-    navigate("/create/price");
+    navigate("/create/profile");
   };
 
   const handleConfirmClick = () => {
-    navigate("/create/concept");
+    navigate("/create/price");
   };
 
   const handleLocationClick = (location: string) => {
@@ -31,12 +31,12 @@ export const SelectLocationPage = () => {
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
             <BackArrow className="mb-[1.19rem]" onClick={handleBackClick} />
-            <Progress value={33.33} />
+            <Progress value={22.22} />
           </div>
           <span className="heading1-bold text-grayscale-90">
-            울랄라님의 취향에 맞는
+            맞춤 공연 추천 전,
             <br />
-            클래식 공연을 알아볼까요?
+            울랄라님에 대해 알려주세요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">
@@ -44,7 +44,7 @@ export const SelectLocationPage = () => {
             <span className="body1-medium text-grayscale-60">
               선호하는 공연장 위치를 모두 선택해주세요.
             </span>
-            <div className="slide-up mb-[166px]">
+            <div className="slide-up mb-[160px]">
               <Location
                 selectedLocation={selectedLocation}
                 onLocationClick={handleLocationClick}

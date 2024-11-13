@@ -13,7 +13,7 @@ export const TypeButton = ({
   return (
     <button
       className={cn(
-        `h-screen min-w-[8rem] max-h-[3.5rem] items-center justify-center rounded-[0.31rem] body1-medium ${
+        `min-w-[8rem] items-center justify-center rounded-[0.31rem] body1-medium py-[18px] ${
           isChecked
             ? "bg-grayscale-80 text-dark"
             : "bg-grayscale-30 text-grayscale-80"
@@ -36,7 +36,7 @@ export const ConceptButton = ({
   return (
     <button
       className={cn(
-        `items-center justify-center py-[2rem] rounded-[0.31rem] body1-medium ${
+        `items-center justify-center py-[42px] rounded-[5px] body1-medium ${
           isChecked
             ? "bg-grayscale-80 text-dark"
             : "bg-grayscale-30 text-grayscale-80"

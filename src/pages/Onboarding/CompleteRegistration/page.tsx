@@ -25,20 +25,20 @@ export const CompleteRegistrationPage = () => {
   return (
     <div className="w-full h-screen bg-background-dark">
       {showLoading ? (
-        <div className="flex flex-col w-full h-full px-[20px] pt-[144px] gap-[126px]">
+        <div className="flex flex-col w-full h-full px-6 pt-[144px] gap-[126px]">
           <span className="heading1-bold text-grayscale-90">
-            울랄라님에게 딱 맞는
+            클라코가 달보라님의
             <br />
-            클래식 공연을 찾고 있어요
+            클래식 공연 취향을 분석중이에요
           </span>
           <img src={loading} alt="Loading" />
         </div>
       ) : (
-        <div className="flex flex-col justify-between w-full h-full px-[20px] pt-[144px] pb-[73px]">
+        <div className="flex flex-col justify-between w-full h-full px-6 pt-[144px] pb-[73px]">
           <span className="heading1-bold text-grayscale-90 mb-[88px]">
-            울랄라님에게 딱 맞는
+            클라코와 함께 클래식 경험을 넓혀줄
             <br />
-            클래식 공연을 확인하세요!
+            여정을 시작해보세요!
           </span>
           <div className="flex justify-center items-center px-[29px] pb-[127px]">
             <img
@@ -58,7 +58,7 @@ export const CompleteRegistrationPage = () => {
             />
           </div>
           <ConfirmButton isChecked={true} onClick={gotoMain}>
-            보러가기
+            맞춤 공연 보러가기
           </ConfirmButton>
         </div>
       )}

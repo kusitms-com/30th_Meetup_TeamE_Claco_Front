@@ -6,17 +6,17 @@ export const Concept = ({ selectedConcept, onConceptClick }: ConceptProps) => {
     <div className="flex flex-col gap-[0.75rem]">
       <ConceptButton
         isChecked={selectedConcept.includes(
-          "음악 자체에 깊이 집중할 수 있는 클래식 공연이 좋아요.",
+          "악기나 성악, 오페라 등 음악 자체에 깊이 집중할 수 있는 클래식 공연이 좋아요.",
         )}
         onClick={() =>
           onConceptClick(
-            "음악 자체에 깊이 집중할 수 있는 클래식 공연이 좋아요.",
+            "악기나 성악, 오페라 등 음악 자체에 깊이 집중할 수 있는 클래식 공연이 좋아요.",
           )
         }
       >
-        음악 자체에 깊이 집중할 수 있는
+        악기나 성악, 오페라 등 음악 자체에
         <br />
-        클래식 공연이 좋아요.
+        깊이 집중할 수 있는 클래식 공연이 좋아요.
       </ConceptButton>
       <ConceptButton
         isChecked={selectedConcept.includes(

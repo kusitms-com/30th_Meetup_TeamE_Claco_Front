@@ -11,11 +11,11 @@ export const SelectPricePage = () => {
   const [maxPrice, setMaxPrice] = useState<number>(1000000);
 
   const handleBackClick = () => {
-    navigate("/create/profile");
+    navigate("/create/location");
   };
 
   const handleConfirmClick = () => {
-    navigate("/create/location");
+    navigate("/create/concept");
   };
 
   return (
@@ -24,12 +24,12 @@ export const SelectPricePage = () => {
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
             <BackArrow className="mb-[1.19rem]" onClick={handleBackClick} />
-            <Progress value={22.22} />
+            <Progress value={33.33} />
           </div>
           <span className="heading1-bold text-grayscale-90">
-            울랄라님의 취향에 맞는
+            맞춤 공연 추천 전,
             <br />
-            클래식 공연을 알아볼까요?
+            울랄라님에 대해 알려주세요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">

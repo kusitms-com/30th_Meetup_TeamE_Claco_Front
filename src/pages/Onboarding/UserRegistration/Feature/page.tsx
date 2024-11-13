@@ -11,6 +11,7 @@ export const SelectFeaturePage = () => {
   const [progressValue, setProgressValue] = useState<number>(55.55);
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [selectedAllFeature, setSelectedAllFeature] = useState<string[]>([]);
+  const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const navigate = useNavigate();
 
@@ -27,11 +28,16 @@ export const SelectFeaturePage = () => {
     setSelectedFeature(feature);
     setSelectedAllFeature((prevFeatures) => [...prevFeatures, feature]);
 
-    if (currentStep < features.length - 2) {
-      setCurrentStep((prevStep) => prevStep + 2);
-      setSelectedFeature(null);
-
-      setProgressValue((prevValue) => Math.min(prevValue + 11.11, 100));
+    if (progressValue !== 99.99) {
+      setIsWaiting(true);
+      setTimeout(() => {
+        if (currentStep < features.length - 2) {
+          setCurrentStep((prevStep) => prevStep + 2);
+          setSelectedFeature(null);
+          setProgressValue((prevValue) => Math.min(prevValue + 11.11, 100));
+        }
+        setIsWaiting(false);
+      }, 500);
     }
   };
 
@@ -44,7 +50,7 @@ export const SelectFeaturePage = () => {
 
   return (
     <div className="w-full h-screen overflow-y-auto bg-background-dark flex flex-col">
-      <div className="flex flex-col flex-grow w-full h-auto px-[24px] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
+      <div className="flex flex-col flex-grow w-full h-auto px-6 pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
             <BackArrow className="mb-[1.19rem]" onClick={handleBackClick} />
@@ -53,7 +59,7 @@ export const SelectFeaturePage = () => {
           <span className="heading1-bold text-grayscale-90">
             울랄라님의 취향에 맞는
             <br />
-            클래식 공연을 알아볼까요?
+            클래식 공연을 추천드릴게요
           </span>
         </div>
 
@@ -95,9 +101,9 @@ export const SelectFeaturePage = () => {
           </div>
 
           <ConfirmButton
-            isChecked={!!selectedFeature}
+            isChecked={!!selectedFeature && progressValue === 99.99}
             onClick={handleNextClick}
-            disabled={!selectedFeature}
+            disabled={!selectedFeature || isWaiting}
           >
             다음
           </ConfirmButton>
