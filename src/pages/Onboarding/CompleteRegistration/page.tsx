@@ -1,7 +1,5 @@
 import loading from "@/assets/images/loading.gif";
-import poster10 from "@/assets/images/poster10.gif";
-import poster6 from "@/assets/images/poster6.gif";
-import poster5 from "@/assets/images/poster5.gif";
+import { ReactComponent as CompletePreference} from "@/assets/svgs/CompletePreference.svg";
 import { useEffect, useState } from "react";
 import { ConfirmButton } from "@/components/common/Button";
 import { useNavigate } from "react-router-dom";
@@ -40,22 +38,8 @@ export const CompleteRegistrationPage = () => {
             <br />
             여정을 시작해보세요!
           </span>
-          <div className="flex justify-center items-center px-[29px] pb-[127px]">
-            <img
-              src={poster10}
-              alt="Loading"
-              className="min-w-[170px] max-h-[242px] rounded-[5px] opacity-50"
-            />
-            <img
-              src={poster6}
-              alt="Loading"
-              className="absolute z-10 min-w-[220px] max-h-[300px] rounded-[5px]"
-            />
-            <img
-              src={poster5}
-              alt="Loading"
-              className="min-w-[170px] max-h-[242px] rounded-[5px] opacity-50"
-            />
+          <div className="flex items-center justify-center mb-[127px]">
+            <CompletePreference/>
           </div>
           <ConfirmButton isChecked={true} onClick={gotoMain}>
             맞춤 공연 보러가기
