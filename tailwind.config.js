@@ -15,7 +15,7 @@ export default {
       },
       fontFamily: {
         pretendard: ["Pretendard"],
-        unicaOne: ["UnicaOne"],
+        Nonchalance: ["Nonchalance"],
       },
       height: {
         "real-screen": "calc(var(--vh) * 100)",

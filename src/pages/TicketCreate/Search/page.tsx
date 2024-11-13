@@ -3,26 +3,28 @@ import { ConfirmButton } from "@/components/common/Button";
 import { SearchBar } from "@/components/common/Search/Bar";
 import { SearchCard } from "@/components/common/Search/Card";
 import { Progress } from "@/components/ui/progress";
+import { useDebouncedState } from "@/hooks/useDebouncedState";
 import { SearchCardProps } from "@/types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-export const TicketTitlePage = () => {
+export const TicketSearchPage = () => {
   const [selectedShow, setSelectedShow] = useState<number | null>(null);
-  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [query, setQuery] = useState<string>("");
+  const debouncedQuery = useDebouncedState(query, 1000);
 
   const navigate = useNavigate();
 
   const handleBackClick = () => {
-    navigate("/ticket");
+    navigate("/ticketbook");
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticket/create/detail");
+    navigate("/ticketcreate/info");
   };
 
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSearchQuery(e.target.value);
+    setQuery(e.target.value);
   };
 
   const handleShowClick = (id: number) => {
@@ -51,13 +53,13 @@ export const TicketTitlePage = () => {
   ];
 
   const filteredShows = shows.filter((show) =>
-    show.title.toLowerCase().includes(searchQuery.toLowerCase()),
+    show.title.toLowerCase().includes(debouncedQuery.toLowerCase()),
   );
 
   return (
     <div className="relative flex flex-col h-screen px-6 pt-[46px] pb-[60px]">
       <div className="flex flex-col gap-[33px]">
-        <div className="flex items-center relative justify-center">
+        <div className="relative flex items-center justify-center">
           <BackArrow
             width="9"
             height="18"
@@ -68,14 +70,14 @@ export const TicketTitlePage = () => {
           <span className="headline2-bold text-grayscale-80">티켓 등록</span>
         </div>
         <Progress value={30} />
-        <SearchBar value={searchQuery} onChange={handleSearchChange}>
+        <SearchBar value={query} onChange={handleSearchChange}>
           관람한 공연을 검색해주세요
         </SearchBar>
       </div>
 
       <div className="flex-grow overflow-y-auto mt-[20px]">
         <div
-          className={`flex flex-col gap-[11px] ${searchQuery === "" ? "hidden" : ""}`}
+          className={`flex flex-col gap-[11px] ${query === "" ? "hidden" : ""}`}
         >
           {filteredShows.map((show) => (
             <SearchCard

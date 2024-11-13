@@ -24,13 +24,23 @@ const RoutePath = {
   ShowReviews: "/show/:id/reviews",
   ShowReviewDetail: "/show/:id/reviews/:reviewId",
 
-  /*티켓 등록 페이지 */
-  Ticket: "/ticket",
-  TicketTitle: "/ticket/create",
-  TicketDetail: "/ticket/create/detail",
-  TicketReview: "/ticket/create/review",
-  TicketDownload: "/ticket/create/download",
-  
+  /*둘러보기 페이지 */
+  Browse: "/browse",
+
+  /*클라코북 페이지 */
+  TicketBook: "/ticketbook",
+  TicketBookDetail: "/ticketbook/:id",
+
+  /*클라코 티켓 페이지 */
+  TicketDetail: "/ticket/:id",
+
+  /*클라코 티켓 등록 페이지 */
+  TicketCreate: "/ticketcreate",
+  TicketSearch: "/ticketcreate/search",
+  TicketInfo: "/ticketcreate/info",
+  TicketReview: "/ticketcreate/review",
+  TicketDownload: "/ticketcreate/download",
+
   /*마이 페이지 */
   MyPage: "/mypage",
 } as const;

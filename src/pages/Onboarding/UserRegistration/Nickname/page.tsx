@@ -28,7 +28,7 @@ export const NicknameCreatePage = () => {
         <div className="flex-col">
           <BackArrow className="mb-[3.12rem]" onClick={handleBackClick} />
           <span className="heading1-bold text-grayscale-80">
-            닉네임을 등록해주세요
+            사용하실 닉네임을 알려주세요
           </span>
           <div className="flex flex-col mt-[1.62rem] gap-[0.81rem]">
             <Nickname isChecked={isChecked} setIsChecked={setIsChecked} setNickname={setNickname} />

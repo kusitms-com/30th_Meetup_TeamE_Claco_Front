@@ -31,8 +31,12 @@ const REVIEW_MOCK_DATA: REVIEW_MOCK_DATA_type[] = [
 ];
 
 export const TicketRecommend = () => {
-  const [touchStart, setTouchStart] = useState<number | null>(null);
-  const [touchEnd, setTouchEnd] = useState<number | null>(null);
+  const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
+    null
+  );
+  const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(
+    null
+  );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
   const [reviewContent, setReviewContent] = useState(REVIEW_MOCK_DATA[0]);
@@ -40,19 +44,34 @@ export const TicketRecommend = () => {
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    setTouchStart({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
   };
 
   const handleTouchMove = (e: TouchEvent<HTMLDivElement>) => {
-    setTouchEnd(e.targetTouches[0].clientX);
+    setTouchEnd({
+      x: e.targetTouches[0].clientX,
+      y: e.targetTouches[0].clientY,
+    });
   };
 
   const handleTouchEnd = () => {
     if (!touchStart || !touchEnd) return;
 
-    const distance = touchStart - touchEnd;
-    const isLeftSwipe = distance > 0;
-    const isRightSwipe = distance < 0;
+    const xDistance = touchStart.x - touchEnd.x;
+    const yDistance = Math.abs(touchStart.y - touchEnd.y);
+
+    if (yDistance > Math.abs(xDistance)) {
+      return;
+    }
+
+    const minSwipeDistance = 50;
+    const isLeftSwipe = xDistance > minSwipeDistance;
+    const isRightSwipe = xDistance < -minSwipeDistance;
+
+    if (!isLeftSwipe && !isRightSwipe) return;
 
     setIsReviewVisible(false);
 
@@ -85,11 +104,11 @@ export const TicketRecommend = () => {
       position < -1 ? position + 3 : position > 1 ? position - 3 : position;
 
     if (normalizedPosition === 0) {
-      return `${baseStyle} left-1/2 -translate-x-1/2 z-30 scale-100 opacity-100`;
+      return `${baseStyle} left-1/2 -translate-x-1/2 z-40 scale-100 opacity-100`;
     } else if (normalizedPosition === 1) {
-      return `${baseStyle} left-[110%] -translate-x-1/2 z-20 scale-75 opacity-30`;
+      return `${baseStyle} left-[115%] -translate-x-1/2 z-20 scale-100 opacity-30`;
     } else {
-      return `${baseStyle} left-[-10%] -translate-x-1/2 z-10 scale-75 opacity-30`;
+      return `${baseStyle} left-[-15%] -translate-x-1/2 z-10 scale-100 opacity-30`;
     }
   };
 
@@ -109,7 +128,7 @@ export const TicketRecommend = () => {
             <ClacoTicket data={review} />
           </div>
         ))}
-        <div className="z-50 absolute bottom-0 w-screen h-[186px] bg-gradient-to-t from-[#8F9AF8]/100 to-[#1C1C1C]/0 opacity-50" />
+        <div className="z-30 absolute bottom-0 w-screen h-[186px] bg-gradient-to-t from-[#8F9AF8]/100 to-[#1C1C1C]/0 opacity-50" />
       </div>
 
       {/* 리뷰 영역 */}

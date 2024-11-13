@@ -17,7 +17,7 @@ export const SelectProfilePage = () => {
   };
 
   const handleConfirmClick = () => {
-    navigate("/create/price");
+    navigate("/create/location");
   };
 
   return (
@@ -29,9 +29,9 @@ export const SelectProfilePage = () => {
             <Progress value={11.11} />
           </div>
           <span className="heading1-bold text-grayscale-90">
-            울랄라님의 취향에 맞는
+            맞춤 공연 추천 전,
             <br />
-            클래식 공연을 알아볼까요?
+            울랄라님에 대해 알려주세요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">
