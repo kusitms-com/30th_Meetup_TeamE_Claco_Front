@@ -83,8 +83,8 @@ export const Calendar = ({
   };
 
   return (
-    <div className="mx-auto flex-col items-center justify-center bg-grayscale-20 py-[23px] px-8 rounded-[5px]">
-      <div className="flex justify-between items-center mb-[35px]">
+    <div className="flex flex-col items-center justify-center bg-grayscale-20 py-[23px] px-8 rounded-[5px]">
+      <div className="w-full flex justify-between items-center mb-[35px]">
         <BackArrow
           width="18"
           height="18"
@@ -104,43 +104,68 @@ export const Calendar = ({
         />
       </div>
 
-      <div className="grid grid-cols-7 place-items-center">
-        {getCalendarDays().map((day, index) => {
-          const date = day ? new Date(getYear(), getMonth(), day) : null;
-          const isInRange = mode === "single" && date && isDateInRange(date);
-          const isSelected =
-            mode === "single" &&
-            date &&
-            selectedDate &&
-            selectedDate.toDateString() === date.toDateString();
-          const isWithinRange =
-            mode === "range" && date && isWithinSelectedRange(date);
-          const isRangeStart =
-            mode === "range" &&
-            date &&
-            internalRangeStart &&
-            date.toDateString() === internalRangeStart.toDateString();
-          const isRangeEnd =
-            mode === "range" &&
-            date &&
-            internalRangeEnd &&
-            date.toDateString() === internalRangeEnd.toDateString();
+      <table
+        className="text-center w-full"
+        style={{ borderCollapse: "collapse" }}
+      >
+        <tbody>
+          {(() => {
+            const days = getCalendarDays();
+            const rows = [];
+            for (let i = 0; i < days.length; i += 7) {
+              const week = days.slice(i, i + 7);
+              rows.push(
+                <tr key={i}>
+                  {week.map((day, index) => {
+                    const date = day
+                      ? new Date(getYear(), getMonth(), day)
+                      : null;
+                    const isInRange =
+                      mode === "single" && date && isDateInRange(date);
+                    const isSelected =
+                      mode === "single" &&
+                      date &&
+                      selectedDate &&
+                      selectedDate.toDateString() === date.toDateString();
+                    const isWithinRange =
+                      mode === "range" && date && isWithinSelectedRange(date);
+                    const isRangeStart =
+                      mode === "range" &&
+                      date &&
+                      internalRangeStart &&
+                      date.toDateString() === internalRangeStart.toDateString();
+                    const isRangeEnd =
+                      mode === "range" &&
+                      date &&
+                      internalRangeEnd &&
+                      date.toDateString() === internalRangeEnd.toDateString();
 
-          return (
-            <CalendarDay
-              mode={mode}
-              key={index}
-              day={day}
-              isSelected={!!isSelected}
-              isInRange={!!isInRange}
-              isWithinRange={!!isWithinRange}
-              isRangeStart={!!isRangeStart}
-              isRangeEnd={!!isRangeEnd}
-              onClick={() => day && handleDateClick(day)}
-            />
-          );
-        })}
-      </div>
+                    return (
+                      <td key={index} className="p-0">
+                        {day ? (
+                          <CalendarDay
+                            mode={mode}
+                            day={day}
+                            isSelected={!!isSelected}
+                            isInRange={!!isInRange}
+                            isWithinRange={!!isWithinRange}
+                            isRangeStart={!!isRangeStart}
+                            isRangeEnd={!!isRangeEnd}
+                            onClick={() => handleDateClick(day)}
+                          />
+                        ) : (
+                          <div className="h-full" />
+                        )}
+                      </td>
+                    );
+                  })}
+                </tr>,
+              );
+            }
+            return rows;
+          })()}
+        </tbody>
+      </table>
     </div>
   );
 };

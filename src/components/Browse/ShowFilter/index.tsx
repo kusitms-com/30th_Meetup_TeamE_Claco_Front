@@ -76,7 +76,7 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
 
   return (
     <div className="fixed inset-0 flex justify-center items-center z-50">
-      <div className="px-6 pt-[46px] pb-[100px] h-screen bg-dark overflow-y-auto">
+      <div className="px-6 pt-[46px] pb-[100px] max-w-[450px] w-full h-screen bg-dark overflow-y-auto">
         <div className="flex items-center justify-between mb-10">
           <Refresh
             width="18"
