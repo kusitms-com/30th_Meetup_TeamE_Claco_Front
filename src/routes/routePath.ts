@@ -24,6 +24,9 @@ const RoutePath = {
   ShowReviews: "/show/:id/reviews",
   ShowReviewDetail: "/show/:id/reviews/:reviewId",
 
+  /*둘러보기 페이지 */
+  Browse: "/browse",
+
   /*클라코북 페이지 */
   TicketBook: "/ticketbook",
   TicketBookDetail: "/ticketbook/:id",

@@ -1,6 +1,7 @@
 export type SearchBarProps = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
   children: string;
 };
 

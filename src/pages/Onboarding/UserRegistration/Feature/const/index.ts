@@ -43,14 +43,14 @@ export const features: FeatureType[] = [
     image: modern,
   },
   {
-    title: "서정적인",
-    description: ["감정적으로 부드럽고 서정적인", "음악과 무대"],
-    image: lyrical,
-  },
-  {
     title: "역동적인",
     description: ["강한 움직임과 템포가 특징인", "빠르고 에너지 넘치는 공연"],
     image: dynamic,
+  },
+  {
+    title: "서정적인",
+    description: ["감정적으로 부드럽고 서정적인", "음악과 무대"],
+    image: lyrical,
   },
   {
     title: "낭만적인",
