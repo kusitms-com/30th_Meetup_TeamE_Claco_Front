@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { CalendarProps } from "@/types";
 import { CalendarDay } from "./CalendarDay";
@@ -26,13 +26,14 @@ export const Calendar = ({
 
   const startOfMonth = new Date(getYear(), getMonth(), 1);
   const endOfMonth = new Date(getYear(), getMonth() + 1, 0);
-
   const startDay = startOfMonth.getDay();
 
-  const changeMonth = (months: number) => {
-    setCurrentDate(new Date(getYear(), getMonth() + months, 1));
-  };
+  useEffect(() => {
+    setInternalRangeStart(rangeStart);
+    setInternalRangeEnd(rangeEnd);
+  }, [rangeStart, rangeEnd]);
 
+  // single mode: 티켓 등록, range mode: 둘러보기
   const handleDateClick = (day: number) => {
     const date = new Date(getYear(), getMonth(), day);
 
@@ -66,6 +67,10 @@ export const Calendar = ({
       days.push(day);
     }
     return days;
+  };
+
+  const changeMonth = (months: number) => {
+    setCurrentDate(new Date(getYear(), getMonth() + months, 1));
   };
 
   const isDateInRange = (date: Date) => {

@@ -71,6 +71,13 @@ export const BrowsePage = () => {
   const [dateRange, setDateRange] = useState<string>("");
   const [selectedFeature, setSelectedFeature] = useState<string>("");
 
+  const handleBackClick = () => {
+    setQuery("");
+    setShowSearchResults(false);
+    setSelectedShow(null);
+    setShowAllResults(false);
+  };
+
   const handleSearchChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value.trim());
     setShowSearchResults(e.target.value.trim().length > 0);
@@ -79,7 +86,7 @@ export const BrowsePage = () => {
   };
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter" && filteredData.length === 0) {
+    if (e.key === "Enter") {
       setShowAllResults(true);
       setShowSearchResults(false);
     }
@@ -103,6 +110,13 @@ export const BrowsePage = () => {
     setShowFilter(false);
   };
 
+  const handleRefreshClick = () => {
+    setPriceRange("");
+    setSelectedLocation("");
+    setDateRange("");
+    setSelectedFeature("");
+  };
+
   const applyFilter = (
     price: string,
     location: string,
@@ -114,19 +128,6 @@ export const BrowsePage = () => {
     setDateRange(date);
     setSelectedFeature(feature);
     closeFilter();
-  };
-
-  const handleRefreshClick = () => {
-    setPriceRange("");
-    setSelectedLocation("");
-    setDateRange("");
-    setSelectedFeature("");
-  };
-
-  const handleBackClick = () => {
-    setQuery("");
-    setShowSearchResults(false);
-    setSelectedShow(null);
   };
 
   const [showData, setShowData] = useState<Show[]>(
@@ -171,7 +172,9 @@ export const BrowsePage = () => {
     <div className="px-6 pb-[110px] min-h-screen relative">
       <div className="flex flex-col items-center justify-center">
         <div className="mt-[46px] mb-[30px] flex items-center relative w-full justify-center">
-          {(showAllResults || selectedShow || filteredData.length === 0) && (
+          {(showAllResults ||
+            selectedShow ||
+            (debouncedQuery && showSearchResults)) && (
             <BackArrow
               onClick={handleBackClick}
               className="absolute left-0 cursor-pointer"
@@ -209,6 +212,7 @@ export const BrowsePage = () => {
             )}
         </div>
       </div>
+
       {!debouncedQuery && !selectedShow && !showAllResults && (
         <>
           <ShowFilterTab
