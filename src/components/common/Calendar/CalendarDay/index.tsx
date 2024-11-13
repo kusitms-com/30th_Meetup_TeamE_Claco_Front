@@ -11,7 +11,7 @@ export const CalendarDay = ({
   onClick,
 }: CalendarDayProps) => {
   return (
-    <div className="w-full relative flex items-center justify-center w-9 h-9 my-3">
+    <div className="w-full relative flex items-center justify-center w-9 h-9 my-[5px]">
       {isWithinRange && (
         <div
           className={`absolute inset-0 z-30 bg-grayscale-30 ${
