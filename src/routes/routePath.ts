@@ -25,15 +25,18 @@ const RoutePath = {
   ShowReviewDetail: "/show/:id/reviews/:reviewId",
 
   /*클라코북 페이지 */
-  ClacoBook: "/ticketbook",
-  ClacoBookDetail: "/ticketbook/:id",
-  ClacoTicketDetail: "/ticketbook/:id/:tId",
+  TicketBook: "/ticketbook",
+  TicketBookDetail: "/ticketbook/:id",
 
-  Ticket: "/ticketbook/ticket",
-  TicketSearch: "/ticketbook/ticket/search",
-  TicketDetail: "/ticketbook/ticket/detail",
-  TicketReview: "/ticketbook/ticket/review",
-  TicketDownload: "/ticketbook/ticket/download",
+  /*클라코 티켓 페이지 */
+  TicketDetail: "/ticket/:id",
+
+  /*클라코 티켓 등록 페이지 */
+  TicketCreate: "/ticketcreate",
+  TicketSearch: "/ticketcreate/search",
+  TicketInfo: "/ticketcreate/info",
+  TicketReview: "/ticketcreate/review",
+  TicketDownload: "/ticketcreate/download",
 } as const;
 
 export default RoutePath;

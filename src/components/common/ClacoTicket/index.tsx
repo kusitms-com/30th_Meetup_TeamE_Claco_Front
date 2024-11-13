@@ -23,20 +23,22 @@ export const ClacoTicket = ({ data }: ClacoTicketProps) => {
   ];
 
   return (
-    <div className="relative">
+    <div className="relative w-[213px] h-[471px]">
       <img
         src={Image}
         alt="claco book 포스터 이미지"
         className="absolute top-[7.54px] left-[7px] w-[199px] h-[266px] rounded-[5px]"
       />
-      <div className="absolute bottom-[105px] left-[40.5px]">
-        <div className="flex flex-col">
-          <div className="font-Nonchalance text-dark text-[26.31px]">
-            2024. 10. 16
+      <div className="absolute bottom-[110px]">
+        <div className="flex-col w-[213px] text-dark">
+          <div className="text-center font-Nonchalance text-[26px]">
+            2024. 09. 28
           </div>
-          <div className="text-center font-medium text-[10px] text-dark">
-            <div>{data.title}</div>
-            <div>LG ART CENTER</div>
+          <div className="text-center font-medium text-[10px]">
+            {data.title}
+          </div>
+          <div className="text-center font-medium text-[10px]">
+            LG ART CENTER
           </div>
         </div>
       </div>

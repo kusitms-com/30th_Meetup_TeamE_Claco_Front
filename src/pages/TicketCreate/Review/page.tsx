@@ -12,7 +12,7 @@ import {
   SeatQuestions,
 } from "@/components/Ticket/AudienceReview/ReviewQuestions";
 import { Modal } from "@/components/common/Modal";
-import { accessibilityTags, sightTags, soundTags } from "../../const";
+import { accessibilityTags, sightTags, soundTags } from "../const";
 
 export const TicketReviewPage = () => {
   const navigate = useNavigate();
@@ -55,7 +55,7 @@ export const TicketReviewPage = () => {
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticketbook/ticket/download");
+    navigate("/ticketcreate/download");
   };
 
   useEffect(() => {
@@ -102,7 +102,7 @@ export const TicketReviewPage = () => {
           positiveButtonText="계속하기"
           negativeButtonText="나가기"
           onPositiveButtonClick={handleCloseModal}
-          onNegativeButtonClick={() => navigate("/ticketbook/ticket/detail")}
+          onNegativeButtonClick={() => navigate("/ticketbook")}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
             <span className="headline2-bold text-grayscale-80">

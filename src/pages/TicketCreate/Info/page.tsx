@@ -10,7 +10,7 @@ import { Calendar } from "@/components/common/Calendar";
 import { SearchCard } from "@/components/common/Search/Card";
 import { Modal } from "@/components/common/Modal";
 
-export const TicketDetailPage = () => {
+export const TicketInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
@@ -27,7 +27,7 @@ export const TicketDetailPage = () => {
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticketbook/ticket/review");
+    navigate("/ticketcreate/review");
   };
 
   const showTimesByDate: { [key: string]: { time: string }[] } = {
