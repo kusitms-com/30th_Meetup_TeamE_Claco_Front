@@ -36,7 +36,7 @@ export const SelectConceptPage = () => {
           <span className="heading1-bold text-grayscale-90">
             울랄라님의 취향에 맞는
             <br />
-            클래식 공연을 알아볼까요?
+            클래식 공연을 추천드릴게요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">

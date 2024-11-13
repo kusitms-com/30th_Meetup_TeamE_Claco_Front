@@ -26,7 +26,7 @@ export const Profile = ({
           </TypeButton>
         </div>
       </div>
-      <div className="flex flex-col gap-[0.87em] mb-[56px]">
+      <div className="flex flex-col gap-[0.87em] mb-[47px]">
         <span className="body1-medium text-grayscale-80">연령대</span>
         <div className="grid grid-cols-2 gap-[0.62rem]">
           {["10대", "20대", "30대", "40대", "50대", "60대 이상"].map((age) => (

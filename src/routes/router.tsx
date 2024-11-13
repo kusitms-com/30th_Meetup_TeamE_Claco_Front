@@ -16,6 +16,7 @@ import { SelectFeaturePage } from "@/pages/Onboarding/UserRegistration/Feature/p
 import { ReviewPage } from "@/pages/Review/page";
 import { ReviewDetailPage } from "@/pages/Review/[id]/page";
 import { ShowDetailPage } from "@/pages/ShowDetail/page";
+import { BrowsePage } from "@/pages/Browse/page";
 import { ClacoBookPage } from "@/pages/TicketBook/page";
 import { ClacoBookDetailPage } from "@/pages/TicketBook/[id]/page";
 import { TicketInfoPage } from "@/pages/TicketCreate/Info/page";
@@ -62,6 +63,11 @@ const routes: RouteObject[] = [
           { index: true, element: <ReviewPage /> },
           { path: RoutePath.ShowReviewDetail, element: <ReviewDetailPage /> },
         ],
+      },
+      {
+        path: RoutePath.Browse,
+        element: <Layout />,
+        children: [{ index: true, element: <BrowsePage/> }],
       },
       {
         path: RoutePath.TicketBook,
