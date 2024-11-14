@@ -1,13 +1,9 @@
 import { ReactComponent as Book } from "@/assets/svgs/Book.svg";
 import { Genre } from "@/components/common/Genre";
-
-export type Categories = {
-  imgURL: string;
-  category: string;
-};
+import { GenreTag } from "@/types";
 
 export type PerformacneAttributesProps = {
-  categories: Categories[];
+  categories: GenreTag[];
   title: string;
 };
 
@@ -22,11 +18,11 @@ export const PerformanceAttributes = ({
         <span className="headline2-bold">{title}</span>
       </div>
       <div className="flex justify-between px-[13px]">
-        {categories.map((item, index) => (
+        {categories.map((item) => (
           <Genre
-            key={index}
-            genreType={item.imgURL}
-            genreKeyword={item.category}
+            key={item.tagCategoryId}
+            genreType={item.iconUrl}
+            genreKeyword={item.tagName}
             className="caption-12 text-common-white w-[43px] h-[43px]"
           />
         ))}

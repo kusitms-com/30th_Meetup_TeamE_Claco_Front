@@ -2,33 +2,24 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ReactComponent as Trash } from "@/assets/svgs/trash.svg";
 import { ReactComponent as Edit } from "@/assets/svgs/Edit.svg";
 import { ReactComponent as Star } from "@/assets/svgs/StarRating.svg";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useThumbnailModal } from "@/hooks/useThumbnailModal";
+
 import { DeleteClacoTicketModal } from "@/components/Ticket/Modal/Delete/ClacoTicket";
 import { CategoryTag } from "@/components/common/CategoryTag";
-import ClacoTicketImage1 from "@/assets/images/MyClacoTicket1.png";
 import { PerformanceAttributes } from "@/components/Ticket/PerformanceAttributes";
-
-import grand from "@/assets/images/Genre/grand.png";
-import delicate from "@/assets/images/Genre/delicate.png";
-import classical from "@/assets/images/Genre/classical.png";
-import modern from "@/assets/images/Genre/modern.png";
-import lyrical from "@/assets/images/Genre/lyrical.png";
-import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
 import { ReviewTag } from "@/components/common/ReviewTag";
 import { Modal } from "@/components/common/Modal";
-import { useThumbnailModal } from "@/hooks/useThumbnailModal";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
-import { useState } from "react";
 
+import ClacoTicketImage1 from "@/assets/images/MyClacoTicket1.png";
+import { TICKET_REVIEW_MOCK_DATA } from "@/components/Ticket/const";
 export const ClacoTicketDetailPage = () => {
-  const USER_GENRE = [
-    { imgURL: grand, category: "grand" },
-    { imgURL: delicate, category: "delicate" },
-    { imgURL: classical, category: "classical" },
-    { imgURL: modern, category: "modern" },
-    { imgURL: lyrical, category: "lyrical" },
-  ];
   const { id } = useParams();
+  const ticketId = Number(id) - 1;
+  const ticketReviewList = TICKET_REVIEW_MOCK_DATA[ticketId];
+
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [viewingSeat, setViewingSeat] = useState<string>("");
@@ -58,7 +49,7 @@ export const ClacoTicketDetailPage = () => {
         isAnimating={isAnimating}
         thumbsSwiper={thumbsSwiper}
         selectIndex={selectIndex}
-        images={REVIEW_MOCK_DATA[4].reviewImageList as string[]}
+        images={ticketReviewList.imageUrlS.map((image) => image.imageUrl)}
         onClose={handleImageClick}
         setThumbsSwiper={setThumbsSwiper}
       />
@@ -81,13 +72,13 @@ export const ClacoTicketDetailPage = () => {
       </div>
       <div className="w-full h-[154px] bg-grayscale-20 px-[27px] pt-[18px] pb-[45px] rounded-[5px] mb-12">
         <PerformanceAttributes
-          categories={USER_GENRE}
+          categories={ticketReviewList.concertTags}
           title={"공연을 보며 이런 느낌이 떠올랐어요"}
         />
       </div>
-      <div className="flex flex-col w-full space-y-5">
-        <div className="flex items-center justify-start gap-[5px]">
-          <div className="headlin2-bold">나의 공연 감상</div>
+      <div className="flex flex-col w-full">
+        <div className="flex items-center justify-start gap-[5px] mb-5">
+          <div className="headline2-bold">나의 공연 감상</div>
           <Edit
             viewBox="0 0 18 18"
             width={14}
@@ -96,36 +87,34 @@ export const ClacoTicketDetailPage = () => {
             onClick={gotoTicketReviewEdit}
           />
         </div>
-        <div className="flex justify-between">
+        <div className="flex justify-between mb-5">
           <div className="flex items-center gap-[3px] text-secondary2-100/100">
             <Star />
             <div className="body2-medium">4.0</div>
           </div>
           <div className="caption-12 text-grayscale-50">2024.11.11 작성</div>
         </div>
-        <div className="mb-4 body2-medium">
-          {REVIEW_MOCK_DATA[4].reviewContent}
-        </div>
-        <div className="flex space-x-[11px] mb-[35px] overflow-scroll scrollbar-hide">
-          {REVIEW_MOCK_DATA[1].reviewImageList?.map((image, index) => (
+        <div className="mb-4 body2-medium">{ticketReviewList.content}</div>
+        <div className="flex space-x-[11px] mb-[35px]">
+          {ticketReviewList.imageUrlS?.map((image, index) => (
             <img
               onClick={() => {
                 handleImageClick();
                 setSelectIndex(index);
               }}
               key={index}
-              src={image}
+              src={image.imageUrl}
               alt="리뷰 이미지"
               className="min-w-[90px] max-h-[90px] rounded-[5px]"
             />
           ))}
         </div>
         <div className="mb-[60px]">
-          <div className="headline2- mb-[15px]">공연장</div>
+          <div className="headline2-bold mb-[15px]">공연장</div>
           <div className="flex flex-wrap justify-start gap-x-2 gap-y-4">
-            {REVIEW_MOCK_DATA[4].locationReview.map((lReview, index) => (
-              <ReviewTag key={index} isPlace={true}>
-                {lReview}
+            {ticketReviewList.placeReviews.map((lReview) => (
+              <ReviewTag key={lReview.placeCategoryId} isPlace={true}>
+                {lReview.categoryName}
               </ReviewTag>
             ))}
           </div>
@@ -134,20 +123,39 @@ export const ClacoTicketDetailPage = () => {
           <div className="mb-5 headline2-bold">관람 정보</div>
           <div className="grid grid-cols-[100px_1fr] gap-y-4">
             <div className="headline2-bold text-grayscale-70">관람 날짜</div>
-            <div className="body1-regular text-grayscale-90">2024.10.10</div>
+            <div className="body1-regular text-grayscale-90">
+              {ticketReviewList.watchDate}
+            </div>
 
             <div className="headline2-bold text-grayscale-70">공연장소</div>
-            <div className="body1-regular text-grayscale-90">세종문화회관</div>
+            <div className="body1-regular text-grayscale-90">
+              {ticketReviewList.watchPlace}
+            </div>
 
             <div className="headline2-bold text-grayscale-70">회차</div>
-            <div className="body1-regular text-grayscale-90">19:30</div>
+            <div className="body1-regular text-grayscale-90">
+              {ticketReviewList.watchRound}
+            </div>
 
             <div className="headline2-bold text-grayscale-70">캐스팅</div>
-            <div className="body1-regular text-grayscale-90">유서진 정의연</div>
+            <div className="body1-regular text-grayscale-90 max-w-[240px] flex flex-wrap">
+              {ticketReviewList.castings
+                .split(",")
+                .map((casting, index, array) => (
+                  <span
+                    key={index}
+                    className={
+                      index !== array.length - 1 ? "mr-[19px] mb-[19px]" : ""
+                    }
+                  >
+                    {casting.trim()}
+                  </span>
+                ))}
+            </div>
 
             <div className="flex items-center gap-[9px] headline2-bold text-grayscale-70">
               좌석
-              {viewingSeat.trim().length === 0 ? (
+              {ticketReviewList.watchSit.trim().length === 0 ? (
                 <Edit
                   viewBox="0 0 18 18"
                   width={14}
@@ -156,10 +164,24 @@ export const ClacoTicketDetailPage = () => {
                 />
               ) : null}
             </div>
-            <div className="flex items-center body1-regular text-grayscale-90"></div>
+            <div className="flex items-center body1-regular text-grayscale-90">
+              {ticketReviewList.watchSit.trim().length === 0 ? null : (
+                <>
+                  {ticketReviewList.watchSit}
+                  <Edit
+                    viewBox="0 0 18 18"
+                    width={14}
+                    height={14}
+                    onClick={() => setIsEditModalOpen(true)}
+                    className="ml-2"
+                  />
+                </>
+              )}
+            </div>
           </div>
         </div>
       </div>
+
       {/* 모달 컴포넌트 영역 */}
       {isModalOpen && (
         <DeleteClacoTicketModal
@@ -180,7 +202,7 @@ export const ClacoTicketDetailPage = () => {
             </span>
             <input
               className="w-full h-[52px] rounded-[7px] text-center body2-medium text-grayscale-80 bg-grayscale-30 outline-none px-3"
-              value={viewingSeat}
+              defaultValue={ticketReviewList.watchSit}
               onChange={(e) => setViewingSeat(e.target.value)}
             />
           </div>

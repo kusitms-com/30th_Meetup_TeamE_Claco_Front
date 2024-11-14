@@ -49,3 +49,37 @@ export type StarRatingProps = {
   rating: number;
   onRatingChange: (rating: number) => void;
 };
+
+export type GenreTag = {
+  tagCategoryId: number;
+  tagName: string;
+  iconUrl: string;
+};
+
+export type PlaceReview = {
+  placeCategoryId: number;
+  categoryName: string;
+};
+
+export type ImageUrl = {
+  imageUrl: string;
+};
+
+export type TicketReview = {
+  ticketReviewId: number;
+  concertName: string;
+  nickname: string;
+  watchDate: string;
+  createdDate: string;
+  watchPlace: string;
+  watchRound: string;
+  runningTime: string;
+  castings: string;
+  watchSit: string;
+  concertTags: GenreTag[];
+  starRate: number;
+  content: string;
+  placeReviews: PlaceReview[];
+  imageUrlS: ImageUrl[];
+  editor: boolean;
+};
