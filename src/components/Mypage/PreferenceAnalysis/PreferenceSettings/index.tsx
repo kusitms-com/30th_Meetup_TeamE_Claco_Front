@@ -5,10 +5,10 @@ import { Concept } from "@/components/common/Concept";
 import { Gender } from "@/components/common/Gender";
 import { Location } from "@/components/common/Location";
 import { Price } from "@/components/common/Price";
-import { eSettingsProps } from "@/types";
+import { SettingsProps } from "@/types";
 import { useState } from "react";
 
-export const PreferenceSettings = ({ onBack }: eSettingsProps) => {
+export const PreferenceSettings = ({ onBack, onClick }: SettingsProps) => {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
   const [selectedAge, setSelectedAge] = useState<string | null>(null);
   const [minPrice, setMinPrice] = useState<number>(0);
@@ -39,6 +39,8 @@ export const PreferenceSettings = ({ onBack }: eSettingsProps) => {
       setSelectedConcepts([...selectedConcepts, concept]);
     }
   };
+
+  const handleConfirmClick = () => {};
 
   return (
     <div className="pb-[52px]">
@@ -91,7 +93,27 @@ export const PreferenceSettings = ({ onBack }: eSettingsProps) => {
           onConceptClick={handleConceptClick}
         />
       </div>
-      <ConfirmButton isChecked={true} className="w-full">
+      <ConfirmButton
+        isChecked={
+          !!selectedGender &&
+          !!selectedAge &&
+          !!selectedLocation &&
+          !!selectedConcepts
+        }
+        onClick={() => {
+          onClick();
+          handleConfirmClick();
+        }}
+        disabled={
+          !(
+            selectedGender &&
+            selectedAge &&
+            selectedLocation &&
+            selectedConcepts
+          )
+        }
+        className="w-full"
+      >
         적용하기
       </ConfirmButton>
     </div>

@@ -25,13 +25,27 @@ export const MyPage = () => {
     setIsPreferenceSettingsOpen(true);
   };
 
+  const handlePreferenceConfirmClick = () => {
+    setIsPreferenceSettingsOpen(false);
+  };
+
+  const handleUserConfirmClick = () => {
+    setIsUserSettingsOpen(false);
+  };
+
   return (
     <div className="relative px-6 pt-[46px] pb-[52px]">
       {isPreferenceSettingsOpen ? (
-        <PreferenceSettings onBack={() => setIsPreferenceSettingsOpen(false)} />
+        <PreferenceSettings
+          onBack={() => setIsPreferenceSettingsOpen(false)}
+          onClick={handlePreferenceConfirmClick}
+        />
       ) : isUserSettingsOpen ? (
         <div className="absolute inset-0 px-6">
-          <UserSettings onBack={() => setIsUserSettingsOpen(false)} />
+          <UserSettings
+            onBack={() => setIsUserSettingsOpen(false)}
+            onClick={handleUserConfirmClick}
+          />
         </div>
       ) : (
         <>
@@ -57,7 +71,7 @@ export const MyPage = () => {
               <span className="headline2-bold text-white">달보라</span>
             </div>
           </div>
-          <div className="w-full flex flex-col items-center justify-center mb-[38px]">
+          <div className="w-full flex flex-col items-center justify-center mb-[23px]">
             <div className="relative flex w-full justify-between mb-[14px] px-9">
               {tabs.map((tab) => (
                 <span

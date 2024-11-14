@@ -1,5 +1,6 @@
-export type eSettingsProps = {
+export type SettingsProps = {
   onBack: () => void;
+  onClick: () => void;
 };
 
 export type PreferenceAnalysisProps = {
