@@ -15,11 +15,11 @@ export type ClacoTicketProps = {
 
 export const ClacoTicket = ({ data }: ClacoTicketProps) => {
   const USER_GENRE = [
-    { imgUrl: grand, keyWord: "grand" },
-    { imgUrl: delicate, keyWord: "delicate" },
-    { imgUrl: classical, keyWord: "classical" },
-    { imgUrl: dynamic, keyWord: "dynamic" },
-    { imgUrl: familiar, keyWord: "familiar" },
+    { imgUrl: grand, keyWord: "웅장한" },
+    { imgUrl: delicate, keyWord: "섬세한" },
+    { imgUrl: classical, keyWord: "고전적인" },
+    { imgUrl: dynamic, keyWord: "역동적인" },
+    { imgUrl: familiar, keyWord: "친숙한" },
   ];
 
   return (

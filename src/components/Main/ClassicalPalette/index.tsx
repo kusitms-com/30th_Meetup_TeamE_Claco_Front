@@ -11,11 +11,11 @@ import lyrical from "@/assets/images/Genre/lyrical.png";
 
 /** 퍼블리싱 테스트 더미 데이터 */
 const USER_GENRE = [
-  { imgUrl: grand, keyWord: "grand" },
-  { imgUrl: delicate, keyWord: "delicate" },
-  { imgUrl: classical, keyWord: "classical" },
-  { imgUrl: modern, keyWord: "modern" },
-  { imgUrl: lyrical, keyWord: "lyrical" },
+  { imgUrl: grand, keyWord: "웅장한" },
+  { imgUrl: delicate, keyWord: "섬세한" },
+  { imgUrl: classical, keyWord: "고전적인" },
+  { imgUrl: modern, keyWord: "현대적인" },
+  { imgUrl: lyrical, keyWord: "서정적인" },
 ];
 
 export const ClassicalPalette = () => {

@@ -10,9 +10,9 @@ import tragic from "@/assets/images/Genre/tragic.png";
 
 export const SimilarKeyWordRecommend = () => {
   const USER_GENRE = [
-    { imgUrl: dynamic, keyWord: "dynamic" },
-    { imgUrl: romantic, keyWord: "romantic" },
-    { imgUrl: tragic, keyWord: "tragic" },
+    { imgUrl: dynamic, keyWord: "역동적인" },
+    { imgUrl: romantic, keyWord: "낭만적인" },
+    { imgUrl: tragic, keyWord: "비극적인" },
   ];
 
   const [currentIndex, setCurrentIndex] = useState(0);
