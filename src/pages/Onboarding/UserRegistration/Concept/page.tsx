@@ -8,9 +8,10 @@ import { useState } from "react";
 export const SelectConceptPage = () => {
   const navigate = useNavigate();
   const [selectedConcept, setSelectedConcept] = useState<string[]>([]);
+  const username = "달보라";
 
   const handleBackClick = () => {
-    navigate("/create/location");
+    navigate("/create/price");
   };
 
   const handleConfirmClick = () => {
@@ -34,7 +35,7 @@ export const SelectConceptPage = () => {
             <Progress value={44.44} />
           </div>
           <span className="heading1-bold text-grayscale-90">
-            울랄라님의 취향에 맞는
+            {username}님 취향에 맞는
             <br />
             클래식 공연을 추천드릴게요
           </span>

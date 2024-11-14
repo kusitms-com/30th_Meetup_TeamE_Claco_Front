@@ -11,6 +11,7 @@ export const SelectProfilePage = () => {
   const navigate = useNavigate();
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
   const [selectedAge, setSelectedAge] = useState<string | null>(null);
+  const username = "달보라";
 
   const handleBackClick = () => {
     navigate("/create");
@@ -31,7 +32,7 @@ export const SelectProfilePage = () => {
           <span className="heading1-bold text-grayscale-90">
             맞춤 공연 추천 전,
             <br />
-            울랄라님에 대해 알려주세요
+            {username}님에 대해 알려주세요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">

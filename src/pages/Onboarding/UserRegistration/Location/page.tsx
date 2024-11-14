@@ -8,6 +8,7 @@ import { useState } from "react";
 export const SelectLocationPage = () => {
   const navigate = useNavigate();
   const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
+  const username = "달보라";
 
   const handleBackClick = () => {
     navigate("/create/profile");
@@ -36,13 +37,13 @@ export const SelectLocationPage = () => {
           <span className="heading1-bold text-grayscale-90">
             맞춤 공연 추천 전,
             <br />
-            울랄라님에 대해 알려주세요
+            {username}님에 대해 알려주세요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">
           <div className="flex flex-col gap-[1.56rem]">
             <span className="body1-medium text-grayscale-60">
-              선호하는 공연장 위치를 모두 선택해주세요.
+              선호하는 공연장 위치를 모두 알려주세요.
             </span>
             <div className="slide-up mb-[160px]">
               <Location
