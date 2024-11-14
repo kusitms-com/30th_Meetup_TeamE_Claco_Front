@@ -11,15 +11,27 @@ export type ReviewSummaryCardProps = {
   reviewSummaryContent: string;
 };
 
-export type ReviewCardType = {
-  reviewId: number;
+export type Review = {
+  ticketReviewId: number;
+  userName: string;
   profileImage: string;
-  reviewImageList: string[] | null;
-  nickName: string;
-  starRating: string;
-  reviewContent: string;
-  location: string;
-  locationReview: string[];
-  date: string;
-  likeCount: string;
+  createdDate: string;
+  watchSit: string;
+  starRate: number;
+  content: string;
+  reviewImages: Array<{ imageUrl: string }>;
+  placeReviews: Array<{
+    placeCategoryId: number;
+    categoryName: string;
+  }>;
+  tagReviews: Array<{
+    tagCategoryId: number;
+    tagName: string;
+    iconUrl: string;
+  }>;
+};
+
+export type ReviewCardProps = {
+  review: Review;
+  onClick: () => void;
 };
