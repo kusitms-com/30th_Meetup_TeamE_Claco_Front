@@ -22,7 +22,7 @@ ChartJS.register(
   ChartDataLabels,
 );
 
-const ReservationRatioSection = forwardRef<HTMLDivElement>((_, ref) => {
+const ReservationRatio = forwardRef<HTMLDivElement>((_, ref) => {
   const chartData = [27, 36, 20, 6, 6];
   const maxDataValue = Math.max(...chartData);
   const malePercentage = 22;
@@ -146,4 +146,4 @@ const ReservationRatioSection = forwardRef<HTMLDivElement>((_, ref) => {
     </section>
   );
 });
-export default ReservationRatioSection;
+export default ReservationRatio;
