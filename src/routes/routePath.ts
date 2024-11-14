@@ -33,6 +33,7 @@ const RoutePath = {
 
   /*클라코 티켓 페이지 */
   TicketDetail: "/ticket/:id",
+  TicketReviewEdit: "/ticket/:id/edit",
 
   /*클라코 티켓 등록 페이지 */
   TicketCreate: "/ticketcreate",

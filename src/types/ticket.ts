@@ -26,12 +26,17 @@ export type ReviewQuestionProps = {
   onTagClick: (tag: string) => void;
 };
 
-export type ReviewContentsProps = {
+export type TextReviewProps = {
   value: string;
   onChange: (text: string) => void;
+};
+
+export type ImageReviewProps = {
   files: File[];
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
+
+export type ReviewContentProps = TextReviewProps & ImageReviewProps;
 
 export type SeatQuestionsProps = {
   selectedTag1: string | null;

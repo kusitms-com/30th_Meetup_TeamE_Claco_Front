@@ -24,6 +24,7 @@ import { TicketSearchPage } from "@/pages/TicketCreate/Search/page";
 import { TicketReviewPage } from "@/pages/TicketCreate/Review/page";
 import { TicketDownloadPage } from "@/pages/TicketCreate/Download/page";
 import { ClacoTicketDetailPage } from "@/pages/Ticket/[id]/page";
+import { ClacoTicketReviewEditPage } from "@/pages/Ticket/[id]/edit/page";
 
 const routes: RouteObject[] = [
   {
@@ -67,7 +68,7 @@ const routes: RouteObject[] = [
       {
         path: RoutePath.Browse,
         element: <Layout />,
-        children: [{ index: true, element: <BrowsePage/> }],
+        children: [{ index: true, element: <BrowsePage /> }],
       },
       {
         path: RoutePath.TicketBook,
@@ -75,6 +76,10 @@ const routes: RouteObject[] = [
         children: [{ index: true, element: <ClacoBookPage /> }],
       },
       { path: RoutePath.TicketDetail, element: <ClacoTicketDetailPage /> },
+      {
+        path: RoutePath.TicketReviewEdit,
+        element: <ClacoTicketReviewEditPage />,
+      },
       { path: RoutePath.TicketBookDetail, element: <ClacoBookDetailPage /> },
       {
         path: RoutePath.TicketCreate,

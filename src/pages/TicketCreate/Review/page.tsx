@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ConfirmButton } from "@/components/common/Button";
 
-import { ReviewInput } from "@/components/Ticket/AudienceReview/ReviewContents";
+import { ReviewContents } from "@/components/Ticket/AudienceReview/ReviewContents";
 import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 import { KeywordTags } from "@/components/Ticket/AudienceReview/KeywordTags";
 import {
@@ -145,7 +145,7 @@ export const TicketReviewPage = () => {
         onTagClick={setSelectedAccessibilityTag}
       />
 
-      <ReviewInput
+      <ReviewContents
         value={reviewText}
         onChange={setReviewText}
         files={files}

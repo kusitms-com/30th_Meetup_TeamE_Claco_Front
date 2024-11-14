@@ -85,7 +85,6 @@ export const ClacoBookDetailPage = () => {
       canvas.toBlob((blob) => {
         if (blob !== null) {
           saveAs(blob, "MyClacoTicket.png");
-          setToast(true);
         }
       });
     } catch (error) {
@@ -112,6 +111,7 @@ export const ClacoBookDetailPage = () => {
       onDownloadBtn();
     }
     setIsModalOpen(false);
+    setToast(true);
   };
 
   const handleSlideChange = (swiper: SwiperType) => {
@@ -216,7 +216,7 @@ export const ClacoBookDetailPage = () => {
         </Swiper>
       </div>
       <div
-        className="absolute bottom-[57px] right-[26px] w-[70px] h-[70px] bg-primary rounded-full flex justify-center items-center z-10"
+        className="absolute bottom-[57px] right-[26px] w-[70px] h-[70px] bg-primary rounded-full flex justify-center items-center"
         onClick={gotoTicketCreate}
       >
         <Plus viewBox="0 0 22 22" width={40} height={40} />

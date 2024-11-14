@@ -115,7 +115,7 @@ export const ReviewPage = () => {
               modules={[FreeMode, Thumbs]}
               className="mb-11"
             >
-              {previewData.reviewImageList.map((image, index) => (
+              {previewData.reviewImageList?.map((image, index) => (
                 <SwiperSlide key={index}>
                   <div className="relative">
                     <X
@@ -140,7 +140,7 @@ export const ReviewPage = () => {
                 watchSlidesProgress={true}
                 modules={[FreeMode, Thumbs]}
               >
-                {previewData.reviewImageList.map((image, index) => (
+                {previewData.reviewImageList?.map((image, index) => (
                   <SwiperSlide key={index}>
                     <img
                       src={image}

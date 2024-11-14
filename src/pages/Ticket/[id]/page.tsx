@@ -2,9 +2,8 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ReactComponent as Trash } from "@/assets/svgs/trash.svg";
 import { ReactComponent as Edit } from "@/assets/svgs/Edit.svg";
 import { ReactComponent as Star } from "@/assets/svgs/StarRating.svg";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { DeleteClacoTicketModal } from "@/components/Ticket/Modal/Delete/ClacoTicket";
-import { useState } from "react";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import ClacoTicketImage1 from "@/assets/images/MyClacoTicket1.png";
 import { PerformanceAttributes } from "@/components/Ticket/PerformanceAttributes";
@@ -16,6 +15,10 @@ import modern from "@/assets/images/Genre/modern.png";
 import lyrical from "@/assets/images/Genre/lyrical.png";
 import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
 import { ReviewTag } from "@/components/common/ReviewTag";
+import { Modal } from "@/components/common/Modal";
+import { useThumbnailModal } from "@/hooks/useThumbnailModal";
+import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
+import { useState } from "react";
 
 export const ClacoTicketDetailPage = () => {
   const USER_GENRE = [
@@ -25,16 +28,40 @@ export const ClacoTicketDetailPage = () => {
     { imgURL: modern, category: "modern" },
     { imgURL: lyrical, category: "lyrical" },
   ];
-
+  const { id } = useParams();
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+  const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
+  const [viewingSeat, setViewingSeat] = useState<string>("");
+  const {
+    thumbsSwiper,
+    isThumbnailShow,
+    isAnimating,
+    selectIndex,
+    setThumbsSwiper,
+    setSelectIndex,
+    handleImageClick,
+  } = useThumbnailModal();
   const navigate = useNavigate();
 
   const gotoBack = () => {
     navigate(-1);
   };
 
+  const gotoTicketReviewEdit = () => {
+    navigate(`/ticket/${Number(id)}/edit`);
+  };
+
   return (
     <div className="relative flex flex-col pt-[46px] items-center justify-center px-6 mb-[234px]">
+      <ThumbnailModal
+        isShow={isThumbnailShow}
+        isAnimating={isAnimating}
+        thumbsSwiper={thumbsSwiper}
+        selectIndex={selectIndex}
+        images={REVIEW_MOCK_DATA[4].reviewImageList as string[]}
+        onClose={handleImageClick}
+        setThumbsSwiper={setThumbsSwiper}
+      />
       <div className="flex justify-between items-center w-full mb-[27px] h-[26px]">
         <BackArrow onClick={gotoBack} />
         <Trash onClick={() => setIsModalOpen(true)} />
@@ -66,6 +93,7 @@ export const ClacoTicketDetailPage = () => {
             width={14}
             height={14}
             className="text-grayscale-60"
+            onClick={gotoTicketReviewEdit}
           />
         </div>
         <div className="flex justify-between">
@@ -81,10 +109,10 @@ export const ClacoTicketDetailPage = () => {
         <div className="flex space-x-[11px] mb-[35px] overflow-scroll scrollbar-hide">
           {REVIEW_MOCK_DATA[1].reviewImageList?.map((image, index) => (
             <img
-              // onClick={() => {
-              //   handleImageClick();
-              //   setSelectIndex(index);
-              // }}
+              onClick={() => {
+                handleImageClick();
+                setSelectIndex(index);
+              }}
               key={index}
               src={image}
               alt="리뷰 이미지"
@@ -117,10 +145,18 @@ export const ClacoTicketDetailPage = () => {
             <div className="headline2-bold text-grayscale-70">캐스팅</div>
             <div className="body1-regular text-grayscale-90">유서진 정의연</div>
 
-            <div className="headline2-bold text-grayscale-70">좌석</div>
-            <div className="flex items-center body1-regular text-grayscale-90">
-              9층 B열 14번
+            <div className="flex items-center gap-[9px] headline2-bold text-grayscale-70">
+              좌석
+              {viewingSeat.trim().length === 0 ? (
+                <Edit
+                  viewBox="0 0 18 18"
+                  width={14}
+                  height={14}
+                  onClick={() => setIsEditModalOpen(true)}
+                />
+              ) : null}
             </div>
+            <div className="flex items-center body1-regular text-grayscale-90"></div>
           </div>
         </div>
       </div>
@@ -130,6 +166,25 @@ export const ClacoTicketDetailPage = () => {
           onClose={() => setIsModalOpen(false)}
           onConfirm={() => null}
         />
+      )}
+      {isEditModalOpen && (
+        <Modal
+          positiveButtonText="확인"
+          negativeButtonText="취소"
+          onPositiveButtonClick={() => console.log(viewingSeat)}
+          onNegativeButtonClick={() => setIsEditModalOpen(false)}
+        >
+          <div className="w-full flex flex-col items-center justify-center mt-[12.45px] mb-[37px] gap-[13.1px]">
+            <span className="headline2-bold text-grayscale-80">
+              관람 좌석을 입력해주세요
+            </span>
+            <input
+              className="w-full h-[52px] rounded-[7px] text-center body2-medium text-grayscale-80 bg-grayscale-30 outline-none px-3"
+              value={viewingSeat}
+              onChange={(e) => setViewingSeat(e.target.value)}
+            />
+          </div>
+        </Modal>
       )}
     </div>
   );
