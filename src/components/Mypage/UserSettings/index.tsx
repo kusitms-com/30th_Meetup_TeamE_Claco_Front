@@ -28,7 +28,7 @@ export const UserSettings = ({ onBack, onClick }: SettingsProps) => {
       <div className="flex-col">
         <div className="relative flex items-center justify-center mb-[41px]">
           <BackArrow
-            className="absolute left-0 cursor-pointer"
+            className="absolute top-0 left-0 cursor-pointer"
             onClick={onBack}
           />
           <span className="headline2-bold text-grayscale-80">프로필 설정</span>
