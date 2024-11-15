@@ -1,12 +1,11 @@
 import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
+import { useState } from "react";
 
 interface ShowSummaryCardProps {
   posterImage: string;
   showType: string;
   status: string;
-  isLiked: boolean;
-  toggleLike: () => void;
   title: string;
   location: string;
   date: string;
@@ -17,13 +16,12 @@ export const ShowSummaryCard = ({
   posterImage,
   showType,
   status,
-  isLiked,
-  toggleLike,
   title,
   location,
   date,
   keywords,
 }: ShowSummaryCardProps) => {
+  const [isLiked, setIsLiked] = useState<boolean>(false);
   return (
     <div className="flex items-center">
       <div className="relative">
@@ -43,7 +41,10 @@ export const ShowSummaryCard = ({
           )}
         </div>
 
-        <span className="absolute top-[13px] right-[10px]" onClick={toggleLike}>
+        <span
+          className="absolute top-[13px] right-[10px]"
+          onClick={() => setIsLiked((prev) => !prev)}
+        >
           {isLiked ? (
             <Heart className="fill-grayscale-80" />
           ) : (

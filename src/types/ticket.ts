@@ -2,7 +2,8 @@ export type SearchBarProps = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  children: string;
+  onFocus: () => void;
+  placeholder: string;
 };
 
 export type SearchCardProps = {
@@ -12,6 +13,7 @@ export type SearchCardProps = {
   onClick?: () => void;
   className?: string;
   categoryType: "classical" | "dance";
+  searchKeyWord?: string;
 };
 
 export type KeywordTagProps = {

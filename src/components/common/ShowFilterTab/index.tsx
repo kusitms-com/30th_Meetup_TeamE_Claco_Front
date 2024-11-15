@@ -6,7 +6,9 @@ export const ShowFilterTab = ({
   className = "",
 }: ShowFilterTabProps) => {
   return (
-    <div className={`flex justify-center bg-grayscale-20 rounded-[5px] items-center w-full ${className}`}>
+    <div
+      className={`flex justify-center bg-grayscale-20 rounded-[5px] items-center w-full ${className}`}
+    >
       {["전체", "클래식", "무용"].map((tab) => (
         <button
           key={tab}

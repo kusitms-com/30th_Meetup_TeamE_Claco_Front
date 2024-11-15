@@ -4,9 +4,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 
 export const ClacoPick = ({ userName, picks }: ClacoPickProps) => {
   return (
-    <div className="flex gap-5 flex-col">
+    <div className="flex flex-col gap-5">
       <div className="flex flex-col">
-        <span className="headline1-bold text-grayscale-80">Claco Pick!</span>
+        <span className="headline1-bold text-grayscale-80">
+          이런 공연은 어떠세요?
+        </span>
         <span className="body2-semibold text-grayscale-60">
           {userName}님이 좋아할 만한 공연이에요
         </span>

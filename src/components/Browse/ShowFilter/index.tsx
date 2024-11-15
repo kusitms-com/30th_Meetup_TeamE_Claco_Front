@@ -3,7 +3,7 @@ import { ReactComponent as X } from "@/assets/svgs/X-icon.svg";
 import { ConfirmButton } from "@/components/common/Button";
 import { Location } from "@/components/common/Location";
 import { Price } from "@/components/common/Price";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ShowFeatureFilter } from "./ShowFeatureFilter";
 import { ShowFilterProps } from "@/types";
 import { Calendar } from "@/components/common/Calendar";
@@ -28,6 +28,17 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
   const [selectedFeatures, setSelectedFeatures] = useState<string[]>([]);
   const [rangeStart, setRangeStart] = useState<Date | null>(null);
   const [rangeEnd, setRangeEnd] = useState<Date | null>(null);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    const timer = setTimeout(() => setIsVisible(true), 50);
+    return () => clearTimeout(timer);
+  }, []);
+
+  const handleClose = () => {
+    setIsVisible(false);
+    setTimeout(onClose, 300);
+  };
 
   const handleApply = () => {
     const priceRange = `${minPrice}~${maxPrice}원`;
@@ -46,7 +57,8 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
     }
 
     const feature = selectedFeatures.join(", ");
-    onApply(priceRange, location, dateRange, feature);
+    setIsVisible(false);
+    setTimeout(() => onApply(priceRange, location, dateRange, feature), 300);
   };
 
   const handleLocationClick = (location: string) => {
@@ -75,8 +87,18 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
   };
 
   return (
-    <div className="fixed inset-0 flex justify-center items-center z-50">
-      <div className="px-6 pt-[46px] pb-[100px] max-w-[450px] w-full h-screen bg-dark overflow-y-auto">
+    <div className="fixed inset-0 z-[9999] flex items-end justify-center">
+      <div
+        className={`fixed inset-0 bg-black transition-opacity duration-300 ${
+          isVisible ? "bg-opacity-50" : "bg-opacity-0"
+        }`}
+        onClick={handleClose}
+      />
+      <div
+        className={`relative px-6 pt-[46px] pb-[100px] max-w-[450px] w-full h-[90vh] 
+          bg-[#1c1c1c] overflow-y-auto transform transition-transform duration-1000 ease-out
+          ${isVisible ? "translate-y-0" : "translate-y-full"}`}
+      >
         <div className="flex items-center justify-between mb-10">
           <Refresh
             width="18"
@@ -90,7 +112,7 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
             height="18"
             viewBox="0 0 16 16"
             className="text-white"
-            onClick={onClose}
+            onClick={handleClose}
           />
         </div>
         <div className="mb-[55px]">
