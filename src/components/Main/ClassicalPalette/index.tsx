@@ -1,5 +1,6 @@
 import { ReactComponent as ClacoMain } from "@/assets/svgs/Claco_Main.svg";
 import { ReactComponent as Light } from "@/assets/svgs/Light.svg";
+import { ReactComponent as Listen } from "@/assets/svgs/listen.svg";
 import { Genre } from "@/components/common/Genre";
 import { useEffect, useState } from "react";
 
@@ -59,7 +60,10 @@ export const ClassicalPalette = () => {
       </div>
 
       <div className="caption-12 text-grayscale-70 border-[1px] border-grayscale-40 rounded-[5px] py-[9px] px-[11px]">
-        클라코 AI가 취향에 꼭 맞는 공연을 추천해드릴게요
+        <span className="flex items-center gap-[11px]">
+          <Listen />
+          클라코 AI가 취향에 꼭 맞는 공연을 추천해드릴게요
+        </span>
       </div>
 
       <div className="relative h-[340px] mb-4">

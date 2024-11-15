@@ -6,10 +6,10 @@ import { useTruncateText } from "@/hooks";
 import { ReviewTag } from "@/components/common/ReviewTag";
 import { useNavigate } from "react-router-dom";
 import { ReviewCardProps } from "@/types";
-import DEFAULT_IMAGE from "@/assets/images/logo.png";
 
 export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
   // const [isLiked, setIsLiked] = useState<boolean>(false);
+  const SHOW_LENGTH = review.reviewImages.length === 0 ? 90 : 60;
 
   const navigate = useNavigate();
   const gotoReviewDetail = (id: number) => {
@@ -38,16 +38,19 @@ export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
       </div>
 
       <div className="flex space-x-[14px] max-h-[90px] mb-[19px]">
-        <div className="relative" onClick={onClick}>
-          <img
-            src={review.reviewImages?.[0]?.imageUrl ?? DEFAULT_IMAGE}
-            alt="공연 이미지"
-            className="min-w-[90px] h-[90px] rounded-[5px] object-fill"
-          />
-          <div className="absolute bottom-0 right-0 w-[19px] h-[19px] bg-[#8A8585] caption-12 rounded-br-[5px] flex justify-center items-center">
-            <span className="text-center">{review.reviewImages.length}</span>
+        {review.reviewImages.length === 0 ? null : (
+          <div className="relative" onClick={onClick}>
+            <img
+              src={review.reviewImages?.[0]?.imageUrl}
+              alt="공연 이미지"
+              className="min-w-[90px] h-[90px] rounded-[5px] object-fill"
+            />
+            <div className="absolute bottom-0 right-0 w-[19px] h-[19px] bg-[#8A8585] caption-12 rounded-br-[5px] flex justify-center items-center">
+              <span className="text-center">{review.reviewImages.length}</span>
+            </div>
           </div>
-        </div>
+        )}
+
         <div className="flex-col space-y-2">
           <div className="flex items-center space-x-1">
             <Star className="text-secondary2-100/100" />
@@ -56,7 +59,7 @@ export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
             </div>
           </div>
           <div className="body2-medium">
-            {useTruncateText(review.content, 60)}
+            {useTruncateText(review.content, SHOW_LENGTH)}
           </div>
         </div>
       </div>
