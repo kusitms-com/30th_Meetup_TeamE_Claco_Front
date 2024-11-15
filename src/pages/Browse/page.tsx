@@ -17,15 +17,25 @@ import poster13 from "@/assets/images/poster13.png";
 import poster4 from "@/assets/images/poster4.gif";
 import poster8 from "@/assets/images/poster8.gif";
 import { ClacoPick } from "@/components/Browse/ClacoPick";
+import { useShowFilter } from "@/hooks/useShowFilter";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
   const [skipDebounce, setSkipDebounce] = useState<boolean>(false);
-  const debouncedQuery = useDebouncedState(query, 1000, skipDebounce);
+  const debouncedQuery = useDebouncedState(query, 500, skipDebounce);
   const [isSearch, setIsSearch] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<string>("전체");
 
+  const [activeTab, setActiveTab] = useState<string>("전체");
   const searchInputRef = useRef<HTMLInputElement>(null);
+  const {
+    filterState,
+    showFilter,
+    hasActiveFilters,
+    handleFilterClick,
+    handleRefreshClick,
+    applyFilter,
+    closeFilter,
+  } = useShowFilter();
 
   const handleTabClick = (tab: string) => {
     setActiveTab(tab);
@@ -64,42 +74,6 @@ export const BrowsePage = () => {
       return () => clearTimeout(timer);
     }
   }, [skipDebounce]);
-
-  // 필터 관련 상태 관리 및 핸들링 함수
-  const [showFilter, setShowFilter] = useState<boolean>(false);
-  const [priceRange, setPriceRange] = useState<string>("");
-  const [selectedLocation, setSelectedLocation] = useState<string>("");
-  const [dateRange, setDateRange] = useState<string>("");
-  const [selectedFeature, setSelectedFeature] = useState<string>("");
-
-  const handleFilterClick = () => {
-    setShowFilter(true);
-  };
-
-  const handleRefreshClick = () => {
-    setPriceRange("");
-    setSelectedLocation("");
-    setDateRange("");
-    setSelectedFeature("");
-  };
-
-  // 필터 모달 관리 함수
-  const closeFilter = () => {
-    setShowFilter(false);
-  };
-
-  const applyFilter = (
-    price: string,
-    location: string,
-    date: string,
-    feature: string
-  ) => {
-    setPriceRange(price);
-    setSelectedLocation(location);
-    setDateRange(date);
-    setSelectedFeature(feature);
-    closeFilter();
-  };
 
   return (
     <div className="px-6 pb-[110px] min-h-screen relative">
@@ -157,29 +131,26 @@ export const BrowsePage = () => {
               )}
 
               <div className="flex items-center justify-between gap-3 py-1">
-                {priceRange ||
-                selectedLocation ||
-                dateRange ||
-                selectedFeature ? (
+                {hasActiveFilters ? (
                   <div className="flex text-center gap-[5px] pl-1 overflow-x-auto scrollbar-hide">
-                    {priceRange && (
+                    {filterState.priceRange && (
                       <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
-                        {priceRange}
+                        {filterState.priceRange}
                       </div>
                     )}
-                    {selectedLocation && (
+                    {filterState.selectedLocation && (
                       <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
-                        {selectedLocation}
+                        {filterState.selectedLocation}
                       </div>
                     )}
-                    {dateRange && (
+                    {filterState.dateRange && (
                       <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
-                        {dateRange}
+                        {filterState.dateRange}
                       </div>
                     )}
-                    {selectedFeature && (
+                    {filterState.selectedFeature && (
                       <div className="rounded-[20px] px-[10px] py-1 border-[0.5px] border-grayscale-60 bg-transparent caption-12 text-grayscale-60 whitespace-nowrap">
-                        {selectedFeature}
+                        {filterState.selectedFeature}
                       </div>
                     )}
                   </div>
@@ -194,10 +165,7 @@ export const BrowsePage = () => {
                 </div>
               </div>
               <div className="mt-4">
-                {(priceRange ||
-                  selectedLocation ||
-                  dateRange ||
-                  selectedFeature) && (
+                {hasActiveFilters && (
                   <span className="headline1-bold text-grayscale-80">
                     {debouncedQuery.trim().length === 0 ? "최근 공연" : null}
                   </span>
@@ -216,32 +184,30 @@ export const BrowsePage = () => {
                 <>
                   <div className="flex flex-col gap-[29px] mt-[12px]">
                     {searchResultData.length === 0 ? (
-                      <>
-                        <div className="flex flex-col items-center mt-[121px]">
-                          <div className="flex flex-col gap-1 mb-[112px]">
-                            <span className="headline1-bold text-grayscale-90">
-                              찾으시는 공연 정보가 없어요
-                            </span>
-                            <span className="caption-13 text-grayscale-50">
-                              입력하신 단어가 정확한지 확인해주세요
-                            </span>
-                          </div>
-
-                          <div className="w-full max-w-screen-sm">
-                            <ClacoPick
-                              userName="달보라"
-                              picks={[
-                                {
-                                  imageSrc: poster8,
-                                  title: "랑랑 피아노 리사이틀",
-                                },
-                                { imageSrc: poster13, title: "빈 필하모닉" },
-                                { imageSrc: poster4, title: "피아노 리사이틀" },
-                              ]}
-                            />
-                          </div>
+                      <div className="flex flex-col items-center mt-[121px]">
+                        <div className="flex flex-col gap-1 mb-[112px]">
+                          <span className="headline1-bold text-grayscale-90">
+                            찾으시는 공연 정보가 없어요
+                          </span>
+                          <span className="caption-13 text-grayscale-50">
+                            입력하신 단어가 정확한지 확인해주세요
+                          </span>
                         </div>
-                      </>
+
+                        <div className="w-full max-w-screen-sm">
+                          <ClacoPick
+                            userName="달보라"
+                            picks={[
+                              {
+                                imageSrc: poster8,
+                                title: "랑랑 피아노 리사이틀",
+                              },
+                              { imageSrc: poster13, title: "빈 필하모닉" },
+                              { imageSrc: poster4, title: "피아노 리사이틀" },
+                            ]}
+                          />
+                        </div>
+                      </div>
                     ) : (
                       <>
                         <span className="headline1-bold">총 3개의 공연</span>

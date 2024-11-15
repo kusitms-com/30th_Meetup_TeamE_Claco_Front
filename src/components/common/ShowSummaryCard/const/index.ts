@@ -79,16 +79,16 @@ export const initialShowData: Show[] = [
 ];
 
 export const searchResultData: Show[] = [
-  // {
-  //   id: 1,
-  //   posterImage: poster10,
-  //   showType: "dance",
-  //   status: "upcoming",
-  //   defaultLiked: true,
-  //   title: "유니버설발레단 (호두까기 인형) - 성남",
-  //   location: "예술의 전당 오페라 극장",
-  //   date: "2024.11.30",
-  //   keywords: ["섬세한", "역동적인", "서정적인", "웅장한", "새로운"],
-  //   isLiked: true,
-  // },
+  {
+    id: 1,
+    posterImage: poster10,
+    showType: "dance",
+    status: "upcoming",
+    defaultLiked: true,
+    title: "유니버설발레단 (호두까기 인형) - 성남",
+    location: "예술의 전당 오페라 극장",
+    date: "2024.11.30",
+    keywords: ["섬세한", "역동적인", "서정적인", "웅장한", "새로운"],
+    isLiked: true,
+  },
 ];
