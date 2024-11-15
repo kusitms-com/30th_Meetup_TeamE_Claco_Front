@@ -7,6 +7,7 @@ import { PreferenceAnalysis } from "@/components/Mypage/PreferenceAnalysis";
 import { PreferenceSettings } from "@/components/Mypage/PreferenceAnalysis/PreferenceSettings";
 import { UserSettings } from "@/components/Mypage/UserSettings";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const MyPage = () => {
   const [selectedTab, setSelectedTab] = useState("나의 취향 분석");
@@ -15,6 +16,11 @@ export const MyPage = () => {
   const [isUserSettingsOpen, setIsUserSettingsOpen] = useState(false);
 
   const tabs = ["나의 취향 분석", "좋아요한 공연"];
+  const navigate = useNavigate();
+
+  const handleBackClick = () => {
+    navigate(-1);
+  };
 
   const handleTabClick = (tab: string) => {
     setSelectedTab(tab);
@@ -51,7 +57,7 @@ export const MyPage = () => {
         <>
           <div className="flex flex-col">
             <div className="relative items-center text-center mb-[49px]">
-              <BackArrow className="absolute top-0 left-0" />
+              <BackArrow className="absolute top-0 left-0" onClick={handleBackClick}/>
               <span className="headline2-bold text-grayscale-80">
                 마이페이지
               </span>
