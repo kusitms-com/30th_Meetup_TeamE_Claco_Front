@@ -8,6 +8,7 @@ import delicate from "@/assets/images/Genre/delicate.png";
 import classical from "@/assets/images/Genre/classical.png";
 import modern from "@/assets/images/Genre/modern.png";
 import lyrical from "@/assets/images/Genre/lyrical.png";
+import { useUserStore } from "@/libraries/store/user";
 
 /** 퍼블리싱 테스트 더미 데이터 */
 const USER_GENRE = [
@@ -19,6 +20,8 @@ const USER_GENRE = [
 ];
 
 export const ClassicalPalette = () => {
+  const nickname = useUserStore((state) => state.nickname);
+
   const initialGenreIndex = 0;
   const [currentIndex, setCurrentIndex] = useState<number>(initialGenreIndex);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
@@ -49,9 +52,16 @@ export const ClassicalPalette = () => {
       <div className="mb-[29px]">
         <ClacoMain />
       </div>
-      <div className="mb-5 leading-8 text-grayscale-90 heading2-bold">
-        달보라님의 클래식 취향
+      <div className="mb-1 leading-8 text-grayscale-90 heading2-bold">
+        클라코가 분석한
+        <br />
+        {nickname}님의 클래식 취향이에요
       </div>
+
+      <div className="caption-12 text-grayscale-70 border-[1px] border-grayscale-40 rounded-[5px] py-[9px] px-[11px]">
+        클라코 AI가 취향에 꼭 맞는 공연을 추천해드릴게요
+      </div>
+
       <div className="relative h-[340px] mb-4">
         <div className="relative w-full h-full">
           {/* 배경 그라데이션 */}

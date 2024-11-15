@@ -115,7 +115,8 @@ export const TicketRecommend = () => {
   return (
     <div className="pt-[22px] pb-[171px] relative">
       <div className="px-6 mb-[47px] leading-8 text-grayscale-90 heading2-bold">
-        다양한 클래식 세계를 경험하세요
+        비슷한 취향을 가진 사람들의 공연 후기로 <br />
+        클래식 경험의 폭을 넓혀보세요
       </div>
       <div
         className="relative flex items-center justify-center h-[470px] overflow-hidden"
