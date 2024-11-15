@@ -82,7 +82,7 @@ export const TicketReviewPage = () => {
   ]);
 
   return (
-    <div className="flex flex-col min-h-screen px-6 pt-[46px] pb-[60px]">
+    <div className="flex flex-col min-h-screen px-[24px] pt-[46px] pb-[60px]">
       <div className="flex flex-col gap-[33px]">
         <div className="relative flex items-center justify-center">
           <BackArrow
