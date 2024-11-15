@@ -5,7 +5,6 @@ import { useEffect, useState } from "react";
 import { ConfirmButton } from "@/components/common/Button";
 
 import { ReviewInput } from "@/components/Ticket/AudienceReview/ReviewContents";
-import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 import { KeywordTags } from "@/components/Ticket/AudienceReview/KeywordTags";
 import {
   ReviewQuestion,
@@ -13,10 +12,11 @@ import {
 } from "@/components/Ticket/AudienceReview/ReviewQuestions";
 import { Modal } from "@/components/common/Modal";
 import { accessibilityTags, sightTags, soundTags } from "../const";
+import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 
 export const TicketReviewPage = () => {
   const navigate = useNavigate();
-  const [rating, setRating] = useState<number>(0);
+  const [rating, setRating] = useState(0);
   const [selectedKeywordTags, setSelectedKeywordTags] = useState<string[]>([]);
   const [selectedSoundTag, setSelectedSoundTag] = useState<string | null>(null);
   const [selectedSeatTag1, setSelectedSeatTag1] = useState<string | null>(null);
@@ -92,7 +92,7 @@ export const TicketReviewPage = () => {
             className="absolute left-0"
             onClick={handleBackClick}
           />
-          <span className="headline2-bold text-grayscale-80">관람 후기</span>
+          <span className="headline2-bold text-grayscale-80">티켓 등록</span>
         </div>
         <Progress value={80} />
       </div>

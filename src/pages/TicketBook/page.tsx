@@ -178,9 +178,9 @@ export const ClacoBookPage = () => {
             />
             <div className="absolute bottom-0 flex text-center">
               <span className="body2-regular text-grayscale-70 mb-[39px]">
-                클라코북에 공연 후기를 등록하고
+                티켓북에 공연 감상을 등록하고
                 <br />
-                나만의 티켓을 공유해보세요!
+                나만의 티켓을 만들어보세요!
               </span>
             </div>
           </div>
@@ -189,7 +189,7 @@ export const ClacoBookPage = () => {
             href="/ticketcreate/search"
             className="rounded-[5px] px-[89px] py-[14px] text-center bg-grayscale-30 text-grayscale-80 cursor-pointer"
           >
-            공연 후기 등록하기
+            나만의 티켓 만들러 가기
           </a>
         </div>
       )}
