@@ -12,6 +12,7 @@ export const SelectFeaturePage = () => {
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [selectedAllFeature, setSelectedAllFeature] = useState<string[]>([]);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
+  const username = "달보라";
 
   const navigate = useNavigate();
 
@@ -57,7 +58,7 @@ export const SelectFeaturePage = () => {
             <Progress value={progressValue} />
           </div>
           <span className="heading1-bold text-grayscale-90">
-            울랄라님의 취향에 맞는
+            {username}님 취향에 맞는
             <br />
             클래식 공연을 추천드릴게요
           </span>
@@ -66,7 +67,7 @@ export const SelectFeaturePage = () => {
         <div className="flex flex-col justify-between h-full">
           <div className="flex flex-col gap-[1.56rem]">
             <span className="body1-medium text-grayscale-60">
-              선호하는 공연의 특징을 선택해주세요.
+              선호하는 클래식 공연의 특징을 선택해주세요.
             </span>
             <div
               key={currentStep}

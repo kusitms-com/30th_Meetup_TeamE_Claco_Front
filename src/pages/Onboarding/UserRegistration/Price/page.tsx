@@ -9,6 +9,7 @@ export const SelectPricePage = () => {
   const navigate = useNavigate();
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(1000000);
+  const username = "달보라";
 
   const handleBackClick = () => {
     navigate("/create/location");
@@ -29,13 +30,13 @@ export const SelectPricePage = () => {
           <span className="heading1-bold text-grayscale-90">
             맞춤 공연 추천 전,
             <br />
-            울랄라님에 대해 알려주세요
+            {username}님에 대해 알려주세요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">
           <div className="flex flex-col mb-[200px]">
             <span className="body1-medium text-grayscale-60">
-              선호하는 티켓 가격 범위를 설정해주세요.
+              선호하는 티켓 가격 범위를 알려주세요.
             </span>
             <div className="slide-up">
               <Price

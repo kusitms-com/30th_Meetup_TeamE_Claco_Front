@@ -7,7 +7,7 @@ interface DetailsInfoSectionProps {
   setShowFullImage: (show: boolean) => void;
 }
 
-const DetailsInfoSection = forwardRef<HTMLDivElement, DetailsInfoSectionProps>(
+const ShowPoster = forwardRef<HTMLDivElement, DetailsInfoSectionProps>(
   ({ showFullImage, setShowFullImage }, ref) => {
     const toggleFullImageView = () => {
       setShowFullImage(!showFullImage);
@@ -43,4 +43,4 @@ const DetailsInfoSection = forwardRef<HTMLDivElement, DetailsInfoSectionProps>(
   },
 );
 
-export default DetailsInfoSection;
+export default ShowPoster;

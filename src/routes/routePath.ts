@@ -40,6 +40,9 @@ const RoutePath = {
   TicketInfo: "/ticketcreate/info",
   TicketReview: "/ticketcreate/review",
   TicketDownload: "/ticketcreate/download",
+
+  /*마이 페이지 */
+  MyPage: "/mypage",
 } as const;
 
 export default RoutePath;

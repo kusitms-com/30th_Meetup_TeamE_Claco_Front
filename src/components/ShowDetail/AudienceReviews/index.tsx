@@ -1,9 +1,9 @@
-import { ReviewSummaryCard } from "@/components/ShowDetail/ReviewSummaryCard";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { forwardRef } from "react";
+import { ReviewSummaryCard } from "./ReviewSummaryCard";
 
-const ReviewSection = forwardRef<HTMLDivElement>((_, ref) => {
+const AudienceReviews = forwardRef<HTMLDivElement>((_, ref) => {
   const reviews = [
     {
       username: "울랄라",
@@ -68,4 +68,4 @@ const ReviewSection = forwardRef<HTMLDivElement>((_, ref) => {
   );
 });
 
-export default ReviewSection;
+export default AudienceReviews;

@@ -5,11 +5,13 @@ import Poster9 from "@/assets/images/poster9.gif";
 import Poster11 from "@/assets/images/poster11.gif";
 import { forwardRef } from "react";
 
-const RelatedShowsSection = forwardRef<HTMLDivElement>((_, ref) => {
+const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
   return (
     <section ref={ref}>
       <div className="px-6 pb-[161px]">
-        <span className="headline2-bold text-grayscale-80">비슷한 공연</span>
+        <span className="headline2-bold text-grayscale-80">
+          이 공연도 마음에 들 거예요!
+        </span>
         <section className="mt-6">
           <Swiper
             slidesPerView={"auto"}
@@ -49,4 +51,4 @@ const RelatedShowsSection = forwardRef<HTMLDivElement>((_, ref) => {
   );
 });
 
-export default RelatedShowsSection;
+export default RelatedShowsRecommend;

@@ -1,6 +1,6 @@
 import { forwardRef } from "react";
 
-const ShowInfoSection = forwardRef<HTMLDivElement>((_, ref) => {
+const ShowEssentials = forwardRef<HTMLDivElement>((_, ref) => {
   // const copyAddress = () => {
   //   const url =
   //   navigator.clipboard.writeText(url)
@@ -92,4 +92,4 @@ const ShowInfoSection = forwardRef<HTMLDivElement>((_, ref) => {
   );
 });
 
-export default ShowInfoSection;
+export default ShowEssentials;
