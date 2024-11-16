@@ -53,7 +53,7 @@ export const TicketSearchPage = () => {
   ];
 
   const filteredShows = shows.filter((show) =>
-    show.title.toLowerCase().includes(debouncedQuery.toLowerCase()),
+    show.title.toLowerCase().includes(debouncedQuery.toLowerCase())
   );
 
   return (
@@ -70,9 +70,11 @@ export const TicketSearchPage = () => {
           <span className="headline2-bold text-grayscale-80">티켓 등록</span>
         </div>
         <Progress value={30} />
-        <SearchBar value={query} onChange={handleSearchChange}>
-          관람한 공연을 검색해주세요
-        </SearchBar>
+        <SearchBar
+          value={query}
+          onChange={handleSearchChange}
+          placeholder={"관람한 공연을 검색해주세요"}
+        />
       </div>
 
       <div className="flex-grow overflow-y-auto mt-[20px]">

@@ -3,7 +3,6 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ConfirmButton } from "@/components/common/Button";
-
 import { ReviewContents } from "@/components/Ticket/AudienceReview/ReviewContents";
 import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 import { KeywordTags } from "@/components/Ticket/AudienceReview/KeywordTags";
@@ -13,7 +12,6 @@ import {
 } from "@/components/Ticket/AudienceReview/ReviewQuestions";
 import { Modal } from "@/components/common/Modal";
 import { accessibilityTags, sightTags, soundTags } from "../const";
-import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 
 export const TicketReviewPage = () => {
   const navigate = useNavigate();
