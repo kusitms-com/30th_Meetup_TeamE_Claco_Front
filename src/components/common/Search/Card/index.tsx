@@ -1,5 +1,6 @@
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { SearchCardProps } from "@/types";
+import { HighlightText } from "../HighLight";
 
 export const SearchCard = ({
   id,
@@ -8,6 +9,7 @@ export const SearchCard = ({
   categoryType,
   onClick,
   className,
+  searchKeyWord = "",
 }: SearchCardProps) => {
   return (
     <div
@@ -21,8 +23,10 @@ export const SearchCard = ({
       >
         {categoryType === "classical" ? "클래식" : "무용"}
       </CategoryTag>
-      <div className="flex flex-col body2-medium text-grayscale-80 gap-1">
-        <span className="max-w-[253px] truncate">{title}</span>
+      <div className="flex flex-col gap-1 body2-medium text-grayscale-80">
+        <span className="max-w-[253px] truncate">
+          <HighlightText text={title} highlight={searchKeyWord} />
+        </span>
         <span>{date}</span>
       </div>
     </div>

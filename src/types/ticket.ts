@@ -2,7 +2,8 @@ export type SearchBarProps = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   onKeyDown?: (event: React.KeyboardEvent<HTMLInputElement>) => void;
-  children: string;
+  onFocus?: () => void;
+  placeholder: string;
 };
 
 export type SearchCardProps = {
@@ -12,6 +13,7 @@ export type SearchCardProps = {
   onClick?: () => void;
   className?: string;
   categoryType: "classical" | "dance";
+  searchKeyWord?: string;
 };
 
 export type KeywordTagProps = {
@@ -26,12 +28,17 @@ export type ReviewQuestionProps = {
   onTagClick: (tag: string) => void;
 };
 
-export type ReviewContentsProps = {
+export type TextReviewProps = {
   value: string;
   onChange: (text: string) => void;
+};
+
+export type ImageReviewProps = {
   files: File[];
   onFileChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
 };
+
+export type ReviewContentProps = TextReviewProps & ImageReviewProps;
 
 export type SeatQuestionsProps = {
   selectedTag1: string | null;
@@ -43,4 +50,38 @@ export type SeatQuestionsProps = {
 export type StarRatingProps = {
   rating: number;
   onRatingChange: (newRating: number) => void;
+};
+
+export type GenreTag = {
+  tagCategoryId: number;
+  tagName: string;
+  iconUrl: string;
+};
+
+export type PlaceReview = {
+  placeCategoryId: number;
+  categoryName: string;
+};
+
+export type ImageUrl = {
+  imageUrl: string;
+};
+
+export type TicketReview = {
+  ticketReviewId: number;
+  concertName: string;
+  nickname: string;
+  watchDate: string;
+  createdDate: string;
+  watchPlace: string;
+  watchRound: string;
+  runningTime: string;
+  castings: string;
+  watchSit: string;
+  concertTags: GenreTag[];
+  starRate: number;
+  content: string;
+  placeReviews: PlaceReview[];
+  imageUrlS: ImageUrl[];
+  editor: boolean;
 };

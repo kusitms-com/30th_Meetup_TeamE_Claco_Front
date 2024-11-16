@@ -216,7 +216,7 @@ export const ClacoBookDetailPage = () => {
         </Swiper>
       </div>
       <div
-        className="absolute bottom-[57px] right-[26px] w-[70px] h-[70px] bg-primary rounded-full flex justify-center items-center z-10"
+        className="absolute bottom-[57px] right-[26px] w-[70px] h-[70px] bg-primary rounded-full flex justify-center items-center"
         onClick={gotoTicketCreate}
       >
         <Plus viewBox="0 0 22 22" width={40} height={40} />

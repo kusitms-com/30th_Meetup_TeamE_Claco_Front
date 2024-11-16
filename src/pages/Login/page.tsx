@@ -1,12 +1,13 @@
-import { useNavigate } from "react-router-dom";
 import backgroundImage from "../../assets/images/loginbackground.png";
 import { ReactComponent as ClacoMain } from "@/assets/svgs/Claco_Main.svg";
 
 export const LoginPage = () => {
-  const navigate = useNavigate();
-  const gotoTOS = () => {
-    navigate("/tos");
+  // 카카오 인증 서버로 리다이렉트
+  const handleLogin = () => {
+    window.location.href =
+      "https://claco-server.com/oauth2/authorization/kakao";
   };
+
   return (
     <div
       className="w-full h-screen bg-center bg-cover"
@@ -26,7 +27,7 @@ export const LoginPage = () => {
         </div>
         <button
           className="flex w-full bg-login items-center justify-center rounded-[0.31rem] py-[0.88rem]"
-          onClick={gotoTOS}
+          onClick={handleLogin}
         >
           <span className="body1-regular text-grayscale-20">
             카카오로 시작하기

@@ -1,6 +1,8 @@
 const RoutePath = {
   /*로그인 페이지 */
   Login: "/",
+  BeforeOnBoarding: "/oauth/callback/sign-up",
+  AfterOnBoarding: "oauth/callback/main",
 
   /*약관동의 페이지 */
   Tos: "/tos",
@@ -33,6 +35,7 @@ const RoutePath = {
 
   /*클라코 티켓 페이지 */
   TicketDetail: "/ticket/:id",
+  TicketReviewEdit: "/ticket/:id/edit",
 
   /*클라코 티켓 등록 페이지 */
   TicketCreate: "/ticketcreate",

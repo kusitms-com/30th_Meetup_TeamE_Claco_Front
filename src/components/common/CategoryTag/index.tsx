@@ -1,7 +1,11 @@
 import { CategoryTagProps } from "@/types";
 
-export const CategoryTag = ({ categoryType, children, className }: CategoryTagProps) => {
-  const TagStyle = () => {
+export const CategoryTag = ({
+  categoryType,
+  children,
+  className,
+}: CategoryTagProps) => {
+  const tagStyle = () => {
     switch (categoryType) {
       case "dance":
         return "bg-[#6370E4]";
@@ -17,7 +21,7 @@ export const CategoryTag = ({ categoryType, children, className }: CategoryTagPr
   };
   return (
     <div
-      className={`max-h-6 inline-flex items-center caption-12 text-common-white rounded-[20px] px-2 py-[3px] ${TagStyle()} ${className}`}
+      className={`max-h-6 inline-flex items-center caption-12 text-common-white rounded-[20px] px-2 py-[3px] ${tagStyle()} ${className}`}
     >
       {children}
     </div>

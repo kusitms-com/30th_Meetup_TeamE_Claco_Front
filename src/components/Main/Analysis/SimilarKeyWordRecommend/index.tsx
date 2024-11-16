@@ -7,13 +7,16 @@ import { useCallback, useEffect, useState } from "react";
 import dynamic from "@/assets/images/Genre/dynamic.png";
 import romantic from "@/assets/images/Genre/romantic.png";
 import tragic from "@/assets/images/Genre/tragic.png";
+import { useUserStore } from "@/libraries/store/user";
 
 export const SimilarKeyWordRecommend = () => {
   const USER_GENRE = [
-    { imgUrl: dynamic, keyWord: "dynamic" },
-    { imgUrl: romantic, keyWord: "romantic" },
-    { imgUrl: tragic, keyWord: "tragic" },
+    { imgUrl: dynamic, keyWord: "역동적인" },
+    { imgUrl: romantic, keyWord: "낭만적인" },
+    { imgUrl: tragic, keyWord: "비극적인" },
   ];
+  const nickname = useUserStore((state) => state.nickname);
+  const isLiked = true; // 좋아요 기록이 있는 사용자와 없는 사용자에 따른 UX 라이팅 구분을 위한 테스트 필드
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -51,12 +54,17 @@ export const SimilarKeyWordRecommend = () => {
       <div className="py-[22px]">
         <section className="px-6">
           <div className="leading-8 text-grayscale-90 heading2-bold">
-            방금 본{" "}
-            <span className="text-primary-400">
-              후지타 마오 피아노 리사이틀
-            </span>
-            <br />
-            비슷한 키워드를 가진 작품이에요
+            {isLiked ? (
+              <>
+                {nickname}님이 좋아요한 공연과 <br />
+                비슷한 느낌의 공연도 확인해보세요
+              </>
+            ) : (
+              <>
+                많은 사람들이 주목한 <br />
+                클래식 공연도 확인해보세요
+              </>
+            )}
           </div>
           <div className="relative h-[355px] overflow-hidden">
             <div className="w-[355px] h-[355px] absolute flex justify-center items-center opacity-70 bg-[radial-gradient(circle_at_50%_50%,rgba(233,102,58,0.3)_0%,rgba(233,102,58,0.00)_70%)] rounded-full" />
