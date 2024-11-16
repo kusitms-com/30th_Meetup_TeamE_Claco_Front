@@ -51,10 +51,10 @@ export const Nickname = ({ isChecked, setIsChecked, setNickname }: NicknameProps
           className="bg-grayscale-30 outline-none w-full body2-medium text-grayscale-80"
           value={nickname}
           onChange={handleInputChange}
-          maxLength={15}
+          maxLength={10}
         />
         <span className="caption-12 tracking-[-0.015rem] self-center text-grayscale-60">
-          {nickname.length}/15
+          {nickname.length}/10
         </span>
       </div>
       {hasStartedTyping && errorMessage ? (
