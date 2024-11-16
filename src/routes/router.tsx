@@ -25,6 +25,8 @@ import { TicketReviewPage } from "@/pages/TicketCreate/Review/page";
 import { TicketDownloadPage } from "@/pages/TicketCreate/Download/page";
 import { ClacoTicketDetailPage } from "@/pages/Ticket/[id]/page";
 import { ClacoTicketReviewEditPage } from "@/pages/Ticket/[id]/edit/page";
+import { BeforeOnBoardingPage } from "@/pages/Login/Kakao/BeforeOnBoarding/page";
+import { AfterOnBoardingPage } from "@/pages/Login/Kakao/AfterOnBoarding/page";
 
 const routes: RouteObject[] = [
   {
@@ -37,6 +39,8 @@ const routes: RouteObject[] = [
     ),
     children: [
       { index: true, element: <LoginPage /> },
+      { path: RoutePath.BeforeOnBoarding, element: <BeforeOnBoardingPage /> },
+      { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
       { path: RoutePath.Tos, element: <TosPage /> },
       {
         path: RoutePath.Create,
