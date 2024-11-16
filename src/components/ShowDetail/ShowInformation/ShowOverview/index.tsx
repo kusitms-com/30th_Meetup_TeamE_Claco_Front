@@ -4,6 +4,8 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 import Poster10 from "@/assets/images/poster10.gif";
 import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { ReactComponent as Megaphone } from "@/assets/svgs/Megaphone.svg";
+import { ReactComponent as Book } from "@/assets/svgs/Book.svg";
+import { Genre } from "@/components/common/Genre";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
 
@@ -12,15 +14,14 @@ import delicate from "@/assets/images/Genre/delicate.png";
 import classical from "@/assets/images/Genre/classical.png";
 import modern from "@/assets/images/Genre/modern.png";
 import lyrical from "@/assets/images/Genre/lyrical.png";
-import { PerformanceAttributes } from "@/components/Ticket/PerformanceAttributes";
 
-const TopShowInfoSection = () => {
+const ShowOverview = () => {
   const USER_GENRE = [
-    { imgURL: grand, category: "grand" },
-    { imgURL: delicate, category: "delicate" },
-    { imgURL: classical, category: "classical" },
-    { imgURL: modern, category: "modern" },
-    { imgURL: lyrical, category: "lyrical" },
+    { imgUrl: grand, keyWord: "grand" },
+    { imgUrl: delicate, keyWord: "delicate" },
+    { imgUrl: classical, keyWord: "classical" },
+    { imgUrl: modern, keyWord: "modern" },
+    { imgUrl: lyrical, keyWord: "lyrical" },
   ];
   const navigate = useNavigate();
   const [isExpanded, setIsExpanded] = useState(false);
@@ -59,7 +60,7 @@ const TopShowInfoSection = () => {
 
       <div className="flex gap-[21px] mt-7">
         <div className="relative w-[130px] h-[173px]">
-          <div className="absolute top-[10px] left-[9px] z-10">
+          <div className="absolute top-[10px] right-[10px] z-10">
             <Heart />
           </div>
           <img
@@ -91,43 +92,51 @@ const TopShowInfoSection = () => {
         </div>
       </div>
 
-      <div className="flex flex-col bg-grayscale-20 rounded-[5px] px-[21px] pt-[30px] pb-[35px] mb-[26px]">
+      <div className="flex flex-col bg-grayscale-20 rounded-[5px] px-[27px] pt-[30px] pb-[50px] mb-[26px]">
         <div className="flex space-x-2 items-center mb-[18px]">
           <Megaphone />
-          <span className="headline2-bold">Claco 큐레이션</span>
+          <span className="headline2-bold">Claco 쉬운 공연 설명</span>
         </div>
 
         <p
-          className={`relative body2-medium text-grayscale-70 mb-7 overflow-hidden ${
-            isExpanded ? "max-h-none" : "max-h-[41px]"
+          className={`body2-medium text-grayscale-70 mb-[10px] ${
+            isExpanded ? "" : "line-clamp-2"
           }`}
         >
-          {isExpanded ? (
-            description
-          ) : (
-            <>
-              {description.slice(0, 48)}
-              <span className="relative">
-                <span className="absolute inset-y-0 right-0 w-6 bg-gradient-to-r from-transparent to-[#242424]/80"></span>
-                {description.slice(48, 51)}
-              </span>
-              <button
-                onClick={toggleExpanded}
-                className="ml-1 body2-medium text-grayscale-80"
-              >
-                더 보기
-              </button>
-            </>
-          )}
+          {description}
         </p>
 
-        <PerformanceAttributes
-          categories={USER_GENRE}
-          title={"공연 성격 분석"}
-        />
+        <button
+          onClick={toggleExpanded}
+          className="flex justify-center mb-[17px]"
+        >
+          <BackArrow
+            width="14"
+            height="14"
+            viewBox="0 0 11 20"
+            className={`text-grayscale-60 ${
+              isExpanded ? "rotate-90" : "-rotate-90"
+            }`}
+          />
+        </button>
+
+        <div className="flex space-x-2 items-center mb-[22px]">
+          <Book />
+          <span className="headline2-bold">이런 느낌의 공연이에요</span>
+        </div>
+        <div className="flex justify-between px-[13px]">
+          {USER_GENRE.map((item, index) => (
+            <Genre
+              key={index}
+              genreType={item.imgUrl}
+              genreKeyword={item.keyWord}
+              className="caption-12 text-white w-[43px] h-[43px]"
+            />
+          ))}
+        </div>
       </div>
     </section>
   );
 };
 
-export default TopShowInfoSection;
+export default ShowOverview;

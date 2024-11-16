@@ -1,12 +1,10 @@
+import AudienceReviews from "@/components/ShowDetail/AudienceReviews";
+import RelatedShowsRecommend from "@/components/ShowDetail/RelatedShowRecommend";
+import ReservationRatio from "@/components/ShowDetail/ShowInformation/ReservationRatio";
+import ShowEssentials from "@/components/ShowDetail/ShowInformation/ShowEssentials";
+import ShowOverview from "@/components/ShowDetail/ShowInformation/ShowOverview";
+import ShowPoster from "@/components/ShowDetail/ShowInformation/ShowPoster";
 import { useRef, useState, useEffect } from "react";
-import ShowInfoSection from "./containers/ShowInfoSection";
-import ReservationRatioSection from "./containers/ReservationRatioSection";
-import DetailsInfoSection from "./containers/DetailsInfoSection";
-
-import TopShowInfoSection from "./containers/TopShowInfoSection";
-import RelatedShowsSection from "./containers/RelatedShowsSection";
-import ReviewSection from "./containers/ReviewSection";
-
 export const ShowDetailPage = () => {
   const [selectedTab, setSelectedTab] = useState("공연 정보");
   const [isSticky, setIsSticky] = useState(true);
@@ -102,7 +100,7 @@ export const ShowDetailPage = () => {
 
   return (
     <div className="pt-[73px]">
-      <TopShowInfoSection />
+      <ShowOverview />
 
       <div
         className={`bg-dark w-full pt-8 ${!isSticky ? "" : "sticky top-0 z-50"}`}
@@ -128,23 +126,23 @@ export const ShowDetailPage = () => {
       </div>
 
       <div ref={showInfoRef} data-section-id="공연 정보">
-        <ShowInfoSection />
+        <ShowEssentials />
       </div>
       <div ref={reservationRatioRef} data-section-id="예매자 비율">
-        <ReservationRatioSection />
+        <ReservationRatio />
       </div>
       <div ref={detailsInfoRef} data-section-id="상세정보">
-        <DetailsInfoSection
+        <ShowPoster
           showFullImage={showFullImage}
           setShowFullImage={setShowFullImage}
         />
       </div>
       <div ref={reviewRef} data-section-id="감상 리뷰">
-        <ReviewSection />
+        <AudienceReviews />
       </div>
 
       <div ref={relatedShowsRef}>
-        <RelatedShowsSection />
+        <RelatedShowsRecommend />
       </div>
     </div>
   );

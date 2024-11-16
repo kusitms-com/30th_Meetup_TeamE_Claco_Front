@@ -49,7 +49,7 @@ export type SeatQuestionsProps = {
 
 export type StarRatingProps = {
   rating: number;
-  onRatingChange: (rating: number) => void;
+  onRatingChange: (newRating: number) => void;
 };
 
 export type GenreTag = {
