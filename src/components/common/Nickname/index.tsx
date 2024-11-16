@@ -2,11 +2,15 @@ import { useEffect, useState } from "react";
 import { ReactComponent as ErrorIcon } from "@/assets/svgs/errorIcon.svg";
 import { ReactComponent as AgreeIcon } from "@/assets/svgs/agreeIcon.svg";
 import { NicknameProps } from "@/types";
+import { nickNameCheck } from "@/hooks/useNickNameCheck";
+import { useDebouncedState } from "@/hooks/useDebouncedState";
 
-export const Nickname = ({ isChecked, setIsChecked, setNickname }: NicknameProps) => {
+export const Nickname = ({ isChecked, setIsChecked, setNickname}: NicknameProps) => {
   const [nickname, setLocalNickname] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [hasStartedTyping, setHasStartedTyping] = useState<boolean>(false);
+  const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
+  const debouncedNickname = useDebouncedState<string>(nickname, 1000);
 
   const validateNickname = (name: string): string => {
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/g;
@@ -18,14 +22,38 @@ export const Nickname = ({ isChecked, setIsChecked, setNickname }: NicknameProps
     return "";
   };
 
-  useEffect(() => {
-    if (hasStartedTyping) {
-      const error = validateNickname(nickname);
-      setErrorMessage(error);
-      setIsChecked(!error);
-      setNickname(nickname);
+  const validateDuplicatedNickname = async (name: string) => {
+    try {
+      const response = await nickNameCheck(name);
+      if (response.code === "MEM-009") {
+        setErrorMessage("이미 사용 중인 닉네임이에요");
+        setIsDuplicate(true);
+        setIsChecked(false);
+      } else {
+        setErrorMessage("");
+        setIsDuplicate(false);
+        setIsChecked(true);
+        setNickname(name);
+      }
+    } catch (error) {
+      console.error(error);
+      setIsChecked(false);
     }
-  }, [nickname, hasStartedTyping, setIsChecked, setNickname]);
+  };
+
+  useEffect(() => {
+    const error = validateNickname(nickname);
+    if (error) {
+      setErrorMessage(error);
+      setIsChecked(false)
+      setIsDuplicate(false)
+      return;
+    }
+
+    if (debouncedNickname) {
+      validateDuplicatedNickname(debouncedNickname);
+    }
+  }, [debouncedNickname]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -43,7 +71,9 @@ export const Nickname = ({ isChecked, setIsChecked, setNickname }: NicknameProps
           hasStartedTyping
             ? errorMessage
               ? "border-system-error"
-              : "border-system-positive"
+              : isDuplicate
+                ? "border-system-error"
+                : "border-system-positive"
             : "border-dark"
         }`}
       >
