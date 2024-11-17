@@ -39,6 +39,7 @@ const routes: RouteObject[] = [
       </>
     ),
     children: [
+      // Layout이 적용되지 않는 페이지들
       { index: true, element: <LoginPage /> },
       { path: RoutePath.BeforeOnBoarding, element: <BeforeOnBoardingPage /> },
       { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
@@ -58,10 +59,6 @@ const routes: RouteObject[] = [
           },
         ],
       },
-      {
-        element: <Layout />,
-        children: [{ path: RoutePath.Main, element: <MainPage /> }],
-      },
       { path: RoutePath.Show, element: <ShowDetailPage /> },
       {
         path: RoutePath.ShowReviews,
@@ -69,16 +66,6 @@ const routes: RouteObject[] = [
           { index: true, element: <ReviewPage /> },
           { path: RoutePath.ShowReviewDetail, element: <ReviewDetailPage /> },
         ],
-      },
-      {
-        path: RoutePath.Browse,
-        element: <Layout />,
-        children: [{ index: true, element: <BrowsePage /> }],
-      },
-      {
-        path: RoutePath.TicketBook,
-        element: <Layout />,
-        children: [{ index: true, element: <ClacoBookPage /> }],
       },
       { path: RoutePath.TicketDetail, element: <ClacoTicketDetailPage /> },
       {
@@ -95,11 +82,22 @@ const routes: RouteObject[] = [
           { path: RoutePath.TicketDownload, element: <TicketDownloadPage /> },
         ],
       },
-      {
-        path: RoutePath.MyPage,
-        element: <Layout />,
-        children: [{ index: true, element: <MyPage /> }],
-      },
+    ],
+  },
+  // Layout이 적용되는 페이지들
+  {
+    path: "/",
+    element: (
+      <>
+        <ScrollTop />
+        <Layout />
+      </>
+    ),
+    children: [
+      { path: RoutePath.Main, element: <MainPage /> },
+      { path: RoutePath.Browse, element: <BrowsePage /> },
+      { path: RoutePath.TicketBook, element: <ClacoBookPage /> },
+      { path: RoutePath.MyPage, element: <MyPage /> },
     ],
   },
   { path: "*", element: <div>Not found page</div> },
