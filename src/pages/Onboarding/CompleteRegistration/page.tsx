@@ -10,6 +10,7 @@ export const CompleteRegistrationPage = () => {
   const nickname = useUserStore((state) => state.nickname);
 
   const handleLogin = () => {
+    localStorage.removeItem("user-onboarding-storage");
     window.location.replace(`${import.meta.env.VITE_LOGIN_SERVER_URL}`);
   };
 
