@@ -5,7 +5,7 @@ import { ReviewTag } from "@/components/common/ReviewTag";
 import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
 // import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useThumbnailModal } from "@/hooks/useThumbnailModal";
+import { useThumbnailModal } from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
 
 export const ReviewDetailPage = () => {

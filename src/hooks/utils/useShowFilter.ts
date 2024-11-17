@@ -23,7 +23,7 @@ export type UseShowFilterReturn = {
   closeFilter: () => void;
 };
 
-export const useShowFilter = (): UseShowFilterReturn => {
+const useShowFilter = (): UseShowFilterReturn => {
   const [showFilter, setShowFilter] = useState<boolean>(false);
   const [filterState, setFilterState] = useState<FilterState>({
     priceRange: "",
@@ -79,3 +79,5 @@ export const useShowFilter = (): UseShowFilterReturn => {
     closeFilter,
   };
 };
+
+export default useShowFilter;
