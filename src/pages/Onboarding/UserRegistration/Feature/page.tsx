@@ -13,11 +13,14 @@ export const SelectFeaturePage = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [progressValue, setProgressValue] = useState<number>(55.55);
   const nickname = useUserStore((state) => state.nickname);
-  const setFeature = useOnboardingStore(
-    (state) => state.setCategoryPreferences,
+  const addFeature = useOnboardingStore((state) => state.addCategoryPreference);
+  const removeLastCategoryPreference = useOnboardingStore(
+    (state) => state.removeLastCategoryPreference,
+  );
+  const removeSpecificCategoryPreference = useOnboardingStore(
+    (state) => state.removeSpecificCategoryPreference,
   );
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
-  const [selectedAllFeature, setSelectedAllFeature] = useState<string[]>([]);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
 
   const {
@@ -36,6 +39,7 @@ export const SelectFeaturePage = () => {
     if (currentStep === 0) {
       navigate("/create/concept");
     } else {
+      removeLastCategoryPreference();
       setCurrentStep(currentStep - 2);
     }
     setProgressValue((prevValue) => Math.min(prevValue - 11.11, 100));
@@ -43,24 +47,42 @@ export const SelectFeaturePage = () => {
 
   const handleFeatureClick = (feature: string) => {
     setSelectedFeature(feature);
-    setSelectedAllFeature((prevFeatures) => [...prevFeatures, feature]);
 
     if (progressValue !== 99.99) {
       setIsWaiting(true);
       setTimeout(() => {
         if (currentStep < features.length - 2) {
           setCurrentStep((prevStep) => prevStep + 2);
+          addFeature(feature);
           setSelectedFeature(null);
           setProgressValue((prevValue) => Math.min(prevValue + 11.11, 100));
         }
         setIsWaiting(false);
       }, 500);
+    } else {
+      if (
+        !categoryPreferences.includes("친숙한") &&
+        !categoryPreferences.includes("새로운")
+      ) {
+        addFeature(feature);
+      } else {
+        if (feature === "친숙한" || feature === "새로운") {
+          if (categoryPreferences.includes("친숙한") && feature !== "친숙한") {
+            removeSpecificCategoryPreference("친숙한");
+          }
+          if (categoryPreferences.includes("새로운") && feature !== "새로운") {
+            removeSpecificCategoryPreference("새로운");
+          }
+        }
+
+        if (!categoryPreferences.includes(feature)) {
+          addFeature(feature);
+        }
+      }
     }
   };
 
   const handleNextClick = async () => {
-    setFeature(selectedAllFeature);
-
     const onboardingRequest = {
       nickname: nickname,
       gender,

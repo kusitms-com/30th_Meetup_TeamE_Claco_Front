@@ -31,6 +31,8 @@ export type OnboardingState = {
   categoryPreferences: string[];
   setCategoryPreferences: (categories: string[]) => void;
   addCategoryPreference: (category: string) => void;
+  removeLastCategoryPreference: () => void;
+  removeSpecificCategoryPreference: (category: string) => void;
   clearCategoryPreferences: () => void;
 };
 
@@ -76,10 +78,20 @@ export const useOnboardingStore = create<OnboardingState>()(
         set((state) => ({
           categoryPreferences: [...state.categoryPreferences, category],
         })),
+      removeLastCategoryPreference: () =>
+        set((state) => ({
+          categoryPreferences: state.categoryPreferences.slice(0, -1),
+        })),
+      removeSpecificCategoryPreference: (category: string) =>
+        set((state) => ({
+          categoryPreferences: state.categoryPreferences.filter(
+            (item) => item !== category,
+          ),
+        })),
       clearCategoryPreferences: () => set({ categoryPreferences: [] }),
     }),
     {
       name: "user-onboarding-storage",
-    }
-  )
+    },
+  ),
 );

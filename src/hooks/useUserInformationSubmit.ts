@@ -3,7 +3,6 @@ import client from "@/apis";
 export type UserInformationResponse = {
   code: string;
   message: string;
-  result: Record<string, unknown>;
 };
 
 export type UserInformationRequest = {
@@ -17,11 +16,13 @@ export type UserInformationRequest = {
   categoryPreferences: { preferenceCategory: string }[];
 };
 
-export const UserInformationSubmit = async (userInfo: UserInformationRequest) => {
+export const UserInformationSubmit = async (
+  userInfo: UserInformationRequest,
+) => {
   try {
     const response = await client.post<UserInformationResponse>(
       `/members`,
-      userInfo
+      userInfo,
     );
     return response.data;
   } catch (error) {
