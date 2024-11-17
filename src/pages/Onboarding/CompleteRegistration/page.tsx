@@ -1,16 +1,16 @@
 import { ReactComponent as CompletePreference } from "@/assets/svgs/CompletePreference.svg";
 import { useEffect, useState } from "react";
 import { ConfirmButton } from "@/components/common/Button";
-import { useNavigate } from "react-router-dom";
 import LottieData from "@/assets/lotties/onboarding-loading.json";
 import Lottie from "react-lottie-player";
+import { useUserStore } from "@/libraries/store/user";
 
 export const CompleteRegistrationPage = () => {
   const [showLoading, setShowLoading] = useState(true);
-  const navigate = useNavigate();
+  const nickname = useUserStore((state) => state.nickname);
 
-  const gotoMain = () => {
-    navigate("/main");
+  const handleLogin = () => {
+    window.location.replace(`${import.meta.env.VITE_LOGIN_SERVER_URL}`);
   };
 
   useEffect(() => {
@@ -26,11 +26,16 @@ export const CompleteRegistrationPage = () => {
       {showLoading ? (
         <div className="flex flex-col w-full h-full pt-[144px] relative">
           <span className="heading1-bold text-grayscale-90 px-[24px]">
-            클라코가 달보라님의
+            클라코가 {nickname}님의
             <br />
             클래식 공연 취향을 분석중이에요
           </span>
-          <Lottie loop animationData={LottieData} play className="absolute top-0" />
+          <Lottie
+            loop
+            animationData={LottieData}
+            play
+            className="absolute top-0"
+          />
         </div>
       ) : (
         <div className="flex flex-col justify-between w-full px-[24px] h-full pt-[144px] pb-[73px]">
@@ -42,7 +47,7 @@ export const CompleteRegistrationPage = () => {
           <div className="flex items-center justify-center mb-[127px]">
             <CompletePreference />
           </div>
-          <ConfirmButton isChecked={true} onClick={gotoMain}>
+          <ConfirmButton isChecked={true} onClick={handleLogin}>
             맞춤 공연 보러가기
           </ConfirmButton>
         </div>

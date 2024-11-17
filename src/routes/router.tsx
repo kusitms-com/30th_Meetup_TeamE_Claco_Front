@@ -41,8 +41,8 @@ const routes: RouteObject[] = [
     children: [
       { index: true, element: <LoginPage /> },
       { path: RoutePath.BeforeOnBoarding, element: <BeforeOnBoardingPage /> },
-      { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
       { path: RoutePath.Tos, element: <TosPage /> },
+      { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
       {
         path: RoutePath.Create,
         children: [

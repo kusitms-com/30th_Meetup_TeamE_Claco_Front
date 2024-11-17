@@ -5,14 +5,30 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
 import { features } from "./const";
+import { useUserStore } from "@/libraries/store/user";
+import { useOnboardingStore } from "@/libraries/store/onboarding";
+import { UserInformationSubmit } from "@/hooks/useUserInformationSubmit";
 
 export const SelectFeaturePage = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [progressValue, setProgressValue] = useState<number>(55.55);
+  const nickname = useUserStore((state) => state.nickname);
+  const setFeature = useOnboardingStore(
+    (state) => state.setCategoryPreferences,
+  );
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [selectedAllFeature, setSelectedAllFeature] = useState<string[]>([]);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
-  const username = "달보라";
+
+  const {
+    gender,
+    age,
+    minPrice,
+    maxPrice,
+    regionPreferences,
+    typePreferences,
+    categoryPreferences,
+  } = useOnboardingStore();
 
   const navigate = useNavigate();
 
@@ -42,10 +58,32 @@ export const SelectFeaturePage = () => {
     }
   };
 
-  const handleNextClick = () => {
-    if (currentStep >= features.length - 2) {
+  const handleNextClick = async () => {
+    setFeature(selectedAllFeature);
+
+    const onboardingRequest = {
+      nickname: nickname,
+      gender,
+      age,
+      minPrice,
+      maxPrice,
+      regionPreferences: regionPreferences.map((region) => ({
+        preferenceRegion: region,
+      })),
+      typePreferences: typePreferences.map((type) => ({
+        preferenceType: type,
+      })),
+      categoryPreferences: categoryPreferences.map((category) => ({
+        preferenceCategory: category,
+      })),
+    };
+
+    try {
+      const response = await UserInformationSubmit(onboardingRequest);
+      console.log(response);
       navigate("/create/complete");
-      console.log(selectedAllFeature);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -58,7 +96,7 @@ export const SelectFeaturePage = () => {
             <Progress value={progressValue} />
           </div>
           <span className="heading1-bold text-grayscale-90">
-            {username}님 취향에 맞는
+            {nickname}님 취향에 맞는
             <br />
             클래식 공연을 추천드릴게요
           </span>
