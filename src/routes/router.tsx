@@ -28,6 +28,7 @@ import { MyPage } from "@/pages/Mypage/page";
 import { ClacoTicketReviewEditPage } from "@/pages/Ticket/[id]/edit/page";
 import { BeforeOnBoardingPage } from "@/pages/Login/Kakao/BeforeOnBoarding/page";
 import { AfterOnBoardingPage } from "@/pages/Login/Kakao/AfterOnBoarding/page";
+import AuthenticatedLayout from "./AuthenticatedLayout";
 
 const routes: RouteObject[] = [
   {
@@ -39,8 +40,30 @@ const routes: RouteObject[] = [
       </>
     ),
     children: [
-      // Layout이 적용되지 않는 페이지들
+      // LoginPage는 인증 없이 접근 가능
       { index: true, element: <LoginPage /> },
+    ],
+  },
+  {
+    path: "/",
+    element: (
+      <>
+        <ScrollTop />
+        <AuthenticatedLayout /> {/* 인증된 사용자만 접근 가능 */}
+      </>
+    ),
+    children: [
+      {
+        path: "/",
+        element: <Layout />, // 공통 Layout 적용
+        children: [
+          { path: RoutePath.Main, element: <MainPage /> },
+          { path: RoutePath.Browse, element: <BrowsePage /> },
+          { path: RoutePath.TicketBook, element: <ClacoBookPage /> },
+          { path: RoutePath.MyPage, element: <MyPage /> },
+        ],
+      },
+      // Layout이 필요 없는 페이지들
       { path: RoutePath.BeforeOnBoarding, element: <BeforeOnBoardingPage /> },
       { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
       { path: RoutePath.Tos, element: <TosPage /> },
@@ -82,22 +105,6 @@ const routes: RouteObject[] = [
           { path: RoutePath.TicketDownload, element: <TicketDownloadPage /> },
         ],
       },
-    ],
-  },
-  // Layout이 적용되는 페이지들
-  {
-    path: "/",
-    element: (
-      <>
-        <ScrollTop />
-        <Layout />
-      </>
-    ),
-    children: [
-      { path: RoutePath.Main, element: <MainPage /> },
-      { path: RoutePath.Browse, element: <BrowsePage /> },
-      { path: RoutePath.TicketBook, element: <ClacoBookPage /> },
-      { path: RoutePath.MyPage, element: <MyPage /> },
     ],
   },
   { path: "*", element: <div>Not found page</div> },
