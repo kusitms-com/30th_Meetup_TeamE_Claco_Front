@@ -34,3 +34,17 @@ export type UserPreferencesResponse = {
   message: string;
   result: UserPreferenceResult;
 };
+
+export type UserBased = {
+  id: number;
+  prfnm: string;
+  poster: string;
+  genrenm: string;
+  liked: boolean;
+};
+
+export type UserBasedResponse = {
+  code: string;
+  message: string;
+  result: UserBased[];
+};
