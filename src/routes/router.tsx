@@ -40,8 +40,10 @@ const routes: RouteObject[] = [
       </>
     ),
     children: [
-      // LoginPage는 인증 없이 접근 가능
       { index: true, element: <LoginPage /> },
+      { path: RoutePath.BeforeOnBoarding, element: <BeforeOnBoardingPage /> },
+      { path: RoutePath.Tos, element: <TosPage /> },
+      { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
     ],
   },
   {
@@ -55,7 +57,7 @@ const routes: RouteObject[] = [
     children: [
       {
         path: "/",
-        element: <Layout />, // 공통 Layout 적용
+        element: <Layout />,
         children: [
           { path: RoutePath.Main, element: <MainPage /> },
           { path: RoutePath.Browse, element: <BrowsePage /> },
@@ -63,10 +65,6 @@ const routes: RouteObject[] = [
           { path: RoutePath.MyPage, element: <MyPage /> },
         ],
       },
-      // Layout이 필요 없는 페이지들
-      { path: RoutePath.BeforeOnBoarding, element: <BeforeOnBoardingPage /> },
-      { path: RoutePath.Tos, element: <TosPage /> },
-      { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
       {
         path: RoutePath.Create,
         children: [
