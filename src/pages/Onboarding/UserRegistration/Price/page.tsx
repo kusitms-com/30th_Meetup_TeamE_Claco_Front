@@ -4,18 +4,24 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
 import { Price } from "@/components/common/Price";
 import { useState } from "react";
+import { useUserStore } from "@/libraries/store/user";
+import { useOnboardingStore } from "@/libraries/store/onboarding";
 
 export const SelectPricePage = () => {
   const navigate = useNavigate();
-  const [minPrice, setMinPrice] = useState<number>(0);
-  const [maxPrice, setMaxPrice] = useState<number>(1000000);
-  const username = "달보라";
+  const nickname = useUserStore((state) => state.nickname);
+  const setMinPrice = useOnboardingStore((state) => state.setMinPrice);
+  const setMaxPrice = useOnboardingStore((state) => state.setMaxPrice);
+  const [selectedMinPrice, setSelectedMinPrice] = useState<number>(0);
+  const [selectedMaxPrice, setSelectedMaxPrice] = useState<number>(1000000);
 
   const handleBackClick = () => {
     navigate("/create/location");
   };
 
   const handleConfirmClick = () => {
+    setMinPrice(selectedMinPrice);
+    setMaxPrice(selectedMaxPrice);
     navigate("/create/concept");
   };
 
@@ -30,7 +36,7 @@ export const SelectPricePage = () => {
           <span className="heading1-bold text-grayscale-90">
             맞춤 공연 추천 전,
             <br />
-            {username}님에 대해 알려주세요
+            {nickname}님에 대해 알려주세요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">
@@ -40,10 +46,10 @@ export const SelectPricePage = () => {
             </span>
             <div className="slide-up">
               <Price
-                minPrice={minPrice}
-                maxPrice={maxPrice}
-                onMinPriceChange={setMinPrice}
-                onMaxPriceChange={setMaxPrice}
+                minPrice={selectedMinPrice}
+                maxPrice={selectedMaxPrice}
+                onMinPriceChange={setSelectedMinPrice}
+                onMaxPriceChange={setSelectedMaxPrice}
               />
             </div>
           </div>

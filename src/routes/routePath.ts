@@ -2,7 +2,7 @@ const RoutePath = {
   /*로그인 페이지 */
   Login: "/",
   BeforeOnBoarding: "/oauth/callback/sign-up",
-  AfterOnBoarding: "oauth/callback/main",
+  AfterOnBoarding: "/oauth/callback/main",
 
   /*약관동의 페이지 */
   Tos: "/tos",

@@ -4,8 +4,8 @@ export type GenderProps = {
 };
 
 export type AgeProps = {
-  selectedAge: string | null;
-  onAgeSelect: (age: string) => void;
+  selectedAge: number | null;
+  onAgeSelect: (age: number) => void;
 }
 
 export type NicknameProps = {

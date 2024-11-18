@@ -4,17 +4,21 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
 import { Location } from "@/components/common/Location";
 import { useState } from "react";
+import { useOnboardingStore } from "@/libraries/store/onboarding";
+import { useUserStore } from "@/libraries/store/user";
 
 export const SelectLocationPage = () => {
   const navigate = useNavigate();
+  const nickname = useUserStore((state) => state.nickname);
+  const setLocation = useOnboardingStore((state) => state.setRegionPreferences);
   const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
-  const username = "달보라";
 
   const handleBackClick = () => {
     navigate("/create/profile");
   };
 
   const handleConfirmClick = () => {
+    setLocation(selectedLocation);
     navigate("/create/price");
   };
 
@@ -37,7 +41,7 @@ export const SelectLocationPage = () => {
           <span className="heading1-bold text-grayscale-90">
             맞춤 공연 추천 전,
             <br />
-            {username}님에 대해 알려주세요
+            {nickname}님에 대해 알려주세요
           </span>
         </div>
         <div className="flex flex-col justify-between h-full">

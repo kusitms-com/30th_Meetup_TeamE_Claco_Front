@@ -65,8 +65,8 @@ const routes: RouteObject[] = [
       },
       // Layout이 필요 없는 페이지들
       { path: RoutePath.BeforeOnBoarding, element: <BeforeOnBoardingPage /> },
-      { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
       { path: RoutePath.Tos, element: <TosPage /> },
+      { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
       {
         path: RoutePath.Create,
         children: [

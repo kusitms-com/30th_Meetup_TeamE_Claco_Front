@@ -5,14 +5,33 @@ import { useNavigate } from "react-router-dom";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
 import { features } from "./const";
+import { useUserStore } from "@/libraries/store/user";
+import { useOnboardingStore } from "@/libraries/store/onboarding";
+import { UserInformationSubmit } from "@/hooks/useUserInformationSubmit";
 
 export const SelectFeaturePage = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
   const [progressValue, setProgressValue] = useState<number>(55.55);
+  const nickname = useUserStore((state) => state.nickname);
+  const addFeature = useOnboardingStore((state) => state.addCategoryPreference);
+  const removeLastCategoryPreference = useOnboardingStore(
+    (state) => state.removeLastCategoryPreference,
+  );
+  const removeSpecificCategoryPreference = useOnboardingStore(
+    (state) => state.removeSpecificCategoryPreference,
+  );
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
-  const [selectedAllFeature, setSelectedAllFeature] = useState<string[]>([]);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
-  const username = "달보라";
+
+  const {
+    gender,
+    age,
+    minPrice,
+    maxPrice,
+    regionPreferences,
+    typePreferences,
+    categoryPreferences,
+  } = useOnboardingStore();
 
   const navigate = useNavigate();
 
@@ -20,6 +39,7 @@ export const SelectFeaturePage = () => {
     if (currentStep === 0) {
       navigate("/create/concept");
     } else {
+      removeLastCategoryPreference();
       setCurrentStep(currentStep - 2);
     }
     setProgressValue((prevValue) => Math.min(prevValue - 11.11, 100));
@@ -27,25 +47,65 @@ export const SelectFeaturePage = () => {
 
   const handleFeatureClick = (feature: string) => {
     setSelectedFeature(feature);
-    setSelectedAllFeature((prevFeatures) => [...prevFeatures, feature]);
 
     if (progressValue !== 99.99) {
       setIsWaiting(true);
       setTimeout(() => {
         if (currentStep < features.length - 2) {
           setCurrentStep((prevStep) => prevStep + 2);
+          addFeature(feature);
           setSelectedFeature(null);
           setProgressValue((prevValue) => Math.min(prevValue + 11.11, 100));
         }
         setIsWaiting(false);
       }, 500);
+    } else {
+      if (
+        !categoryPreferences.includes("친숙한") &&
+        !categoryPreferences.includes("새로운")
+      ) {
+        addFeature(feature);
+      } else {
+        if (feature === "친숙한" || feature === "새로운") {
+          if (categoryPreferences.includes("친숙한") && feature !== "친숙한") {
+            removeSpecificCategoryPreference("친숙한");
+          }
+          if (categoryPreferences.includes("새로운") && feature !== "새로운") {
+            removeSpecificCategoryPreference("새로운");
+          }
+        }
+
+        if (!categoryPreferences.includes(feature)) {
+          addFeature(feature);
+        }
+      }
     }
   };
 
-  const handleNextClick = () => {
-    if (currentStep >= features.length - 2) {
+  const handleNextClick = async () => {
+    const onboardingRequest = {
+      nickname: nickname,
+      gender,
+      age,
+      minPrice,
+      maxPrice,
+      regionPreferences: regionPreferences.map((region) => ({
+        preferenceRegion: region,
+      })),
+      typePreferences: typePreferences.map((type) => ({
+        preferenceType: type,
+      })),
+      categoryPreferences: categoryPreferences.map((category) => ({
+        preferenceCategory: category,
+      })),
+    };
+
+    try {
+      const response = await UserInformationSubmit(onboardingRequest);
+      console.log(response);
       navigate("/create/complete");
-      console.log(selectedAllFeature);
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -58,7 +118,7 @@ export const SelectFeaturePage = () => {
             <Progress value={progressValue} />
           </div>
           <span className="heading1-bold text-grayscale-90">
-            {username}님 취향에 맞는
+            {nickname}님 취향에 맞는
             <br />
             클래식 공연을 추천드릴게요
           </span>
