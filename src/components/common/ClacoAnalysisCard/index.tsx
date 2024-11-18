@@ -1,21 +1,9 @@
 import { useEffect, useState } from "react";
 import { ReactComponent as Listen } from "@/assets/svgs/listen.svg";
 import { Genre } from "@/components/common/Genre";
-import grand from "@/assets/images/Genre/grand.png";
-import delicate from "@/assets/images/Genre/delicate.png";
-import classical from "@/assets/images/Genre/classical.png";
-import modern from "@/assets/images/Genre/modern.png";
-import lyrical from "@/assets/images/Genre/lyrical.png";
 import { useUserStore } from "@/libraries/store/user";
-
-/** 퍼블리싱 테스트 더미 데이터 */
-const USER_GENRE = [
-  { imgUrl: grand, keyWord: "웅장한" },
-  { imgUrl: delicate, keyWord: "섬세한" },
-  { imgUrl: classical, keyWord: "고전적인" },
-  { imgUrl: modern, keyWord: "현대적인" },
-  { imgUrl: lyrical, keyWord: "서정적인" },
-];
+import { useGetUserPreferences } from "@/hooks/queries";
+import { PreferCategory } from "@/types";
 
 export type ClacoAnalysisCardProps = {
   type: string;
@@ -23,20 +11,30 @@ export type ClacoAnalysisCardProps = {
 
 export const ClacoAnalysisCard = ({ type }: ClacoAnalysisCardProps) => {
   const nickname = useUserStore((state) => state.nickname);
-
   const initialGenreIndex = 0;
   const [currentIndex, setCurrentIndex] = useState<number>(initialGenreIndex);
   const [isTransitioning, setIsTransitioning] = useState<boolean>(false);
+  const [userPreference, setUserPreference] = useState<PreferCategory[]>([]);
+
+  const { data, isLoading } = useGetUserPreferences();
+
+  useEffect(() => {
+    if (!isLoading && data?.result?.preferCategories) {
+      setUserPreference(data.result.preferCategories);
+    }
+  }, [isLoading, data]);
 
   useEffect(() => {
     setCurrentIndex(initialGenreIndex);
   }, []);
 
   useEffect(() => {
+    if (!userPreference.length) return;
+
     const rotateGenre = () => {
       setIsTransitioning(true);
       setTimeout(() => {
-        setCurrentIndex((prev) => (prev + 1) % USER_GENRE.length);
+        setCurrentIndex((prev) => (prev + 1) % userPreference.length);
         setIsTransitioning(false);
       }, 300);
     };
@@ -47,7 +45,12 @@ export const ClacoAnalysisCard = ({ type }: ClacoAnalysisCardProps) => {
     }, 1000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [userPreference]);
+
+  if (isLoading) {
+    //skeleton UI 적용될 부분
+    return <div>로딩 중..</div>;
+  }
 
   return (
     <div>
@@ -79,27 +82,32 @@ export const ClacoAnalysisCard = ({ type }: ClacoAnalysisCardProps) => {
 
           {/* 장르 컴포넌트 컨테이너 */}
           <div
-            className={`flex h-[340px] justify-center items-center transition-all duration-300 ease-in-out ${isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"}`}
+            className={`flex h-[340px] justify-center items-center transition-all duration-300 ease-in-out ${
+              isTransitioning ? "opacity-0 scale-95" : "opacity-100 scale-100"
+            }`}
           >
-            <Genre
-              key={`genre-${currentIndex}`}
-              genreType={USER_GENRE[currentIndex].imgUrl}
-              genreKeyword={USER_GENRE[currentIndex].keyWord}
-              className={`${type === "main" ? "w-[200px] h-[200px]" : "w-[157px] h-[157px]"} object-contain`}
-              isShow={true}
-            />
+            {userPreference.length > 0 && (
+              <Genre
+                key={`genre-${currentIndex}`}
+                genreKeyword={userPreference[currentIndex].preferenceCategory}
+                className={`${
+                  type === "main"
+                    ? "w-[200px] h-[200px]"
+                    : "w-[157px] h-[157px]"
+                } object-contain`}
+                isShow={true}
+              />
+            )}
           </div>
         </div>
       </div>
       <div
-        className={`flex justify-between mb-[21px] ${type === "mypage" ? "px-5" : ""}`}
+        className={`flex justify-between mb-[21px] ${
+          type === "mypage" ? "px-5" : ""
+        }`}
       >
-        {USER_GENRE.map((item, index) => (
-          <Genre
-            key={index}
-            genreType={item.imgUrl}
-            genreKeyword={item.keyWord}
-          />
+        {userPreference.map((item, index) => (
+          <Genre key={index} genreKeyword={item.preferenceCategory} />
         ))}
       </div>
     </div>

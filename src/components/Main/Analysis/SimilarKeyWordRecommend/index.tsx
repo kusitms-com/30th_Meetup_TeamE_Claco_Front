@@ -71,7 +71,7 @@ export const SimilarKeyWordRecommend = () => {
             {USER_GENRE.map((item, index) => (
               <div key={index} className={getItemStyle(index)}>
                 <Genre
-                  genreType={item.imgUrl}
+                  genreImgURL={item.imgUrl}
                   genreKeyword={item.keyWord}
                   className={`${index === currentIndex ? "w-[117px] h-[127px]" : ""} `}
                   size={index === currentIndex ? 113 : 48}

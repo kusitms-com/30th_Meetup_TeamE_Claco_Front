@@ -46,7 +46,7 @@ export const ClacoTicket = ({ data }: ClacoTicketProps) => {
         {USER_GENRE.map((item, index) => (
           <Genre
             key={index}
-            genreType={item.imgUrl}
+            genreImgURL={item.imgUrl}
             genreKeyword={item.keyWord}
             className="w-[29px] h-[29px] text-primary-800 font-medium text-[8px]"
           />
