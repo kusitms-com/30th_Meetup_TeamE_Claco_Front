@@ -10,7 +10,7 @@ import { useState } from "react";
 
 export const PreferenceSettings = ({ onBack, onClick }: SettingsProps) => {
   const [selectedGender, setSelectedGender] = useState<string | null>(null);
-  const [selectedAge, setSelectedAge] = useState<string | null>(null);
+  const [selectedAge, setSelectedAge] = useState<number | null>(null);
   const [minPrice, setMinPrice] = useState<number>(0);
   const [maxPrice, setMaxPrice] = useState<number>(1000000);
   const [selectedLocation, setSelectedLocation] = useState<string[]>([]);
@@ -20,7 +20,7 @@ export const PreferenceSettings = ({ onBack, onClick }: SettingsProps) => {
     setSelectedGender(gender);
   };
 
-  const handleAgeClick = (age: string) => {
+  const handleAgeClick = (age: number) => {
     setSelectedAge(age);
   };
 

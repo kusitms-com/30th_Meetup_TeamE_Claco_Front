@@ -4,17 +4,21 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ConfirmButton } from "@/components/common/Button";
 import { Concept } from "@/components/common/Concept";
 import { useState } from "react";
+import { useUserStore } from "@/libraries/store/user";
+import { useOnboardingStore } from "@/libraries/store/onboarding";
 
 export const SelectConceptPage = () => {
   const navigate = useNavigate();
+  const nickname = useUserStore((state) => state.nickname);
+  const setConcept = useOnboardingStore((state) => state.setTypePreferences);
   const [selectedConcept, setSelectedConcept] = useState<string[]>([]);
-  const username = "달보라";
 
   const handleBackClick = () => {
     navigate("/create/price");
   };
 
   const handleConfirmClick = () => {
+    if (selectedConcept) setConcept(selectedConcept);
     navigate("/create/feature");
   };
 
@@ -35,7 +39,7 @@ export const SelectConceptPage = () => {
             <Progress value={44.44} />
           </div>
           <span className="heading1-bold text-grayscale-90">
-            {username}님 취향에 맞는
+            {nickname}님 취향에 맞는
             <br />
             클래식 공연을 추천드릴게요
           </span>

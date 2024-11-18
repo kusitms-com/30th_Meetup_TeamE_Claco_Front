@@ -4,8 +4,7 @@ import { ReactComponent as ClacoMain } from "@/assets/svgs/Claco_Main.svg";
 export const LoginPage = () => {
   // 카카오 인증 서버로 리다이렉트
   const handleLogin = () => {
-    window.location.href =
-      "https://claco-server.com/oauth2/authorization/kakao";
+    window.location.replace(`${import.meta.env.VITE_LOGIN_SERVER_URL}`);
   };
 
   return (

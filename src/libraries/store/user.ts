@@ -10,7 +10,7 @@ export type UserState = {
 export const useUserStore = create<UserState>()(
   persist(
     (set) => ({
-      nickname: "달보라",
+      nickname: "",
       setNickname: (nickname) => set({ nickname }),
       clearNickname: () => set({ nickname: "" }),
     }),
