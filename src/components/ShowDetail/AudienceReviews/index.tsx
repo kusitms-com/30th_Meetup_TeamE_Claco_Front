@@ -2,8 +2,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { forwardRef } from "react";
 import { ReviewSummaryCard } from "./ReviewSummaryCard";
+import { useParams } from "react-router-dom";
 
 const AudienceReviews = forwardRef<HTMLDivElement>((_, ref) => {
+  const { id } = useParams<{ id: string }>();
+
   const reviews = [
     {
       username: "울랄라",
@@ -38,7 +41,7 @@ const AudienceReviews = forwardRef<HTMLDivElement>((_, ref) => {
         <div className="space-x-[14px] mb-6">
           <span className="headline2-bold text-grayscale-80">감상 리뷰</span>
           <a
-            href="/show/1/reviews"
+            href={`/show/${id}/reviews`}
             className="caption-12 text-grayscale-60 underline"
           >
             전체 보기

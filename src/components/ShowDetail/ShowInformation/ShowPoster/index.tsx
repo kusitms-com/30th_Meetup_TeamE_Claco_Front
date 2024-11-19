@@ -1,14 +1,14 @@
-import Poster10_detail from "@/assets/images/poster10_detail.jpg";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { forwardRef } from "react";
 
 interface DetailsInfoSectionProps {
   showFullImage: boolean;
   setShowFullImage: (show: boolean) => void;
+  styurl: string;
 }
 
 const ShowPoster = forwardRef<HTMLDivElement, DetailsInfoSectionProps>(
-  ({ showFullImage, setShowFullImage }, ref) => {
+  ({ showFullImage, setShowFullImage, styurl }, ref) => {
     const toggleFullImageView = () => {
       setShowFullImage(!showFullImage);
     };
@@ -24,7 +24,7 @@ const ShowPoster = forwardRef<HTMLDivElement, DetailsInfoSectionProps>(
               }`}
             >
               <img
-                src={Poster10_detail}
+                src={styurl}
                 alt="poster details"
                 className="w-full h-auto object-cover rounded-[5px]"
               />
