@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { useThumbnailModal } from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
 import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
-import useRefFocusEffect from "@/hooks/useRefFocusEffect";
+import useRefFocusEffect from "@/hooks/utils/useRefFocusEffect";
 
 const options: string[] = ["별점 높은 순", "별점 낮은 순", "최신 순"];
 
