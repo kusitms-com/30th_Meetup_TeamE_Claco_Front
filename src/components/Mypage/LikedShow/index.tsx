@@ -2,7 +2,7 @@ import { SearchBar } from "@/components/common/Search/Bar";
 import { ShowFilterTab } from "@/components/common/ShowFilterTab";
 import { ShowSummaryCard } from "@/components/common/ShowSummaryCard";
 import { useEffect, useState } from "react";
-import { useDebouncedState } from "@/hooks/useDebouncedState";
+import { useDebouncedState } from "@/hooks/utils";
 import { initialShowData } from "@/components/common/ShowSummaryCard/const";
 
 export const LikedShow = () => {

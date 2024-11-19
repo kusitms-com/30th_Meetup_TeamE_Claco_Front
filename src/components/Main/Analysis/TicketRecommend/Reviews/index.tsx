@@ -1,4 +1,4 @@
-import { useTruncateText } from "@/hooks";
+import { useTruncateText } from "@/hooks/utils";
 import { REVIEW_MOCK_DATA_type } from "..";
 import { ReactComponent as Chat } from "@/assets/svgs/chat.svg";
 

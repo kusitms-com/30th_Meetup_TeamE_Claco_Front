@@ -21,7 +21,7 @@ export const PerformanceAttributes = ({
         {categories.map((item) => (
           <Genre
             key={item.tagCategoryId}
-            genreType={item.iconUrl}
+            genreImgURL={item.iconUrl}
             genreKeyword={item.tagName}
             className="caption-12 text-common-white w-[43px] h-[43px]"
           />
