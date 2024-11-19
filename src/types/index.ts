@@ -7,3 +7,4 @@ export type * from "./calendar";
 export type * from "./modal";
 export type * from "./preference";
 export type * from "./show";
+export type * from "./extract";

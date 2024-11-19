@@ -1,4 +1,4 @@
-import client from "@/apis";
+import { client } from "@/apis";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
