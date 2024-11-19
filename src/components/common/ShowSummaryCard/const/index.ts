@@ -7,7 +7,7 @@ export const initialShowData: Show[] = [
   {
     id: 1,
     posterImage: poster10,
-    showType: "dance",
+    showType: "무용",
     status: "upcoming",
     defaultLiked: true,
     title: "유니버설발레단 (호두까기 인형) - 성남",
@@ -19,7 +19,7 @@ export const initialShowData: Show[] = [
   {
     id: 2,
     posterImage: poster13,
-    showType: "classical",
+    showType: "서양음악(클래식)",
     status: "inProgress",
     defaultLiked: false,
     title: "대니 구 크리스마스 콘서트 <HOME>",
@@ -43,7 +43,7 @@ export const initialShowData: Show[] = [
   {
     id: 4,
     posterImage: poster2,
-    showType: "dance",
+    showType: "무용",
     status: "completed",
     defaultLiked: false,
     title: "라트라비아타",
@@ -55,7 +55,7 @@ export const initialShowData: Show[] = [
   {
     id: 5,
     posterImage: poster2,
-    showType: "dance",
+    showType: "무용",
     status: "completed",
     defaultLiked: false,
     title: "라트라비아타",
@@ -67,7 +67,7 @@ export const initialShowData: Show[] = [
   {
     id: 6,
     posterImage: poster2,
-    showType: "dance",
+    showType: "서양음악(클래식)",
     status: "completed",
     defaultLiked: false,
     title: "라트라비아타",
@@ -82,7 +82,7 @@ export const searchResultData: Show[] = [
   {
     id: 1,
     posterImage: poster10,
-    showType: "dance",
+    showType: "무용",
     status: "upcoming",
     defaultLiked: true,
     title: "유니버설발레단 (호두까기 인형) - 성남",

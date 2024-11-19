@@ -1,15 +1,20 @@
 import { ReactComponent as Location_Gray } from "@/assets/svgs/Location_gray.svg";
 import { ReactComponent as Calendar } from "@/assets/svgs/Calendar.svg";
 import { InfoCardProps } from "@/types/poster";
-import { useTruncateText } from "@/hooks/utils";
+import { formatDate, useTruncateText } from "@/hooks/utils";
 import { CategoryTag } from "@/components/common/CategoryTag";
 
 export const VerticalInfoCard = ({
   image,
   title,
   location,
-  date,
+  dateFrom,
+  dateTo,
+  genre,
 }: InfoCardProps) => {
+  const _title = useTruncateText(title, 14);
+  const _dateFrom = formatDate(dateFrom);
+  const _dateTo = formatDate(dateTo);
   return (
     <div className="w-[219px] h-[418px] bg-[#242424] rounded-[5px] p-[22px]">
       <div className="flex-col">
@@ -17,8 +22,8 @@ export const VerticalInfoCard = ({
           className="w-[174px] h-[232px] rounded-[5px] object-contain mb-[18px]"
           src={image}
         />
-        <CategoryTag categoryType="dance">무용</CategoryTag>
-        <p className="headline2-bold text-grayscale-80 my-[10px]">{title}</p>
+        <CategoryTag categoryType={genre} />
+        <p className="headline2-bold text-grayscale-80 my-[10px]">{_title}</p>
         <div className="body2-medium text-grayscale-70">
           <div className="flex items-center">
             <Location_Gray />
@@ -26,7 +31,15 @@ export const VerticalInfoCard = ({
           </div>
           <div className="flex items-center">
             <Calendar />
-            <span>{date}</span>
+            <span>
+              {_dateFrom === _dateTo ? (
+                <span>{_dateFrom}</span>
+              ) : (
+                <span>
+                  {_dateFrom}~{_dateTo}
+                </span>
+              )}
+            </span>
           </div>
         </div>
       </div>
@@ -38,9 +51,13 @@ export const HorizontalInfoCard = ({
   image,
   title,
   location,
-  date,
+  dateFrom,
+  dateTo,
+  genre,
 }: InfoCardProps) => {
   const _title = useTruncateText(title, 14);
+  const _dateFrom = formatDate(dateFrom);
+  const _dateTo = formatDate(dateTo);
   return (
     <div className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5">
       <div className="flex space-x-5">
@@ -49,16 +66,22 @@ export const HorizontalInfoCard = ({
           src={image}
         />
         <div className="flex-col space-y-[14px]">
-          <CategoryTag categoryType="classical">클래식</CategoryTag>
+          <CategoryTag categoryType={genre} />
           <p className="headline2-bold text-grayscale-80 mb-[10px]">{_title}</p>
           <div className="body2-medium text-grayscale-70">
             <div className="flex items-center">
               <Location_Gray />
-              <span>{location}</span>
+              <span className="truncate max-w-[170px]">{location}</span>
             </div>
-            <div className="flex items-center">
+            <div className="flex items-center caption-12">
               <Calendar />
-              <span>{date}</span>
+              {_dateFrom === _dateTo ? (
+                <span>{_dateFrom}</span>
+              ) : (
+                <span>
+                  {_dateFrom}~{_dateTo}
+                </span>
+              )}
             </div>
           </div>
         </div>

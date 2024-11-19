@@ -50,8 +50,8 @@ const ShowOverview = () => {
       />
 
       <div className="flex space-x-2 mb-[11px]">
-        <CategoryTag categoryType="dance">무용</CategoryTag>
-        <CategoryTag categoryType="ongoing">공연 중</CategoryTag>
+        <CategoryTag categoryType="무용" />
+        <CategoryTag categoryType="ongoing" />
       </div>
 
       <span className="heading2-bold text-grayscale-80">

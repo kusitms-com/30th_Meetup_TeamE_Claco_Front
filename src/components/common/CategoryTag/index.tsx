@@ -1,15 +1,11 @@
 import { CategoryTagProps } from "@/types";
 
-export const CategoryTag = ({
-  categoryType,
-  children,
-  className,
-}: CategoryTagProps) => {
+export const CategoryTag = ({ categoryType, className }: CategoryTagProps) => {
   const tagStyle = () => {
     switch (categoryType) {
-      case "dance":
+      case "서양음악(클래식)":
         return "bg-[#6370E4]";
-      case "classical":
+      case "무용":
         return "bg-primary-700";
       case "ongoing":
         return "border-[1px] border-grayscale-70";
@@ -23,7 +19,13 @@ export const CategoryTag = ({
     <div
       className={`max-h-6 inline-flex items-center caption-12 text-common-white rounded-[20px] px-2 py-[3px] ${tagStyle()} ${className}`}
     >
-      {children}
+      {categoryType === "서양음악(클래식)"
+        ? "클래식"
+        : categoryType === "무용"
+          ? "무용"
+          : categoryType === "ongoing"
+            ? "공연 중"
+            : "공연 예정"}
     </div>
   );
 };

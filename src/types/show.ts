@@ -1,7 +1,7 @@
 export type Show = {
   id: number;
   posterImage: string;
-  showType: "dance" | "classical";
+  showType: string;
   status: "upcoming" | "inProgress" | "completed";
   defaultLiked: boolean;
   title: string;
@@ -22,7 +22,7 @@ export type ShowFilterProps = {
     price: string,
     location: string,
     date: string,
-    feature: string,
+    feature: string
   ) => void;
 };
 
@@ -40,4 +40,4 @@ export type ShowFilterTabProps = {
   activeTab: string;
   onTabClick: (tab: string) => void;
   className?: string;
-}
+};

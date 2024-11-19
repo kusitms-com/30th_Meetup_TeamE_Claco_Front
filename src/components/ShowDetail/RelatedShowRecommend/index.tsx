@@ -25,7 +25,9 @@ const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
                 image={Poster6}
                 title={"라 바야데르"}
                 location={"예술의 전당 오페라 극장"}
-                date={"2024.11.30(토) 5PM"}
+                dateFrom={"2024-11-30 (토요일)"}
+                dateTo={"2024-11-30 (토요일)"}
+                genre={"무용"}
               />
             </SwiperSlide>
             <SwiperSlide className="w-[231px]">
@@ -33,7 +35,9 @@ const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
                 image={Poster9}
                 title={"피터팬"}
                 location={"예술의 전당 오페라 극장"}
-                date={"2024.11.30(토) 5PM"}
+                dateFrom={"2024-11-30 (토요일)"}
+                dateTo={"2024-11-30 (토요일)"}
+                genre={"무용"}
               />
             </SwiperSlide>
             <SwiperSlide className="w-[231px]">
@@ -41,7 +45,9 @@ const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
                 image={Poster11}
                 title={"The Night In NewYork"}
                 location={"예술의 전당 오페라 극장"}
-                date={"2024.11.30(토) 5PM"}
+                dateFrom={"2024-11-30 (토요일)"}
+                dateTo={"2024-11-30 (토요일)"}
+                genre={"무용"}
               />
             </SwiperSlide>
           </Swiper>

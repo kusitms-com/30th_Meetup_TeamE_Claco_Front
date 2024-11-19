@@ -1,4 +1,3 @@
-import Poster6 from "@/assets/images/poster6.gif";
 import { HorizontalInfoCard } from "@/components/Main/InformationCard";
 import { Genre } from "@/components/common/Genre";
 import { useEffect, useState } from "react";
@@ -96,10 +95,12 @@ export const SimilarKeyWordRecommend = () => {
           {itemBased?.recommendationConcertsResponseV1s.map((concert) => (
             <HorizontalInfoCard
               key={concert.id}
-              image={Poster6}
-              title={"라 바야데르"}
-              location={"예술의 전당 오페라 극장"}
-              date={"2024.11.30(토) 5PM"}
+              image={concert.poster}
+              title={concert.prfnm}
+              location={concert.fcltynm}
+              dateFrom={concert.prfpdfrom}
+              dateTo={concert.prfpdto}
+              genre={concert.genrenm}
             />
           ))}
         </section>

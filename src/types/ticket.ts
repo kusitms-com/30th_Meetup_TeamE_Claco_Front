@@ -12,7 +12,7 @@ export type SearchCardProps = {
   date: string;
   onClick?: () => void;
   className?: string;
-  categoryType: "classical" | "dance";
+  categoryType: string;
   searchKeyWord?: string;
 };
 

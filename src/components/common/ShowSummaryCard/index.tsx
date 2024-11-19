@@ -33,12 +33,13 @@ export const ShowSummaryCard = ({
         <div className="absolute top-0 left-0 w-full h-[70px] bg-gradient-to-b from-[rgba(0,0,0,0.40)] to-[rgba(102,102,102,0.00)] pointer-events-none"></div>
 
         <div className="absolute top-[10px] left-2 ">
-          {showType === "dance" && (
+          <CategoryTag categoryType={showType} />
+          {/* {showType === "dance" && (
             <CategoryTag categoryType="dance">무용</CategoryTag>
           )}
           {showType === "classical" && (
             <CategoryTag categoryType="classical">클래식</CategoryTag>
-          )}
+          )} */}
         </div>
 
         <span

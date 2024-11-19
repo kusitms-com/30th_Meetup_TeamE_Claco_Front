@@ -19,10 +19,9 @@ export const SearchCard = ({
     >
       <CategoryTag
         categoryType={categoryType}
-        className={`${categoryType === "classical" ? "mr-[10px]" : "mr-[20px]"}`}
-      >
-        {categoryType === "classical" ? "클래식" : "무용"}
-      </CategoryTag>
+        className={`${categoryType === "서양음악(클래식)" ? "mr-[10px]" : "mr-[20px]"}`}
+      />
+
       <div className="flex flex-col gap-1 body2-medium text-grayscale-80">
         <span className="max-w-[253px] truncate">
           <HighlightText text={title} highlight={searchKeyWord} />

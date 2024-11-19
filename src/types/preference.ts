@@ -55,7 +55,9 @@ export type ConcertCard = {
   prfnm: string;
   poster: string;
   genrenm: string;
-  liked: boolean;
+  fcltynm: string;
+  prfpdfrom: string;
+  prfpdto: string;
 };
 
 export type UserItemBased = {
