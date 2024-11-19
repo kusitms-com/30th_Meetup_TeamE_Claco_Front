@@ -1,18 +1,22 @@
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { ReactComponent as ErrorIcon } from "@/assets/svgs/errorIcon.svg";
 import { ReactComponent as AgreeIcon } from "@/assets/svgs/agreeIcon.svg";
 import { NicknameProps } from "@/types";
-import { nickNameCheck } from "@/hooks/useNickNameCheck";
-import { useDebouncedState } from "@/hooks/useDebouncedState";
+import { nickNameCheck } from "@/apis";
+import { useDebouncedState } from "@/hooks/utils";
 
-export const Nickname = ({ isChecked, setIsChecked, setNickname}: NicknameProps) => {
+export const Nickname = ({
+  isChecked,
+  setIsChecked,
+  setNickname,
+}: NicknameProps) => {
   const [nickname, setLocalNickname] = useState<string>("");
   const [errorMessage, setErrorMessage] = useState<string>("");
   const [hasStartedTyping, setHasStartedTyping] = useState<boolean>(false);
   const [isDuplicate, setIsDuplicate] = useState<boolean>(false);
   const debouncedNickname = useDebouncedState<string>(nickname, 1000);
 
-  const validateNickname = (name: string): string => {
+  const validateNickname = useCallback((name: string): string => {
     const specialCharRegex = /[!@#$%^&*(),.?":{}|<>]/g;
     if (name.length < 2) {
       return "2글자 이상 작성해주세요";
@@ -20,40 +24,51 @@ export const Nickname = ({ isChecked, setIsChecked, setNickname}: NicknameProps)
       return "특수문자는 사용할 수 없어요";
     }
     return "";
-  };
+  }, []);
 
-  const validateDuplicatedNickname = async (name: string) => {
-    try {
-      const response = await nickNameCheck(name);
-      if (response.code === "MEM-009") {
-        setErrorMessage("이미 사용 중인 닉네임이에요");
-        setIsDuplicate(true);
+  const validateDuplicatedNickname = useCallback(
+    async (name: string) => {
+      try {
+        const response = await nickNameCheck(name);
+        if (response.code === "MEM-009") {
+          setErrorMessage("이미 사용 중인 닉네임이에요");
+          setIsDuplicate(true);
+          setIsChecked(false);
+        } else {
+          setErrorMessage("");
+          setIsDuplicate(false);
+          setIsChecked(true);
+          setNickname(name);
+        }
+      } catch (error) {
+        console.error(error);
         setIsChecked(false);
-      } else {
-        setErrorMessage("");
-        setIsDuplicate(false);
-        setIsChecked(true);
-        setNickname(name);
       }
-    } catch (error) {
-      console.error(error);
-      setIsChecked(false);
-    }
-  };
+    },
+    [setErrorMessage, setIsDuplicate, setIsChecked, setNickname]
+  );
 
   useEffect(() => {
     const error = validateNickname(nickname);
     if (error) {
       setErrorMessage(error);
-      setIsChecked(false)
-      setIsDuplicate(false)
+      setIsChecked(false);
+      setIsDuplicate(false);
       return;
     }
 
     if (debouncedNickname) {
       validateDuplicatedNickname(debouncedNickname);
     }
-  }, [debouncedNickname]);
+  }, [
+    debouncedNickname,
+    nickname,
+    validateNickname,
+    validateDuplicatedNickname,
+    setErrorMessage,
+    setIsChecked,
+    setIsDuplicate,
+  ]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
@@ -78,7 +93,7 @@ export const Nickname = ({ isChecked, setIsChecked, setNickname}: NicknameProps)
         }`}
       >
         <input
-          className="bg-grayscale-30 outline-none w-full body2-medium text-grayscale-80"
+          className="w-full outline-none bg-grayscale-30 body2-medium text-grayscale-80"
           value={nickname}
           onChange={handleInputChange}
           maxLength={10}

@@ -1,8 +1,9 @@
-import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 // import { ReactComponent as Like } from "@/assets/svgs/Like.svg";
-import { ReactComponent as Star } from "@/assets/svgs/StarRating.svg";
-import { useTruncateText } from "@/hooks";
 // import { useState } from "react";
+
+import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
+import { ReactComponent as Star } from "@/assets/svgs/StarRating.svg";
+import { useTruncateText } from "@/hooks/utils";
 import { ReviewTag } from "@/components/common/ReviewTag";
 import { useNavigate } from "react-router-dom";
 import { ReviewCardProps } from "@/types";

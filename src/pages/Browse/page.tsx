@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { ReactComponent as Filter } from "@/assets/svgs/filter.svg";
 import { ReactComponent as Refresh } from "@/assets/svgs/refresh.svg";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
-import { useDebouncedState } from "@/hooks/useDebouncedState";
+
 import { SearchCard } from "@/components/common/Search/Card";
 import { ShowFilter } from "@/components/Browse/ShowFilter";
 import { ShowSummaryCard } from "@/components/common/ShowSummaryCard";
@@ -17,7 +17,7 @@ import poster13 from "@/assets/images/poster13.png";
 import poster4 from "@/assets/images/poster4.gif";
 import poster8 from "@/assets/images/poster8.gif";
 import { ClacoPick } from "@/components/Browse/ClacoPick";
-import { useShowFilter } from "@/hooks/useShowFilter";
+import { useDebouncedState, useShowFilter } from "@/hooks/utils";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");

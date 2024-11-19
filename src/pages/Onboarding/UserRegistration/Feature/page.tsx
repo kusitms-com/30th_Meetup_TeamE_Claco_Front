@@ -7,7 +7,7 @@ import { ConfirmButton } from "@/components/common/Button";
 import { features } from "./const";
 import { useUserStore } from "@/libraries/store/user";
 import { useOnboardingStore } from "@/libraries/store/onboarding";
-import { UserInformationSubmit } from "@/hooks/useUserInformationSubmit";
+import { submitUserInformation } from "@/apis";
 
 export const SelectFeaturePage = () => {
   const [currentStep, setCurrentStep] = useState<number>(0);
@@ -15,10 +15,10 @@ export const SelectFeaturePage = () => {
   const nickname = useUserStore((state) => state.nickname);
   const addFeature = useOnboardingStore((state) => state.addCategoryPreference);
   const removeLastCategoryPreference = useOnboardingStore(
-    (state) => state.removeLastCategoryPreference,
+    (state) => state.removeLastCategoryPreference
   );
   const removeSpecificCategoryPreference = useOnboardingStore(
-    (state) => state.removeSpecificCategoryPreference,
+    (state) => state.removeSpecificCategoryPreference
   );
   const [selectedFeature, setSelectedFeature] = useState<string | null>(null);
   const [isWaiting, setIsWaiting] = useState<boolean>(false);
@@ -101,7 +101,7 @@ export const SelectFeaturePage = () => {
     };
 
     try {
-      const response = await UserInformationSubmit(onboardingRequest);
+      const response = await submitUserInformation(onboardingRequest);
       console.log(response);
       navigate("/create/complete");
     } catch (error) {
@@ -110,7 +110,7 @@ export const SelectFeaturePage = () => {
   };
 
   return (
-    <div className="w-full h-screen overflow-y-auto bg-background-dark flex flex-col">
+    <div className="flex flex-col w-full h-screen overflow-y-auto bg-background-dark">
       <div className="flex flex-col flex-grow w-full h-auto px-[24px] pt-[4.75rem] pb-[4.56rem] gap-[0.5rem]">
         <div className="flex flex-col gap-[2.44rem]">
           <div className="flex-col">
@@ -146,7 +146,7 @@ export const SelectFeaturePage = () => {
                     className="w-[122px] h-[122px] mr-[14px] p-2 object-contain"
                   />
                   <div className="flex flex-col text-left">
-                    <span className="heading1-bold mb-1">{feature.title}</span>
+                    <span className="mb-1 heading1-bold">{feature.title}</span>
                     <span className="caption-13 text-grayscale-60">
                       {feature.description.map((line, index) => (
                         <span key={index}>

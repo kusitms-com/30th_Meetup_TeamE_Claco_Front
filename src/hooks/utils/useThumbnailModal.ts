@@ -11,7 +11,7 @@ export type UseThumbnailModalReturn = {
   handleImageClick: () => void;
 };
 
-export const useThumbnailModal = (): UseThumbnailModalReturn => {
+const useThumbnailModal = (): UseThumbnailModalReturn => {
   const [thumbsSwiper, setThumbsSwiper] = useState<SwiperType | null>(null);
   const [isThumbnailShow, setIsThumbnailShow] = useState<boolean>(false);
   const [isAnimating, setIsAnimating] = useState<boolean>(false);
@@ -54,3 +54,5 @@ export const useThumbnailModal = (): UseThumbnailModalReturn => {
     handleImageClick,
   };
 };
+
+export default useThumbnailModal;

@@ -28,6 +28,7 @@ import { MyPage } from "@/pages/Mypage/page";
 import { ClacoTicketReviewEditPage } from "@/pages/Ticket/[id]/edit/page";
 import { BeforeOnBoardingPage } from "@/pages/Login/Kakao/BeforeOnBoarding/page";
 import { AfterOnBoardingPage } from "@/pages/Login/Kakao/AfterOnBoarding/page";
+import AuthenticatedLayout from "./AuthenticatedLayout";
 
 const routes: RouteObject[] = [
   {
@@ -43,6 +44,27 @@ const routes: RouteObject[] = [
       { path: RoutePath.BeforeOnBoarding, element: <BeforeOnBoardingPage /> },
       { path: RoutePath.Tos, element: <TosPage /> },
       { path: RoutePath.AfterOnBoarding, element: <AfterOnBoardingPage /> },
+    ],
+  },
+  {
+    path: "/",
+    element: (
+      <>
+        <ScrollTop />
+        <AuthenticatedLayout /> {/* 인증된 사용자만 접근 가능 */}
+      </>
+    ),
+    children: [
+      {
+        path: "/",
+        element: <Layout />,
+        children: [
+          { path: RoutePath.Main, element: <MainPage /> },
+          { path: RoutePath.Browse, element: <BrowsePage /> },
+          { path: RoutePath.TicketBook, element: <ClacoBookPage /> },
+          { path: RoutePath.MyPage, element: <MyPage /> },
+        ],
+      },
       {
         path: RoutePath.Create,
         children: [
@@ -58,10 +80,6 @@ const routes: RouteObject[] = [
           },
         ],
       },
-      {
-        element: <Layout />,
-        children: [{ path: RoutePath.Main, element: <MainPage /> }],
-      },
       { path: RoutePath.Show, element: <ShowDetailPage /> },
       {
         path: RoutePath.ShowReviews,
@@ -69,16 +87,6 @@ const routes: RouteObject[] = [
           { index: true, element: <ReviewPage /> },
           { path: RoutePath.ShowReviewDetail, element: <ReviewDetailPage /> },
         ],
-      },
-      {
-        path: RoutePath.Browse,
-        element: <Layout />,
-        children: [{ index: true, element: <BrowsePage /> }],
-      },
-      {
-        path: RoutePath.TicketBook,
-        element: <Layout />,
-        children: [{ index: true, element: <ClacoBookPage /> }],
       },
       { path: RoutePath.TicketDetail, element: <ClacoTicketDetailPage /> },
       {
@@ -94,11 +102,6 @@ const routes: RouteObject[] = [
           { path: RoutePath.TicketReview, element: <TicketReviewPage /> },
           { path: RoutePath.TicketDownload, element: <TicketDownloadPage /> },
         ],
-      },
-      {
-        path: RoutePath.MyPage,
-        element: <Layout />,
-        children: [{ index: true, element: <MyPage /> }],
       },
     ],
   },

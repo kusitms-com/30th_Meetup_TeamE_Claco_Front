@@ -4,17 +4,18 @@ import { ReactComponent as Edit } from "@/assets/svgs/Edit.svg";
 import { ReactComponent as Star } from "@/assets/svgs/StarRating.svg";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useThumbnailModal } from "@/hooks/useThumbnailModal";
 
 import { DeleteClacoTicketModal } from "@/components/Ticket/Modal/Delete/ClacoTicket";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { PerformanceAttributes } from "@/components/Ticket/PerformanceAttributes";
 import { ReviewTag } from "@/components/common/ReviewTag";
 import { Modal } from "@/components/common/Modal";
+import { useThumbnailModal } from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
 
 import ClacoTicketImage1 from "@/assets/images/MyClacoTicket1.png";
 import { TICKET_REVIEW_MOCK_DATA } from "@/components/Ticket/const";
+
 export const ClacoTicketDetailPage = () => {
   const { id } = useParams();
   const ticketId = Number(id) - 1;
