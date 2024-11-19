@@ -4,9 +4,9 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useUserStore } from "@/libraries/store/user";
-import useGetUserBased from "@/hooks/queries/useGetUserBased";
 import { useEffect, useState } from "react";
 import { UserBased } from "@/types";
+import { useGetUserBased } from "@/hooks/queries";
 
 export const AIRecommend = () => {
   const [userBased, setUserBased] = useState<UserBased[]>([]);
@@ -40,22 +40,10 @@ export const AIRecommend = () => {
           className="max-w-[342px] rounded-[5px]"
         >
           {userBased.map((data) => (
-            <SwiperSlide>
+            <SwiperSlide key={data.id}>
               <MainPosterCard data={data} />
             </SwiperSlide>
           ))}
-          {/* <SwiperSlide>
-            <MainPosterCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MainPosterCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MainPosterCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MainPosterCard />
-          </SwiperSlide> */}
         </Swiper>
       </div>
     </div>

@@ -1,18 +1,22 @@
 import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { UserBased } from "@/types";
-import { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 
 export type MainPosterCardProps = {
   data: UserBased;
 };
 
 export const MainPosterCard = ({ data }: MainPosterCardProps) => {
-  useEffect(() => {
-    console.log(data);
-  }, [data]);
+  const navigate = useNavigate();
+  const gotoShowDetail = () => {
+    navigate(`/show/${data.id}`);
+  };
   return (
-    <div className="relative w-[342px] h-[443px] rounded-[5px]">
+    <div
+      className="relative w-[342px] h-[443px] rounded-[5px]"
+      onClick={gotoShowDetail}
+    >
       <div
         className="absolute top-[26px] right-[19px] z-10"
         onClick={() => console.log("좋아요 기능")}
@@ -42,7 +46,9 @@ export const MainPosterCard = ({ data }: MainPosterCardProps) => {
       <div className="rounded-[5px] absolute bottom-0 left-0 z-10 w-full h-[189px] bg-gradient-to-b from-background-dark/0 to-background-dark/100">
         <div className="flex items-center space-x-[10px] absolute bottom-6 left-[11px]">
           <CategoryTag categoryType="classical">{data.genrenm}</CategoryTag>
-          <div className="heading2-bold text-grayscale-80">{data.prfnm}</div>
+          <div className="heading2-bold text-grayscale-80 truncate max-w-[220px]">
+            {data.prfnm}
+          </div>
         </div>
       </div>
     </div>

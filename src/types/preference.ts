@@ -47,4 +47,25 @@ export type UserBasedResponse = {
   code: string;
   message: string;
   result: UserBased[];
+  refreshed: boolean;
+};
+
+export type ConcertCard = {
+  id: number;
+  prfnm: string;
+  poster: string;
+  genrenm: string;
+  liked: boolean;
+};
+
+export type UserItemBased = {
+  likedHistory: boolean;
+  recommendationConcertsResponseV1s: ConcertCard[];
+};
+
+export type UserItemBasedResponse = {
+  code: string;
+  message: string;
+  result: UserItemBased;
+  refreshed: boolean;
 };
