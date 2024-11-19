@@ -71,3 +71,24 @@ export type UserItemBasedResponse = {
   result: UserItemBased;
   refreshed: boolean;
 };
+
+export type UserRecClacoTicket = {
+  ticketInfoResponse: {
+    id: number;
+    ticketImage: string;
+  };
+  ticketReviewSummary: {
+    "사용자 닉네임": string;
+    "공연 제목": string;
+    "공연 아이디": number;
+    "티켓 등록 날짜(관람 날짜)": string;
+    "리뷰 내용": string;
+  };
+};
+
+export type UserRecClacoTicketResponse = {
+  code: string;
+  message: string;
+  result: UserRecClacoTicket[];
+  refreshed: boolean;
+};
