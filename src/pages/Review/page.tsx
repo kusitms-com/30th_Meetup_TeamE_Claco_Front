@@ -6,11 +6,14 @@ import { useNavigate } from "react-router-dom";
 import { useThumbnailModal } from "@/hooks/useThumbnailModal";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
 import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
+import useRefFocusEffect from "@/hooks/useRefFocusEffect";
 
 const options: string[] = ["별점 높은 순", "별점 낮은 순", "최신 순"];
 
 export const ReviewPage = () => {
-  const reviewList = REVIEW_MOCK_DATA; // 리뷰 테스트 용 목데이터
+  const [reviewList, setReviewList] = useState<typeof REVIEW_MOCK_DATA>([
+    ...REVIEW_MOCK_DATA,
+  ]);
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [selectOption, setSelectOption] = useState<string>(options[0]);
@@ -35,6 +38,14 @@ export const ReviewPage = () => {
     setSelectIndex(index);
     handleImageClick();
   };
+
+  const handleLoadMore = () => {
+    // 추가 리뷰 로딩 로직
+    setReviewList((prevList) => [...prevList, ...REVIEW_MOCK_DATA]);
+    console.log("Load more reviews");
+  };
+
+  const { elementRef } = useRefFocusEffect<HTMLDivElement>(handleLoadMore, []);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -125,9 +136,9 @@ export const ReviewPage = () => {
             </div>
           </div>
           <div className="flex-col space-y-[11px] pb-[100px]">
-            {reviewList.map((review) => (
+            {reviewList.map((review, index) => (
               <ReviewCard
-                key={review.ticketReviewId}
+                key={index}
                 review={review}
                 onClick={() =>
                   review.reviewImages.length &&
@@ -135,6 +146,7 @@ export const ReviewPage = () => {
                 }
               />
             ))}
+            <div ref={elementRef} className="h-1"></div>
           </div>
         </section>
       </div>
