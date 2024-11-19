@@ -7,9 +7,9 @@ export const CategoryTag = ({ categoryType, className }: CategoryTagProps) => {
         return "bg-[#6370E4]";
       case "무용":
         return "bg-primary-700";
-      case "ongoing":
+      case "공연중":
         return "border-[1px] border-grayscale-70";
-      case "upcoming":
+      case "공연예정":
         return "border-[1px] border-grayscale-70";
       default:
         return;
@@ -23,7 +23,7 @@ export const CategoryTag = ({ categoryType, className }: CategoryTagProps) => {
         ? "클래식"
         : categoryType === "무용"
           ? "무용"
-          : categoryType === "ongoing"
+          : categoryType === "공연중"
             ? "공연 중"
             : "공연 예정"}
     </div>

@@ -15,11 +15,12 @@ export const VerticalInfoCard = ({
   const _title = useTruncateText(title, 14);
   const _dateFrom = formatDate(dateFrom);
   const _dateTo = formatDate(dateTo);
+
   return (
     <div className="w-[219px] h-[418px] bg-[#242424] rounded-[5px] p-[22px]">
       <div className="flex-col">
         <img
-          className="w-[174px] h-[232px] rounded-[5px] object-contain mb-[18px]"
+          className="max-w-[104px] max-h-[132px] object-contain rounded-[5px] mb-[18px]"
           src={image}
         />
         <CategoryTag categoryType={genre} />
@@ -35,7 +36,7 @@ export const VerticalInfoCard = ({
               {_dateFrom === _dateTo ? (
                 <span>{_dateFrom}</span>
               ) : (
-                <span>
+                <span className="truncate max-w-[170px]">
                   {_dateFrom}~{_dateTo}
                 </span>
               )}
@@ -62,7 +63,7 @@ export const HorizontalInfoCard = ({
     <div className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5">
       <div className="flex space-x-5">
         <img
-          className="w-[104px] h-[132px] rounded-[5px] object-contain mb-[18px]"
+          className="max-w-[104px] max-h-[132px] object-contain rounded-[5px] mb-[18px]"
           src={image}
         />
         <div className="flex-col space-y-[14px]">
@@ -73,12 +74,12 @@ export const HorizontalInfoCard = ({
               <Location_Gray />
               <span className="truncate max-w-[170px]">{location}</span>
             </div>
-            <div className="flex items-center caption-12">
+            <div className="flex items-center">
               <Calendar />
               {_dateFrom === _dateTo ? (
                 <span>{_dateFrom}</span>
               ) : (
-                <span>
+                <span className="truncate max-w-[170px]">
                   {_dateFrom}~{_dateTo}
                 </span>
               )}
