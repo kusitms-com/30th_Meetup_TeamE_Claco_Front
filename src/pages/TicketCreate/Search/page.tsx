@@ -3,7 +3,7 @@ import { ConfirmButton } from "@/components/common/Button";
 import { SearchBar } from "@/components/common/Search/Bar";
 import { SearchCard } from "@/components/common/Search/Card";
 import { Progress } from "@/components/ui/progress";
-import { useDebouncedState } from "@/hooks/useDebouncedState";
+import { useDebouncedState } from "@/hooks/utils";
 import { SearchCardProps } from "@/types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";

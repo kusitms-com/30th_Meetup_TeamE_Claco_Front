@@ -15,7 +15,7 @@ export const AfterOnBoardingPage = () => {
       setNickname(nickname);
       navigate("/main");
     }
-  }, [accessToken, nickname, navigate]);
+  }, [accessToken, nickname, setNickname, navigate]);
 
   return <>온보딩 진행 완료된 사용자</>;
 };

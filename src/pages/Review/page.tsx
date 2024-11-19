@@ -3,7 +3,7 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 import { ReviewCard } from "@/components/Review/ReviewCard";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { useThumbnailModal } from "@/hooks/useThumbnailModal";
+import { useThumbnailModal } from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
 import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
 

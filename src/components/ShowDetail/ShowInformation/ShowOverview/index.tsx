@@ -136,7 +136,7 @@ const ShowOverview = ({
           {categories?.map((item, index) => (
             <Genre
               key={index}
-              genreType={item.imageURL}
+              genreImgURL={item.imageURL}
               genreKeyword={item.category}
               className="caption-12 text-white w-[43px] h-[43px]"
             />

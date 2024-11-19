@@ -4,9 +4,26 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useUserStore } from "@/libraries/store/user";
+import { useEffect, useState } from "react";
+import { UserBased } from "@/types";
+import { useGetUserBased } from "@/hooks/queries";
 
 export const AIRecommend = () => {
+  const [userBased, setUserBased] = useState<UserBased[]>([]);
   const nickname = useUserStore((state) => state.nickname);
+  const { data, isLoading } = useGetUserBased();
+
+  useEffect(() => {
+    if (!isLoading && data?.result) {
+      // console.log(data);
+      setUserBased(data.result);
+    }
+  }, [isLoading, data]);
+
+  if (isLoading) {
+    //skeleton UI 적용될 부분
+    return <div>로딩 중..</div>;
+  }
 
   return (
     <div className="py-[22px] px-6">
@@ -22,18 +39,11 @@ export const AIRecommend = () => {
           spaceBetween={100}
           className="max-w-[342px] rounded-[5px]"
         >
-          <SwiperSlide>
-            <MainPosterCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MainPosterCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MainPosterCard />
-          </SwiperSlide>
-          <SwiperSlide>
-            <MainPosterCard />
-          </SwiperSlide>
+          {userBased.map((data) => (
+            <SwiperSlide key={data.id}>
+              <MainPosterCard data={data} />
+            </SwiperSlide>
+          ))}
         </Swiper>
       </div>
     </div>

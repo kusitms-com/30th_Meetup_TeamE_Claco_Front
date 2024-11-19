@@ -37,7 +37,7 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
 
   const handleClose = () => {
     setIsVisible(false);
-    setTimeout(onClose, 300);
+    setTimeout(onClose, 1000);
   };
 
   const handleApply = () => {

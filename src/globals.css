@@ -53,8 +53,8 @@
     font-display: swap;
     src:
       local("Nonchalance Medium"),
-      url("./assets/fonts/Nonchalance\ Medium.woff2") format("woff2"),
-      url("./assets/fonts/Nonchalance\ Medium.woff") format("woff");
+      url("./assets/fonts/Nonchalance-Medium.woff2") format("woff2"),
+      url("./assets/fonts/Nonchalance-Medium.woff") format("woff");
   }
 
   html {
