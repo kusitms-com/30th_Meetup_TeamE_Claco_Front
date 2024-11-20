@@ -7,5 +7,9 @@ export const runtimeToMinutes = (runtime: string): string => {
   const hours = hourMatch ? parseInt(hourMatch[1], 10) : 0;
   const minutes = minuteMatch ? parseInt(minuteMatch[1], 10) : 0;
 
-  return `${hours * 60 + minutes}분`;
+  const result = hours * 60 + minutes;
+
+  if (result === 0) return "공연 시간 정보 없음";
+
+  return `${result}분`;
 };

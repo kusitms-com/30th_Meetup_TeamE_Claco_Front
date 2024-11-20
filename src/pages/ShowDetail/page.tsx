@@ -3,11 +3,11 @@ import RelatedShowsRecommend from "@/components/ShowDetail/RelatedShowRecommend"
 import ShowEssentials from "@/components/ShowDetail/ShowInformation/ShowEssentials";
 import ShowOverview from "@/components/ShowDetail/ShowInformation/ShowOverview";
 import ShowPoster from "@/components/ShowDetail/ShowInformation/ShowPoster";
-import { useShowDetail } from "@/hooks/queries/useShowDetailCheck";
+import useGetShowDetail from "@/hooks/queries/useGetShowDetail";
 import { extractDateRange } from "@/hooks/utils/extractDateRange";
 import { extractPricesWithSeats } from "@/hooks/utils/extractPricesWithSeats";
 import { extractSchedule } from "@/hooks/utils/extractSchedule";
-import { runtimeToMinutes } from "@/hooks/utils/runTimeToMinutes";
+import { runtimeToMinutes } from "@/hooks/utils/timeToMinutes";
 import { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -101,7 +101,7 @@ export const ShowDetailPage = () => {
   };
 
   const { id } = useParams<{ id: string }>();
-  const { data, isLoading } = useShowDetail(Number(id));
+  const { data, isLoading } = useGetShowDetail(Number(id));
   const showDetail = data?.result;
   const { seats, prices, minPrice, maxPrice } = extractPricesWithSeats(
     showDetail?.pcseguidance || "",
@@ -135,9 +135,9 @@ export const ShowDetailPage = () => {
         genrenm={displayedGenre || "공연 정보 없음"}
         prfnm={showDetail?.prfnm || "공연 이름 없음"}
         poster={showDetail?.poster || ""}
-        area={showDetail?.area || "지역 정보 없음"}
+        area={showDetail?.area || "공연 장소 정보 없음"}
         prfruntime={runtimeToMinutes(showDetail?.prfruntime || "러닝타임 정보 없음")}
-        prfage={showDetail?.prfage || "연령 제한 없음"}
+        prfage={showDetail?.prfage || "연령 제한 정보 없음"}
         prfdate={extractDateRange(
           showDetail?.prfpdfrom || "",
           showDetail?.prfpdto || "",
@@ -190,7 +190,7 @@ export const ShowDetailPage = () => {
         />
       </div>
       <div ref={reviewRef} data-section-id="감상 리뷰">
-        <AudienceReviews />
+        <AudienceReviews reviews={showDetail?.ticketReviewSimpleResponses || []} />
       </div>
 
       <div ref={relatedShowsRef}>

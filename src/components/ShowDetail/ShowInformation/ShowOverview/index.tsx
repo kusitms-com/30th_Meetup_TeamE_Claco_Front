@@ -7,7 +7,7 @@ import { ReactComponent as Book } from "@/assets/svgs/Book.svg";
 import { Genre } from "@/components/common/Genre";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { ShowCategory } from "@/hooks/queries/useShowDetailCheck";
+import { ShowCategory } from "@/types";
 
 export type ShowOverViewProps = {
   prfstate: string;

@@ -95,7 +95,7 @@ export const SimilarKeyWordRecommend = () => {
         <section className="flex flex-col justify-center items-center space-y-3 mt-[26px] mb-[60px] px-6">
           {itemBased?.recommendationConcertsResponseV1s.map((concert) => (
             <HorizontalInfoCard
-              key={concert.id}
+              id={concert.id}
               image={Poster6}
               title={"라 바야데르"}
               location={"예술의 전당 오페라 극장"}
