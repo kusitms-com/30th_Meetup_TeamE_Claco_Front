@@ -1,4 +1,5 @@
 export type InfoCardProps = {
+  id: number;
   image: string;
   title: string;
   location: string;
