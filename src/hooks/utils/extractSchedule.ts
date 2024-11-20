@@ -11,7 +11,7 @@ const daysMap: DaysMapType[] = [
   { day: "일요일", dayIndex: 6 },
 ];
 
-export const extractSchedule = (dtguidance: string): PrfGuidance[] => {
+const extractSchedule = (dtguidance: string): PrfGuidance[] => {
   if (!dtguidance) return [];
 
   const scheduleEntries = dtguidance.split(", ");
@@ -54,3 +54,5 @@ export const extractSchedule = (dtguidance: string): PrfGuidance[] => {
 
   return schedule;
 };
+
+export default extractSchedule;

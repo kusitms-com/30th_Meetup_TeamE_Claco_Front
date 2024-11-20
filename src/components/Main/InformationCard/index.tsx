@@ -8,17 +8,18 @@ export const VerticalInfoCard = ({
   id,
   image,
   title,
+  genrenm,
   location,
   date,
 }: InfoCardProps) => {
   return (
-    <a href={`/show/${id}`} className="w-[219px] h-[418px] bg-[#242424] rounded-[5px] p-[22px]">
-      <div className="flex-col">
+    <a href={`/show/${id}`}>
+      <div className="flex-col w-[219px] min-h-[460px] p-[22px] bg-[#242424] rounded-[5px]">
         <img
           className="w-[174px] h-[232px] rounded-[5px] object-contain mb-[18px]"
           src={image}
         />
-        <CategoryTag categoryType="dance">무용</CategoryTag>
+        <CategoryTag categoryType={genrenm || "공연 장르 정보 없음"} />
         <p className="headline2-bold text-grayscale-80 my-[10px]">{title}</p>
         <div className="body2-medium text-grayscale-70">
           <div className="flex items-center">
@@ -27,7 +28,7 @@ export const VerticalInfoCard = ({
           </div>
           <div className="flex items-center">
             <Calendar />
-            <span>{date}</span>
+            <span className="truncate max-w-[150px]">{date}</span>
           </div>
         </div>
       </div>
@@ -39,19 +40,23 @@ export const HorizontalInfoCard = ({
   id,
   image,
   title,
+  genrenm,
   location,
   date,
 }: InfoCardProps) => {
   const _title = useTruncateText(title, 14);
   return (
-    <a href={`/show/${id}`} className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5">
+    <a
+      href={`/show/${id}`}
+      className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5"
+    >
       <div className="flex space-x-5">
         <img
           className="w-[104px] h-[132px] rounded-[5px] object-contain mb-[18px]"
           src={image}
         />
         <div className="flex-col space-y-[14px]">
-          <CategoryTag categoryType="classical">클래식</CategoryTag>
+          <CategoryTag categoryType={genrenm || "공연 장르 정보 없음"} />
           <p className="headline2-bold text-grayscale-80 mb-[10px]">{_title}</p>
           <div className="body2-medium text-grayscale-70">
             <div className="flex items-center">

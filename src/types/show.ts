@@ -97,6 +97,7 @@ export type ConcertBased = {
   id: number;
   prfnm: string;
   poster: string;
+  genrenm: string;
   fcltynm: string;
   prfpdfrom: string;
   prfpdto: string;

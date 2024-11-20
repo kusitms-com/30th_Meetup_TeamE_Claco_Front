@@ -1,6 +1,6 @@
 import { PricesMapType } from "@/types";
 
-export const extractPricesWithSeats = (priceString: string) => {
+const extractPricesWithSeats = (priceString: string) => {
   if (!priceString.includes("무료")) {
     const priceEntries = priceString.split(", ");
     const pricesMap: PricesMapType = {};
@@ -45,3 +45,5 @@ export const extractPricesWithSeats = (priceString: string) => {
     maxPrice: "무료",
   };
 };
+
+export default extractPricesWithSeats;

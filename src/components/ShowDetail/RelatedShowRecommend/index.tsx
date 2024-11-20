@@ -2,12 +2,14 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { VerticalInfoCard } from "@/components/Main/InformationCard";
 import { forwardRef, useEffect, useState } from "react";
 import { ConcertBased } from "@/types";
-import { extractDateRange } from "@/hooks/utils/extractDateRange";
-import useGetConcertBased from "@/hooks/queries/useGetConcertBased";
+import { useGetConcertBased } from "@/hooks/queries";
+import { extractDateRange } from "@/hooks/utils";
+import { useParams } from "react-router-dom";
 
 const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
   const [concertBased, setConcertBased] = useState<ConcertBased[]>([]);
-  const { data, isLoading } = useGetConcertBased();
+  const { id } = useParams<{ id: string }>();
+  const { data, isLoading } = useGetConcertBased(Number(id));
 
   useEffect(() => {
     if (!isLoading && data?.result) {
@@ -20,7 +22,7 @@ const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
   }
   return (
     <section ref={ref}>
-      <div className="px-6 pb-[161px]">
+      <div className="px-6">
         <span className="headline2-bold text-grayscale-80">
           이 공연도 마음에 들 거예요!
         </span>
@@ -33,19 +35,20 @@ const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
             className="max-w-screen-sm"
           >
             {concertBased.map((concert, index) => (
-            <SwiperSlide key={index} className="w-[231px]">
-            <VerticalInfoCard
-              id={concert.id}
-              image={concert.poster}
-              title={concert.prfnm}
-              location={concert.fcltynm}
-              date={extractDateRange(
-                concert.prfpdfrom || "",
-                concert.prfpdto || "",
-              )}
-            />
-            </SwiperSlide>
-          ))}
+              <SwiperSlide key={index} className="flex w-[231px] gap-[12px]">
+                <VerticalInfoCard
+                  id={concert.id}
+                  image={concert.poster}
+                  title={concert.prfnm}
+                  genrenm={concert.genrenm}
+                  location={concert.fcltynm}
+                  date={extractDateRange(
+                    concert.prfpdfrom || "",
+                    concert.prfpdto || "",
+                  )}
+                />
+              </SwiperSlide>
+            ))}
           </Swiper>
         </section>
       </div>

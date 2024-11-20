@@ -1,4 +1,4 @@
-export const runtimeToMinutes = (runtime: string): string => {
+const timeToMinutes = (runtime: string): string => {
   if (!runtime) return "공연 시간 정보 없음";
 
   const hourMatch = runtime.match(/(\d+)시간/);
@@ -13,3 +13,5 @@ export const runtimeToMinutes = (runtime: string): string => {
 
   return `${result}분`;
 };
+
+export default timeToMinutes;

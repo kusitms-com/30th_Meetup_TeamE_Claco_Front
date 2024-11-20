@@ -97,6 +97,7 @@ export const SimilarKeyWordRecommend = () => {
             <HorizontalInfoCard
               id={concert.id}
               image={Poster6}
+              genrenm="무용"
               title={"라 바야데르"}
               location={"예술의 전당 오페라 극장"}
               date={"2024.11.30(토) 5PM"}

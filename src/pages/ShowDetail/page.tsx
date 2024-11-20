@@ -4,10 +4,7 @@ import ShowEssentials from "@/components/ShowDetail/ShowInformation/ShowEssentia
 import ShowOverview from "@/components/ShowDetail/ShowInformation/ShowOverview";
 import ShowPoster from "@/components/ShowDetail/ShowInformation/ShowPoster";
 import useGetShowDetail from "@/hooks/queries/useGetShowDetail";
-import { extractDateRange } from "@/hooks/utils/extractDateRange";
-import { extractPricesWithSeats } from "@/hooks/utils/extractPricesWithSeats";
-import { extractSchedule } from "@/hooks/utils/extractSchedule";
-import { runtimeToMinutes } from "@/hooks/utils/timeToMinutes";
+import { extractDateRange, extractPricesWithSeats, extractSchedule, timeToMinutes } from "@/hooks/utils";
 import { useRef, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 
@@ -40,7 +37,7 @@ export const ShowDetailPage = () => {
           });
         },
         {
-          threshold: sectionId === "상세정보" && showFullImage ? 0.2 : 0.8,
+          threshold: sectionId === "상세정보" && showFullImage ? 0.3 : 0.8,
         },
       );
 
@@ -124,19 +121,17 @@ export const ShowDetailPage = () => {
     return <div>로딩중</div>;
   }
 
-  const displayedGenre =
-    showDetail?.genrenm === "서양음악(클래식)" ? "클래식" : showDetail?.genrenm;
-
   return (
-    <div className="pt-[73px]">
+    <div className="pt-[73px] pb-[40px]">
       <ShowOverview
+        isLiked
         prfstate={showDetail?.prfstate || "공연 정보 없음"}
         prfprice={displayedPrice(minPrice, maxPrice)}
-        genrenm={displayedGenre || "공연 정보 없음"}
+        genrenm={showDetail?.genrenm || "공연 정보 없음"}
         prfnm={showDetail?.prfnm || "공연 이름 없음"}
         poster={showDetail?.poster || ""}
         area={showDetail?.area || "공연 장소 정보 없음"}
-        prfruntime={runtimeToMinutes(showDetail?.prfruntime || "러닝타임 정보 없음")}
+        prfruntime={timeToMinutes(showDetail?.prfruntime || "러닝타임 정보 없음")}
         prfage={showDetail?.prfage || "연령 제한 정보 없음"}
         prfdate={extractDateRange(
           showDetail?.prfpdfrom || "",
@@ -172,7 +167,7 @@ export const ShowDetailPage = () => {
       <div ref={showInfoRef} data-section-id="공연 정보">
         <ShowEssentials
           fcltynm={showDetail?.fcltynm || "공연 장소 정보 없음"}
-          prfruntime={runtimeToMinutes(showDetail?.prfruntime || "러닝타임 정보 없음")}
+          prfruntime={timeToMinutes(showDetail?.prfruntime || "러닝타임 정보 없음")}
           prfdate={extractDateRange(
             showDetail?.prfpdfrom || "",
             showDetail?.prfpdto || "",

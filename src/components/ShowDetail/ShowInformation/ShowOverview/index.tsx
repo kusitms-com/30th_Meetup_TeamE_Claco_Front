@@ -21,6 +21,7 @@ export type ShowOverViewProps = {
   prfdate: string;
   summary: string;
   categories: ShowCategory[];
+  isLiked?: boolean;
 };
 
 const ShowOverview = ({
@@ -35,12 +36,21 @@ const ShowOverview = ({
   prfprice,
   summary,
   categories,
+  isLiked,
 }: ShowOverViewProps) => {
   const navigate = useNavigate();
+  const [liked, setLiked] = useState(isLiked);
   const [isExpanded, setIsExpanded] = useState(false);
+  // const mutation = usePostLike();
+  // const { concertId } = useParams<{ concertId: string }>();
 
   const gotoBack = () => {
     navigate(-1);
+  };
+
+  const toggleLike = () => {
+    setLiked(!liked);
+    // mutation.mutate(Number(concertId));
   };
 
   const toggleExpanded = () => {
@@ -60,16 +70,21 @@ const ShowOverview = ({
       />
 
       <div className="flex space-x-2 mb-[11px]">
-        <CategoryTag categoryType="dance">{genrenm}</CategoryTag>
-        <CategoryTag categoryType="ongoing">{prfstate}</CategoryTag>
+        <CategoryTag categoryType={genrenm} />
+        <CategoryTag categoryType={prfstate} />
       </div>
 
       <span className="heading2-bold text-grayscale-80">{prfnm}</span>
 
       <div className="flex gap-[21px] mt-7">
         <div className="relative w-[130px] h-[173px]">
-          <div className="absolute top-[10px] right-[10px] z-10">
-            <Heart />
+          <div className="absolute top-0 left-0 w-full h-[70px] bg-gradient-to-b from-[rgba(0,0,0,0.40)] to-[rgba(102,102,102,0.00)] pointer-events-none z-40"></div>
+          <div className="absolute top-[10px] right-[10px] z-50">
+            <Heart
+              className="cursor-pointer"
+              fill={liked ? "#ECEBE7" : "none"}
+              onClick={toggleLike}
+            />
           </div>
           <img
             src={poster}
