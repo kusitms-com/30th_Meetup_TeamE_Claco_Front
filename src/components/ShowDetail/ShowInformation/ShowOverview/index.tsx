@@ -1,41 +1,62 @@
 import { ReactComponent as ClacoMain } from "@/assets/svgs/Claco_Main.svg";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
-import Poster10 from "@/assets/images/poster10.gif";
 import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { ReactComponent as Megaphone } from "@/assets/svgs/Megaphone.svg";
 import { ReactComponent as Book } from "@/assets/svgs/Book.svg";
 import { Genre } from "@/components/common/Genre";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
+import { ShowCategory } from "@/types";
+import { usePostLike } from "@/hooks/mutation";
 
-import grand from "@/assets/images/Genre/grand.png";
-import delicate from "@/assets/images/Genre/delicate.png";
-import classical from "@/assets/images/Genre/classical.png";
-import modern from "@/assets/images/Genre/modern.png";
-import lyrical from "@/assets/images/Genre/lyrical.png";
+export type ShowOverViewProps = {
+  prfstate: string;
+  prfprice: string;
+  genrenm: string;
+  prfnm: string;
+  poster: string;
+  area: string;
+  prfruntime: string;
+  prfage: string;
+  prfdate: string;
+  summary: string;
+  categories: ShowCategory[];
+  liked: boolean;
+};
 
-const ShowOverview = () => {
-  const USER_GENRE = [
-    { imgUrl: grand, keyWord: "grand" },
-    { imgUrl: delicate, keyWord: "delicate" },
-    { imgUrl: classical, keyWord: "classical" },
-    { imgUrl: modern, keyWord: "modern" },
-    { imgUrl: lyrical, keyWord: "lyrical" },
-  ];
+const ShowOverview = ({
+  prfstate,
+  prfage,
+  prfruntime,
+  genrenm,
+  prfnm,
+  poster,
+  area,
+  prfdate,
+  prfprice,
+  summary,
+  categories,
+  liked,
+}: ShowOverViewProps) => {
   const navigate = useNavigate();
+  const [_liked, setLiked] = useState(liked);
   const [isExpanded, setIsExpanded] = useState(false);
+  const mutation = usePostLike();
+  const { id } = useParams<{ id: string }>();
 
   const gotoBack = () => {
     navigate(-1);
   };
 
+  const handleLike = () => {
+    setLiked((prev) => !prev);
+    mutation.mutate(Number(id));
+  };
+
   const toggleExpanded = () => {
     setIsExpanded(!isExpanded);
   };
-
-  const description =
-    "특유의 감수성으로 풍부하고 섬세한 연주를 선보이는 유명 피아니스트 랑랑의 공연이에요 섬세한 연주를 선보이는 유명 피아니스트 랑랑의 공연이에요";
 
   return (
     <section className="px-6">
@@ -50,21 +71,24 @@ const ShowOverview = () => {
       />
 
       <div className="flex space-x-2 mb-[11px]">
-        <CategoryTag categoryType="dance">무용</CategoryTag>
-        <CategoryTag categoryType="ongoing">공연 중</CategoryTag>
+        <CategoryTag categoryType={genrenm} />
+        <CategoryTag categoryType={prfstate} />
       </div>
 
-      <span className="heading2-bold text-grayscale-80">
-        유니버설발레단 〈호두까기 인형〉 - 성남
-      </span>
+      <span className="heading2-bold text-grayscale-80">{prfnm}</span>
 
       <div className="flex gap-[21px] mt-7">
         <div className="relative w-[130px] h-[173px]">
-          <div className="absolute top-[10px] right-[10px] z-10">
-            <Heart />
+          <div className="absolute top-0 left-0 w-full h-[70px] bg-gradient-to-b from-[rgba(0,0,0,0.40)] to-[rgba(102,102,102,0.00)] pointer-events-none z-40"></div>
+          <div className="absolute top-[10px] right-[10px] z-50">
+            <Heart
+              className="cursor-pointer"
+              fill={_liked ? "#ECEBE7" : "none"}
+              onClick={handleLike}
+            />
           </div>
           <img
-            src={Poster10}
+            src={poster}
             alt="poster"
             className="absolute top-0 left-0 z-0 object-cover w-full h-full rounded-[5px]"
           />
@@ -79,16 +103,16 @@ const ShowOverview = () => {
               <span>가격</span>
             </div>
             <div className="flex flex-col space-y-2 caption-13 text-grayscale-80">
-              <span>성남시 분당구</span>
-              <span>2024.11.29~2024.11.30</span>
-              <span>120분(인터미션 20분 포함)</span>
-              <span>만 5세 이상</span>
-              <span>20,000원-90,000원</span>
+              <span>{area}</span>
+              <span>{prfdate}</span>
+              <span>{prfruntime}</span>
+              <span>{prfage}</span>
+              <span>{prfprice}</span>
             </div>
           </div>
-          <a href="#" className="underline caption-12 text-grayscale-70">
+          <div className="underline caption-12 text-grayscale-70 cursor-pointer">
             예매하러가기
-          </a>
+          </div>
         </div>
       </div>
 
@@ -103,7 +127,7 @@ const ShowOverview = () => {
             isExpanded ? "" : "line-clamp-2"
           }`}
         >
-          {description}
+          {summary || "공연 설명이 없습니다."}
         </p>
 
         <button
@@ -125,11 +149,11 @@ const ShowOverview = () => {
           <span className="headline2-bold">이런 느낌의 공연이에요</span>
         </div>
         <div className="flex justify-between px-[13px]">
-          {USER_GENRE.map((item, index) => (
+          {categories?.map((item, index) => (
             <Genre
               key={index}
-              genreImgURL={item.imgUrl}
-              genreKeyword={item.keyWord}
+              genreImgURL={item.imageURL}
+              genreKeyword={item.category}
               className="caption-12 text-white w-[43px] h-[43px]"
             />
           ))}

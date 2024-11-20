@@ -6,7 +6,6 @@ export const SearchCard = ({
   id,
   title,
   date,
-  categoryType,
   onClick,
   className,
   searchKeyWord = "",
@@ -17,12 +16,13 @@ export const SearchCard = ({
       onClick={onClick}
       data-id={id}
     >
-      <CategoryTag
+      {/* 임시 */}
+      <CategoryTag categoryType="서양음악(클래식)" className="mr-[10px]" />
+      {/* <CategoryTag
         categoryType={categoryType}
-        className={`${categoryType === "classical" ? "mr-[10px]" : "mr-[20px]"}`}
-      >
-        {categoryType === "classical" ? "클래식" : "무용"}
-      </CategoryTag>
+        className={`${categoryType === "서양무용(클래식)" ? "mr-[10px]" : "mr-[20px]"}`}
+      /> */}
+
       <div className="flex flex-col gap-1 body2-medium text-grayscale-80">
         <span className="max-w-[253px] truncate">
           <HighlightText text={title} highlight={searchKeyWord} />
