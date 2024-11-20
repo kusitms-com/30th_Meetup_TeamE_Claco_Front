@@ -1,6 +1,6 @@
 import { ReactComponent as StarRating } from "@/assets/svgs/StarRating.svg";
 import { TicketSimpleReview } from "@/types";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 export const ReviewSummaryCard = ({
   ticketReviewId,
@@ -9,6 +9,10 @@ export const ReviewSummaryCard = ({
   content,
 }: TicketSimpleReview) => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const gotoShowReivewDetail = () => {
+    navigate(`/show/${id}/reviews/${ticketReviewId}`);
+  };
   return (
     <div className="w-[194px] y-[112px] py-[14px] pl-4 pr-[14px] bg-grayscale-40 rounded-[5px]">
       <div className="flex relative h-[22px] mb-[15px]">
@@ -21,12 +25,12 @@ export const ReviewSummaryCard = ({
             {starRate.toFixed(1)}
           </span>
         </div>
-        <a
-          href={`/show/${id}/reviews/${ticketReviewId}`}
+        <div
           className="absolute top-0 right-1 caption-12 text-grayscale-60 underline self-start pb-1"
+          onClick={gotoShowReivewDetail}
         >
           더 보기
-        </a>
+        </div>
       </div>
 
       <span className="body2-semibold text-white leading-none tracking-[-0.28px]">

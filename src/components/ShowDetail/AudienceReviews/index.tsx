@@ -2,7 +2,7 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { forwardRef } from "react";
 import { ReviewSummaryCard } from "./ReviewSummaryCard";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { TicketSimpleReview } from "@/types";
 
 export type AudienceReviewsProps = {
@@ -12,18 +12,21 @@ export type AudienceReviewsProps = {
 const AudienceReviews = forwardRef<HTMLDivElement, AudienceReviewsProps>(
   ({ reviews }, ref) => {
     const { id } = useParams<{ id: string }>();
-
+    const navigate = useNavigate();
+    const gotoShowReview = () => {
+      navigate(`/show/${id}/reviews`);
+    };
     return (
       <section ref={ref}>
         <div className="px-6">
           <div className="space-x-[14px] mb-6">
             <span className="headline2-bold text-grayscale-80">감상 리뷰</span>
-            <a
-              href={`/show/${id}/reviews`}
+            <div
               className="caption-12 text-grayscale-60 underline"
+              onClick={gotoShowReview}
             >
               전체 보기
-            </a>
+            </div>
           </div>
 
           {reviews.length > 0 ? (

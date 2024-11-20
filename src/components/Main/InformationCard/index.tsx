@@ -3,6 +3,7 @@ import { ReactComponent as Calendar } from "@/assets/svgs/Calendar.svg";
 import { InfoCardProps } from "@/types/poster";
 import { useTruncateText } from "@/hooks/utils";
 import { CategoryTag } from "@/components/common/CategoryTag";
+import { useNavigate } from "react-router-dom";
 
 export const VerticalInfoCard = ({
   id,
@@ -12,15 +13,21 @@ export const VerticalInfoCard = ({
   location,
   date,
 }: InfoCardProps) => {
+  const navigate = useNavigate();
+  const gotoShowDetail = () => {
+    navigate(`/show/${id}`);
+  };
   return (
-    <a href={`/show/${id}`}>
-      <div className="flex-col w-[219px] min-h-[460px] p-[22px] bg-[#242424] rounded-[5px]">
+    <div onClick={gotoShowDetail}>
+      <div className="flex-col w-[219px] min-h-[430px] p-[22px] bg-[#242424] rounded-[5px]">
         <img
           className="w-[174px] h-[232px] rounded-[5px] object-contain mb-[18px]"
           src={image}
         />
         <CategoryTag categoryType={genrenm || "공연 장르 정보 없음"} />
-        <p className="headline2-bold text-grayscale-80 my-[10px]">{title}</p>
+        <p className="headline2-bold text-grayscale-80 my-[10px] min-h-[48px] line-clamp-2">
+          {title}
+        </p>
         <div className="body2-medium text-grayscale-70">
           <div className="flex items-center">
             <Location_Gray />
@@ -32,7 +39,7 @@ export const VerticalInfoCard = ({
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 };
 
@@ -45,10 +52,14 @@ export const HorizontalInfoCard = ({
   date,
 }: InfoCardProps) => {
   const _title = useTruncateText(title, 14);
+  const navigate = useNavigate();
+  const gotoShowDetail = () => {
+    navigate(`/show/${id}`);
+  };
   return (
-    <a
-      href={`/show/${id}`}
+    <div
       className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5"
+      onClick={gotoShowDetail}
     >
       <div className="flex space-x-5">
         <img
@@ -70,6 +81,6 @@ export const HorizontalInfoCard = ({
           </div>
         </div>
       </div>
-    </a>
+    </div>
   );
 };

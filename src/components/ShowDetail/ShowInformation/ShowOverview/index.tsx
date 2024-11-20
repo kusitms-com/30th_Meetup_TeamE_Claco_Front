@@ -110,9 +110,9 @@ const ShowOverview = ({
               <span>{prfprice}</span>
             </div>
           </div>
-          <a href="#" className="underline caption-12 text-grayscale-70">
+          <div className="underline caption-12 text-grayscale-70 cursor-pointer">
             예매하러가기
-          </a>
+          </div>
         </div>
       </div>
 
