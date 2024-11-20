@@ -1,32 +1,34 @@
 import { CategoryTag } from "@/components/common/CategoryTag";
-import { SearchCardProps } from "@/types";
 import { HighlightText } from "../HighLight";
+import { extractDateRange } from "@/hooks/utils";
+import { useNavigate } from "react-router-dom";
+import { SearchCardProps } from "@/types";
 
 export const SearchCard = ({
-  id,
-  title,
-  date,
-  categoryType,
-  onClick,
-  className,
-  searchKeyWord = "",
+  data,
+  searchKeyWord,
+  className = "",
 }: SearchCardProps) => {
+  const navigate = useNavigate();
+  const gotoShowDetail = (id: number) => {
+    navigate(`/show/${id}`);
+  };
   return (
     <div
       className={`flex rounded-[5px] bg-grayscale-30 pl-[14px] pr-5 py-[19px] border border-grayscale-30 cursor-pointer ${className}`}
-      onClick={onClick}
-      data-id={id}
+      onClick={() => gotoShowDetail(data.id)}
+      data-id={data.id}
     >
       <CategoryTag
-        categoryType={categoryType}
-        className={`${categoryType === "서양음악(클래식)" ? "mr-[10px]" : "mr-[20px]"}`}
+        categoryType={data.genrenm}
+        className={`${data.genrenm === "서양음악(클래식)" ? "mr-[10px]" : "mr-[20px]"}`}
       />
 
       <div className="flex flex-col gap-1 body2-medium text-grayscale-80">
         <span className="max-w-[253px] truncate">
-          <HighlightText text={title} highlight={searchKeyWord} />
+          <HighlightText text={data.prfnm} highlight={searchKeyWord} />
         </span>
-        <span>{date}</span>
+        <span>{extractDateRange(data.prfpdfrom, data.prfpdto)}</span>
       </div>
     </div>
   );

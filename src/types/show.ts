@@ -2,7 +2,7 @@ export type Show = {
   id: number;
   posterImage: string;
   showType: string;
-  status: "upcoming" | "inProgress" | "completed";
+  status: string;
   defaultLiked: boolean;
   title: string;
   location: string;

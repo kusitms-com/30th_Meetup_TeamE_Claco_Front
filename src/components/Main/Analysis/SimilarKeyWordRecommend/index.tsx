@@ -22,7 +22,7 @@ export const SimilarKeyWordRecommend = () => {
 
   useEffect(() => {
     if (!isLoading && data?.result) {
-      console.log(data.result);
+      // console.log(data.result);
       setItemBased(data.result);
     }
   }, [isLoading, data]);

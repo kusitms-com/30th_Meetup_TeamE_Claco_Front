@@ -14,7 +14,7 @@ export const MainPosterCard = ({ data }: MainPosterCardProps) => {
   };
   return (
     <div
-      className="relative w-[342px] h-[443px] rounded-[5px]"
+      className="relative w-[342px] h-[482px] rounded-[5px]"
       onClick={gotoShowDetail}
     >
       <div

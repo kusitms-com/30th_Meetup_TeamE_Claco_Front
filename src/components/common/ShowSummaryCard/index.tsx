@@ -1,34 +1,19 @@
 import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
-import { ConcertInfo } from "@/types";
+import { extractDateRange } from "@/hooks/utils";
+import { ShowSummaryCardProps } from "@/types";
 import { useState } from "react";
-
-interface ShowSummaryCardProps {
-  data: ConcertInfo;
-}
-
-export const extractDateRange = (fromDate: string, toDate: string): string => {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(
-      2,
-      "0"
-    )}.${String(date.getDate()).padStart(2, "0")}`;
-  };
-  if (fromDate && toDate) {
-    if (fromDate === toDate) {
-      return formatDate(fromDate);
-    } else {
-      return `${formatDate(fromDate)} ~ ${formatDate(toDate)}`;
-    }
-  }
-  return "공연 기간 정보 없음";
-};
+import { useNavigate } from "react-router-dom";
 
 export const ShowSummaryCard = ({ data }: ShowSummaryCardProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
+  const navigate = useNavigate();
+  const gotoShowDetail = (id: number) => {
+    navigate(`/show/${id}`);
+  };
+
   return (
-    <div className="flex items-center">
+    <div className="flex items-center" onClick={() => gotoShowDetail(data.id)}>
       <div className="relative">
         <img
           src={data.poster}
@@ -55,8 +40,8 @@ export const ShowSummaryCard = ({ data }: ShowSummaryCardProps) => {
 
       <div className="flex flex-col ml-4 max-w-[207px]">
         <div className="flex flex-col min-w-[186px]">
-          <span className="caption-12 text-grayscale-80 border border-grayscale-70 px-2 py-[3px] rounded-[20px] self-start mb-[9px]">
-            {data.prfstate}
+          <span className="caption-12 self-start mb-[9px]">
+            <CategoryTag categoryType={data.prfstate} />
           </span>
           <span className="body2-semibold text-grayscale-80 mb-[10px]">
             {data.prfnm}

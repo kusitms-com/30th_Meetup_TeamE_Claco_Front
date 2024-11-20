@@ -33,3 +33,29 @@ export type GetConcertListResponse = {
   };
   refreshed: boolean;
 };
+
+export type AutoCompleteSearchCard = {
+  id: number;
+  mt20id: string;
+  prfnm: string;
+  prfpdfrom: string;
+  prfpdto: string;
+  genrenm: string;
+};
+
+export type AutoCompleteSearchResponse = {
+  code: string;
+  message: string;
+  result: AutoCompleteSearchCard[];
+  refreshed: boolean;
+};
+
+export type ShowSummaryCardProps = {
+  data: ConcertInfo;
+};
+
+export type SearchCardProps = {
+  data: AutoCompleteSearchCard;
+  searchKeyWord: string;
+  className?: string;
+};
