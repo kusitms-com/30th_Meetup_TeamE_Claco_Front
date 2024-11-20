@@ -49,7 +49,7 @@ const ShowOverview = ({
     navigate(-1);
   };
 
-  const toggleLike = () => {
+  const handleLike = () => {
     setLiked((prev) => !prev);
     mutation.mutate(Number(id));
   };
@@ -84,7 +84,7 @@ const ShowOverview = ({
             <Heart
               className="cursor-pointer"
               fill={_liked ? "#ECEBE7" : "none"}
-              onClick={toggleLike}
+              onClick={handleLike}
             />
           </div>
           <img
