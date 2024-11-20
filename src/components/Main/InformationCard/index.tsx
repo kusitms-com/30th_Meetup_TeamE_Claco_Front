@@ -5,13 +5,14 @@ import { useTruncateText } from "@/hooks/utils";
 import { CategoryTag } from "@/components/common/CategoryTag";
 
 export const VerticalInfoCard = ({
+  id,
   image,
   title,
   location,
   date,
 }: InfoCardProps) => {
   return (
-    <div className="w-[219px] h-[418px] bg-[#242424] rounded-[5px] p-[22px]">
+    <a href={`/show/${id}`} className="w-[219px] h-[418px] bg-[#242424] rounded-[5px] p-[22px]">
       <div className="flex-col">
         <img
           className="w-[174px] h-[232px] rounded-[5px] object-contain mb-[18px]"
@@ -30,11 +31,12 @@ export const VerticalInfoCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
 
 export const HorizontalInfoCard = ({
+  id,
   image,
   title,
   location,
@@ -42,7 +44,7 @@ export const HorizontalInfoCard = ({
 }: InfoCardProps) => {
   const _title = useTruncateText(title, 14);
   return (
-    <div className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5">
+    <a href={`/show/${id}`} className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5">
       <div className="flex space-x-5">
         <img
           className="w-[104px] h-[132px] rounded-[5px] object-contain mb-[18px]"
@@ -63,6 +65,6 @@ export const HorizontalInfoCard = ({
           </div>
         </div>
       </div>
-    </div>
+    </a>
   );
 };
