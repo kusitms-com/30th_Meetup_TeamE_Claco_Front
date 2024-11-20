@@ -82,6 +82,7 @@ export type ShowDetailResult = {
   ticketReviewSimpleResponses: TicketSimpleReview[];
   summary: string;
   categories: ShowCategory[];
+  liked: boolean;
 };
 
 export type DaysMapType = {

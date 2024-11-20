@@ -124,7 +124,6 @@ export const ShowDetailPage = () => {
   return (
     <div className="pt-[73px] pb-[40px]">
       <ShowOverview
-        isLiked
         prfstate={showDetail?.prfstate || "공연 정보 없음"}
         prfprice={displayedPrice(minPrice, maxPrice)}
         genrenm={showDetail?.genrenm || "공연 정보 없음"}
@@ -139,6 +138,7 @@ export const ShowDetailPage = () => {
         )}
         summary={showDetail?.summary || "공연 설명 없음"}
         categories={showDetail?.categories || []}
+        liked={!!showDetail?.liked}
       />
 
       <div

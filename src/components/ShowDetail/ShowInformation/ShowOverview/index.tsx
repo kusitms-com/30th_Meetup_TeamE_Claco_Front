@@ -5,9 +5,10 @@ import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { ReactComponent as Megaphone } from "@/assets/svgs/Megaphone.svg";
 import { ReactComponent as Book } from "@/assets/svgs/Book.svg";
 import { Genre } from "@/components/common/Genre";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useState } from "react";
 import { ShowCategory } from "@/types";
+import { usePostLike } from "@/hooks/mutation";
 
 export type ShowOverViewProps = {
   prfstate: string;
@@ -21,7 +22,7 @@ export type ShowOverViewProps = {
   prfdate: string;
   summary: string;
   categories: ShowCategory[];
-  isLiked?: boolean;
+  liked: boolean;
 };
 
 const ShowOverview = ({
@@ -36,21 +37,21 @@ const ShowOverview = ({
   prfprice,
   summary,
   categories,
-  isLiked,
+  liked,
 }: ShowOverViewProps) => {
   const navigate = useNavigate();
-  const [liked, setLiked] = useState(isLiked);
+  const [_liked, setLiked] = useState(liked);
   const [isExpanded, setIsExpanded] = useState(false);
-  // const mutation = usePostLike();
-  // const { concertId } = useParams<{ concertId: string }>();
+  const mutation = usePostLike();
+  const { id } = useParams<{ id: string }>();
 
   const gotoBack = () => {
     navigate(-1);
   };
 
   const toggleLike = () => {
-    setLiked(!liked);
-    // mutation.mutate(Number(concertId));
+    setLiked((prev) => !prev);
+    mutation.mutate(Number(id));
   };
 
   const toggleExpanded = () => {
@@ -82,7 +83,7 @@ const ShowOverview = ({
           <div className="absolute top-[10px] right-[10px] z-50">
             <Heart
               className="cursor-pointer"
-              fill={liked ? "#ECEBE7" : "none"}
+              fill={_liked ? "#ECEBE7" : "none"}
               onClick={toggleLike}
             />
           </div>

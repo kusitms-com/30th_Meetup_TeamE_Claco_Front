@@ -1,1 +1,1 @@
-// export { default as usePostLike } from "./usePostLike";
+export { default as usePostLike } from "./usePostLike";
