@@ -10,7 +10,6 @@ import { ShowFilter } from "@/components/Browse/ShowFilter";
 import { ShowSummaryCard } from "@/components/common/ShowSummaryCard";
 
 //최근 공연 데이터 목록 (둘러보기 페이지 접근 시 초기에 보여지는 정보)
-import { initialShowData } from "@/components/common/ShowSummaryCard/const";
 import { searchResultData } from "@/components/common/ShowSummaryCard/const";
 
 import poster13 from "@/assets/images/poster13.png";
@@ -18,14 +17,24 @@ import poster4 from "@/assets/images/poster4.gif";
 import poster8 from "@/assets/images/poster8.gif";
 import { ClacoPick } from "@/components/Browse/ClacoPick";
 import { useDebouncedState, useShowFilter } from "@/hooks/utils";
+import { useGetConcertList } from "@/hooks/queries";
+import { AutoCompleteSearchCard, ConcertInfo, TabMenu } from "@/types";
+import { Skeleton } from "@/components/ui/skeleton";
+import useGetAutoCompleteSearch from "@/hooks/queries/useGetAutoCompleteSearch";
+// import useGetSearch from "@/hooks/queries/useGetSearch";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
   const [skipDebounce, setSkipDebounce] = useState<boolean>(false);
-  const debouncedQuery = useDebouncedState(query, 500, skipDebounce);
+  const debouncedQuery = useDebouncedState(query, 1000, skipDebounce);
   const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<TabMenu>(null);
+  const [recentConcerList, setRecentConcerList] = useState<ConcertInfo[]>([]);
+  const [autoCompleteList, setAutoCompleteList] = useState<
+    AutoCompleteSearchCard[]
+  >([]);
+  const [totalCount, setTotalCount] = useState<number>();
 
-  const [activeTab, setActiveTab] = useState<string>("전체");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const {
     filterState,
@@ -37,7 +46,45 @@ export const BrowsePage = () => {
     closeFilter,
   } = useShowFilter();
 
-  const handleTabClick = (tab: string) => {
+  const { data: concertData, isLoading: concertDataLoading } =
+    useGetConcertList({
+      genre: activeTab,
+
+      page: 1,
+      size: 9,
+    });
+
+  const { data: autoCompleteData, isLoading: autoCompleteDataLoading } =
+    useGetAutoCompleteSearch(debouncedQuery);
+
+  // const { data: searchData, isLoading: searchDataLoading } = useGetSearch({
+  //   query: debouncedQuery,
+  //   page: 1,
+  //   size: 9,
+  // });
+
+  useEffect(() => {
+    if (concertData && !concertDataLoading) {
+      // console.log(data);
+      setTotalCount(concertData.result.totalCount);
+      setRecentConcerList(concertData.result.listPageResponse);
+    }
+  }, [concertDataLoading, concertData]);
+
+  useEffect(() => {
+    if (autoCompleteData && !autoCompleteDataLoading) {
+      console.log(autoCompleteData);
+      setAutoCompleteList(autoCompleteData.result);
+    }
+  }, [
+    debouncedQuery,
+    autoCompleteDataLoading,
+    setAutoCompleteList,
+    autoCompleteData,
+  ]);
+
+  const handleTabClick = (tab: TabMenu) => {
+    // console.log(tab);
     setActiveTab(tab);
   };
 
@@ -45,6 +92,7 @@ export const BrowsePage = () => {
     const newValue = e.target.value;
     setSkipDebounce(newValue === "");
     setQuery(newValue);
+    if (newValue.trim().length === 0) setAutoCompleteList([]);
   };
 
   const isProcessing = useRef(false);
@@ -75,6 +123,26 @@ export const BrowsePage = () => {
     }
   }, [skipDebounce]);
 
+  if (concertDataLoading) {
+    return (
+      <div className="w-full px-6 pt-[41px] flex flex-col justify-center items-center gap-6">
+        <Skeleton className="w-[86px] h-[36px] rounded-[3px]" />
+        <Skeleton className="w-full h-[52px] rounded-[3px]" />
+        <Skeleton className="w-full h-[36px] rounded-[3px]" />
+        <div className="w-full flex flex-col justify-center items-start gap-[6px]">
+          <Skeleton className="w-[68px] h-[36px] rounded-[3px]" />
+          <Skeleton className="w-[51px] h-[24px] rounded-[3px]" />
+        </div>
+        {[...Array(5)].map((_, index) => (
+          <Skeleton
+            key={index}
+            className="h-[179px] w-full flex-shrink-0 rounded-[3px]"
+          />
+        ))}
+      </div>
+    );
+  }
+
   return (
     <div className="px-6 pb-[110px] min-h-screen relative">
       <div className="flex flex-col items-center justify-center">
@@ -104,15 +172,11 @@ export const BrowsePage = () => {
               {/* 검색 키워드로 받아오는 데이터로 교체해야함 */}
               {debouncedQuery.trim().length !== 0 ? (
                 <>
-                  {initialShowData.map((show) => (
+                  {autoCompleteList?.map((show) => (
                     <SearchCard
                       key={show.id}
-                      id={show.id}
-                      title={show.title}
+                      data={show}
                       searchKeyWord={query}
-                      date={show.date}
-                      categoryType={show.showType}
-                      onClick={() => null}
                     />
                   ))}
                 </>
@@ -121,11 +185,14 @@ export const BrowsePage = () => {
           ) : (
             <>
               {/* 전체, 클래식, 무용 탭  -> 이름 변경 필요할듯 */}
-              <ShowFilterTab
-                activeTab={activeTab}
-                onTabClick={handleTabClick}
-                className="mt-6 mb-[14px]"
-              />
+              {debouncedQuery.trim().length === 0 ? (
+                <ShowFilterTab
+                  activeTab={activeTab}
+                  onTabClick={handleTabClick}
+                  className="mt-6 mb-[14px]"
+                />
+              ) : null}
+
               {showFilter && (
                 <ShowFilter onClose={closeFilter} onApply={applyFilter} />
               )}
@@ -159,10 +226,12 @@ export const BrowsePage = () => {
                     {debouncedQuery.trim().length === 0 ? "최근 공연" : null}
                   </span>
                 )}
-                <div className="flex gap-2">
-                  <Filter onClick={handleFilterClick} />
-                  <Refresh onClick={handleRefreshClick} />
-                </div>
+                {debouncedQuery.trim().length === 0 ? (
+                  <div className="flex gap-2">
+                    <Filter onClick={handleFilterClick} />
+                    <Refresh onClick={handleRefreshClick} />
+                  </div>
+                ) : null}
               </div>
               <div className="mt-4">
                 {hasActiveFilters && (
@@ -172,15 +241,20 @@ export const BrowsePage = () => {
                 )}
               </div>
               {debouncedQuery.trim().length === 0 ? (
+                // 최근 공연 둘러보기 영역(검색 전)
                 <>
-                  <span className="caption-12 text-grayscale-60">총 3개</span>
+                  <span className="caption-12 text-grayscale-60">
+                    총 {totalCount}개
+                  </span>
                   <div className="flex flex-col gap-[29px] mt-[12px]">
-                    {initialShowData.map((show) => (
-                      <ShowSummaryCard key={show.id} {...show} />
-                    ))}
+                    {recentConcerList &&
+                      recentConcerList.map((show) => (
+                        <ShowSummaryCard key={show.id} data={show} />
+                      ))}
                   </div>
                 </>
               ) : (
+                // 검색 이후 로직
                 <>
                   <div className="flex flex-col gap-[29px] mt-[12px]">
                     {searchResultData.length === 0 ? (
@@ -210,10 +284,10 @@ export const BrowsePage = () => {
                       </div>
                     ) : (
                       <>
-                        <span className="headline1-bold">총 3개의 공연</span>
+                        {/* <span className="headline1-bold">총 3개의 공연</span>
                         {searchResultData.map((show) => (
                           <ShowSummaryCard key={show.id} {...show} />
-                        ))}
+                        ))} */}
                       </>
                     )}
                   </div>

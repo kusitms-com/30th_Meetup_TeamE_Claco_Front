@@ -7,8 +7,8 @@ export const initialShowData: Show[] = [
   {
     id: 1,
     posterImage: poster10,
-    showType: "dance",
-    status: "upcoming",
+    showType: "무용",
+    status: "공연중",
     defaultLiked: true,
     title: "유니버설발레단 (호두까기 인형) - 성남",
     location: "예술의 전당 오페라 극장",
@@ -19,8 +19,8 @@ export const initialShowData: Show[] = [
   {
     id: 2,
     posterImage: poster13,
-    showType: "classical",
-    status: "inProgress",
+    showType: "서양음악(클래식)",
+    status: "공연중",
     defaultLiked: false,
     title: "대니 구 크리스마스 콘서트 <HOME>",
     location: "예술의 전당 오페라 극장",
@@ -31,7 +31,7 @@ export const initialShowData: Show[] = [
   {
     id: 3,
     posterImage: poster2,
-    showType: "dance",
+    showType: "무용",
     status: "completed",
     defaultLiked: false,
     title: "라트라비아타",
@@ -43,8 +43,8 @@ export const initialShowData: Show[] = [
   {
     id: 4,
     posterImage: poster2,
-    showType: "dance",
-    status: "completed",
+    showType: "무용",
+    status: "공연예정",
     defaultLiked: false,
     title: "라트라비아타",
     location: "예술의 전당 오페라 극장",
@@ -55,7 +55,7 @@ export const initialShowData: Show[] = [
   {
     id: 5,
     posterImage: poster2,
-    showType: "dance",
+    showType: "무용",
     status: "completed",
     defaultLiked: false,
     title: "라트라비아타",
@@ -67,8 +67,8 @@ export const initialShowData: Show[] = [
   {
     id: 6,
     posterImage: poster2,
-    showType: "dance",
-    status: "completed",
+    showType: "서양음악(클래식)",
+    status: "공연중",
     defaultLiked: false,
     title: "라트라비아타",
     location: "예술의 전당 오페라 극장",
@@ -82,8 +82,8 @@ export const searchResultData: Show[] = [
   {
     id: 1,
     posterImage: poster10,
-    showType: "dance",
-    status: "upcoming",
+    showType: "무용",
+    status: "공연예정",
     defaultLiked: true,
     title: "유니버설발레단 (호두까기 인형) - 성남",
     location: "예술의 전당 오페라 극장",

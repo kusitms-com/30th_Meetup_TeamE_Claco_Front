@@ -59,9 +59,7 @@ export const ClacoTicketDetailPage = () => {
         <Trash onClick={() => setIsModalOpen(true)} />
       </div>
       <div className="flex-col justify-start w-full space-y-2 mb-[54px]">
-          <CategoryTag
-            categoryType="무용"
-          />
+        <CategoryTag categoryType="무용" />
         <div className="heading2-bold">
           유니버설발레단 〈호두까기 인형〉 - 성남
         </div>

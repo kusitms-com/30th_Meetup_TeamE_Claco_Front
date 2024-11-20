@@ -10,6 +10,15 @@ import { Calendar } from "@/components/common/Calendar";
 import { SearchCard } from "@/components/common/Search/Card";
 import { Modal } from "@/components/common/Modal";
 
+const TEST_DATA = {
+  id: 2,
+  mt20id: "aaa",
+  prfnm: "제목",
+  prfpdfrom: "시작일",
+  prfpdto: "종료일",
+  genrenm: "서양음악(클래식)",
+};
+
 export const TicketInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
@@ -117,11 +126,8 @@ export const TicketInfoPage = () => {
       )}
 
       <div className="mt-[37px]">
-        <SearchCard
-          title="유니버설발레단 (호두까기인형) - 대구"
-          date="2024.11.26. (화) ~ 2024.11.27. (수)"
-          categoryType="dance"
-        />
+        {/* 여기서는 검색키워드 따로 없이 선택된 공연 보여주는 용이라 그냥 빈 값 넣으면 될듯 */}
+        <SearchCard data={TEST_DATA} searchKeyWord="" />
         <div className="flex flex-col mt-[37px] mb-[62px] gap-[27px]">
           <div className="flex">
             <span className="headline2-bold text-grayscale-80">

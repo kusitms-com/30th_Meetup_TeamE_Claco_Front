@@ -2,9 +2,10 @@ export type InfoCardProps = {
   id: number;
   image: string;
   title: string;
-  genrenm: string;
   location: string;
-  date: string;
+  dateFrom: string;
+  dateTo: string;
+  genrenm: string;
 };
 
 export type CategoryTagProps = {
