@@ -85,3 +85,16 @@ export type TicketReview = {
   imageUrlS: ImageUrl[];
   editor: boolean;
 };
+
+export type ClacoBookList = {
+  id: number;
+  title: string;
+  color: string;
+};
+
+export type ClacoBookListResponse = {
+  code: string;
+  message: string;
+  result: ClacoBookList[];
+  refreshed: boolean;
+};

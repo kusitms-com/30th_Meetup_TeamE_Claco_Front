@@ -9,21 +9,20 @@ import { CreateEditModal } from "@/components/Ticket/Modal/CreateEdit";
 import { DeleteClacoBookModal } from "@/components/Ticket/Modal/Delete/ClacoBook";
 import { Toast } from "@/libraries/toast/Toast";
 import { useNavigate } from "react-router-dom";
-
-const CLACO_BOOK_MOCK_DATA = [
-  { id: 1, title: "조성진 모음집", color: "#DD6339" },
-  { id: 2, title: "2024 발레", color: "#D499B8" },
-  { id: 3, title: "시요밍보따리", color: "#9E8D8E" },
-];
+import useGetClacoBookList from "@/hooks/queries/useGetClacoBookList";
 
 export const ClacoBookPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [action, setAction] = useState<string>("");
   const [toast, setToast] = useState(false);
-  const [selectClacoBook, setSelectClacoBook] = useState<ClacoBookType>(
-    CLACO_BOOK_MOCK_DATA[0]
+  const [selectClacoBook, setSelectClacoBook] = useState<ClacoBookType | null>(
+    null,
   );
+
+  const { data, isLoading } = useGetClacoBookList();
+  const clacoBookList = Array.isArray(data?.result) ? data?.result : [];
+
   const navigate = useNavigate();
 
   const handleOpenModal = () => {
@@ -61,9 +60,13 @@ export const ClacoBookPage = () => {
     navigate(`/ticketbook/${id}?title=${title}`);
   };
 
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
+
   return (
     <div className="flex flex-col pt-[46px] items-center justify-center px-6">
-      {CLACO_BOOK_MOCK_DATA.length === 0 ? (
+      {clacoBookList.length === 0 ? (
         <span className="headline2-bold text-grayscale-80 mb-[152px] h-[26px]">
           티켓북
         </span>
@@ -103,11 +106,11 @@ export const ClacoBookPage = () => {
         </div>
       )}
 
-      {CLACO_BOOK_MOCK_DATA.length !== 0 ? (
+      {clacoBookList.length !== 0 ? (
         <>
           <div className="pb-[100px]">
             <RadioGroup defaultValue={"1"} className="flex flex-col gap-[35px]">
-              {CLACO_BOOK_MOCK_DATA.map((book) => (
+              {clacoBookList.map((book) => (
                 <div
                   key={book.id}
                   onClick={() => {
@@ -134,7 +137,7 @@ export const ClacoBookPage = () => {
           {/* 모달 영역 */}
           {isModalOpen && (
             <>
-              {action === "delete" ? (
+              {action === "delete" && selectClacoBook ? (
                 <DeleteClacoBookModal
                   clacoBook={selectClacoBook}
                   onClose={handleCloseModal}
