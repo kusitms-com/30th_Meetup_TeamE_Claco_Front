@@ -3,8 +3,10 @@ import { ReactComponent as Calendar } from "@/assets/svgs/Calendar.svg";
 import { InfoCardProps } from "@/types/poster";
 import { formatDate, useTruncateText } from "@/hooks/utils";
 import { CategoryTag } from "@/components/common/CategoryTag";
+import { useNavigate } from "react-router-dom";
 
 export const VerticalInfoCard = ({
+  id,
   image,
   title,
   location,
@@ -16,9 +18,14 @@ export const VerticalInfoCard = ({
   const _dateFrom = formatDate(dateFrom);
   const _dateTo = formatDate(dateTo);
 
+  const navigate = useNavigate();
+  const gotoShowDetail = () => {
+    navigate(`/show/${id}`);
+  };
+
   return (
-    <div className="w-[219px] h-[418px] bg-[#242424] rounded-[5px] p-[22px]">
-      <div className="flex-col">
+    <div onClick={gotoShowDetail}>
+      <div className="flex-col w-[219px] min-h-[430px] p-[22px] bg-[#242424] rounded-[5px]">
         <img
           className="max-w-[104px] max-h-[132px] object-contain rounded-[5px] mb-[18px]"
           src={image}
@@ -49,6 +56,7 @@ export const VerticalInfoCard = ({
 };
 
 export const HorizontalInfoCard = ({
+  id,
   image,
   title,
   location,
@@ -59,8 +67,15 @@ export const HorizontalInfoCard = ({
   const _title = useTruncateText(title, 14);
   const _dateFrom = formatDate(dateFrom);
   const _dateTo = formatDate(dateTo);
+  const navigate = useNavigate();
+  const gotoShowDetail = () => {
+    navigate(`/show/${id}`);
+  };
   return (
-    <div className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5">
+    <div
+      className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5"
+      onClick={gotoShowDetail}
+    >
       <div className="flex space-x-5">
         <img
           className="max-w-[104px] max-h-[132px] object-contain rounded-[5px] mb-[18px]"

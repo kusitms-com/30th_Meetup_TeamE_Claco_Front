@@ -78,8 +78,8 @@ export const ReviewPage = () => {
 
         <section className="flex-col space-y-[10px] mb-[3px]">
           <div className="flex space-x-2">
-            {/* <CategoryTag categoryType="dance">무용</CategoryTag>
-            <CategoryTag categoryType="ongoing">공연 중</CategoryTag> */}
+            <CategoryTag categoryType="무용" />
+            <CategoryTag categoryType="공연 중" />
           </div>
           <div className="flex-col">
             <div className="heading2-bold">

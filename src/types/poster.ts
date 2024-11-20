@@ -1,13 +1,13 @@
 export type InfoCardProps = {
+  id: number;
   image: string;
   title: string;
+  genrenm: string;
   location: string;
   dateFrom: string;
   dateTo: string;
   genre: string;
 };
-
-// export type Category = "무용" | "서양음악(클래식)" | "ongoing" | "upcoming";
 
 export type CategoryTagProps = {
   categoryType: string;

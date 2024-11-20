@@ -94,6 +94,7 @@ export const SimilarKeyWordRecommend = () => {
           {itemBased?.recommendationConcertsResponseV1s.map((concert) => (
             <HorizontalInfoCard
               key={concert.id}
+              id={concert.id}
               image={concert.poster}
               title={concert.prfnm}
               location={concert.fcltynm}
