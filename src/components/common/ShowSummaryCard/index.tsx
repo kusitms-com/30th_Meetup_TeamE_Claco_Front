@@ -7,6 +7,24 @@ interface ShowSummaryCardProps {
   data: ConcertInfo;
 }
 
+export const extractDateRange = (fromDate: string, toDate: string): string => {
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return `${date.getFullYear()}.${String(date.getMonth() + 1).padStart(
+      2,
+      "0"
+    )}.${String(date.getDate()).padStart(2, "0")}`;
+  };
+  if (fromDate && toDate) {
+    if (fromDate === toDate) {
+      return formatDate(fromDate);
+    } else {
+      return `${formatDate(fromDate)} ~ ${formatDate(toDate)}`;
+    }
+  }
+  return "공연 기간 정보 없음";
+};
+
 export const ShowSummaryCard = ({ data }: ShowSummaryCardProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   return (
@@ -47,7 +65,7 @@ export const ShowSummaryCard = ({ data }: ShowSummaryCardProps) => {
             {data.fcltynm}
           </span>
           <span className="caption-12 text-grayscale-50 mb-[7px]">
-            {data.prfpdfrom}~{data.prfpdto}
+            {extractDateRange(data.prfpdfrom, data.prfpdto)}
           </span>
 
           <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#3F3F3F] to-transparent mb-[10px]"></div>

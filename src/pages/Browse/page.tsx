@@ -20,6 +20,7 @@ import { ClacoPick } from "@/components/Browse/ClacoPick";
 import { useDebouncedState, useShowFilter } from "@/hooks/utils";
 import { useGetConcertList } from "@/hooks/queries";
 import { ConcertInfo, TabMenu } from "@/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
@@ -94,6 +95,26 @@ export const BrowsePage = () => {
       return () => clearTimeout(timer);
     }
   }, [skipDebounce]);
+
+  if (isLoading) {
+    return (
+      <div className="w-full px-6 pt-[41px] flex flex-col justify-center items-center gap-6">
+        <Skeleton className="w-[86px] h-[36px] rounded-[3px]" />
+        <Skeleton className="w-full h-[52px] rounded-[3px]" />
+        <Skeleton className="w-full h-[36px] rounded-[3px]" />
+        <div className="w-full flex flex-col justify-center items-start gap-[6px]">
+          <Skeleton className="w-[68px] h-[36px] rounded-[3px]" />
+          <Skeleton className="w-[51px] h-[24px] rounded-[3px]" />
+        </div>
+        {[...Array(5)].map((_, index) => (
+          <Skeleton
+            key={index}
+            className="h-[179px] w-full flex-shrink-0 rounded-[3px]"
+          />
+        ))}
+      </div>
+    );
+  }
 
   return (
     <div className="px-6 pb-[110px] min-h-screen relative">
