@@ -18,14 +18,18 @@ import poster4 from "@/assets/images/poster4.gif";
 import poster8 from "@/assets/images/poster8.gif";
 import { ClacoPick } from "@/components/Browse/ClacoPick";
 import { useDebouncedState, useShowFilter } from "@/hooks/utils";
+import { useGetConcertList } from "@/hooks/queries";
+import { ConcertInfo, TabMenu } from "@/types";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
   const [skipDebounce, setSkipDebounce] = useState<boolean>(false);
   const debouncedQuery = useDebouncedState(query, 500, skipDebounce);
   const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [activeTab, setActiveTab] = useState<TabMenu>(null);
+  const [recentConcerList, setRecentConcerList] = useState<ConcertInfo[]>([]);
+  const [totalCount, setTotalCount] = useState<number>();
 
-  const [activeTab, setActiveTab] = useState<string>("전체");
   const searchInputRef = useRef<HTMLInputElement>(null);
   const {
     filterState,
@@ -37,7 +41,23 @@ export const BrowsePage = () => {
     closeFilter,
   } = useShowFilter();
 
-  const handleTabClick = (tab: string) => {
+  const { data, isLoading } = useGetConcertList({
+    genre: activeTab,
+    direction: null,
+    page: 1,
+    size: 9,
+  });
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      console.log(data);
+      setTotalCount(data.result.totalCount);
+      setRecentConcerList(data.result.listPageResponse);
+    }
+  }, [isLoading, data]);
+
+  const handleTabClick = (tab: TabMenu) => {
+    // console.log(tab);
     setActiveTab(tab);
   };
 
@@ -173,11 +193,14 @@ export const BrowsePage = () => {
               </div>
               {debouncedQuery.trim().length === 0 ? (
                 <>
-                  <span className="caption-12 text-grayscale-60">총 3개</span>
+                  <span className="caption-12 text-grayscale-60">
+                    총 {totalCount}개
+                  </span>
                   <div className="flex flex-col gap-[29px] mt-[12px]">
-                    {initialShowData.map((show) => (
-                      <ShowSummaryCard key={show.id} {...show} />
-                    ))}
+                    {recentConcerList &&
+                      recentConcerList.map((show) => (
+                        <ShowSummaryCard key={show.id} data={show} />
+                      ))}
                   </div>
                 </>
               ) : (
@@ -210,10 +233,10 @@ export const BrowsePage = () => {
                       </div>
                     ) : (
                       <>
-                        <span className="headline1-bold">총 3개의 공연</span>
+                        {/* <span className="headline1-bold">총 3개의 공연</span>
                         {searchResultData.map((show) => (
                           <ShowSummaryCard key={show.id} {...show} />
-                        ))}
+                        ))} */}
                       </>
                     )}
                   </div>

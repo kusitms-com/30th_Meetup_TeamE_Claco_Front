@@ -1,45 +1,26 @@
 import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
+import { ConcertInfo } from "@/types";
 import { useState } from "react";
 
 interface ShowSummaryCardProps {
-  posterImage: string;
-  showType: string;
-  status: string;
-  title: string;
-  location: string;
-  date: string;
-  keywords: string[];
+  data: ConcertInfo;
 }
 
-export const ShowSummaryCard = ({
-  posterImage,
-  showType,
-  status,
-  title,
-  location,
-  date,
-  keywords,
-}: ShowSummaryCardProps) => {
+export const ShowSummaryCard = ({ data }: ShowSummaryCardProps) => {
   const [isLiked, setIsLiked] = useState<boolean>(false);
   return (
     <div className="flex items-center">
       <div className="relative">
         <img
-          src={posterImage}
+          src={data.poster}
           alt="poster"
           className="w-[131px] h-[172px] rounded-[5px] object-cover"
         />
         <div className="absolute top-0 left-0 w-full h-[70px] bg-gradient-to-b from-[rgba(0,0,0,0.40)] to-[rgba(102,102,102,0.00)] pointer-events-none"></div>
 
         <div className="absolute top-[10px] left-2 ">
-          <CategoryTag categoryType={showType} />
-          {/* {showType === "dance" && (
-            <CategoryTag categoryType="dance">무용</CategoryTag>
-          )}
-          {showType === "classical" && (
-            <CategoryTag categoryType="classical">클래식</CategoryTag>
-          )} */}
+          <CategoryTag categoryType={data.genrenm} />
         </div>
 
         <span
@@ -55,32 +36,30 @@ export const ShowSummaryCard = ({
       </div>
 
       <div className="flex flex-col ml-4 max-w-[207px]">
-        <div className="flex flex-col max-w-[186px]">
+        <div className="flex flex-col min-w-[186px]">
           <span className="caption-12 text-grayscale-80 border border-grayscale-70 px-2 py-[3px] rounded-[20px] self-start mb-[9px]">
-            {status === "upcoming"
-              ? "공연 예정"
-              : status === "inProgress"
-                ? "공연 중"
-                : "공연 종료"}
+            {data.prfstate}
           </span>
           <span className="body2-semibold text-grayscale-80 mb-[10px]">
-            {title}
+            {data.prfnm}
           </span>
           <span className="caption-12 text-grayscale-70 mb-[1px]">
-            {location}
+            {data.fcltynm}
           </span>
-          <span className="caption-12 text-grayscale-50 mb-[7px]">{date}</span>
+          <span className="caption-12 text-grayscale-50 mb-[7px]">
+            {data.prfpdfrom}~{data.prfpdto}
+          </span>
 
           <div className="w-full h-[2px] bg-gradient-to-r from-transparent via-[#3F3F3F] to-transparent mb-[10px]"></div>
         </div>
 
         <div className="flex overflow-x-auto whitespace-nowrap space-x-[6px] scrollbar-hide">
-          {keywords.map((keyword, index) => (
+          {data.categories.map((category, index) => (
             <span
               key={index}
               className="caption-12 px-[13px] py-1 rounded-[5px] bg-grayscale-20 text-grayscale-60"
             >
-              {keyword}
+              {category.category}
             </span>
           ))}
         </div>

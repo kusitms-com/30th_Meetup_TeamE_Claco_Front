@@ -78,11 +78,10 @@ export const SimilarKeyWordRecommend = () => {
           </div>
           <div className="relative h-[355px] overflow-hidden">
             <div className="w-[355px] h-[355px] absolute flex justify-center items-center opacity-70 bg-[radial-gradient(circle_at_50%_50%,rgba(233,102,58,0.3)_0%,rgba(233,102,58,0.00)_70%)] rounded-full" />
-            {USER_GENRE.map((item, index) => (
+            {itemBased?.keywords.map((item, index) => (
               <div key={index} className={getItemStyle(index)}>
                 <Genre
-                  genreImgURL={item.imgUrl}
-                  genreKeyword={item.keyWord}
+                  genreKeyword={item}
                   className={`${index === currentIndex ? "w-[117px] h-[127px]" : ""} `}
                   size={index === currentIndex ? 113 : 48}
                 />

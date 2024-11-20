@@ -61,6 +61,7 @@ export type ConcertCard = {
 };
 
 export type UserItemBased = {
+  keywords: string[];
   likedHistory: boolean;
   recommendationConcertsResponseV1s: ConcertCard[];
 };

@@ -36,8 +36,15 @@ export type ClacoPickProps = {
   picks: { imageSrc: string; title: string }[];
 };
 
+export type TabMenuItem = {
+  value: TabMenu;
+  label: string;
+};
+
+export type TabMenu = "서양음악(클래식)" | "무용" | null;
+
 export type ShowFilterTabProps = {
-  activeTab: string;
-  onTabClick: (tab: string) => void;
+  activeTab: TabMenu;
+  onTabClick: (tab: TabMenu) => void;
   className?: string;
 };
