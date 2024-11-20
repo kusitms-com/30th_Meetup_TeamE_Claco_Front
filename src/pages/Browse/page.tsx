@@ -21,6 +21,7 @@ import { useGetConcertList } from "@/hooks/queries";
 import { AutoCompleteSearchCard, ConcertInfo, TabMenu } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import useGetAutoCompleteSearch from "@/hooks/queries/useGetAutoCompleteSearch";
+// import useGetSearch from "@/hooks/queries/useGetSearch";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
@@ -48,13 +49,19 @@ export const BrowsePage = () => {
   const { data: concertData, isLoading: concertDataLoading } =
     useGetConcertList({
       genre: activeTab,
-      direction: null,
+
       page: 1,
       size: 9,
     });
 
   const { data: autoCompleteData, isLoading: autoCompleteDataLoading } =
     useGetAutoCompleteSearch(debouncedQuery);
+
+  // const { data: searchData, isLoading: searchDataLoading } = useGetSearch({
+  //   query: debouncedQuery,
+  //   page: 1,
+  //   size: 9,
+  // });
 
   useEffect(() => {
     if (concertData && !concertDataLoading) {
@@ -178,11 +185,14 @@ export const BrowsePage = () => {
           ) : (
             <>
               {/* 전체, 클래식, 무용 탭  -> 이름 변경 필요할듯 */}
-              <ShowFilterTab
-                activeTab={activeTab}
-                onTabClick={handleTabClick}
-                className="mt-6 mb-[14px]"
-              />
+              {debouncedQuery.trim().length === 0 ? (
+                <ShowFilterTab
+                  activeTab={activeTab}
+                  onTabClick={handleTabClick}
+                  className="mt-6 mb-[14px]"
+                />
+              ) : null}
+
               {showFilter && (
                 <ShowFilter onClose={closeFilter} onApply={applyFilter} />
               )}

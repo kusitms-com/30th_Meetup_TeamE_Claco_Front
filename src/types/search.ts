@@ -18,7 +18,7 @@ export type ConcertInfo = {
 
 export type GetConcertListProps = {
   genre: "서양음악(클래식)" | "무용" | null;
-  direction: string | null;
+  // direction: string;
   page: number;
   size: number;
 };
@@ -58,4 +58,10 @@ export type SearchCardProps = {
   data: AutoCompleteSearchCard;
   searchKeyWord: string;
   className?: string;
+};
+
+export type GetSearchProps = {
+  query: string;
+  page: number;
+  size: number;
 };

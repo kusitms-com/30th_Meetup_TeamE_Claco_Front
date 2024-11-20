@@ -4,9 +4,9 @@ export const CategoryTag = ({ categoryType, className }: CategoryTagProps) => {
   const tagStyle = () => {
     switch (categoryType) {
       case "서양음악(클래식)":
-        return "bg-[#6370E4]";
-      case "무용":
         return "bg-primary-700";
+      case "무용":
+        return "bg-[#6370E4]";
       case "공연중":
         return "border-[1px] border-grayscale-70";
       case "공연예정":
@@ -29,12 +29,3 @@ export const CategoryTag = ({ categoryType, className }: CategoryTagProps) => {
     </div>
   );
 };
-
-/**
- * 사용 예시
- * <CategoryTag categoryType="dance">무용</CategoryTag>
- * <CategoryTag categoryType="classical">클래식</CategoryTag>
- * <CategoryTag categoryType="ongoing">공연 중</CategoryTag>
- * <CategoryTag categoryType="upcoming">공연 예정</CategoryTag>
- *
- */
