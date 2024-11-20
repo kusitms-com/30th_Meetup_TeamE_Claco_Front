@@ -1,6 +1,7 @@
 import { ReactComponent as Required } from "@/assets/svgs/required.svg";
 import { ReactComponent as FullStar } from "@/assets/svgs/StarRating.svg";
 import { ReactComponent as HalfStar } from "@/assets/svgs/halfStarRating.svg";
+
 import { StarRatingProps } from "@/types";
 import { ChangeEvent } from "react";
 
