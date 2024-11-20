@@ -100,7 +100,7 @@ export const SimilarKeyWordRecommend = () => {
               location={concert.fcltynm}
               dateFrom={concert.prfpdfrom}
               dateTo={concert.prfpdto}
-              genre={concert.genrenm}
+              genrenm={concert.genrenm}
             />
           ))}
         </section>

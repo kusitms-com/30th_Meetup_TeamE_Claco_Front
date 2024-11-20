@@ -3,7 +3,6 @@ import { VerticalInfoCard } from "@/components/Main/InformationCard";
 import { forwardRef, useEffect, useState } from "react";
 import { ConcertBased } from "@/types";
 import { useGetConcertBased } from "@/hooks/queries";
-import { extractDateRange } from "@/hooks/utils";
 import { useParams } from "react-router-dom";
 
 const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
@@ -42,10 +41,8 @@ const RelatedShowsRecommend = forwardRef<HTMLDivElement>((_, ref) => {
                   title={concert.prfnm}
                   genrenm={concert.genrenm}
                   location={concert.fcltynm}
-                  date={extractDateRange(
-                    concert.prfpdfrom || "",
-                    concert.prfpdto || ""
-                  )}
+                  dateFrom={concert.prfpdfrom}
+                  dateTo={concert.prfpdto}
                 />
               </SwiperSlide>
             ))}

@@ -1,7 +1,7 @@
 import { ReactComponent as Location_Gray } from "@/assets/svgs/Location_gray.svg";
 import { ReactComponent as Calendar } from "@/assets/svgs/Calendar.svg";
 import { InfoCardProps } from "@/types/poster";
-import { formatDate, useTruncateText } from "@/hooks/utils";
+import { extractDateRange } from "@/hooks/utils";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { useNavigate } from "react-router-dom";
 
@@ -12,12 +12,9 @@ export const VerticalInfoCard = ({
   location,
   dateFrom,
   dateTo,
-  genre,
+  genrenm,
 }: InfoCardProps) => {
-  const _title = useTruncateText(title, 14);
-  const _dateFrom = formatDate(dateFrom);
-  const _dateTo = formatDate(dateTo);
-
+  const _date = extractDateRange(dateFrom, dateTo);
   const navigate = useNavigate();
   const gotoShowDetail = () => {
     navigate(`/show/${id}`);
@@ -27,11 +24,13 @@ export const VerticalInfoCard = ({
     <div onClick={gotoShowDetail}>
       <div className="flex-col w-[219px] min-h-[430px] p-[22px] bg-[#242424] rounded-[5px]">
         <img
-          className="max-w-[104px] max-h-[132px] object-contain rounded-[5px] mb-[18px]"
+          className="max-w-[174px] max-h-[232px] object-fill rounded-[5px] mb-[18px]"
           src={image}
         />
-        <CategoryTag categoryType={genre} />
-        <p className="headline2-bold text-grayscale-80 my-[10px]">{_title}</p>
+        <CategoryTag categoryType={genrenm} />
+        <p className="headline2-bold text-grayscale-80 my-[10px] min-h-[48px] line-clamp-2">
+          {title}
+        </p>
         <div className="body2-medium text-grayscale-70">
           <div className="flex items-center">
             <Location_Gray />
@@ -39,15 +38,7 @@ export const VerticalInfoCard = ({
           </div>
           <div className="flex items-center">
             <Calendar />
-            <span>
-              {_dateFrom === _dateTo ? (
-                <span>{_dateFrom}</span>
-              ) : (
-                <span className="truncate max-w-[170px]">
-                  {_dateFrom}~{_dateTo}
-                </span>
-              )}
-            </span>
+            <span>{_date}</span>
           </div>
         </div>
       </div>
@@ -62,28 +53,29 @@ export const HorizontalInfoCard = ({
   location,
   dateFrom,
   dateTo,
-  genre,
+  genrenm,
 }: InfoCardProps) => {
-  const _title = useTruncateText(title, 14);
-  const _dateFrom = formatDate(dateFrom);
-  const _dateTo = formatDate(dateTo);
+  const _date = extractDateRange(dateFrom, dateTo);
+
   const navigate = useNavigate();
   const gotoShowDetail = () => {
     navigate(`/show/${id}`);
   };
   return (
     <div
-      className="w-[342px] h-[176px] bg-[#242424] rounded-[5px] py-[22px] px-5"
+      className="w-[342px] h-[196px] bg-[#242424] rounded-[5px] py-[22px] px-5"
       onClick={gotoShowDetail}
     >
       <div className="flex space-x-5">
         <img
-          className="max-w-[104px] max-h-[132px] object-contain rounded-[5px] mb-[18px]"
+          className="min-w-[105px] max-h-[140px] object-fill rounded-[5px] mb-[18px]"
           src={image}
         />
         <div className="flex-col space-y-[14px]">
-          <CategoryTag categoryType={genre} />
-          <p className="headline2-bold text-grayscale-80 mb-[10px]">{_title}</p>
+          <CategoryTag categoryType={genrenm} />
+          <p className="headline2-bold text-grayscale-80 my-[10px] min-h-[48px] line-clamp-2">
+            {title}
+          </p>
           <div className="body2-medium text-grayscale-70">
             <div className="flex items-center">
               <Location_Gray />
@@ -91,13 +83,7 @@ export const HorizontalInfoCard = ({
             </div>
             <div className="flex items-center">
               <Calendar />
-              {_dateFrom === _dateTo ? (
-                <span>{_dateFrom}</span>
-              ) : (
-                <span className="truncate max-w-[170px]">
-                  {_dateFrom}~{_dateTo}
-                </span>
-              )}
+              {_date}
             </div>
           </div>
         </div>

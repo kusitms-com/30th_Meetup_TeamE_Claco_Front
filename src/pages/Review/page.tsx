@@ -1,5 +1,5 @@
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
-// import { CategoryTag } from "@/components/common/CategoryTag";
+import { CategoryTag } from "@/components/common/CategoryTag";
 import { ReviewCard } from "@/components/Review/ReviewCard";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
@@ -79,7 +79,7 @@ export const ReviewPage = () => {
         <section className="flex-col space-y-[10px] mb-[3px]">
           <div className="flex space-x-2">
             <CategoryTag categoryType="무용" />
-            <CategoryTag categoryType="공연 중" />
+            <CategoryTag categoryType="공연중" />
           </div>
           <div className="flex-col">
             <div className="heading2-bold">
