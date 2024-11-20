@@ -37,7 +37,7 @@ export const ShowDetailPage = () => {
           });
         },
         {
-          threshold: sectionId === "상세정보" && showFullImage ? 0.3 : 0.8,
+          threshold: sectionId === "상세정보" && showFullImage ? 0.2 : 0.7,
         },
       );
 
