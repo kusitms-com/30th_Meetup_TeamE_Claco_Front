@@ -21,7 +21,9 @@ export const ClacoBookPage = () => {
   );
 
   const { data, isLoading } = useGetClacoBookList();
-  const clacoBookList = Array.isArray(data?.result) ? data?.result : [];
+  const clacoBookList = Array.isArray(data?.result?.clacoBookList)
+    ? data?.result?.clacoBookList
+    : [];
 
   const navigate = useNavigate();
 

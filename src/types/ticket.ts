@@ -91,9 +91,13 @@ export type ClacoBookList = {
   color: string;
 };
 
+export type ClacoBookListResult = {
+  clacoBookList: ClacoBookList[];
+};
+
 export type ClacoBookListResponse = {
   code: string;
   message: string;
-  result: ClacoBookList[];
+  result: ClacoBookListResult;
   refreshed: boolean;
 };
