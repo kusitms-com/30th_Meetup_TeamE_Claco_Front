@@ -8,12 +8,10 @@ import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 import { KeywordTags } from "@/components/Ticket/AudienceReview/KeywordTags";
 import { Modal } from "@/components/common/Modal";
 import { ReviewQuestions } from "@/components/Ticket/AudienceReview/ReviewQuestions";
-import usePostTicketReview, {
-  TicketReviewRequest,
-} from "@/hooks/mutation/usePostTicketReview";
-import { PlaceCategory, TagCategory } from "@/types";
+import { PlaceCategory, TagCategory, TicketReviewRequest } from "@/types";
 import useGetPlaceCategories from "@/hooks/queries/useGetPlaceCategories";
 import useGetTagCategories from "@/hooks/queries/useGetTagCategories";
+import { usePostTicketReview } from "@/hooks/mutation";
 
 export const TicketReviewPage = () => {
   const navigate = useNavigate();
@@ -64,10 +62,10 @@ export const TicketReviewPage = () => {
     });
   };
 
-  const clacoBookId = 3;
-
   const handleConfirmClick = () => {
     if (!isComplete) return;
+
+    const clacoBookId = Number(localStorage.getItem("clacoBookId"));
 
     const selectedPlaceReview: PlaceCategory[] = [
       selectedSoundTag,
@@ -92,31 +90,24 @@ export const TicketReviewPage = () => {
     const request: TicketReviewRequest = {
       concertId: 435,
       clacoBookId: clacoBookId,
-      watchDate: "2024-11-21",
-      watchRound: "00:00",
-      watchSit: "A석",
+      watchDate: localStorage.getItem("showDate") || "",
+      watchRound: localStorage.getItem("showTime") || "",
+      watchSit: localStorage.getItem("seat") || "",
       starRate: rating,
-      casting: "전희수",
+      casting: localStorage.getItem("castingList") || "",
       content: reviewText,
       placeReviewIds: selectedPlaceReview,
       tagCategoryIds: selectedTags,
       files: files,
     };
 
-    postTicketReview(request, {
-      onSuccess: () => {
-        navigate("/ticketcreate/download");
-      },
-      onError: (error) => {
-        console.error("Error while submitting review:", error);
-      },
-    });
+    postTicketReview(request);
   };
 
   useEffect(() => {
     const allRequiredSelected =
       rating >= 0 &&
-      selectedKeywordTags.length > 0 &&
+      selectedKeywordTags.length === 5 &&
       selectedSoundTag !== null &&
       selectedSeatTag1 !== null &&
       selectedSeatTag2 !== null &&
@@ -161,7 +152,15 @@ export const TicketReviewPage = () => {
           positiveButtonText="계속하기"
           negativeButtonText="나가기"
           onPositiveButtonClick={handleCloseModal}
-          onNegativeButtonClick={() => navigate("/ticketbook")}
+          onNegativeButtonClick={() => {
+            localStorage.removeItem("clacoBookId");
+            localStorage.removeItem("showDate");
+            localStorage.removeItem("showTime");
+            localStorage.removeItem("showPlace");
+            localStorage.removeItem("seat");
+            localStorage.removeItem("castingList");
+            navigate("/ticketbook");
+          }}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
             <span className="headline2-bold text-grayscale-80">

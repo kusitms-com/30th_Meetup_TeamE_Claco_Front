@@ -17,22 +17,6 @@ export const TicketInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const handleOpenModal = () => {
-    setIsModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setIsModalOpen(false);
-  };
-
-  const handleBackClick = () => {
-    handleOpenModal();
-  };
-
-  const handleConfirmClick = () => {
-    navigate("/ticketcreate/review");
-  };
-
   const { data, isLoading } = useGetShowDetail(714);
   const showDetail = data?.result;
 
@@ -47,17 +31,25 @@ export const TicketInfoPage = () => {
   const [availableShowTimes, setAvailableShowTimes] = useState<
     { time: string }[]
   >([]);
+  const [seatValue, setSeatValue] = useState<string>("");
   const [castingList, setCastingList] = useState<string[]>([]);
   const [newCasting, setNewCasting] = useState<string>("");
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<boolean>(false);
 
+  const formatToYYYYMMDD = (date: Date | null): string => {
+    if (!date) return "";
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const formattedDate = formatToYYYYMMDD(selectedDate);
+
   useEffect(() => {
     if (selectedDate) {
-      const year = selectedDate.getFullYear();
-      const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
-      const day = String(selectedDate.getDate()).padStart(2, "0");
-      const dateString = `${year}-${month}-${day}`;
+      const dateString = formatToYYYYMMDD(selectedDate);
 
       setAvailableShowTimes(showTimesByDate[dateString] || []);
       setSelectedShowTime(null);
@@ -75,8 +67,34 @@ export const TicketInfoPage = () => {
     setIsValid(selectedShowTime !== null && castingList.length > 0);
   }, [selectedShowTime, castingList]);
 
+  const handleOpenModal = () => {
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+  };
+
+  const handleBackClick = () => {
+    handleOpenModal();
+  };
+
+  const handleConfirmClick = () => {
+    localStorage.setItem("showDate", formattedDate);
+    localStorage.setItem("showTime", JSON.stringify(selectedShowTime));
+    localStorage.setItem("showPlace", JSON.stringify(showDetail?.fcltynm));
+    localStorage.setItem("seat", JSON.stringify(seatValue));
+    localStorage.setItem("castingList", JSON.stringify(castingList));
+    navigate("/ticketcreate/review");
+  };
+
   const handleShowTimeClick = (time: string) => {
     setSelectedShowTime(time);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSeatValue(value);
   };
 
   const handleAddCasting = () => {
@@ -120,7 +138,10 @@ export const TicketInfoPage = () => {
         <Modal
           positiveButtonText="확인"
           negativeButtonText="취소"
-          onPositiveButtonClick={() => navigate("/ticketbook")}
+          onPositiveButtonClick={() => {
+            localStorage.removeItem("clacoBookId");
+            navigate("/ticketbook");
+          }}
           onNegativeButtonClick={handleCloseModal}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
@@ -203,7 +224,11 @@ export const TicketInfoPage = () => {
                 <span className="body2-medium text-grayscale-60">(선택)</span>
               </div>
               <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
-                <input className="flex w-full outline-none body2-medium text-grayscale-60 bg-grayscale-30" />
+                <input
+                  value={seatValue}
+                  className="flex w-full outline-none body2-medium text-grayscale-60 bg-grayscale-30"
+                  onChange={handleChange}
+                />
               </div>
             </div>
           </>

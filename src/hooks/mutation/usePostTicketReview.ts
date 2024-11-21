@@ -1,27 +1,7 @@
 import { client } from "@/apis";
+import { TicketReviewRequest, TicketReviewResponse } from "@/types";
 import { useMutation } from "@tanstack/react-query";
-import { PlaceCategory, TagCategory } from "@/types";
-
-export type TicketReviewRequest = {
-  concertId: number;
-  clacoBookId: number;
-  watchDate: string;
-  watchRound: string;
-  watchSit: string;
-  starRate: number;
-  casting: string;
-  content: string;
-  placeReviewIds: PlaceCategory[];
-  tagCategoryIds: TagCategory[];
-  files: File[];
-};
-
-export type TicketReviewResponse = {
-  code: string;
-  message: string;
-  result: TicketReviewRequest;
-  refreshed: boolean;
-};
+import { useNavigate } from "react-router-dom";
 
 const postTicketReview = async (
   request: TicketReviewRequest,
@@ -56,10 +36,19 @@ const postTicketReview = async (
 };
 
 const usePostTicketReview = () => {
+  const navigate = useNavigate();
+
   return useMutation<TicketReviewResponse, Error, TicketReviewRequest>({
     mutationFn: postTicketReview,
     onSuccess: (data) => {
       console.log(data);
+      localStorage.removeItem("clacoBookId");
+      localStorage.removeItem("showDate");
+      localStorage.removeItem("showTime");
+      localStorage.removeItem("showPlace");
+      localStorage.removeItem("seat");
+      localStorage.removeItem("castingList");
+      navigate("/ticketcreate/download");
     },
     onError: (error) => {
       console.error(error);

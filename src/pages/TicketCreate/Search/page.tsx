@@ -16,6 +16,7 @@ export const TicketSearchPage = () => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
+    localStorage.removeItem("clacoBookId");
     navigate("/ticketbook");
   };
 
@@ -53,7 +54,7 @@ export const TicketSearchPage = () => {
   ];
 
   const filteredShows = shows.filter((show) =>
-    show.title.toLowerCase().includes(debouncedQuery.toLowerCase())
+    show.title.toLowerCase().includes(debouncedQuery.toLowerCase()),
   );
 
   return (
