@@ -1,6 +1,13 @@
 import { client } from "@/apis";
-import { GetConcertListResponse, GetSearchProps } from "@/types";
-import { useQuery, UseQueryResult } from "@tanstack/react-query";
+import {
+  GetConcertInfiniteResponse,
+  GetConcertListResponse,
+  GetSearchProps,
+} from "@/types";
+import {
+  useInfiniteQuery,
+  UseInfiniteQueryResult,
+} from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 const getSearch = async ({
@@ -23,12 +30,23 @@ const getSearch = async ({
 
 const useGetSearch = ({
   query,
-  page,
-  size,
-}: GetSearchProps): UseQueryResult<GetConcertListResponse, AxiosError> => {
-  return useQuery<GetConcertListResponse, AxiosError>({
-    queryKey: ["search-concert-data", query, page],
-    queryFn: () => getSearch({ query, page, size }),
+  size = 9,
+}: Omit<GetSearchProps, "page">): UseInfiniteQueryResult<
+  GetConcertInfiniteResponse,
+  AxiosError
+> => {
+  return useInfiniteQuery({
+    queryKey: ["search-concert-data", query],
+    queryFn: ({ pageParam }) => getSearch({ query, page: pageParam, size }),
+    enabled: query.trim().length !== 0,
+    initialPageParam: 1,
+    getNextPageParam: (lastPage, allPages) => {
+      const totalPages = Math.ceil(
+        lastPage.result.totalCount / lastPage.result.size
+      );
+      const nextPage = allPages.length + 1;
+      return nextPage <= totalPages ? nextPage : undefined;
+    },
   });
 };
 

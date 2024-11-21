@@ -18,7 +18,6 @@ export type ConcertInfo = {
 
 export type GetConcertListProps = {
   genre: "서양음악(클래식)" | "무용" | null;
-  // direction: string;
   page: number;
   size: number;
 };
@@ -32,6 +31,11 @@ export type GetConcertListResponse = {
     size: number;
   };
   refreshed: boolean;
+};
+
+export type GetConcertInfiniteResponse = {
+  pageParams: number[];
+  pages: GetConcertListResponse[];
 };
 
 export type AutoCompleteSearchCard = {

@@ -9,31 +9,53 @@ import { SearchCard } from "@/components/common/Search/Card";
 import { ShowFilter } from "@/components/Browse/ShowFilter";
 import { ShowSummaryCard } from "@/components/common/ShowSummaryCard";
 
-//최근 공연 데이터 목록 (둘러보기 페이지 접근 시 초기에 보여지는 정보)
-import { searchResultData } from "@/components/common/ShowSummaryCard/const";
-
 import poster13 from "@/assets/images/poster13.png";
 import poster4 from "@/assets/images/poster4.gif";
 import poster8 from "@/assets/images/poster8.gif";
 import { ClacoPick } from "@/components/Browse/ClacoPick";
-import { useDebouncedState, useShowFilter } from "@/hooks/utils";
-import { useGetConcertList } from "@/hooks/queries";
-import { AutoCompleteSearchCard, ConcertInfo, TabMenu } from "@/types";
+import {
+  useDebouncedState,
+  useDeferredLoading,
+  useRefFocusEffect,
+  useShowFilter,
+} from "@/hooks/utils";
+import { AutoCompleteSearchCard, TabMenu } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
 import useGetAutoCompleteSearch from "@/hooks/queries/useGetAutoCompleteSearch";
-// import useGetSearch from "@/hooks/queries/useGetSearch";
+import useGetInfiniteConcerts from "@/hooks/queries/useGetConcertList";
+import useGetSearch from "@/hooks/queries/useGetSearch";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
+  const [activeTab, setActiveTab] = useState<TabMenu>(null);
   const [skipDebounce, setSkipDebounce] = useState<boolean>(false);
   const debouncedQuery = useDebouncedState(query, 1000, skipDebounce);
+
+  const {
+    data: concertData,
+    fetchNextPage,
+    isFetchingNextPage,
+    isLoading,
+  } = useGetInfiniteConcerts({
+    genre: activeTab,
+    size: 9,
+  });
+
+  const { data: autoCompleteData, isLoading: autoCompleteDataLoading } =
+    useGetAutoCompleteSearch(debouncedQuery);
+
+  const { data: searchData, fetchNextPage: searchFetchNextPage } = useGetSearch(
+    {
+      query: debouncedQuery,
+      size: 9,
+    }
+  );
+
   const [isSearch, setIsSearch] = useState<boolean>(false);
-  const [activeTab, setActiveTab] = useState<TabMenu>(null);
-  const [recentConcerList, setRecentConcerList] = useState<ConcertInfo[]>([]);
+  const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
   const [autoCompleteList, setAutoCompleteList] = useState<
     AutoCompleteSearchCard[]
   >([]);
-  const [totalCount, setTotalCount] = useState<number>();
 
   const searchInputRef = useRef<HTMLInputElement>(null);
   const {
@@ -46,30 +68,16 @@ export const BrowsePage = () => {
     closeFilter,
   } = useShowFilter();
 
-  const { data: concertData, isLoading: concertDataLoading } =
-    useGetConcertList({
-      genre: activeTab,
+  const { shouldShowSkeleton } = useDeferredLoading(isLoading);
 
-      page: 1,
-      size: 9,
-    });
-
-  const { data: autoCompleteData, isLoading: autoCompleteDataLoading } =
-    useGetAutoCompleteSearch(debouncedQuery);
-
-  // const { data: searchData, isLoading: searchDataLoading } = useGetSearch({
-  //   query: debouncedQuery,
-  //   page: 1,
-  //   size: 9,
-  // });
-
-  useEffect(() => {
-    if (concertData && !concertDataLoading) {
-      // console.log(data);
-      setTotalCount(concertData.result.totalCount);
-      setRecentConcerList(concertData.result.listPageResponse);
-    }
-  }, [concertDataLoading, concertData]);
+  const { elementRef } = useRefFocusEffect<HTMLDivElement>(fetchNextPage, [
+    concertData,
+    isSearch,
+  ]);
+  const { elementRef: searchRef } = useRefFocusEffect<HTMLDivElement>(
+    searchFetchNextPage,
+    [searchData]
+  );
 
   useEffect(() => {
     if (autoCompleteData && !autoCompleteDataLoading) {
@@ -84,7 +92,6 @@ export const BrowsePage = () => {
   ]);
 
   const handleTabClick = (tab: TabMenu) => {
-    // console.log(tab);
     setActiveTab(tab);
   };
 
@@ -101,11 +108,14 @@ export const BrowsePage = () => {
     if (e.key === "Enter" && !isProcessing.current) {
       e.preventDefault();
       e.stopPropagation();
+
       isProcessing.current = true;
-      console.log(query);
-      console.log("api 호출 함수 부분입니다.");
+
       setIsSearch(false);
+      setShowSearchResult(true);
       setSkipDebounce(true);
+      setActiveTab(null);
+
       setTimeout(() => {
         isProcessing.current = false;
         searchInputRef.current?.blur();
@@ -123,22 +133,42 @@ export const BrowsePage = () => {
     }
   }, [skipDebounce]);
 
-  if (concertDataLoading) {
+  useEffect(() => {
+    console.log(showSearchResult);
+  }, [showSearchResult]);
+
+  if (shouldShowSkeleton) {
     return (
-      <div className="w-full px-6 pt-[41px] flex flex-col justify-center items-center gap-6">
-        <Skeleton className="w-[86px] h-[36px] rounded-[3px]" />
-        <Skeleton className="w-full h-[52px] rounded-[3px]" />
-        <Skeleton className="w-full h-[36px] rounded-[3px]" />
-        <div className="w-full flex flex-col justify-center items-start gap-[6px]">
-          <Skeleton className="w-[68px] h-[36px] rounded-[3px]" />
-          <Skeleton className="w-[51px] h-[24px] rounded-[3px]" />
+      <div className="px-6 pb-[110px] min-h-screen relative">
+        <div className="flex flex-col items-center justify-center">
+          <div className="mt-[46px] mb-[30px] flex items-center relative w-full justify-center">
+            <span className="headline2-bold text-grayscale-80">둘러보기</span>
+          </div>
+          <div className="relative w-full">
+            <SearchBar
+              ref={searchInputRef}
+              value={query}
+              onFocus={() => setIsSearch(true)}
+              onChange={handleSearchChange}
+              onKeyDown={handleKeyDown}
+              placeholder={"공연명, 출연자, 극단 등을 검색하세요."}
+            />
+            <ShowFilterTab
+              activeTab={activeTab}
+              onTabClick={handleTabClick}
+              className="mt-6 mb-[14px]"
+            />
+            <div className="flex justify-between mb-[10px]">
+              <Skeleton className="w-[68px] h-[16px]" />
+              <Skeleton className="w-[68px] h-[16px]" />
+            </div>
+            <div className="flex flex-col gap-[22px]">
+              {Array.from(Array(5).keys()).map((_, index) => (
+                <ShowSummaryCard.Skeleton key={index} />
+              ))}
+            </div>
+          </div>
         </div>
-        {[...Array(5)].map((_, index) => (
-          <Skeleton
-            key={index}
-            className="h-[179px] w-full flex-shrink-0 rounded-[3px]"
-          />
-        ))}
       </div>
     );
   }
@@ -150,7 +180,10 @@ export const BrowsePage = () => {
           {isSearch ? (
             <BackArrow
               className="absolute left-0"
-              onClick={() => setIsSearch(false)}
+              onClick={() => {
+                setIsSearch(false);
+                setShowSearchResult(false);
+              }}
             />
           ) : null}
 
@@ -169,7 +202,6 @@ export const BrowsePage = () => {
           {/* 검색어 자동 완성 영역 */}
           {isSearch ? (
             <div className="flex flex-col space-y-[11px] mt-[11px]">
-              {/* 검색 키워드로 받아오는 데이터로 교체해야함 */}
               {debouncedQuery.trim().length !== 0 ? (
                 <>
                   {autoCompleteList?.map((show) => (
@@ -184,7 +216,6 @@ export const BrowsePage = () => {
             </div>
           ) : (
             <>
-              {/* 전체, 클래식, 무용 탭  -> 이름 변경 필요할듯 */}
               {debouncedQuery.trim().length === 0 ? (
                 <ShowFilterTab
                   activeTab={activeTab}
@@ -241,23 +272,30 @@ export const BrowsePage = () => {
                 )}
               </div>
               {debouncedQuery.trim().length === 0 ? (
-                // 최근 공연 둘러보기 영역(검색 전)
                 <>
                   <span className="caption-12 text-grayscale-60">
-                    총 {totalCount}개
+                    총 {concertData?.pages[0].result.totalCount}개
                   </span>
                   <div className="flex flex-col gap-[29px] mt-[12px]">
-                    {recentConcerList &&
-                      recentConcerList.map((show) => (
-                        <ShowSummaryCard key={show.id} data={show} />
-                      ))}
+                    {concertData &&
+                      concertData.pages.flatMap((page) =>
+                        page.result.listPageResponse.map((show) => (
+                          <ShowSummaryCard key={show.id} data={show} />
+                        ))
+                      )}
+                    {/* 추가 데이터 로드 */}
+                    {isFetchingNextPage && (
+                      <div className="mt-4 text-center">
+                        <span>로딩 중...</span>
+                      </div>
+                    )}
                   </div>
                 </>
               ) : (
                 // 검색 이후 로직
                 <>
                   <div className="flex flex-col gap-[29px] mt-[12px]">
-                    {searchResultData.length === 0 ? (
+                    {searchData?.pages[0].result.totalCount === 0 ? (
                       <div className="flex flex-col items-center mt-[121px]">
                         <div className="flex flex-col gap-1 mb-[112px]">
                           <span className="headline1-bold text-grayscale-90">
@@ -284,10 +322,15 @@ export const BrowsePage = () => {
                       </div>
                     ) : (
                       <>
-                        {/* <span className="headline1-bold">총 3개의 공연</span>
-                        {searchResultData.map((show) => (
-                          <ShowSummaryCard key={show.id} {...show} />
-                        ))} */}
+                        <span className="headline1-bold">
+                          총 {searchData?.pages[0].result.totalCount}개의 공연
+                        </span>
+                        {searchData &&
+                          searchData.pages.flatMap((page) =>
+                            page.result.listPageResponse.map((show) => (
+                              <ShowSummaryCard key={show.id} data={show} />
+                            ))
+                          )}
                       </>
                     )}
                   </div>
@@ -296,6 +339,12 @@ export const BrowsePage = () => {
             </>
           )}
         </div>
+        {!isSearch ? (
+          <div
+            className="h-1"
+            ref={!showSearchResult ? elementRef : searchRef}
+          />
+        ) : null}
       </div>
     </div>
   );
