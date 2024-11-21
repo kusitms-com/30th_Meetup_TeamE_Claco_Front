@@ -22,10 +22,16 @@ export type KeywordTagProps = {
 };
 
 export type ReviewQuestionProps = {
-  title: string;
-  tags: string[];
-  selectedTag: string | null;
-  onTagClick: (tag: string) => void;
+  selectedSoundTag: string | null;
+  setSelectedSoundTag: (value: string | null) => void;
+  selectedSeatTag1: string | null;
+  setSelectedSeatTag1: (value: string | null) => void;
+  selectedSeatTag2: string | null;
+  setSelectedSeatTag2: (value: string | null) => void;
+  selectedSightTag: string | null;
+  setSelectedSightTag: (value: string | null) => void;
+  selectedAccessibilityTag: string | null;
+  setSelectedAccessibilityTag: (value: string | null) => void;
 };
 
 export type TextReviewProps = {
@@ -39,13 +45,6 @@ export type ImageReviewProps = {
 };
 
 export type ReviewContentProps = TextReviewProps & ImageReviewProps;
-
-export type SeatQuestionsProps = {
-  selectedTag1: string | null;
-  selectedTag2: string | null;
-  onTagClick1: (tag: string) => void;
-  onTagClick2: (tag: string) => void;
-};
 
 export type StarRatingProps = {
   rating: number;

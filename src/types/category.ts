@@ -26,5 +26,5 @@ export type PlaceCategoriesResult = {
 export type PlaceCategoriesResponse = {
   code: string;
   message: string;
-  result: PlaceCategoriesResult[];
+  result: PlaceCategoriesResult;
 };

@@ -6,12 +6,8 @@ import { ConfirmButton } from "@/components/common/Button";
 import { ReviewContents } from "@/components/Ticket/AudienceReview/ReviewContents";
 import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 import { KeywordTags } from "@/components/Ticket/AudienceReview/KeywordTags";
-import {
-  ReviewQuestion,
-  SeatQuestions,
-} from "@/components/Ticket/AudienceReview/ReviewQuestions";
 import { Modal } from "@/components/common/Modal";
-import { accessibilityTags, sightTags, soundTags } from "../const";
+import { ReviewQuestions } from "@/components/Ticket/AudienceReview/ReviewQuestions";
 
 export const TicketReviewPage = () => {
   const navigate = useNavigate();
@@ -119,29 +115,17 @@ export const TicketReviewPage = () => {
         selectedTags={selectedKeywordTags}
         onTagClick={handleKeywordTagClick}
       />
-      <ReviewQuestion
-        title="Q. 음향은 어땠나요?"
-        tags={[...soundTags]}
-        selectedTag={selectedSoundTag}
-        onTagClick={setSelectedSoundTag}
-      />
-      <SeatQuestions
-        selectedTag1={selectedSeatTag1}
-        selectedTag2={selectedSeatTag2}
-        onTagClick1={setSelectedSeatTag1}
-        onTagClick2={setSelectedSeatTag2}
-      />
-      <ReviewQuestion
-        title="Q. 시야는 어땠나요?"
-        tags={[...sightTags]}
-        selectedTag={selectedSightTag}
-        onTagClick={setSelectedSightTag}
-      />
-      <ReviewQuestion
-        title="Q. 접근성은 어땠나요?"
-        tags={[...accessibilityTags]}
-        selectedTag={selectedAccessibilityTag}
-        onTagClick={setSelectedAccessibilityTag}
+      <ReviewQuestions
+        selectedSoundTag={selectedSoundTag}
+        setSelectedSoundTag={setSelectedSoundTag}
+        selectedSeatTag1={selectedSeatTag1}
+        setSelectedSeatTag1={setSelectedSeatTag1}
+        selectedSeatTag2={selectedSeatTag2}
+        setSelectedSeatTag2={setSelectedSeatTag2}
+        selectedSightTag={selectedSightTag}
+        setSelectedSightTag={setSelectedSightTag}
+        selectedAccessibilityTag={selectedAccessibilityTag}
+        setSelectedAccessibilityTag={setSelectedAccessibilityTag}
       />
 
       <ReviewContents
