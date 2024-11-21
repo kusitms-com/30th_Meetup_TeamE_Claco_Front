@@ -81,7 +81,7 @@ export const BrowsePage = () => {
 
   useEffect(() => {
     if (autoCompleteData && !autoCompleteDataLoading) {
-      console.log(autoCompleteData);
+      // console.log(autoCompleteData);
       setAutoCompleteList(autoCompleteData.result);
     }
   }, [
@@ -132,10 +132,6 @@ export const BrowsePage = () => {
       return () => clearTimeout(timer);
     }
   }, [skipDebounce]);
-
-  useEffect(() => {
-    console.log(showSearchResult);
-  }, [showSearchResult]);
 
   if (shouldShowSkeleton) {
     return (
