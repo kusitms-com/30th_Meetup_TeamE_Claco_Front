@@ -1,21 +1,23 @@
 import { ReviewTag } from "@/components/common/ReviewTag";
-import { tagMap } from "@/pages/TicketCreate/const";
+import useGetTagCategories from "@/hooks/queries/useGetTagCategories";
 import { KeywordTagProps } from "@/types";
 
 export const KeywordTags = ({ selectedTags, onTagClick }: KeywordTagProps) => {
-  // tags 타입 지정
-  const tags: Array<keyof typeof tagMap> = Object.keys(tagMap) as Array<
-    keyof typeof tagMap
-  >;
+  const { data: tagData, isLoading: isTagLoading } = useGetTagCategories();
 
-  const handleClick = (tag: keyof typeof tagMap) => {
-    const englishTag = tagMap[tag];
-    if (selectedTags.includes(englishTag)) {
-      onTagClick(englishTag);
+  const tagCategories = tagData?.result?.categories;
+
+  const handleClick = (tag: string) => {
+    if (selectedTags.includes(tag)) {
+      onTagClick(tag);
     } else if (selectedTags.length < 5) {
-      onTagClick(englishTag);
+      onTagClick(tag);
     }
   };
+
+  if (isTagLoading) {
+    return <div>로딩중</div>;
+  }
 
   return (
     <div className="flex flex-col mt-8">
@@ -25,14 +27,14 @@ export const KeywordTags = ({ selectedTags, onTagClick }: KeywordTagProps) => {
       <div className="flex flex-col mt-5 gap-[14px]">
         {[0, 4, 8].map((startIndex) => (
           <div className="flex gap-2" key={startIndex}>
-            {tags.slice(startIndex, startIndex + 4).map((tag) => (
+            {tagCategories?.slice(startIndex, startIndex + 4).map((tag) => (
               <ReviewTag
-                key={tag}
-                onClick={() => handleClick(tag)}
-                isSelected={selectedTags.includes(tagMap[tag])}
+                key={tag.tagCategoryId}
+                onClick={() => handleClick(tag.tagName)}
+                isSelected={selectedTags.includes(tag.tagName)}
                 isPlace={true}
               >
-                {tag}
+                {tag.tagName}
               </ReviewTag>
             ))}
           </div>

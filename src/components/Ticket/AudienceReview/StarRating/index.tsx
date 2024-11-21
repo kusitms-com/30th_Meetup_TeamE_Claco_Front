@@ -35,7 +35,7 @@ export const StarRating = ({ rating = 0, onRatingChange }: StarRatingProps) => {
           }
 
           return (
-            <span className="inline-flex">
+            <span key={idx} className="inline-flex">
               {StarIcon ? (
                 StarIcon === HalfStar ? (
                   <div className="relative">
