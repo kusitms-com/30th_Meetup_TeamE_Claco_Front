@@ -11,13 +11,16 @@ export type MainPosterCardProps = {
 export const MainPosterCard = ({ data }: MainPosterCardProps) => {
   const navigate = useNavigate();
   const [isLoading, setIsLoading] = useState(true);
-  const [isIntersecting, setIsIntersecting] = useState(false);
+  const [shouldLoad, setShouldLoad] = useState(false);
   const posterRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
-        setIsIntersecting(entry.isIntersecting);
+        if (entry.isIntersecting && !shouldLoad) {
+          setShouldLoad(true);
+          observer.unobserve(entry.target);
+        }
       },
       { threshold: 0.1 }
     );
@@ -32,7 +35,7 @@ export const MainPosterCard = ({ data }: MainPosterCardProps) => {
         observer.unobserve(currentElement);
       }
     };
-  }, []);
+  }, [shouldLoad]);
 
   const handleImageLoad = () => {
     setIsLoading(false);
@@ -76,17 +79,15 @@ export const MainPosterCard = ({ data }: MainPosterCardProps) => {
         <div className="absolute top-0 left-0 z-0 w-full h-full rounded-[5px] bg-grayscale-20 animate-pulse" />
       )}
 
-      {isIntersecting && (
-        <img
-          src={data.poster}
-          alt="poster"
-          loading="lazy"
-          onLoad={handleImageLoad}
-          className={`absolute top-0 left-0 z-0 object-cover w-full h-full rounded-[5px] transition-opacity duration-300 ${
-            isLoading ? "opacity-0" : "opacity-100"
-          }`}
-        />
-      )}
+      <img
+        src={shouldLoad ? data.poster : ""}
+        alt="poster"
+        loading="lazy"
+        onLoad={handleImageLoad}
+        className={`absolute top-0 left-0 z-0 object-cover w-full h-full rounded-[5px] transition-opacity duration-300 ${
+          isLoading ? "opacity-0" : "opacity-100"
+        }`}
+      />
 
       <div className="rounded-[5px] absolute top-0 left-0 z-10 w-full h-full bg-gradient-to-b from-common-black/20 from-0% to-common-black to-64% opacity-60"></div>
       <div className="rounded-[5px] absolute bottom-0 left-0 z-10 w-full h-[189px] bg-gradient-to-b from-background-dark/0 to-background-dark/100">
