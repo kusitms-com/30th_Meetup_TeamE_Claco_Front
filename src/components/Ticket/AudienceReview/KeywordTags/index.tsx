@@ -1,12 +1,11 @@
 import { ReviewTag } from "@/components/common/ReviewTag";
-import useGetTagCategories from "@/hooks/queries/useGetTagCategories";
 import { KeywordTagProps } from "@/types";
 
-export const KeywordTags = ({ selectedTags, onTagClick }: KeywordTagProps) => {
-  const { data: tagData, isLoading: isTagLoading } = useGetTagCategories();
-
-  const tagCategories = tagData?.result?.categories;
-
+export const KeywordTags = ({
+  selectedTags,
+  onTagClick,
+  tagCategories,
+}: KeywordTagProps) => {
   const handleClick = (tag: string) => {
     if (selectedTags.includes(tag)) {
       onTagClick(tag);
@@ -14,10 +13,6 @@ export const KeywordTags = ({ selectedTags, onTagClick }: KeywordTagProps) => {
       onTagClick(tag);
     }
   };
-
-  if (isTagLoading) {
-    return <div>로딩중</div>;
-  }
 
   return (
     <div className="flex flex-col mt-8">

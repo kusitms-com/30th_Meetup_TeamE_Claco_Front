@@ -1,5 +1,4 @@
 import { ReactComponent as Required } from "@/assets/svgs/required.svg";
-import useGetPlaceCategories from "@/hooks/queries/useGetPlaceCategories";
 import { ReviewTag } from "@/components/common/ReviewTag";
 import { ReviewQuestionProps } from "@/types";
 
@@ -14,16 +13,13 @@ export const ReviewQuestions = ({
   setSelectedSightTag,
   selectedAccessibilityTag,
   setSelectedAccessibilityTag,
+  placeCategories,
 }: ReviewQuestionProps) => {
-  const { data: placeData, isLoading: isPlaceLoading } =
-    useGetPlaceCategories();
-  const placeCategories = placeData?.result?.categories;
-
-  const soundPlaces = placeCategories?.slice(0, 2) || [];
-  const seatPlaces1 = placeCategories?.slice(2, 4) || [];
-  const seatPlaces2 = placeCategories?.slice(4, 6) || [];
-  const sightPlaces = placeCategories?.slice(6, 8) || [];
-  const accessibilityPlaces = placeCategories?.slice(8, 10) || [];
+  const soundPlaces = placeCategories.slice(0, 2);
+  const seatPlaces1 = placeCategories.slice(2, 4);
+  const seatPlaces2 = placeCategories.slice(4, 6);
+  const sightPlaces = placeCategories.slice(6, 8);
+  const accessibilityPlaces = placeCategories.slice(8, 10);
 
   const handlePlaceClick = (
     place: string,
@@ -31,10 +27,6 @@ export const ReviewQuestions = ({
   ) => {
     setSelectedPlace(place);
   };
-
-  if (isPlaceLoading) {
-    return <div>로딩중</div>;
-  }
 
   return (
     <div className="flex flex-col">

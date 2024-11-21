@@ -8,9 +8,17 @@ import { StarRating } from "@/components/Ticket/AudienceReview/StarRating";
 import { KeywordTags } from "@/components/Ticket/AudienceReview/KeywordTags";
 import { Modal } from "@/components/common/Modal";
 import { ReviewQuestions } from "@/components/Ticket/AudienceReview/ReviewQuestions";
+import usePostTicketReview, {
+  TicketReviewRequest,
+} from "@/hooks/mutation/usePostTicketReview";
+import { PlaceCategory, TagCategory } from "@/types";
+import useGetPlaceCategories from "@/hooks/queries/useGetPlaceCategories";
+import useGetTagCategories from "@/hooks/queries/useGetTagCategories";
 
 export const TicketReviewPage = () => {
   const navigate = useNavigate();
+  const { mutate: postTicketReview } = usePostTicketReview();
+
   const [rating, setRating] = useState(0);
   const [selectedKeywordTags, setSelectedKeywordTags] = useState<string[]>([]);
   const [selectedSoundTag, setSelectedSoundTag] = useState<string | null>(null);
@@ -24,6 +32,13 @@ export const TicketReviewPage = () => {
   const [files, setFiles] = useState<File[]>([]);
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const { data: tagData, isLoading: isTagLoading } = useGetTagCategories();
+  const tagCategories = tagData?.result?.categories;
+
+  const { data: placeData, isLoading: isPlaceLoading } =
+    useGetPlaceCategories();
+  const placeCategories = placeData?.result?.categories || [];
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -49,8 +64,53 @@ export const TicketReviewPage = () => {
     });
   };
 
+  const clacoBookId = 3;
+
   const handleConfirmClick = () => {
-    navigate("/ticketcreate/download");
+    if (!isComplete) return;
+
+    const selectedPlaceReview: PlaceCategory[] = [
+      selectedSoundTag,
+      selectedSeatTag1,
+      selectedSeatTag2,
+      selectedSightTag,
+      selectedAccessibilityTag,
+    ]
+      .filter(Boolean)
+      .map((selectedTag) =>
+        placeCategories.find(
+          (category) => category.categoryName === selectedTag,
+        ),
+      )
+      .filter((category): category is PlaceCategory => category !== undefined);
+
+    const selectedTags: TagCategory[] = selectedKeywordTags
+      .map((selectedTag) =>
+        tagCategories?.find((category) => category.tagName === selectedTag),
+      )
+      .filter((category): category is TagCategory => category !== undefined);
+    const request: TicketReviewRequest = {
+      concertId: 435,
+      clacoBookId: clacoBookId,
+      watchDate: "2024-11-21",
+      watchRound: "00:00",
+      watchSit: "A석",
+      starRate: rating,
+      casting: "전희수",
+      content: reviewText,
+      placeReviewIds: selectedPlaceReview,
+      tagCategoryIds: selectedTags,
+      files: files,
+    };
+
+    postTicketReview(request, {
+      onSuccess: () => {
+        navigate("/ticketcreate/download");
+      },
+      onError: (error) => {
+        console.error("Error while submitting review:", error);
+      },
+    });
   };
 
   useEffect(() => {
@@ -75,6 +135,10 @@ export const TicketReviewPage = () => {
     selectedAccessibilityTag,
     reviewText,
   ]);
+
+  if (isTagLoading || isPlaceLoading) {
+    return <div>로딩중</div>;
+  }
 
   return (
     <div className="flex flex-col min-h-screen px-[24px] pt-[46px] pb-[60px]">
@@ -114,6 +178,7 @@ export const TicketReviewPage = () => {
       <KeywordTags
         selectedTags={selectedKeywordTags}
         onTagClick={handleKeywordTagClick}
+        tagCategories={tagCategories || []}
       />
       <ReviewQuestions
         selectedSoundTag={selectedSoundTag}
@@ -126,6 +191,7 @@ export const TicketReviewPage = () => {
         setSelectedSightTag={setSelectedSightTag}
         selectedAccessibilityTag={selectedAccessibilityTag}
         setSelectedAccessibilityTag={setSelectedAccessibilityTag}
+        placeCategories={placeCategories}
       />
 
       <ReviewContents

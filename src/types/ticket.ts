@@ -1,3 +1,5 @@
+import { PlaceCategory, TagCategory } from "./category";
+
 export type SearchBarProps = {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
@@ -19,6 +21,7 @@ export type SearchCardProps = {
 export type KeywordTagProps = {
   selectedTags: string[];
   onTagClick: (tag: string) => void;
+  tagCategories: TagCategory[];
 };
 
 export type ReviewQuestionProps = {
@@ -32,6 +35,7 @@ export type ReviewQuestionProps = {
   setSelectedSightTag: (value: string | null) => void;
   selectedAccessibilityTag: string | null;
   setSelectedAccessibilityTag: (value: string | null) => void;
+  placeCategories: PlaceCategory[];
 };
 
 export type TextReviewProps = {
