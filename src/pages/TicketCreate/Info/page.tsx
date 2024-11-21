@@ -9,6 +9,9 @@ import { useEffect, useState } from "react";
 import { Calendar } from "@/components/common/Calendar";
 import { SearchCard } from "@/components/common/Search/Card";
 import { Modal } from "@/components/common/Modal";
+import useGetShowDetail from "@/hooks/queries/useGetShowDetail";
+import { extractDateRange } from "@/hooks/utils";
+import extractShowTime from "@/hooks/utils/extractShowTime";
 
 export const TicketInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,24 +33,24 @@ export const TicketInfoPage = () => {
     navigate("/ticketcreate/review");
   };
 
-  const showTimesByDate: { [key: string]: { time: string }[] } = {
-    "2024-11-26": [{ time: "13:30" }, { time: "19:30" }],
-    "2024-11-27": [{ time: "15:00" }, { time: "20:00" }],
-  };
+  const { data, isLoading } = useGetShowDetail(714);
+  const showDetail = data?.result;
+
+  const showTimesByDate = extractShowTime({
+    prfpdfrom: showDetail?.prfpdfrom || "",
+    prfpdto: showDetail?.prfpdto || "",
+    dtguidance: showDetail?.dtguidance || "",
+  });
 
   const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [selectedShowTime, setSelectedShowTime] = useState<string | null>(null);
   const [availableShowTimes, setAvailableShowTimes] = useState<
     { time: string }[]
   >([]);
-  const [castingList, setCastingList] = useState<string[]>(["조성진"]);
+  const [castingList, setCastingList] = useState<string[]>([]);
   const [newCasting, setNewCasting] = useState<string>("");
   const [isAdding, setIsAdding] = useState<boolean>(false);
   const [isValid, setIsValid] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsValid(selectedShowTime !== null && castingList.length > 0);
-  }, [selectedShowTime, castingList]);
 
   useEffect(() => {
     if (selectedDate) {
@@ -58,8 +61,19 @@ export const TicketInfoPage = () => {
 
       setAvailableShowTimes(showTimesByDate[dateString] || []);
       setSelectedShowTime(null);
+
+      if (showDetail?.prfcast) {
+        const castArray = showDetail.prfcast
+          .split(",")
+          .map((name) => name.trim());
+        setCastingList(castArray);
+      }
     }
   }, [selectedDate]);
+
+  useEffect(() => {
+    setIsValid(selectedShowTime !== null && castingList.length > 0);
+  }, [selectedShowTime, castingList]);
 
   const handleShowTimeClick = (time: string) => {
     setSelectedShowTime(time);
@@ -81,6 +95,10 @@ export const TicketInfoPage = () => {
     setIsAdding(false);
     setNewCasting("");
   };
+
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
 
   return (
     <div className="relative flex flex-col min-h-screen px-[24px] pt-[46px] pb-[60px]">
@@ -118,8 +136,11 @@ export const TicketInfoPage = () => {
 
       <div className="mt-[37px]">
         <SearchCard
-          title="유니버설발레단 (호두까기인형) - 대구"
-          date="2024.11.26. (화) ~ 2024.11.27. (수)"
+          title={showDetail?.prfnm || "공연 이름 없음"}
+          date={extractDateRange(
+            showDetail?.prfpdfrom || "",
+            showDetail?.prfpdto || "",
+          )}
           categoryType="dance"
         />
         <div className="flex flex-col mt-[37px] mb-[62px] gap-[27px]">
@@ -132,8 +153,7 @@ export const TicketInfoPage = () => {
           <Calendar
             selectedDate={selectedDate}
             onDateSelect={(date) => setSelectedDate(date)}
-            startDate={new Date(2024, 10, 26)}
-            endDate={new Date(2024, 10, 27)}
+            showTimesByDate={showTimesByDate}
           />
         </div>
 
@@ -170,7 +190,7 @@ export const TicketInfoPage = () => {
               </div>
               <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
                 <span className="body2-medium text-grayscale-80">
-                  세종 문화 회관
+                  {showDetail?.fcltynm}
                 </span>
               </div>
             </div>
