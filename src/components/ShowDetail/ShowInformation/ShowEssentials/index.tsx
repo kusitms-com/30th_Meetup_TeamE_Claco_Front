@@ -1,95 +1,87 @@
 import { forwardRef } from "react";
 
-const ShowEssentials = forwardRef<HTMLDivElement>((_, ref) => {
-  // const copyAddress = () => {
-  //   const url =
-  //   navigator.clipboard.writeText(url)
-  // };
+export type PrfGuidance = {
+  day: string;
+  times: string[];
+};
 
-  const schedule = {
-    주중: ["13:30~22:00", "19:30~22:00"],
-    주말: ["13:30~22:00", "19:30~22:00"],
-  };
+export type ShowEssentialsProps = {
+  fcltynm: string;
+  prfruntime: string;
+  prfdate: string;
+  dtguidance: PrfGuidance[];
+  seats: string[];
+  prices: string[];
+};
 
-  const prices = {
-    R석: "100,000원",
-    A석: "70,000원",
-    B석: "50,000원",
-    C석: "30,000원",
-  };
+const ShowEssentials = forwardRef<HTMLDivElement, ShowEssentialsProps>(
+  ({ fcltynm, prfruntime, prfdate, dtguidance, seats, prices }, ref) => {
+    return (
+      <section ref={ref}>
+        <div className="px-6 pb-[103px]">
+          <span className="headline2-bold text-grayscale-80">공연 정보</span>
 
-  return (
-    <section ref={ref}>
-      <div className="px-6 pb-[103px]">
-        <span className="headline2-bold text-grayscale-80">공연 정보</span>
+          <div className="flex-col mt-6">
+            <div className="flex space-x-[68px] mb-[22px]">
+              <span className="headline2-bold text-grayscale-70">기간</span>
+              <span className="body1-regular text-grayscale-90">{prfdate}</span>
+            </div>
 
-        <div className="flex-col space-y-5 mt-6">
-          <div className="flex space-x-[68px]">
-            <span className="headline2-bold text-grayscale-70">기간</span>
-            <span className="body1-regular text-grayscale-90">
-              2024.10.10~2024.11.09
-            </span>
-          </div>
+            <div className="flex space-x-[39px] mb-[22px]">
+              <span className="headline2-bold text-grayscale-70">공연장소</span>
+              <span className="body1-regular text-grayscale-90">{fcltynm}</span>
+            </div>
 
-          <div className="flex space-x-[39px]">
-            <span className="headline2-bold text-grayscale-70">공연장소</span>
-            <div>
-              <span className="body1-regular text-grayscale-90 mr-2">
-                세종문화회관
-              </span>
-              <button
-                // onClick={copyAddress}
-                className="caption-12 text-grayscale-70 underline"
-              >
-                주소 복사하기
-              </button>
-              <br />
-              <span className="body1-regular text-grayscale-80">
-                서울 성북구 어쩌구 208-3
+            <div className="flex space-x-[39px] mb-[25px]">
+              <span className="headline2-bold text-grayscale-70">러닝타임</span>
+              <span className="body1-regular text-grayscale-90">
+                {prfruntime}
               </span>
             </div>
-          </div>
 
-          <div className="flex space-x-[39px]">
-            <span className="headline2-bold text-grayscale-70">러닝타임</span>
-            <span className="body1-regular text-grayscale-90">150분</span>
-          </div>
-
-          <div className="flex space-x-[39px]">
-            <span className="headline2-bold text-grayscale-70">공연시간</span>
-            <div className="flex-col space-y-[22px]">
-              {Object.entries(schedule).map(([day, times]) => (
-                <div key={day} className="flex space-x-[9px]">
-                  <span className="body1-regular text-grayscale-70">{day}</span>
-                  <div className="flex flex-col body1-regular text-grayscale-90">
-                    {times.map((time, index) => (
-                      <span key={index}>{time}</span>
-                    ))}
+            <div className="flex space-x-[39px] mb-[32px]">
+              <span className="headline2-bold text-grayscale-70">공연시간</span>
+              <div className="flex-col space-y-[12px]">
+                <span className="caption-12 text-secondary2-100 mb-[2px]">
+                  *해당하는 요일과 시간에만 공연이 진행돼요
+                </span>
+                {dtguidance.map(({ day, times }: PrfGuidance) => (
+                  <div key={day} className="flex space-x-[12px]">
+                    <span className="body1-regular text-grayscale-70">
+                      {day}
+                    </span>
+                    <div className="border-[1.5px] border-grayscale-30 rounded-[2px]" />
+                    <div className="flex gap-[14px] body1-regular text-grayscale-90">
+                      {times.map((time: string, index: number) => (
+                        <span key={index}>{time}</span>
+                      ))}
+                    </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
-          </div>
 
-          <div className="flex space-x-[68px]">
-            <span className="headline2-bold text-grayscale-70">가격</span>
-            <div className="flex-col space-y-[9px]">
-              {Object.entries(prices).map(([seat, price]) => (
-                <div key={seat} className="flex space-x-[16px]">
-                  <span className="body1-regular text-grayscale-70">
-                    {seat}
-                  </span>
-                  <span className="body1-regular text-grayscale-90">
-                    {price}
-                  </span>
-                </div>
-              ))}
+            <div className="flex space-x-[68px]">
+              <span className="headline2-bold text-grayscale-70">가격</span>
+              <div className="flex-col space-y-[12px]">
+                {seats.map((seat, index) => (
+                  <div key={index} className="flex space-x-[12px]">
+                    <span className="body1-regular text-grayscale-70">
+                      {seat}
+                    </span>
+                    <div className="border-[1.5px] border-grayscale-30 rounded-[2px]" />
+                    <span className="body1-regular text-grayscale-90">
+                      {prices[index]}
+                    </span>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
-  );
-});
+      </section>
+    );
+  },
+);
 
 export default ShowEssentials;

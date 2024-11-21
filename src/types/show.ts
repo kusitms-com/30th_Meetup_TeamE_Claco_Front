@@ -1,8 +1,8 @@
 export type Show = {
   id: number;
   posterImage: string;
-  showType: "dance" | "classical";
-  status: "upcoming" | "inProgress" | "completed";
+  showType: string;
+  status: string;
   defaultLiked: boolean;
   title: string;
   location: string;
@@ -22,7 +22,7 @@ export type ShowFilterProps = {
     price: string,
     location: string,
     date: string,
-    feature: string,
+    feature: string
   ) => void;
 };
 
@@ -36,8 +36,84 @@ export type ClacoPickProps = {
   picks: { imageSrc: string; title: string }[];
 };
 
+export type TabMenuItem = {
+  value: TabMenu;
+  label: string;
+};
+
+export type TabMenu = "서양음악(클래식)" | "무용" | null;
+
 export type ShowFilterTabProps = {
-  activeTab: string;
-  onTabClick: (tab: string) => void;
+  activeTab: TabMenu;
+  onTabClick: (tab: TabMenu) => void;
   className?: string;
-}
+};
+
+export type ShowDetailCheckResponse = {
+  code: string;
+  message: string;
+  result: ShowDetailResult;
+};
+
+export type TicketSimpleReview = {
+  ticketReviewId: number;
+  nickname: string;
+  starRate: number;
+  content: string;
+};
+
+export type ShowCategory = {
+  category: string;
+  imageURL: string;
+};
+
+export type ShowDetailResult = {
+  id: number;
+  mt20id: string;
+  prfnm: string;
+  prfpdfrom: string;
+  prfpdto: string;
+  fcltynm: string;
+  poster: string;
+  area: string;
+  genrenm: string;
+  openrun: string;
+  prfstate: string;
+  prfcast: string;
+  prfruntime: string;
+  prfage: string;
+  pcseguidance: string;
+  updatedate: string;
+  dtguidance: string;
+  styurl: string;
+  ticketReviewSimpleResponses: TicketSimpleReview[];
+  summary: string;
+  categories: ShowCategory[];
+  liked: boolean;
+};
+
+export type DaysMapType = {
+  day: string;
+  dayIndex: number;
+};
+
+export type PricesMapType = {
+  [seat: string]: string | number;
+};
+
+export type ConcertBased = {
+  id: number;
+  prfnm: string;
+  poster: string;
+  genrenm: string;
+  fcltynm: string;
+  prfpdfrom: string;
+  prfpdto: string;
+};
+
+export type ConcertBasedResponse = {
+  code: string;
+  message: string;
+  result: ConcertBased[];
+  refreshed: boolean;
+};

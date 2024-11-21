@@ -10,6 +10,7 @@ import { DeleteClacoBookModal } from "@/components/Ticket/Modal/Delete/ClacoBook
 import { Toast } from "@/libraries/toast/Toast";
 import { useNavigate } from "react-router-dom";
 
+// 이 데이터 지우고 클라코북 리스트 받아오는 api 연동해서 해당 데이터가 비어있는지 여부로 판별하면 될 듯!
 const CLACO_BOOK_MOCK_DATA = [
   { id: 1, title: "조성진 모음집", color: "#DD6339" },
   { id: 2, title: "2024 발레", color: "#D499B8" },

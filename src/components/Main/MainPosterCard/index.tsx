@@ -91,7 +91,7 @@ export const MainPosterCard = ({ data }: MainPosterCardProps) => {
       <div className="rounded-[5px] absolute top-0 left-0 z-10 w-full h-full bg-gradient-to-b from-common-black/20 from-0% to-common-black to-64% opacity-60"></div>
       <div className="rounded-[5px] absolute bottom-0 left-0 z-10 w-full h-[189px] bg-gradient-to-b from-background-dark/0 to-background-dark/100">
         <div className="flex items-center space-x-[10px] absolute bottom-6 left-[11px]">
-          <CategoryTag categoryType="classical">{data.genrenm}</CategoryTag>
+          <CategoryTag categoryType={data.genrenm} />
           <div className="heading2-bold text-grayscale-80 truncate max-w-[220px]">
             {data.prfnm}
           </div>

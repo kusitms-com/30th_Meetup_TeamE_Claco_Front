@@ -8,14 +8,17 @@ const client = axios.create({
     "Content-Type": "application/json",
   },
 });
+
 client.interceptors.response.use(
   (res) => {
     return res;
   },
   async (error) => {
+    console.error(error);
     return Promise.reject(error);
   }
 );
+
 client.interceptors.request.use(
   (config: InternalAxiosRequestConfig) => {
     config.withCredentials = true;

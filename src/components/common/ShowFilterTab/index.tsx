@@ -1,4 +1,10 @@
-import { ShowFilterTabProps } from "@/types";
+import { ShowFilterTabProps, TabMenuItem } from "@/types";
+
+const TEB_MENU: TabMenuItem[] = [
+  { value: null, label: "전체" },
+  { value: "서양음악(클래식)", label: "클래식" },
+  { value: "무용", label: "무용" },
+];
 
 export const ShowFilterTab = ({
   activeTab,
@@ -9,17 +15,17 @@ export const ShowFilterTab = ({
     <div
       className={`flex justify-center bg-grayscale-20 rounded-[5px] items-center w-full ${className}`}
     >
-      {["전체", "클래식", "무용"].map((tab) => (
+      {TEB_MENU.map((tab, index) => (
         <button
-          key={tab}
+          key={index}
           className={`body2-medium py-[7px] rounded-[5px] flex-1 ${
-            activeTab === tab
+            activeTab === tab.value
               ? "bg-grayscale-80 text-grayscale-30"
               : "bg-grayscale-20 text-grayscale-60"
           }`}
-          onClick={() => onTabClick(tab)}
+          onClick={() => onTabClick(tab.value)}
         >
-          {tab}
+          {tab.label}
         </button>
       ))}
     </div>
