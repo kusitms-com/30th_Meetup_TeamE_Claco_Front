@@ -10,3 +10,4 @@ export { default as useGetSearch } from "./useGetSearch";
 export { default as useGetConcertFilters } from "./useGetConcertFilters";
 export { default as useGetConcertReviewList } from "./useGetConcertReviewList";
 export { default as useGetConcertReviewSize } from "./useGetConcertReviewSize";
+export { default as useGetConcertReviewDetail } from "./useGetConcertReviewDetail";

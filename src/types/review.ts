@@ -52,6 +52,13 @@ export type GetConcertReviewListResponse = {
   refreshed: boolean;
 };
 
+export type GetConcertReviewDetailResponse = {
+  code: string;
+  message: string;
+  result: Review;
+  refreshed: boolean;
+};
+
 export type GetConcertReviewInfiniteResponse = {
   pageParams: number[];
   pages: GetConcertReviewListResponse[];
