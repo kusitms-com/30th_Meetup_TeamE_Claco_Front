@@ -9,6 +9,7 @@ import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import { Toast } from "@/libraries/toast/Toast";
 import { DownLoadModal } from "@/components/Ticket/Modal/DownLoad";
+import { usePutTicketImage } from "@/hooks/mutation";
 
 const REVIEW_MOCK_DATA: REVIEW_MOCK_DATA_type = {
   title: "히사이시조",
@@ -22,6 +23,8 @@ export const TicketDownloadPage = () => {
   const ticketRef = useRef<HTMLDivElement>(null);
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [toast, setToast] = useState<boolean>(false);
+
+  const { mutate: uploadTicketImage } = usePutTicketImage();
 
   const convertToImageAndUpload = async () => {
     if (!ticketRef.current) return;
@@ -39,12 +42,16 @@ export const TicketDownloadPage = () => {
         canvas.toBlob((blob) => resolve(blob!), "image/png", 1.0);
       });
 
-      const formData = new FormData();
-      formData.append("ticket", blob, "ticket.png");
-
-      for (const i of formData.entries()) {
-        console.log(i);
+      if (!blob) {
+        throw new Error("이미지 Blob 생성에 실패했습니다.");
       }
+
+      const ticketReviewId = Number(localStorage.getItem("ticketReviewId"));
+
+      uploadTicketImage({
+        id: ticketReviewId,
+        file: new File([blob], "ticket.png", { type: "image/png" }),
+      });
     } catch (error) {
       console.error("티켓 이미지 변환/업로드 실패:", error);
     }

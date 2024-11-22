@@ -14,10 +14,10 @@ const postTicketReview = async (
     }),
   );
 
-  if (request.files.length === 0) {
-    formData.append("files", new File([""], ""));
+  if (request.files.length == 0) {
+    formData.append("files", "");
   } else {
-    request.files.forEach((file) => {
+    request.files.forEach((file: File) => {
       formData.append("files", file);
     });
   }
@@ -48,6 +48,10 @@ const usePostTicketReview = () => {
       localStorage.removeItem("showPlace");
       localStorage.removeItem("seat");
       localStorage.removeItem("castingList");
+      const ticketReviewId = data.result?.ticketReviewId;
+      if (ticketReviewId) {
+        localStorage.setItem("ticketReviewId", ticketReviewId.toString());
+      }
       navigate("/ticketcreate/download");
     },
     onError: (error) => {

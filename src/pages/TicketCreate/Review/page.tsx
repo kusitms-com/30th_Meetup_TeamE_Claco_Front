@@ -9,9 +9,9 @@ import { KeywordTags } from "@/components/Ticket/AudienceReview/KeywordTags";
 import { Modal } from "@/components/common/Modal";
 import { ReviewQuestions } from "@/components/Ticket/AudienceReview/ReviewQuestions";
 import { PlaceCategory, TagCategory, TicketReviewRequest } from "@/types";
-import useGetPlaceCategories from "@/hooks/queries/useGetPlaceCategories";
-import useGetTagCategories from "@/hooks/queries/useGetTagCategories";
 import { usePostTicketReview } from "@/hooks/mutation";
+import getTagCategories from "@/apis/useGetTagCategories";
+import getPlaceCategories from "@/apis/useGetPlaceCategories";
 
 export const TicketReviewPage = () => {
   const navigate = useNavigate();
@@ -31,12 +31,29 @@ export const TicketReviewPage = () => {
   const [isComplete, setIsComplete] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const { data: tagData, isLoading: isTagLoading } = useGetTagCategories();
-  const tagCategories = tagData?.result?.categories;
+  const [tagCategories, setTagCategories] = useState<TagCategory[]>([]);
+  const [placeCategories, setPlaceCategories] = useState<PlaceCategory[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
 
-  const { data: placeData, isLoading: isPlaceLoading } =
-    useGetPlaceCategories();
-  const placeCategories = placeData?.result?.categories || [];
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const [tagData, placeData] = await Promise.all([
+          getTagCategories(),
+          getPlaceCategories(),
+        ]);
+
+        setTagCategories(tagData.result.categories);
+        setPlaceCategories(placeData.result.categories);
+      } catch (error) {
+        console.error("Failed to fetch data:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchData();
+  }, []);
 
   const handleOpenModal = () => {
     setIsModalOpen(true);
@@ -92,7 +109,7 @@ export const TicketReviewPage = () => {
       clacoBookId: clacoBookId,
       watchDate: localStorage.getItem("showDate") || "",
       watchRound: localStorage.getItem("showTime") || "",
-      watchSit: localStorage.getItem("seat") || "",
+      watchSit: JSON.parse(localStorage.getItem("seat") || '""'),
       starRate: rating,
       casting: localStorage.getItem("castingList") || "",
       content: reviewText,
@@ -127,7 +144,7 @@ export const TicketReviewPage = () => {
     reviewText,
   ]);
 
-  if (isTagLoading || isPlaceLoading) {
+  if (isLoading) {
     return <div>로딩중</div>;
   }
 
