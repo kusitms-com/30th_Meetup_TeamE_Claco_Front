@@ -10,7 +10,7 @@ import {
 } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
-const getConcertList = async ({
+const getConcertsList = async ({
   genre,
   page,
   size = 9,
@@ -25,7 +25,7 @@ const getConcertList = async ({
   return response.data;
 };
 
-const useGetInfiniteConcerts = ({
+const useGetConcertsList = ({
   genre,
   size = 9,
 }: Omit<GetConcertListProps, "page">): UseInfiniteQueryResult<
@@ -35,7 +35,7 @@ const useGetInfiniteConcerts = ({
   return useInfiniteQuery({
     queryKey: ["concert-data", genre],
     queryFn: ({ pageParam }) =>
-      getConcertList({ genre, page: pageParam, size }),
+      getConcertsList({ genre, page: pageParam, size }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const totalPages = Math.ceil(
@@ -47,7 +47,7 @@ const useGetInfiniteConcerts = ({
   });
 };
 
-export default useGetInfiniteConcerts;
+export default useGetConcertsList;
 
 /**
  * No description

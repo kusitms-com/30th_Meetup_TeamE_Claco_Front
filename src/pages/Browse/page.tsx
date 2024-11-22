@@ -4,26 +4,26 @@ import { useEffect, useRef, useState } from "react";
 import { ReactComponent as Filter } from "@/assets/svgs/filter.svg";
 import { ReactComponent as Refresh } from "@/assets/svgs/refresh.svg";
 import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
-
 import { SearchCard } from "@/components/common/Search/Card";
 import { ShowFilter } from "@/components/Browse/ShowFilter";
 import { ShowSummaryCard } from "@/components/common/ShowSummaryCard";
-
-import poster13 from "@/assets/images/poster13.png";
-import poster4 from "@/assets/images/poster4.gif";
-import poster8 from "@/assets/images/poster8.gif";
-import { ClacoPick } from "@/components/Browse/ClacoPick";
 import {
   useDebouncedState,
   useDeferredLoading,
   useRefFocusEffect,
   useShowFilter,
 } from "@/hooks/utils";
+import {
+  useGetAutoCompleteSearch,
+  // useGetConcertFilters,
+  useGetConcertList,
+  useGetSearch,
+} from "@/hooks/queries";
 import { AutoCompleteSearchCard, TabMenu } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
-import useGetAutoCompleteSearch from "@/hooks/queries/useGetAutoCompleteSearch";
-import useGetInfiniteConcerts from "@/hooks/queries/useGetConcertList";
-import useGetSearch from "@/hooks/queries/useGetSearch";
+
+import { SearchResult } from "@/components/Browse/SearchResult";
+import { RecentConcertResult } from "@/components/Browse/RecentConcertResult";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
@@ -36,10 +36,13 @@ export const BrowsePage = () => {
     fetchNextPage,
     isFetchingNextPage,
     isLoading,
-  } = useGetInfiniteConcerts({
+  } = useGetConcertList({
     genre: activeTab,
     size: 9,
   });
+
+  // const { data: filterConcertData, fetchNextPage: filterFetchNextPage } =
+  //   useGetConcertFilters();
 
   const { data: autoCompleteData, isLoading: autoCompleteDataLoading } =
     useGetAutoCompleteSearch(debouncedQuery);
@@ -269,68 +272,15 @@ export const BrowsePage = () => {
               </div>
               {debouncedQuery.trim().length === 0 ? (
                 <>
-                  <span className="caption-12 text-grayscale-60">
-                    총 {concertData?.pages[0].result.totalCount}개
-                  </span>
-                  <div className="flex flex-col gap-[29px] mt-[12px]">
-                    {concertData &&
-                      concertData.pages.flatMap((page) =>
-                        page.result.listPageResponse.map((show) => (
-                          <ShowSummaryCard key={show.id} data={show} />
-                        ))
-                      )}
-                    {/* 추가 데이터 로드 */}
-                    {isFetchingNextPage && (
-                      <div className="mt-4 text-center">
-                        <span>로딩 중...</span>
-                      </div>
-                    )}
-                  </div>
+                  {concertData && (
+                    <RecentConcertResult
+                      concertData={concertData}
+                      isFetchingNextPage={isFetchingNextPage}
+                    />
+                  )}
                 </>
               ) : (
-                // 검색 이후 로직
-                <>
-                  <div className="flex flex-col gap-[29px] mt-[12px]">
-                    {searchData?.pages[0].result.totalCount === 0 ? (
-                      <div className="flex flex-col items-center mt-[121px]">
-                        <div className="flex flex-col gap-1 mb-[112px]">
-                          <span className="headline1-bold text-grayscale-90">
-                            찾으시는 공연 정보가 없어요
-                          </span>
-                          <span className="caption-13 text-grayscale-50">
-                            입력하신 단어가 정확한지 확인해주세요
-                          </span>
-                        </div>
-
-                        <div className="w-full max-w-screen-sm">
-                          <ClacoPick
-                            userName="달보라"
-                            picks={[
-                              {
-                                imageSrc: poster8,
-                                title: "랑랑 피아노 리사이틀",
-                              },
-                              { imageSrc: poster13, title: "빈 필하모닉" },
-                              { imageSrc: poster4, title: "피아노 리사이틀" },
-                            ]}
-                          />
-                        </div>
-                      </div>
-                    ) : (
-                      <>
-                        <span className="headline1-bold">
-                          총 {searchData?.pages[0].result.totalCount}개의 공연
-                        </span>
-                        {searchData &&
-                          searchData.pages.flatMap((page) =>
-                            page.result.listPageResponse.map((show) => (
-                              <ShowSummaryCard key={show.id} data={show} />
-                            ))
-                          )}
-                      </>
-                    )}
-                  </div>
-                </>
+                <>{searchData && <SearchResult searchData={searchData} />}</>
               )}
             </>
           )}

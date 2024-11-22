@@ -59,6 +59,15 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
     const feature = selectedFeatures.join(", ");
     setIsVisible(false);
     setTimeout(() => onApply(priceRange, location, dateRange, feature), 300);
+
+    const filterObj = {
+      minPrice: minPrice,
+      maxPrice: maxPrice,
+      selectedLocation: selectedLocation,
+      dateRange: dateRange,
+      selectedFeatures: selectedFeatures,
+    };
+    localStorage.setItem("filterObj", JSON.stringify(filterObj));
   };
 
   const handleLocationClick = (location: string) => {

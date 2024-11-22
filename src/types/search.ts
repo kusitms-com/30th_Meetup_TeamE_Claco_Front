@@ -69,3 +69,14 @@ export type GetSearchProps = {
   page: number;
   size: number;
 };
+
+export type GetConcertFiltersProps = {
+  minPrice: number;
+  maxPrice: number;
+  area: string;
+  startDate: string;
+  endDate: string;
+  page: number;
+  size: number;
+  categories: string[];
+};
