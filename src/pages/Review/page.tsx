@@ -3,13 +3,15 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 import { ReviewCard } from "@/components/Review/ReviewCard";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useThumbnailModal } from "@/hooks/utils";
+import { useRefFocusEffect, useThumbnailModal } from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
-import useRefFocusEffect from "@/hooks/utils/useRefFocusEffect";
-import useGetConcertReviewList from "@/hooks/queries/useGetConcertReviewList";
 import { OrederByType } from "@/types";
 import { SelectThumbnail } from "@/hooks/utils/useThumbnailModal";
-import useGetConcertReviewSize from "@/hooks/queries/useGetConcertReviewSize";
+import {
+  useGetConcertReviewList,
+  useGetConcertReviewSize,
+} from "@/hooks/queries";
+import { useConcertInfoStore } from "@/libraries/store/concertInfo";
 
 export type OptionType = {
   value: OrederByType;
@@ -33,6 +35,14 @@ const options: OptionType[] = [
 
 export const ReviewPage = () => {
   const { id } = useParams();
+  const { data, clearConcertInfo } = useConcertInfoStore();
+
+  useEffect(() => {
+    return () => {
+      clearConcertInfo();
+    };
+  }, [clearConcertInfo]);
+
   const [selectOption, setSelectOption] = useState<OptionType>({
     value: options[0].value,
     label: options[0].label,
@@ -66,6 +76,7 @@ export const ReviewPage = () => {
 
   const gotoBack = () => {
     navigate(-1);
+    clearConcertInfo();
   };
 
   const handlePreviewImage = (index: SelectThumbnail) => {
@@ -121,13 +132,11 @@ export const ReviewPage = () => {
 
         <section className="flex-col space-y-[10px] mb-[3px]">
           <div className="flex space-x-2">
-            <CategoryTag categoryType="무용" />
-            <CategoryTag categoryType="공연중" />
+            <CategoryTag categoryType={data.genrenm} />
+            <CategoryTag categoryType={data.prfstate} />
           </div>
           <div className="flex-col">
-            <div className="heading2-bold">
-              유니버설발레단 〈호두까기 인형〉 - 성남
-            </div>
+            <div className="heading2-bold">{data.prfnm}</div>
             <div className="body2-medium text-grayscale-60">
               리뷰 {reviewTotalCount?.result.total}개
             </div>
