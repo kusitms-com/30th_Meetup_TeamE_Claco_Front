@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 
 const useRefFocusEffect = <T extends HTMLElement>(
   onFocusCallback: () => void,
+
   deps: React.DependencyList = []
 ) => {
   const ref = useRef<T>(null);
@@ -19,7 +20,7 @@ const useRefFocusEffect = <T extends HTMLElement>(
           });
         },
         {
-          threshold: 1,
+          threshold: 0.5,
         }
       );
 

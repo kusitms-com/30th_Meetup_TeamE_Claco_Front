@@ -31,6 +31,32 @@ export type Review = {
   }>;
 };
 
+export type OrederByType = "HIGH_RATE" | "LOW_RATE" | "RECENT";
+
+export type GetConcertReviewListProps = {
+  concertId: number;
+  page: number;
+  size: number;
+  orderBy: OrederByType;
+};
+
+export type GetConcertReviewListResponse = {
+  code: string;
+  message: string;
+  result: {
+    totalPage: number;
+    currentPage: number;
+    size: number;
+    reviewList: Review[];
+  };
+  refreshed: boolean;
+};
+
+export type GetConcertReviewInfiniteResponse = {
+  pageParams: number[];
+  pages: GetConcertReviewListResponse[];
+};
+
 export type ReviewCardProps = {
   review: Review;
   onClick: () => void;

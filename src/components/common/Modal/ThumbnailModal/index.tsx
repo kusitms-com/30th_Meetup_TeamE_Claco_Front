@@ -60,7 +60,7 @@ export const ThumbnailModal = ({
                 <img
                   src={image}
                   alt="리뷰 이미지"
-                  className="object-contain w-screen max-[375px]:h-[400px]"
+                  className="object-cover w-screen max-[375px]:h-[400px]"
                 />
               </div>
             </SwiperSlide>
@@ -80,7 +80,7 @@ export const ThumbnailModal = ({
                 <img
                   src={image}
                   alt="리뷰 이미지"
-                  className="h-[90px] w-[90px]"
+                  className="h-[90px] w-[90px] object-cover"
                 />
               </SwiperSlide>
             ))}

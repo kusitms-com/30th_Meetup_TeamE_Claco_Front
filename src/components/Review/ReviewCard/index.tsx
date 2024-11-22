@@ -44,7 +44,7 @@ export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
             <img
               src={review.reviewImages?.[0]?.imageUrl}
               alt="공연 이미지"
-              className="min-w-[90px] h-[90px] rounded-[5px] object-fill"
+              className="w-[90px] h-[90px] rounded-[5px] object-fill"
             />
             <div className="absolute bottom-0 right-0 w-[19px] h-[19px] bg-[#8A8585] caption-12 rounded-br-[5px] flex justify-center items-center">
               <span className="text-center">{review.reviewImages.length}</span>

@@ -5,18 +5,47 @@ import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useThumbnailModal } from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
-import { REVIEW_MOCK_DATA } from "@/components/Review/ReviewCard/const";
 import useRefFocusEffect from "@/hooks/utils/useRefFocusEffect";
+import useGetConcertReviewList from "@/hooks/queries/useGetConcertReviewList";
+import { OrederByType } from "@/types";
 
-const options: string[] = ["별점 높은 순", "별점 낮은 순", "최신 순"];
+export type OptionType = {
+  value: OrederByType;
+  label: string;
+};
+
+const options: OptionType[] = [
+  {
+    value: "RECENT",
+    label: "최신 순",
+  },
+  {
+    value: "HIGH_RATE",
+    label: "별점 높은 순",
+  },
+  {
+    value: "LOW_RATE",
+    label: "별점 낮은 순",
+  },
+];
 
 export const ReviewPage = () => {
-  const [reviewList, setReviewList] = useState<typeof REVIEW_MOCK_DATA>([
-    ...REVIEW_MOCK_DATA,
-  ]);
+  const [selectOption, setSelectOption] = useState<OptionType>({
+    value: options[0].value,
+    label: options[0].label,
+  });
+
+  const {
+    data: reviewList,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useGetConcertReviewList({
+    concertId: 435,
+    size: 9,
+    orderBy: selectOption.value,
+  });
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [selectOption, setSelectOption] = useState<string>(options[0]);
   const dropdownRef = useRef<HTMLDivElement>(null);
   const {
     thumbsSwiper,
@@ -39,13 +68,9 @@ export const ReviewPage = () => {
     handleImageClick();
   };
 
-  const handleLoadMore = () => {
-    // 추가 리뷰 로딩 로직
-    setReviewList((prevList) => [...prevList, ...REVIEW_MOCK_DATA]);
-    console.log("Load more reviews");
-  };
-
-  const { elementRef } = useRefFocusEffect<HTMLDivElement>(handleLoadMore, []);
+  const { elementRef } = useRefFocusEffect<HTMLDivElement>(fetchNextPage, [
+    reviewList,
+  ]);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -65,16 +90,18 @@ export const ReviewPage = () => {
 
   return (
     <div className="relative">
-      {reviewList.length > 0 && (
+      {reviewList && reviewList?.pages[0].result.reviewList.length > 0 && (
         <ThumbnailModal
           isShow={isThumbnailShow}
           isAnimating={isAnimating}
           thumbsSwiper={thumbsSwiper}
           selectIndex={0}
           images={
-            reviewList[selectIndex - 1]?.reviewImages.map(
-              (img) => img.imageUrl
-            ) || []
+            (reviewList &&
+              reviewList?.pages[0].result.reviewList[
+                selectIndex
+              ]?.reviewImages.map((img) => img.imageUrl)) ||
+            []
           }
           onClose={handleImageClick}
           setThumbsSwiper={setThumbsSwiper}
@@ -106,7 +133,7 @@ export const ReviewPage = () => {
             className="relative flex items-center justify-end w-[80px] ml-auto space-x-2 cursor-pointer text-common-white mb-[19px]"
             onClick={() => setIsOpen((prev) => !prev)}
           >
-            <div className="caption-13">{selectOption}</div>
+            <div className="caption-13">{selectOption.label}</div>
             <BackArrow
               width="4"
               height="8"
@@ -125,10 +152,15 @@ export const ReviewPage = () => {
                   {options.map((option, index) => (
                     <li
                       key={index}
-                      onClick={() => setSelectOption(option)}
-                      className={`${selectOption === option ? "text-common-white" : "text-grayscale-60"}`}
+                      onClick={() =>
+                        setSelectOption({
+                          value: option.value,
+                          label: option.label,
+                        })
+                      }
+                      className={`${selectOption.value === option.value ? "text-common-white" : "text-grayscale-60"}`}
                     >
-                      {option}
+                      {option.label}
                     </li>
                   ))}
                 </ul>
@@ -136,20 +168,28 @@ export const ReviewPage = () => {
             </div>
           </div>
           <div className="flex-col space-y-[11px] pb-[100px]">
-            {reviewList.map((review, index) => (
-              <ReviewCard
-                key={index}
-                review={review}
-                onClick={() =>
-                  review.reviewImages.length &&
-                  handlePreviewImage(review.ticketReviewId)
-                }
-              />
-            ))}
-            <div ref={elementRef} className="h-1"></div>
+            {reviewList &&
+              reviewList?.pages.flatMap((page) =>
+                page.result.reviewList.map((review, index) => (
+                  <ReviewCard
+                    key={review.ticketReviewId}
+                    review={review}
+                    onClick={() =>
+                      review.reviewImages.length && handlePreviewImage(index)
+                    }
+                  />
+                ))
+              )}
+            {/* 추가 데이터 로드 */}
+            {isFetchingNextPage && (
+              <div className="mt-4 text-center">
+                <span>로딩 중...</span>
+              </div>
+            )}
           </div>
         </section>
       </div>
+      <div ref={elementRef} className="h-1" />
     </div>
   );
 };
