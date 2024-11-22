@@ -79,7 +79,7 @@ export const BrowsePage = () => {
   ]);
   const { elementRef: searchRef } = useRefFocusEffect<HTMLDivElement>(
     searchFetchNextPage,
-    [searchData]
+    [searchData, isSearch]
   );
 
   useEffect(() => {
