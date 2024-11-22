@@ -3,7 +3,11 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 import { ReviewCard } from "@/components/Review/ReviewCard";
 import { useEffect, useRef, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useRefFocusEffect, useThumbnailModal } from "@/hooks/utils";
+import {
+  useDeferredLoading,
+  useRefFocusEffect,
+  useThumbnailModal,
+} from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
 import { OrederByType } from "@/types";
 import { SelectThumbnail } from "@/hooks/utils/useThumbnailModal";
@@ -12,6 +16,7 @@ import {
   useGetConcertReviewSize,
 } from "@/hooks/queries";
 import { useConcertInfoStore } from "@/libraries/store/concertInfo";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export type OptionType = {
   value: OrederByType;
@@ -37,11 +42,11 @@ export const ReviewPage = () => {
   const { id } = useParams();
   const { data, clearConcertInfo } = useConcertInfoStore();
 
-  useEffect(() => {
-    return () => {
-      clearConcertInfo();
-    };
-  }, [clearConcertInfo]);
+  // useEffect(() => {
+  //   return () => {
+  //     clearConcertInfo();
+  //   };
+  // }, [clearConcertInfo]);
 
   const [selectOption, setSelectOption] = useState<OptionType>({
     value: options[0].value,
@@ -52,6 +57,7 @@ export const ReviewPage = () => {
     data: reviewList,
     fetchNextPage,
     isFetchingNextPage,
+    isLoading,
   } = useGetConcertReviewList({
     concertId: Number(id),
     size: 9,
@@ -103,6 +109,40 @@ export const ReviewPage = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const { shouldShowSkeleton } = useDeferredLoading(isLoading);
+  if (shouldShowSkeleton) {
+    return (
+      <div>
+        <div className="pt-[60px] px-6">
+          <section className="relative flex justify-center mb-[53px]">
+            <BackArrow onClick={gotoBack} className="absolute left-0" />
+            <div className="headline2-bold">리뷰</div>
+          </section>
+
+          <section className="flex-col space-y-[10px] mb-[3px]">
+            <div className="flex space-x-2">
+              {Array.from(Array(2).keys()).map((_, index) => (
+                <CategoryTag.Skeleton key={index} />
+              ))}
+            </div>
+            <div className="flex flex-col gap-4">
+              <Skeleton className="w-[250px] h-[31px]" />
+              <Skeleton className="w-[106px] h-[31px]" />
+            </div>
+            <div className="flex justify-end w-full mt-2 mb-[19px]">
+              <Skeleton className="w-[79px] h-[20px]" />
+            </div>
+            <div className="flex flex-col space-y-[11px]">
+              {Array.from(Array(5).keys()).map((_, index) => (
+                <ReviewCard.Skeleton key={index} />
+              ))}
+            </div>
+          </section>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="relative">
@@ -209,7 +249,9 @@ export const ReviewPage = () => {
           </div>
         </section>
       </div>
-      <div ref={elementRef} className="h-1" />
+      {reviewList?.pages[0].result.totalPage !== 0 && (
+        <div ref={elementRef} className="h-1" />
+      )}
     </div>
   );
 };

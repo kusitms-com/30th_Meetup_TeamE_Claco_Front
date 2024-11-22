@@ -4,6 +4,7 @@ import { useTruncateText } from "@/hooks/utils";
 import { ReviewTag } from "@/components/common/ReviewTag";
 import { useNavigate } from "react-router-dom";
 import { ReviewCardProps } from "@/types";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
   const SHOW_LENGTH = review.reviewImages.length === 0 ? 90 : 60;
@@ -86,4 +87,8 @@ export const ReviewCard = ({ review, onClick }: ReviewCardProps) => {
       </div>
     </div>
   );
+};
+
+ReviewCard.Skeleton = () => {
+  return <Skeleton className="w-full h-[298px]" />;
 };

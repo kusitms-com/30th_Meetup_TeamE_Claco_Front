@@ -214,9 +214,7 @@ export const BrowsePage = () => {
                         />
                       ))}
                     </>
-                  ) : (
-                    <div>검색 결과가 없어요</div>
-                  )}
+                  ) : null}
                 </>
               ) : null}
             </div>
