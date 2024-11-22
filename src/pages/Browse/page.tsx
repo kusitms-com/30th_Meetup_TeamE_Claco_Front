@@ -29,7 +29,7 @@ export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
   const [activeTab, setActiveTab] = useState<TabMenu>(null);
   const [skipDebounce, setSkipDebounce] = useState<boolean>(false);
-  const debouncedQuery = useDebouncedState(query, 1000, skipDebounce);
+  const debouncedQuery = useDebouncedState(query, 500, skipDebounce);
 
   const {
     data: concertData,
@@ -84,7 +84,6 @@ export const BrowsePage = () => {
 
   useEffect(() => {
     if (autoCompleteData && !autoCompleteDataLoading) {
-      // console.log(autoCompleteData);
       setAutoCompleteList(autoCompleteData.result);
     }
   }, [
@@ -136,6 +135,7 @@ export const BrowsePage = () => {
     }
   }, [skipDebounce]);
 
+  // 페이지 스캘레톤 UI 컴포넌트
   if (shouldShowSkeleton) {
     return (
       <div className="px-6 pb-[110px] min-h-screen relative">
@@ -203,13 +203,20 @@ export const BrowsePage = () => {
             <div className="flex flex-col space-y-[11px] mt-[11px]">
               {debouncedQuery.trim().length !== 0 ? (
                 <>
-                  {autoCompleteList?.map((show) => (
-                    <SearchCard
-                      key={show.id}
-                      data={show}
-                      searchKeyWord={query}
-                    />
-                  ))}
+                  {autoCompleteList.length !== 0 ? (
+                    <>
+                      {" "}
+                      {autoCompleteList?.map((show) => (
+                        <SearchCard
+                          key={show.id}
+                          data={show}
+                          searchKeyWord={query}
+                        />
+                      ))}
+                    </>
+                  ) : (
+                    <div>검색 결과가 없어요</div>
+                  )}
                 </>
               ) : null}
             </div>
