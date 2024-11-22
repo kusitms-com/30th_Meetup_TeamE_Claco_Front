@@ -1,10 +1,10 @@
 import { client } from "@/apis";
-import { ShowDetailCheckResponse } from "@/types";
+import { TicketReviewDetailResponse } from "@/types";
 import { useQuery, UseQueryResult } from "@tanstack/react-query";
 import { AxiosError } from "axios";
 
 const getTicketReviewDetail = async (ticketReviewId: number) => {
-  const response = await client.get<ShowDetailCheckResponse>(
+  const response = await client.get<TicketReviewDetailResponse>(
     `/ticket-reviews/${ticketReviewId}`,
   );
   return response.data;
@@ -12,9 +12,9 @@ const getTicketReviewDetail = async (ticketReviewId: number) => {
 
 const useGetTicketReviewDetail = (
   ticketReviewId: number,
-): UseQueryResult<ShowDetailCheckResponse, AxiosError> => {
-  return useQuery<ShowDetailCheckResponse, AxiosError>({
-    queryKey: ["showDetail", ticketReviewId],
+): UseQueryResult<TicketReviewDetailResponse, AxiosError> => {
+  return useQuery<TicketReviewDetailResponse, AxiosError>({
+    queryKey: ["ticketReviewDetail", ticketReviewId],
     queryFn: () => getTicketReviewDetail(ticketReviewId),
   });
 };

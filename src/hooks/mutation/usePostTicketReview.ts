@@ -42,7 +42,6 @@ const usePostTicketReview = () => {
     mutationFn: postTicketReview,
     onSuccess: (data) => {
       console.log(data);
-      localStorage.removeItem("clacoBookId");
       localStorage.removeItem("showDate");
       localStorage.removeItem("showTime");
       localStorage.removeItem("showPlace");

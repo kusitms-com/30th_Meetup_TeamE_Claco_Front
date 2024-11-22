@@ -1,27 +1,14 @@
 import { ReactComponent as ClacoTicketContainer } from "@/assets/svgs/Claco_Ticket.svg";
 import Image from "@/assets/images/poster6.gif";
 import { Genre } from "@/components/common/Genre";
+import { ClacoTicketProps } from "@/types";
 
-import grand from "@/assets/images/Genre/grand.png";
-import delicate from "@/assets/images/Genre/delicate.png";
-import classical from "@/assets/images/Genre/classical.png";
-import dynamic from "@/assets/images/Genre/dynamic.png";
-import familiar from "@/assets/images/Genre/familiar.png";
-import { REVIEW_MOCK_DATA_type } from "@/components/Main/Analysis/TicketRecommend";
-
-export type ClacoTicketProps = {
-  data: REVIEW_MOCK_DATA_type;
-};
-
-export const ClacoTicket = ({ data }: ClacoTicketProps) => {
-  const USER_GENRE = [
-    { imgUrl: grand, keyWord: "웅장한" },
-    { imgUrl: delicate, keyWord: "섬세한" },
-    { imgUrl: classical, keyWord: "고전적인" },
-    { imgUrl: dynamic, keyWord: "역동적인" },
-    { imgUrl: familiar, keyWord: "친숙한" },
-  ];
-
+export const ClacoTicket = ({
+  watchDate,
+  concertName,
+  watchPlace,
+  concertTags,
+}: ClacoTicketProps) => {
   return (
     <div className="relative w-[213px] h-[471px]">
       <img
@@ -32,22 +19,22 @@ export const ClacoTicket = ({ data }: ClacoTicketProps) => {
       <div className="absolute bottom-[110px]">
         <div className="flex-col w-[213px] text-dark">
           <div className="text-center font-Nonchalance text-[26px]">
-            2024.09.28
+            {watchDate}
           </div>
           <div className="text-center font-medium text-[10px]">
-            {data.title}
+            {concertName}
           </div>
           <div className="text-center font-medium text-[10px]">
-            LG ART CENTER
+            {watchPlace}
           </div>
         </div>
       </div>
       <div className="absolute bottom-[55.18px] px-[13px] w-[213px] flex justify-between">
-        {USER_GENRE.map((item, index) => (
+        {concertTags.map((item, index) => (
           <Genre
             key={index}
-            genreImgURL={item.imgUrl}
-            genreKeyword={item.keyWord}
+            genreImgURL={item.iconUrl}
+            genreKeyword={item.tagName}
             className="w-[29px] h-[29px] text-primary-800 font-medium text-[8px]"
           />
         ))}

@@ -1,7 +1,7 @@
 import { ReactComponent as Arrow } from "@/assets/svgs/Arrow 2.svg";
 import { TouchEvent, useState } from "react";
 import { Reviews } from "./Reviews";
-import { ClacoTicket } from "@/components/common/ClacoTicket";
+// import { ClacoTicket } from "@/components/common/ClacoTicket";
 
 export type REVIEW_MOCK_DATA_type = {
   title: string;
@@ -32,10 +32,10 @@ const REVIEW_MOCK_DATA: REVIEW_MOCK_DATA_type[] = [
 
 export const TicketRecommend = () => {
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
-    null
+    null,
   );
   const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(
-    null
+    null,
   );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
 
@@ -124,11 +124,17 @@ export const TicketRecommend = () => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {REVIEW_MOCK_DATA.map((review, index) => (
+        {REVIEW_MOCK_DATA.map((_, index) => (
+          <div key={index} className={getItemStyle(index)}>
+            {/* <ClacoTicket data={review} /> */}
+          </div>
+        ))}
+        {/* 밑에가 원래 코드 */}
+        {/* {REVIEW_MOCK_DATA.map((review, index) => (
           <div key={index} className={getItemStyle(index)}>
             <ClacoTicket data={review} />
           </div>
-        ))}
+        ))} */}
         <div className="z-30 absolute bottom-0 w-screen h-[186px] bg-gradient-to-t from-[#8F9AF8]/100 to-[#1C1C1C]/0 opacity-50" />
       </div>
 

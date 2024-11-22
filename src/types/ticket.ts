@@ -105,3 +105,10 @@ export type ClacoBookListResponse = {
   result: ClacoBookListResult;
   refreshed: boolean;
 };
+
+export type ClacoTicketProps = {
+  watchDate: string;
+  concertName: string;
+  watchPlace: string;
+  concertTags: { iconUrl: string; tagName: string }[];
+};
