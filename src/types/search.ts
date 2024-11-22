@@ -1,3 +1,5 @@
+import { ConcertBased } from "./show";
+
 export type CategoryMap = {
   category: string;
   imageURL: string;
@@ -14,6 +16,7 @@ export type ConcertInfo = {
   genrenm: string;
   prfstate: string;
   categories: CategoryMap[];
+  recommendationConcertsResponseV1s: ConcertBased[];
 };
 
 export type GetConcertListProps = {

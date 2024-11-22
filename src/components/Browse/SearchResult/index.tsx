@@ -1,7 +1,4 @@
 import { GetConcertInfiniteResponse } from "@/types";
-import poster13 from "@/assets/images/poster13.png";
-import poster4 from "@/assets/images/poster4.gif";
-import poster8 from "@/assets/images/poster8.gif";
 import { ClacoPick } from "../ClacoPick";
 import { ShowSummaryCard } from "@/components/common/ShowSummaryCard";
 
@@ -27,15 +24,10 @@ export const SearchResult = ({ searchData }: SearchReultProps) => {
 
             <div className="w-full max-w-screen-sm">
               <ClacoPick
-                userName="달보라"
-                picks={[
-                  {
-                    imageSrc: poster8,
-                    title: "랑랑 피아노 리사이틀",
-                  },
-                  { imageSrc: poster13, title: "빈 필하모닉" },
-                  { imageSrc: poster4, title: "피아노 리사이틀" },
-                ]}
+                pickData={
+                  searchData.pages[0].result.listPageResponse[0]
+                    .recommendationConcertsResponseV1s
+                }
               />
             </div>
           </div>

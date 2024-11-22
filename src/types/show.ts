@@ -26,14 +26,13 @@ export type ShowFilterProps = {
   ) => void;
 };
 
+export type ClacoPickProps = {
+  pickData: ConcertBased[];
+};
+
 export type ClacoPickShowProps = {
   imageSrc: string;
   title: string;
-};
-
-export type ClacoPickProps = {
-  userName: string;
-  picks: { imageSrc: string; title: string }[];
 };
 
 export type TabMenuItem = {
