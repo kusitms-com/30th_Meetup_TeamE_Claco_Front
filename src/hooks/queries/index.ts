@@ -8,3 +8,4 @@ export { default as useGetConcertList } from "./useGetConcertList";
 export { default as useGetAutoCompleteSearch } from "./useGetAutoCompleteSearch";
 export { default as useGetSearch } from "./useGetSearch";
 export { default as useGetConcertFilters } from "./useGetConcertFilters";
+export { default as useGetConcertReviewSize } from "./useGetConcertReviewSize";

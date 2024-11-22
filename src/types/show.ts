@@ -117,3 +117,12 @@ export type ConcertBasedResponse = {
   result: ConcertBased[];
   refreshed: boolean;
 };
+
+export type GetConcertReviewSizeResponse = {
+  code: string;
+  message: string;
+  result: {
+    total: number;
+  };
+  refreshed: boolean;
+};

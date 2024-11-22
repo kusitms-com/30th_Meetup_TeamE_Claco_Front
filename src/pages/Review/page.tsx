@@ -2,12 +2,14 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { ReviewCard } from "@/components/Review/ReviewCard";
 import { useEffect, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { useThumbnailModal } from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
 import useRefFocusEffect from "@/hooks/utils/useRefFocusEffect";
 import useGetConcertReviewList from "@/hooks/queries/useGetConcertReviewList";
 import { OrederByType } from "@/types";
+import { SelectThumbnail } from "@/hooks/utils/useThumbnailModal";
+import useGetConcertReviewSize from "@/hooks/queries/useGetConcertReviewSize";
 
 export type OptionType = {
   value: OrederByType;
@@ -30,6 +32,7 @@ const options: OptionType[] = [
 ];
 
 export const ReviewPage = () => {
+  const { id } = useParams();
   const [selectOption, setSelectOption] = useState<OptionType>({
     value: options[0].value,
     label: options[0].label,
@@ -40,10 +43,12 @@ export const ReviewPage = () => {
     fetchNextPage,
     isFetchingNextPage,
   } = useGetConcertReviewList({
-    concertId: 435,
+    concertId: Number(id),
     size: 9,
     orderBy: selectOption.value,
   });
+
+  const { data: reviewTotalCount } = useGetConcertReviewSize(Number(id));
 
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const dropdownRef = useRef<HTMLDivElement>(null);
@@ -63,7 +68,7 @@ export const ReviewPage = () => {
     navigate(-1);
   };
 
-  const handlePreviewImage = (index: number) => {
+  const handlePreviewImage = (index: SelectThumbnail) => {
     setSelectIndex(index);
     handleImageClick();
   };
@@ -98,8 +103,8 @@ export const ReviewPage = () => {
           selectIndex={0}
           images={
             (reviewList &&
-              reviewList?.pages[0].result.reviewList[
-                selectIndex
+              reviewList?.pages[selectIndex.page - 1].result.reviewList[
+                selectIndex.index
               ]?.reviewImages.map((img) => img.imageUrl)) ||
             []
           }
@@ -123,7 +128,9 @@ export const ReviewPage = () => {
             <div className="heading2-bold">
               유니버설발레단 〈호두까기 인형〉 - 성남
             </div>
-            <div className="body2-medium text-grayscale-60">리뷰 184개</div>
+            <div className="body2-medium text-grayscale-60">
+              리뷰 {reviewTotalCount?.result.total}개
+            </div>
           </div>
         </section>
 
@@ -175,7 +182,11 @@ export const ReviewPage = () => {
                     key={review.ticketReviewId}
                     review={review}
                     onClick={() =>
-                      review.reviewImages.length && handlePreviewImage(index)
+                      review.reviewImages.length &&
+                      handlePreviewImage({
+                        page: page.result.currentPage,
+                        index: index,
+                      })
                     }
                   />
                 ))
