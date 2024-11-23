@@ -22,7 +22,7 @@ export const TicketDownloadPage = () => {
   const { data, isLoading } = useGetTicketReviewDetail(ticketReviewId);
   const ticketReviewDetail = data?.result;
   const ticketBookId = localStorage.getItem("clacoBookId");
-
+  
   const convertToImageAndUpload = async () => {
     if (!ticketRef.current) return;
 
@@ -53,10 +53,14 @@ export const TicketDownloadPage = () => {
   };
 
   useEffect(() => {
-    if (!isLoading) {
-      convertToImageAndUpload();
+    if (!isLoading && ticketReviewDetail) {
+      const timer = setTimeout(() => {
+        convertToImageAndUpload();
+      }, 1000);
+  
+      return () => clearTimeout(timer);
     }
-  }, [isLoading]);
+  }, [isLoading, ticketReviewDetail]);
 
   const handleBackClick = () => {
     // navigate(`/show/${showId}/reviews/${ticketReviewId}`);
@@ -95,10 +99,6 @@ export const TicketDownloadPage = () => {
     }
     handleCloseModal();
   };
-
-  if (isLoading) {
-    return <div>로딩중...</div>;
-  }
 
   return (
     <div className="flex flex-col pt-[46px] pb-[67px]">
