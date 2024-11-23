@@ -1,3 +1,5 @@
+import { ConcertBased } from "./show";
+
 export type CategoryMap = {
   category: string;
   imageURL: string;
@@ -14,11 +16,11 @@ export type ConcertInfo = {
   genrenm: string;
   prfstate: string;
   categories: CategoryMap[];
+  recommendationConcertsResponseV1s: ConcertBased[];
 };
 
 export type GetConcertListProps = {
   genre: "서양음악(클래식)" | "무용" | null;
-  // direction: string;
   page: number;
   size: number;
 };
@@ -32,6 +34,11 @@ export type GetConcertListResponse = {
     size: number;
   };
   refreshed: boolean;
+};
+
+export type GetConcertInfiniteResponse = {
+  pageParams: number[];
+  pages: GetConcertListResponse[];
 };
 
 export type AutoCompleteSearchCard = {
@@ -64,4 +71,15 @@ export type GetSearchProps = {
   query: string;
   page: number;
   size: number;
+};
+
+export type GetConcertFiltersProps = {
+  minPrice?: number;
+  maxPrice?: number;
+  area?: string;
+  startDate?: string;
+  endDate?: string;
+  page: number;
+  size: number;
+  categories?: string[];
 };
