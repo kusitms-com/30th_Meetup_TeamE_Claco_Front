@@ -8,3 +8,4 @@ export type * from "./modal";
 export type * from "./preference";
 export type * from "./show";
 export type * from "./category";
+export type * from "./search";

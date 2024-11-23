@@ -29,8 +29,3 @@ export const CategoryTag = ({ categoryType, className }: CategoryTagProps) => {
     </div>
   );
 };
-/**
- * 사용 예시
- * <CategoryTag categoryType={data.genrenm} />
- *
- */

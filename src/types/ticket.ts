@@ -8,16 +8,6 @@ export type SearchBarProps = {
   placeholder: string;
 };
 
-export type SearchCardProps = {
-  id?: number;
-  title: string;
-  date: string;
-  onClick?: () => void;
-  className?: string;
-  categoryType: "classical" | "dance";
-  searchKeyWord?: string;
-};
-
 export type KeywordTagProps = {
   selectedTags: string[];
   onTagClick: (tag: string) => void;

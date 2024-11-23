@@ -1,8 +1,8 @@
 export type Show = {
   id: number;
   posterImage: string;
-  showType: "dance" | "classical";
-  status: "upcoming" | "inProgress" | "completed";
+  showType: string;
+  status: string;
   defaultLiked: boolean;
   title: string;
   location: string;
@@ -22,7 +22,7 @@ export type ShowFilterProps = {
     price: string,
     location: string,
     date: string,
-    feature: string,
+    feature: string
   ) => void;
 };
 
@@ -36,11 +36,18 @@ export type ClacoPickProps = {
   picks: { imageSrc: string; title: string }[];
 };
 
+export type TabMenuItem = {
+  value: TabMenu;
+  label: string;
+};
+
+export type TabMenu = "서양음악(클래식)" | "무용" | null;
+
 export type ShowFilterTabProps = {
-  activeTab: string;
-  onTabClick: (tab: string) => void;
+  activeTab: TabMenu;
+  onTabClick: (tab: TabMenu) => void;
   className?: string;
-}
+};
 
 export type ShowDetailCheckResponse = {
   code: string;
@@ -91,7 +98,7 @@ export type DaysMapType = {
 };
 
 export type PricesMapType = {
-[seat: string]: string | number;
+  [seat: string]: string | number;
 };
 
 export type ConcertBased = {
@@ -102,7 +109,7 @@ export type ConcertBased = {
   fcltynm: string;
   prfpdfrom: string;
   prfpdto: string;
-}
+};
 
 export type ConcertBasedResponse = {
   code: string;

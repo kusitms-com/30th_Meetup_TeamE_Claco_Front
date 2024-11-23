@@ -4,7 +4,7 @@ import { SearchBar } from "@/components/common/Search/Bar";
 import { SearchCard } from "@/components/common/Search/Card";
 import { Progress } from "@/components/ui/progress";
 import { useDebouncedState } from "@/hooks/utils";
-import { SearchCardProps } from "@/types";
+import { AutoCompleteSearchCard } from "@/types";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -28,34 +28,33 @@ export const TicketSearchPage = () => {
     setQuery(e.target.value);
   };
 
-  const handleShowClick = (id: number) => {
-    setSelectedShow(id);
-  };
-
-  const shows: SearchCardProps[] = [
+  //자동 완성 검색 결과 테스트 데이터
+  const shows: AutoCompleteSearchCard[] = [
     {
-      id: 1,
-      title: "유니버설발레단 (호두까기인형) - 대구",
-      date: "2024.11.26. (화) ~ 2024.11.27. (수)",
-      categoryType: "dance",
+      id: 27,
+      mt20id: "aaa",
+      prfnm: "제목",
+      prfpdfrom: "시작일",
+      prfpdto: "종료일",
+      genrenm: "서양음악(클래식)",
     },
     {
-      id: 2,
-      title: "2024 호두겨울클래식 (조성현X함경 듀오 리사이틀)",
-      date: "2024.11.26. (화) ~ 2024.11.27. (수)",
-      categoryType: "classical",
+      id: 28,
+      mt20id: "aaa",
+      prfnm: "제목",
+      prfpdfrom: "시작일",
+      prfpdto: "종료일",
+      genrenm: "서양음악(클래식)",
     },
     {
-      id: 3,
-      title: "2024 류경희드림호두댄스 정기공연",
-      date: "2024.11.26. (화) ~ 2024.11.27. (수)",
-      categoryType: "classical",
+      id: 29,
+      mt20id: "aaa",
+      prfnm: "제목",
+      prfpdfrom: "시작일",
+      prfpdto: "종료일",
+      genrenm: "서양음악(클래식)",
     },
   ];
-
-  const filteredShows = shows.filter((show) =>
-    show.title.toLowerCase().includes(debouncedQuery.toLowerCase()),
-  );
 
   return (
     <div className="relative flex flex-col h-screen px-[24px] pt-[46px] pb-[60px]">
@@ -82,17 +81,10 @@ export const TicketSearchPage = () => {
         <div
           className={`flex flex-col gap-[11px] ${query === "" ? "hidden" : ""}`}
         >
-          {filteredShows.map((show) => (
-            <SearchCard
-              key={show.id}
-              onClick={() => handleShowClick(show.id!)}
-              className={`cursor-pointer ${
-                selectedShow === show.id ? "border-grayscale-80" : ""
-              }`}
-              title={show.title}
-              date={show.date}
-              categoryType={show.categoryType}
-            />
+          {shows.map((show) => (
+            <div onClick={() => setSelectedShow(show.id)} key={show.id}>
+              <SearchCard data={show} searchKeyWord={debouncedQuery} />
+            </div>
           ))}
         </div>
         <div className="sticky bottom-0 h-[102px] w-full bg-gradient-to-b from-transparent to-[#1C1C1C] pointer-events-none" />

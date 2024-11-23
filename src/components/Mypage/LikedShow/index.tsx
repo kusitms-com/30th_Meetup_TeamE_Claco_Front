@@ -3,10 +3,37 @@ import { ShowFilterTab } from "@/components/common/ShowFilterTab";
 import { ShowSummaryCard } from "@/components/common/ShowSummaryCard";
 import { useEffect, useState } from "react";
 import { useDebouncedState } from "@/hooks/utils";
-import { initialShowData } from "@/components/common/ShowSummaryCard/const";
+import { TabMenu } from "@/types";
+
+const TEST_DATA = [
+  {
+    id: 61,
+    mt20id: "string",
+    prfnm: "string",
+    prfpdfrom: "시작일",
+    prfpdto: "종료일",
+    fcltynm: "string",
+    poster: "string",
+    genrenm: "string",
+    prfstate: "string",
+    categories: [],
+  },
+  {
+    id: 62,
+    mt20id: "string",
+    prfnm: "string",
+    prfpdfrom: "시작일",
+    prfpdto: "종료일",
+    fcltynm: "string",
+    poster: "string",
+    genrenm: "string",
+    prfstate: "string",
+    categories: [],
+  },
+];
 
 export const LikedShow = () => {
-  const [activeTab, setActiveTab] = useState<string>("전체");
+  const [activeTab, setActiveTab] = useState<TabMenu>(null);
   const [query, setQuery] = useState<string>("");
   const debouncedQuery = useDebouncedState(query, 1000);
 
@@ -14,7 +41,7 @@ export const LikedShow = () => {
     setQuery(e.target.value.trim());
   };
 
-  const handleTabClick = (tab: string) => {
+  const handleTabClick = (tab: TabMenu) => {
     setActiveTab(tab);
   };
 
@@ -38,8 +65,8 @@ export const LikedShow = () => {
         />
       </div>
       <div className="flex flex-col gap-[29px]">
-        {initialShowData.map((show) => (
-          <ShowSummaryCard key={show.id} {...show} />
+        {TEST_DATA.map((show) => (
+          <ShowSummaryCard key={show.id} data={show} />
         ))}
       </div>
     </div>

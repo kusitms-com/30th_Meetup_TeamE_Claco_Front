@@ -110,7 +110,7 @@ const ShowOverview = ({
               <span>{prfprice}</span>
             </div>
           </div>
-          <div className="underline caption-12 text-grayscale-70 cursor-pointer">
+          <div className="underline cursor-pointer caption-12 text-grayscale-70">
             예매하러가기
           </div>
         </div>
