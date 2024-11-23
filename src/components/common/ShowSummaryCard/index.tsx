@@ -1,5 +1,6 @@
 import { ReactComponent as Heart } from "@/assets/svgs/Heart.svg";
 import { CategoryTag } from "@/components/common/CategoryTag";
+import { Skeleton } from "@/components/ui/skeleton";
 import { extractDateRange } from "@/hooks/utils";
 import { ShowSummaryCardProps } from "@/types";
 import { useState } from "react";
@@ -69,4 +70,8 @@ export const ShowSummaryCard = ({ data }: ShowSummaryCardProps) => {
       </div>
     </div>
   );
+};
+
+ShowSummaryCard.Skeleton = () => {
+  return <Skeleton className="h-[179px] w-full flex-shrink-0 rounded-[3px]" />;
 };
