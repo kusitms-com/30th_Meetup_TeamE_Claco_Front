@@ -16,6 +16,7 @@ export const TicketSearchPage = () => {
   const navigate = useNavigate();
 
   const handleBackClick = () => {
+    localStorage.removeItem("clacoBookId");
     navigate("/ticketbook");
   };
 

@@ -9,6 +9,8 @@ import { useEffect, useState } from "react";
 import { Calendar } from "@/components/common/Calendar";
 import { SearchCard } from "@/components/common/Search/Card";
 import { Modal } from "@/components/common/Modal";
+import useGetShowDetail from "@/hooks/queries/useGetShowDetail";
+import extractShowTime from "@/hooks/utils/extractShowTime";
 
 const TEST_DATA = {
   id: 2,
@@ -23,6 +25,56 @@ export const TicketInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
+  const { data, isLoading } = useGetShowDetail(865);
+  const showDetail = data?.result;
+
+  const showTimesByDate = extractShowTime({
+    prfpdfrom: showDetail?.prfpdfrom || "",
+    prfpdto: showDetail?.prfpdto || "",
+    dtguidance: showDetail?.dtguidance || "",
+  });
+
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedShowTime, setSelectedShowTime] = useState<string | null>(null);
+  const [availableShowTimes, setAvailableShowTimes] = useState<
+    { time: string }[]
+  >([]);
+  const [seatValue, setSeatValue] = useState<string>("");
+  const [castingList, setCastingList] = useState<string[]>([]);
+  const [newCasting, setNewCasting] = useState<string>("");
+  const [isAdding, setIsAdding] = useState<boolean>(false);
+  const [isValid, setIsValid] = useState<boolean>(false);
+
+  const formatToYYYYMMDD = (date: Date | null): string => {
+    if (!date) return "";
+    const year = date.getFullYear();
+    const month = String(date.getMonth() + 1).padStart(2, "0");
+    const day = String(date.getDate()).padStart(2, "0");
+    return `${year}-${month}-${day}`;
+  };
+
+  const formattedDate = formatToYYYYMMDD(selectedDate);
+
+  useEffect(() => {
+    if (selectedDate) {
+      const dateString = formatToYYYYMMDD(selectedDate);
+
+      setAvailableShowTimes(showTimesByDate[dateString] || []);
+      setSelectedShowTime(null);
+
+      if (showDetail?.prfcast) {
+        const castArray = showDetail.prfcast
+          .split(",")
+          .map((name) => name.trim());
+        setCastingList(castArray);
+      }
+    }
+  }, [selectedDate]);
+
+  useEffect(() => {
+    setIsValid(selectedShowTime !== null && castingList.length > 0);
+  }, [selectedShowTime, castingList]);
+
   const handleOpenModal = () => {
     setIsModalOpen(true);
   };
@@ -36,42 +88,21 @@ export const TicketInfoPage = () => {
   };
 
   const handleConfirmClick = () => {
+    localStorage.setItem("showDate", formattedDate);
+    localStorage.setItem("showTime", JSON.stringify(selectedShowTime));
+    localStorage.setItem("showPlace", JSON.stringify(showDetail?.fcltynm));
+    localStorage.setItem("seat", JSON.stringify(seatValue));
+    localStorage.setItem("castingList", JSON.stringify(castingList));
     navigate("/ticketcreate/review");
   };
 
-  const showTimesByDate: { [key: string]: { time: string }[] } = {
-    "2024-11-26": [{ time: "13:30" }, { time: "19:30" }],
-    "2024-11-27": [{ time: "15:00" }, { time: "20:00" }],
-  };
-
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
-  const [selectedShowTime, setSelectedShowTime] = useState<string | null>(null);
-  const [availableShowTimes, setAvailableShowTimes] = useState<
-    { time: string }[]
-  >([]);
-  const [castingList, setCastingList] = useState<string[]>(["조성진"]);
-  const [newCasting, setNewCasting] = useState<string>("");
-  const [isAdding, setIsAdding] = useState<boolean>(false);
-  const [isValid, setIsValid] = useState<boolean>(false);
-
-  useEffect(() => {
-    setIsValid(selectedShowTime !== null && castingList.length > 0);
-  }, [selectedShowTime, castingList]);
-
-  useEffect(() => {
-    if (selectedDate) {
-      const year = selectedDate.getFullYear();
-      const month = String(selectedDate.getMonth() + 1).padStart(2, "0");
-      const day = String(selectedDate.getDate()).padStart(2, "0");
-      const dateString = `${year}-${month}-${day}`;
-
-      setAvailableShowTimes(showTimesByDate[dateString] || []);
-      setSelectedShowTime(null);
-    }
-  }, [selectedDate]);
-
   const handleShowTimeClick = (time: string) => {
     setSelectedShowTime(time);
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value;
+    setSeatValue(value);
   };
 
   const handleAddCasting = () => {
@@ -90,6 +121,10 @@ export const TicketInfoPage = () => {
     setIsAdding(false);
     setNewCasting("");
   };
+
+  if (isLoading) {
+    return <div>로딩중</div>;
+  }
 
   return (
     <div className="relative flex flex-col min-h-screen px-[24px] pt-[46px] pb-[60px]">
@@ -111,7 +146,10 @@ export const TicketInfoPage = () => {
         <Modal
           positiveButtonText="확인"
           negativeButtonText="취소"
-          onPositiveButtonClick={() => navigate("/ticketbook")}
+          onPositiveButtonClick={() => {
+            localStorage.removeItem("clacoBookId");
+            navigate("/ticketbook");
+          }}
           onNegativeButtonClick={handleCloseModal}
         >
           <div className="flex flex-col items-center justify-center mt-[13px] mb-[30px]">
@@ -126,6 +164,14 @@ export const TicketInfoPage = () => {
       )}
 
       <div className="mt-[37px]">
+        {/* <SearchCard
+          title={showDetail?.prfnm || "공연 이름 없음"}
+          date={extractDateRange(
+            showDetail?.prfpdfrom || "",
+            showDetail?.prfpdto || "",
+          )}
+          categoryType="dance"
+        /> */}
         {/* 여기서는 검색키워드 따로 없이 선택된 공연 보여주는 용이라 그냥 빈 값 넣으면 될듯 */}
         <SearchCard data={TEST_DATA} searchKeyWord="" />
         <div className="flex flex-col mt-[37px] mb-[62px] gap-[27px]">
@@ -138,8 +184,7 @@ export const TicketInfoPage = () => {
           <Calendar
             selectedDate={selectedDate}
             onDateSelect={(date) => setSelectedDate(date)}
-            startDate={new Date(2024, 10, 26)}
-            endDate={new Date(2024, 10, 27)}
+            showTimesByDate={showTimesByDate}
           />
         </div>
 
@@ -176,7 +221,7 @@ export const TicketInfoPage = () => {
               </div>
               <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
                 <span className="body2-medium text-grayscale-80">
-                  세종 문화 회관
+                  {showDetail?.fcltynm}
                 </span>
               </div>
             </div>
@@ -189,7 +234,11 @@ export const TicketInfoPage = () => {
                 <span className="body2-medium text-grayscale-60">(선택)</span>
               </div>
               <div className="rounded-[7px] flex items-center gap-[10px] bg-grayscale-30 p-4">
-                <input className="flex w-full outline-none body2-medium text-grayscale-60 bg-grayscale-30" />
+                <input
+                  value={seatValue}
+                  className="flex w-full outline-none body2-medium text-grayscale-60 bg-grayscale-30"
+                  onChange={handleChange}
+                />
               </div>
             </div>
           </>

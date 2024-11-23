@@ -5,6 +5,7 @@ import { LikedShow } from "@/components/Mypage/LikedShow";
 import { PreferenceAnalysis } from "@/components/Mypage/PreferenceAnalysis";
 import { PreferenceSettings } from "@/components/Mypage/PreferenceAnalysis/PreferenceSettings";
 import { UserSettings } from "@/components/Mypage/UserSettings";
+import { useUserStore } from "@/libraries/store/user";
 import { useState } from "react";
 
 export const MyPage = () => {
@@ -12,6 +13,7 @@ export const MyPage = () => {
   const [isPreferenceSettingsOpen, setIsPreferenceSettingsOpen] =
     useState(false);
   const [isUserSettingsOpen, setIsUserSettingsOpen] = useState(false);
+  const nickname = useUserStore((state) => state.nickname);
 
   const tabs = ["나의 취향 분석", "좋아요한 공연"];
 
@@ -66,7 +68,7 @@ export const MyPage = () => {
                 </div>
               </div>
 
-              <span className="headline2-bold text-white">달보라</span>
+              <span className="headline2-bold text-white">{nickname}</span>
             </div>
           </div>
           <div className="w-full flex flex-col items-center justify-center mb-[23px]">

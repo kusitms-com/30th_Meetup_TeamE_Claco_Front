@@ -3,19 +3,13 @@ import { ReactComponent as BackArrow } from "@/assets/svgs/BackArrow.svg";
 import { ReactComponent as Download } from "@/assets/svgs/download.svg";
 import { useNavigate } from "react-router-dom";
 import { ClacoTicket } from "@/components/common/ClacoTicket";
-import { REVIEW_MOCK_DATA_type } from "@/components/Main/Analysis/TicketRecommend";
 import { useEffect, useRef, useState } from "react";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import { Toast } from "@/libraries/toast/Toast";
 import { DownLoadModal } from "@/components/Ticket/Modal/DownLoad";
-
-const REVIEW_MOCK_DATA: REVIEW_MOCK_DATA_type = {
-  title: "히사이시조",
-  username: "밍밍보따리",
-  review:
-    "전문 무용수들의 실력이 눈부시게 빛났습니다. 지젤 역을 맡은 발레리나의 날렵한 동작과 뛰어난 연기는 보는 이의 마음을 울렸습니다. 특히, 2막의 윌리들의 군무는 환상적이었고, 유령들의 통일성이 돋보였습니다. 모든 출연진이 하나가 되어 춤출 때, 진한 감동이 전해졌습니다.",
-};
+import { usePutTicketImage } from "@/hooks/mutation";
+import useGetTicketReviewDetail from "@/hooks/queries/useGetTicketReviewDetail";
 
 export const TicketDownloadPage = () => {
   const navigate = useNavigate();
@@ -23,6 +17,12 @@ export const TicketDownloadPage = () => {
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [toast, setToast] = useState<boolean>(false);
 
+  const { mutate: uploadTicketImage } = usePutTicketImage();
+  const ticketReviewId = Number(localStorage.getItem("ticketReviewId"));
+  const { data, isLoading } = useGetTicketReviewDetail(ticketReviewId);
+  const ticketReviewDetail = data?.result;
+  const ticketBookId = localStorage.getItem("clacoBookId");
+  
   const convertToImageAndUpload = async () => {
     if (!ticketRef.current) return;
 
@@ -39,27 +39,37 @@ export const TicketDownloadPage = () => {
         canvas.toBlob((blob) => resolve(blob!), "image/png", 1.0);
       });
 
-      const formData = new FormData();
-      formData.append("ticket", blob, "ticket.png");
-
-      for (const i of formData.entries()) {
-        console.log(i);
+      if (!blob) {
+        throw new Error("이미지 Blob 생성에 실패했습니다.");
       }
+
+      uploadTicketImage({
+        id: ticketReviewId,
+        file: new File([blob], "ticket.png", { type: "image/png" }),
+      });
     } catch (error) {
       console.error("티켓 이미지 변환/업로드 실패:", error);
     }
   };
 
   useEffect(() => {
-    convertToImageAndUpload();
-  }, []);
+    if (!isLoading && ticketReviewDetail) {
+      const timer = setTimeout(() => {
+        convertToImageAndUpload();
+      }, 1000);
+  
+      return () => clearTimeout(timer);
+    }
+  }, [isLoading, ticketReviewDetail]);
 
   const handleBackClick = () => {
-    navigate("/show/1/reviews/1");
+    // navigate(`/show/${showId}/reviews/${ticketReviewId}`);
+    localStorage.removeItem("ticketReviewId");
   };
 
   const handleConfirmClick = () => {
-    navigate("/ticketbook/1");
+    navigate(`/ticketbook/${ticketBookId}`);
+    localStorage.removeItem("clacoBookId");
   };
 
   const handleModalOpen = () => {
@@ -118,7 +128,12 @@ export const TicketDownloadPage = () => {
         </div>
         <div className="mb-[24px] flex items-center justify-center mt-[31px] relative overflow-hidden">
           <div ref={ticketRef} className="z-10">
-            <ClacoTicket data={REVIEW_MOCK_DATA} />
+            <ClacoTicket
+              watchDate={ticketReviewDetail?.watchDate || ""}
+              concertName={ticketReviewDetail?.concertName || ""}
+              watchPlace={ticketReviewDetail?.watchPlace || ""}
+              concertTags={ticketReviewDetail?.concertTags || []}
+            />
           </div>
           <div className="absolute bottom-0 w-screen h-[269px] bg-gradient-to-t from-[#DB5F35]/30 to-[#F7B29D]/0" />
         </div>

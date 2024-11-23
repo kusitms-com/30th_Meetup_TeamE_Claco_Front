@@ -15,7 +15,7 @@ import type { Swiper as SwiperType } from "swiper";
 import html2canvas from "html2canvas";
 import { saveAs } from "file-saver";
 import { createRef, useEffect, useRef, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { Toast } from "@/libraries/toast/Toast";
 import { MoveModal } from "@/components/Ticket/Modal/Move";
 import { DeleteClacoTicketModal } from "@/components/Ticket/Modal/Delete/ClacoTicket";
@@ -43,6 +43,7 @@ export const ClacoBookDetailPage = () => {
 
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("title");
+  const { id } = useParams();
 
   const ticketRefs = useRef(CLACO_IMAGE.map(() => createRef<HTMLDivElement>()));
   const [currentClacoBook, setCurrentClacoBook] = useState<string>("");
@@ -70,6 +71,7 @@ export const ClacoBookDetailPage = () => {
   };
 
   const gotoTicketCreate = () => {
+    localStorage.setItem("clacoBookId", id?.toString() || "" );
     navigate("/ticketcreate/search");
   };
 
