@@ -10,7 +10,6 @@ export const ReviewDetailPage = () => {
   const { reviewId } = useParams<{ reviewId: string }>();
   const reviewId_ = Number(reviewId);
   const { data: reviewList } = useGetConcertReviewDetail(reviewId_);
-  console.log(reviewList);
 
   const {
     thumbsSwiper,

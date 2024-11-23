@@ -46,10 +46,10 @@ const useGetConcertFilters = ({
   endDate,
   size = 9,
   categories,
-}: Omit<GetConcertFiltersProps, "page">): UseInfiniteQueryResult<
-  GetConcertInfiniteResponse,
-  AxiosError
-> => {
+  enabled = true,
+}: Omit<GetConcertFiltersProps, "page"> & {
+  enabled?: boolean;
+}): UseInfiniteQueryResult<GetConcertInfiniteResponse, AxiosError> => {
   return useInfiniteQuery({
     queryKey: [
       "concert-filter",
@@ -79,6 +79,7 @@ const useGetConcertFilters = ({
       const nextPage = allPages.length + 1;
       return nextPage <= totalPages ? nextPage : undefined;
     },
+    enabled,
   });
 };
 

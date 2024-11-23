@@ -41,7 +41,6 @@ const useShowFilter = (): UseShowFilterReturn => {
   };
 
   const handleRefreshClick = () => {
-    localStorage.removeItem("filterObj");
     setFilterState({
       priceRange: "",
       selectedLocation: "",

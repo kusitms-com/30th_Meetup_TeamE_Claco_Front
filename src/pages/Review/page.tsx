@@ -9,8 +9,7 @@ import {
   useThumbnailModal,
 } from "@/hooks/utils";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
-import { OrederByType } from "@/types";
-import { SelectThumbnail } from "@/hooks/utils/useThumbnailModal";
+import { OrederByType, SelectThumbnail } from "@/types";
 import {
   useGetConcertReviewList,
   useGetConcertReviewSize,

@@ -35,6 +35,14 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
     return () => clearTimeout(timer);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "unset";
+    };
+  }, []);
+
   const handleClose = () => {
     setIsVisible(false);
     setTimeout(onClose, 1000);
@@ -64,10 +72,12 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
       minPrice: minPrice,
       maxPrice: maxPrice,
       selectedLocation: selectedLocation,
-      dateRange: dateRange,
+      rangeStart: rangeStart,
+      rangeEnd: rangeEnd,
       selectedFeatures: selectedFeatures,
     };
-    localStorage.setItem("filterObj", JSON.stringify(filterObj));
+    console.log(filterObj);
+    sessionStorage.setItem("filterObj", JSON.stringify(filterObj));
   };
 
   const handleLocationClick = (location: string) => {
@@ -176,7 +186,15 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
         <ConfirmButton
           isChecked={true}
           onClick={handleApply}
-          className="w-full"
+          className={`w-full ${minPrice === 0 && maxPrice === 0 && selectedFeatures.length === 0 && selectedLocation.length === 0 && rangeStart === null && rangeEnd === null ? "opacity-30" : ""}`}
+          disabled={
+            minPrice === 0 &&
+            maxPrice === 0 &&
+            selectedFeatures.length === 0 &&
+            selectedLocation.length === 0 &&
+            rangeStart === null &&
+            rangeEnd === null
+          }
         >
           적용하기
         </ConfirmButton>
