@@ -3,27 +3,42 @@ import { ReactComponent as Plus } from "@/assets/svgs/plus.svg";
 import { ReactComponent as Trash } from "@/assets/svgs/trash.svg";
 import { ReactComponent as Edit } from "@/assets/svgs/Edit.svg";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ClacoBook, ClacoBookType } from "@/components/Ticket/ClacoBook";
 import { CreateEditModal } from "@/components/Ticket/Modal/CreateEdit";
 import { DeleteClacoBookModal } from "@/components/Ticket/Modal/Delete/ClacoBook";
 import { Toast } from "@/libraries/toast/Toast";
 import { useNavigate } from "react-router-dom";
 import useGetClacoBookList from "@/hooks/queries/useGetClacoBookList";
+import {
+  useDeleteClacoBook,
+  usePostCreateClacoBook,
+  usePutEditClacoBook,
+} from "@/hooks/mutation";
 
 export const ClacoBookPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [action, setAction] = useState<string>("");
   const [toast, setToast] = useState(false);
+  const [message, setMessage] = useState("");
   const [selectClacoBook, setSelectClacoBook] = useState<ClacoBookType | null>(
-    null,
+    null
   );
 
   const { data, isLoading } = useGetClacoBookList();
+  useEffect(() => {
+    if (data && !isLoading) {
+      setSelectClacoBook(data.result.clacoBookList[0]);
+    }
+  }, [data, isLoading]);
   const clacoBookList = Array.isArray(data?.result?.clacoBookList)
     ? data?.result?.clacoBookList
     : [];
+
+  const { mutate: createClacoBook } = usePostCreateClacoBook();
+  const { mutate: deleteClacoBook } = useDeleteClacoBook();
+  const { mutate: editClacoBook } = usePutEditClacoBook();
 
   const navigate = useNavigate();
 
@@ -35,24 +50,70 @@ export const ClacoBookPage = () => {
     setIsModalOpen(false);
   };
 
-  const handleConfirm = (newData: ClacoBookType) => {
-    console.log(newData);
-    setIsModalOpen(false);
-    setIsEditing(false);
-    setToast(true);
+  const handleConfirmCreate = (newData: ClacoBookType) => {
+    createClacoBook(
+      {
+        id: null,
+        title: newData.title,
+        color: newData.color,
+      },
+      {
+        onSuccess: (res) => {
+          setIsEditing(false);
+          setToast(true);
+          if (res.code === "COM-000") {
+            setMessage("클라코북 추가가 완료되었어요");
+            setIsModalOpen(false);
+          } else if (res.code === "CLB-010") {
+            setMessage("클라코북은 최대 5개까지만 보유할 수 있어요");
+            setIsModalOpen(false);
+          }
+        },
+        onError: (error) => {
+          console.error(error);
+        },
+      }
+    );
+  };
+
+  const handleConfirmEdit = (newData: ClacoBookType) => {
+    editClacoBook(
+      {
+        id: newData.id,
+        title: newData.title,
+        color: newData.color,
+      },
+      {
+        onSuccess: (res) => {
+          setIsEditing(false);
+          setToast(true);
+          if (res.code === "COM-000") {
+            setMessage("클라코북 수정이 완료되었어요");
+            setIsModalOpen(false);
+          } else if (res.code === "CLB-001") {
+            setMessage("클라코북을 수정하는데 실패했어요");
+            setIsModalOpen(false);
+          }
+        },
+        onError: (error) => {
+          console.error(error);
+        },
+      }
+    );
   };
 
   const handleDelete = (clacoBookId: number) => {
-    console.log(clacoBookId);
-    setIsModalOpen(false);
-    setToast(true);
-    setIsEditing(false);
+    deleteClacoBook(clacoBookId, {
+      onSuccess: () => {
+        setIsModalOpen(false);
+        setToast(true);
+        setMessage("클라코북 삭제가 완료되었어요");
+        setIsEditing(false);
+      },
+    });
   };
 
   const handleButtonClick = (action: string) => {
-    console.log(action);
-    console.log(selectClacoBook);
-
     setAction(action);
     if (action !== "add") setIsEditing(true);
     else handleOpenModal();
@@ -111,13 +172,16 @@ export const ClacoBookPage = () => {
       {clacoBookList.length !== 0 ? (
         <>
           <div className="pb-[100px]">
-            <RadioGroup defaultValue={"1"} className="flex flex-col gap-[35px]">
+            <RadioGroup
+              defaultValue={String(selectClacoBook?.id)}
+              className="flex flex-col gap-[35px]"
+            >
               {clacoBookList.map((book) => (
                 <div
                   key={book.id}
                   onClick={() => {
                     if (!isEditing) {
-                      handleClacoBookDetail(book.id, book.title);
+                      handleClacoBookDetail(book.id as number, book.title);
                     }
                   }}
                 >
@@ -150,25 +214,16 @@ export const ClacoBookPage = () => {
                   clacoBook={action === "edit" ? selectClacoBook : null}
                   action={action}
                   onClose={handleCloseModal}
-                  onConfirm={handleConfirm}
+                  onConfirm={
+                    action == "add" ? handleConfirmCreate : handleConfirmEdit
+                  }
                 />
               )}
             </>
           )}
 
           {/* 토스트 영역 */}
-          {toast && (
-            <Toast
-              setToast={setToast}
-              message={
-                action === "add"
-                  ? "클라코북 추가 완료"
-                  : action === "edit"
-                    ? "클라코북 수정이 완료되었어요"
-                    : "클라코북 삭제가 완료되었어요"
-              }
-            />
-          )}
+          {toast && <Toast setToast={setToast} message={message} />}
         </>
       ) : (
         <div className="flex flex-col items-center justify-center">

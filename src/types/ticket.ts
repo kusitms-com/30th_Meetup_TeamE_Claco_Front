@@ -80,7 +80,7 @@ export type TicketReview = {
 };
 
 export type ClacoBookList = {
-  id: number;
+  id: number | null;
   title: string;
   color: string;
 };
