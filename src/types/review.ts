@@ -41,7 +41,7 @@ export type ReviewCardProps = {
 export type TicketReviewRequest = {
   ticketReviewId?: number;
   concertId: number;
-  clacoBookId: number;
+  clacoBookId?: number;
   watchDate: string;
   watchRound: string;
   watchSit: string;

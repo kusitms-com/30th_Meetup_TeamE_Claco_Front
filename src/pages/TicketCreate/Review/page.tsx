@@ -82,7 +82,12 @@ export const TicketReviewPage = () => {
   const handleConfirmClick = () => {
     if (!isComplete) return;
 
-    const clacoBookId = Number(localStorage.getItem("clacoBookId"));
+    let clacoBookId;
+
+    if (localStorage.getItem("clacoBookId")) {
+      clacoBookId = Number(localStorage.getItem("clacoBookId"));
+    }
+
 
     const selectedPlaceReview: PlaceCategory[] = [
       selectedSoundTag,
@@ -105,7 +110,7 @@ export const TicketReviewPage = () => {
       )
       .filter((category): category is TagCategory => category !== undefined);
     const request: TicketReviewRequest = {
-      concertId: 435,
+      concertId: 865,
       clacoBookId: clacoBookId,
       watchDate: localStorage.getItem("showDate") || "",
       watchRound: localStorage.getItem("showTime") || "",

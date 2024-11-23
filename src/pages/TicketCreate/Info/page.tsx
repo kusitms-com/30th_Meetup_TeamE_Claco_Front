@@ -17,7 +17,7 @@ export const TicketInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { data, isLoading } = useGetShowDetail(714);
+  const { data, isLoading } = useGetShowDetail(865);
   const showDetail = data?.result;
 
   const showTimesByDate = extractShowTime({
