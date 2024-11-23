@@ -33,7 +33,7 @@ export const ReviewSummaryCard = ({
         </div>
       </div>
 
-      <span className="body2-semibold text-white leading-none tracking-[-0.28px]">
+      <span className="max-h-[50px] line-clamp-2 body2-semibold text-white tracking-[-0.28px]">
         {content}
       </span>
     </div>

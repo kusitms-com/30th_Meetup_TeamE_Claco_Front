@@ -31,7 +31,7 @@ export const VerticalInfoCard = ({
         <div className="body2-medium text-grayscale-70">
           <div className="flex items-center">
             <Location_Gray />
-            <span>{location}</span>
+            <span className="truncate max-w-[150px]">{location}</span>
           </div>
           <div className="flex items-center">
             <Calendar />
