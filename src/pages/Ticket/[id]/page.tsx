@@ -13,7 +13,7 @@ import { Modal } from "@/components/common/Modal";
 import { ThumbnailModal } from "@/components/common/Modal/ThumbnailModal";
 import { TicketReviewDetailRequest } from "@/types";
 import { useGetTicketReviewDetail } from "@/hooks/queries";
-import { usePutEditTicketReview } from "@/hooks/mutation";
+import { useDeleteClacoTicket, usePutEditTicketReview } from "@/hooks/mutation";
 import { useReviewInfoStore } from "@/libraries/store/reviewInfo";
 
 export const ClacoTicketDetailPage = () => {
@@ -23,6 +23,7 @@ export const ClacoTicketDetailPage = () => {
 
   const { data, isLoading } = useGetTicketReviewDetail(ticketId);
   const { mutate: editClacoTicketReview } = usePutEditTicketReview();
+  const { mutate: deleteClacoTicket } = useDeleteClacoTicket();
 
   const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
@@ -72,6 +73,18 @@ export const ClacoTicketDetailPage = () => {
     editClacoTicketReview(editData, {
       onSuccess: () => {
         setIsEditModalOpen(false);
+      },
+      onError: (error) => {
+        console.error(error);
+      },
+    });
+  };
+
+  const handleDeleteTicketReview = () => {
+    deleteClacoTicket(ticketId, {
+      onSuccess: () => {
+        setIsModalOpen(false);
+        navigate("/ticketbook");
       },
       onError: (error) => {
         console.error(error);
@@ -228,7 +241,7 @@ export const ClacoTicketDetailPage = () => {
       {isModalOpen && (
         <DeleteClacoTicketModal
           onClose={() => setIsModalOpen(false)}
-          onConfirm={() => null}
+          onConfirm={handleDeleteTicketReview}
         />
       )}
       {isEditModalOpen && (
