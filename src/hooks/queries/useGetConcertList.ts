@@ -34,15 +34,18 @@ const useGetConcertsList = ({
 > => {
   return useInfiniteQuery({
     queryKey: ["concert-data", genre],
-    queryFn: ({ pageParam }) =>
+    queryFn: ({ pageParam = 1 }) =>
       getConcertsList({ genre, page: pageParam, size }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       const totalPages = Math.ceil(
         lastPage.result.totalCount / lastPage.result.size
       );
-      const nextPage = allPages.length + 1;
-      return nextPage <= totalPages ? nextPage : undefined;
+      const currentPage = allPages.length;
+      if (currentPage < totalPages) {
+        return currentPage + 1;
+      }
+      return undefined;
     },
   });
 };

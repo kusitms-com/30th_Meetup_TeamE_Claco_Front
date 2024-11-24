@@ -5,7 +5,6 @@ import { AxiosError } from "axios";
 
 const getClacoBookList = async (): Promise<ClacoBookListResponse> => {
   const response = await client.get<ClacoBookListResponse>("/claco-books");
-  console.log(response.data);
   return response.data;
 };
 

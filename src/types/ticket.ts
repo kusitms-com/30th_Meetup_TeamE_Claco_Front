@@ -89,6 +89,11 @@ export type ClacoBookListResult = {
   clacoBookList: ClacoBookList[];
 };
 
+export type ClacoTicketListResult = {
+  id: number;
+  ticketImage: string;
+};
+
 export type ClacoBookListResponse = {
   code: string;
   message: string;
@@ -96,9 +101,17 @@ export type ClacoBookListResponse = {
   refreshed: boolean;
 };
 
+export type ClacoTicketListResponse = {
+  code: string;
+  message: string;
+  result: {
+    ticketList: ClacoTicketListResult[];
+  };
+  refreshed: boolean;
+};
+
 export type ClacoTicketProps = {
   watchDate: string;
   concertName: string;
-  watchPlace: string;
   concertTags: { iconUrl: string; tagName: string }[];
 };
