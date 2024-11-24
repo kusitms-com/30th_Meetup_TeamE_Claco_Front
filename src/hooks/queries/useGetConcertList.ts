@@ -38,14 +38,9 @@ const useGetConcertsList = ({
       getConcertsList({ genre, page: pageParam, size }),
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      const totalPages = Math.ceil(
-        lastPage.result.totalCount / lastPage.result.size
-      );
-      const currentPage = allPages.length;
-      if (currentPage < totalPages) {
-        return currentPage + 1;
-      }
-      return undefined;
+      return lastPage.result.currentPage !== allPages[0].result.totalPage
+        ? lastPage.result.currentPage + 1
+        : undefined;
     },
   });
 };

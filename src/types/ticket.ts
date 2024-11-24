@@ -115,3 +115,17 @@ export type ClacoTicketProps = {
   concertName: string;
   concertTags: { iconUrl: string; tagName: string }[];
 };
+
+export type EditClacoTicketReviewProps = {
+  ticketReviewId: number;
+  watchSit: string | null;
+  starRate: number | null;
+  content: string | null;
+};
+
+export type EditClacoTicketReviewResponse = {
+  code: string;
+  message: string;
+  result: EditClacoTicketReviewProps;
+  refreshed: boolean;
+};

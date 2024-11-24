@@ -5,3 +5,5 @@ export { default as usePostCreateClacoBook } from "./usePostCreateClacoBook";
 export { default as useDeleteClacoBook } from "./useDeleteClacoBook";
 export { default as usePutEditClacoBook } from "./usePutEditClacoBook";
 export { default as usePutMoveClacoTicket } from "./usePutMoveClacoTicket";
+export { default as useDeleteClacoTicket } from "./useDeleteClacoTicket";
+export { default as usePutEditTicketReview } from "./usePutEditTicketReview";

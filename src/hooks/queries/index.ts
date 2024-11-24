@@ -13,3 +13,4 @@ export { default as useGetConcertReviewSize } from "./useGetConcertReviewSize";
 export { default as useGetConcertReviewDetail } from "./useGetConcertReviewDetail";
 export { default as useGetClacoBookList } from "./useGetClacoBookList";
 export { default as useGetClacoTicketList } from "./useGetClacoTicketList";
+export { default as useGetTicketReviewDetail } from "./useGetTicketReviewDetail";

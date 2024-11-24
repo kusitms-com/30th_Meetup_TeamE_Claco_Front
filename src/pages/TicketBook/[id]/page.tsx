@@ -18,52 +18,9 @@ import { MoveModal } from "@/components/Ticket/Modal/Move";
 import { DeleteClacoTicketModal } from "@/components/Ticket/Modal/Delete/ClacoTicket";
 import { DownLoadModal } from "@/components/Ticket/Modal/DownLoad";
 import { useGetClacoBookList, useGetClacoTicketList } from "@/hooks/queries";
-import {
-  ClacoBookList,
-  ClacoTicketListResult,
-  ClacoTicketProps,
-} from "@/types";
-import { ClacoTicket } from "@/components/common/ClacoTicket";
-
-// import TEST1 from "@/assets/images/Genre/classical.png";
-// import TEST2 from "@/assets/images/Genre/delicate.png";
-// import TEST3 from "@/assets/images/Genre/familiar.png";
-// import TEST4 from "@/assets/images/Genre/lyrical.png";
-// import TEST5 from "@/assets/images/Genre/romantic.png";
-import TEST6 from "@/assets/images/Genre/dynamic.png";
-import TEST7 from "@/assets/images/Genre/grand.png";
-import TEST8 from "@/assets/images/Genre/modern.png";
-import TEST9 from "@/assets/images/Genre/novel.png";
-import TEST10 from "@/assets/images/Genre/tragic.png";
-import { usePutMoveClacoTicket } from "@/hooks/mutation";
-import useDeleteClacoTicket from "@/hooks/mutation/useDeleteClacoTicket";
-
-const dummyClacoTicket: ClacoTicketProps = {
-  watchDate: "2024-03-24",
-  concertName: "이지 하우스 콘서트: EZ HOUSE CONCERT [경산]",
-  concertTags: [
-    {
-      iconUrl: TEST6,
-      tagName: "현대적인",
-    },
-    {
-      iconUrl: TEST7,
-      tagName: "웅장한",
-    },
-    {
-      iconUrl: TEST8,
-      tagName: "새로운",
-    },
-    {
-      iconUrl: TEST9,
-      tagName: "비극적인",
-    },
-    {
-      iconUrl: TEST10,
-      tagName: "역동적인",
-    },
-  ],
-};
+import { ClacoBookList, ClacoTicketListResult } from "@/types";
+import showReview from "@/assets/images/showReview.png";
+import { useDeleteClacoTicket, usePutMoveClacoTicket } from "@/hooks/mutation";
 
 export const ClacoBookDetailPage = () => {
   const navigate = useNavigate();
@@ -240,33 +197,48 @@ export const ClacoBookDetailPage = () => {
         </>
       ) : null}
 
-      <div className="clacobook pb-[185px]">
-        <Swiper
-          pagination={true}
-          modules={[Pagination]}
-          spaceBetween={213}
-          onSlideChange={handleSlideChange}
-          onSwiper={(swiper) => {
-            setSelectTicketIndex(swiper.activeIndex);
-          }}
-          className="max-w-[240px] h-[569px] rounded-[5px] flex justify-center items-center"
-        >
-          {clacoTicket?.length === 0 ? (
-            <>
-              {/* 티켓 레이아웃 테스트를 위한 코드 */}
-              <SwiperSlide>
-                <div ref={ticketRefs[0]}>
-                  <ClacoTicket
-                    watchDate={dummyClacoTicket.watchDate}
-                    concertName={dummyClacoTicket.concertName}
-                    concertTags={dummyClacoTicket.concertTags}
-                  />
-                </div>
-              </SwiperSlide>
-            </>
-          ) : (
-            <>
-              {" "}
+      {clacoTicket?.length === 0 ? (
+        <>
+          <div className="flex flex-col items-center justify-center mt-[100px]">
+            <span className="heading2-bold text-grayscale-80">
+              공연은 즐겁게 관람하셨나요?
+            </span>
+            <div className="relative flex items-center justify-center">
+              <img
+                src={showReview}
+                alt="showReview"
+                className="object-contain mb-[53px]"
+              />
+              <div className="absolute bottom-0 flex text-center">
+                <span className="body2-regular text-grayscale-70 mb-[39px]">
+                  티켓북에 공연 감상을 등록하고
+                  <br />
+                  나만의 티켓을 만들어보세요!
+                </span>
+              </div>
+            </div>
+
+            <a
+              href="/ticketcreate/search"
+              className="rounded-[5px] px-[89px] py-[14px] text-center bg-grayscale-30 text-grayscale-80 cursor-pointer"
+            >
+              나만의 티켓 만들러 가기
+            </a>
+          </div>
+        </>
+      ) : (
+        <>
+          <div className="clacobook pb-[185px]">
+            <Swiper
+              pagination={true}
+              modules={[Pagination]}
+              spaceBetween={213}
+              onSlideChange={handleSlideChange}
+              onSwiper={(swiper) => {
+                setSelectTicketIndex(swiper.activeIndex);
+              }}
+              className="max-w-[240px] h-[569px] rounded-[5px] flex justify-center items-center"
+            >
               {clacoTicket &&
                 clacoTicket.map((image, index) => (
                   <SwiperSlide key={index}>
@@ -281,16 +253,16 @@ export const ClacoBookDetailPage = () => {
                     </div>
                   </SwiperSlide>
                 ))}
-            </>
-          )}
-        </Swiper>
-      </div>
-      <div
-        className="absolute bottom-[57px] right-[26px] w-[70px] h-[70px] bg-primary rounded-full flex justify-center items-center"
-        onClick={gotoTicketCreate}
-      >
-        <Plus viewBox="0 0 22 22" width={40} height={40} />
-      </div>
+            </Swiper>
+            <div
+              className="absolute bottom-[57px] right-[26px] w-[70px] h-[70px] bg-primary rounded-full flex justify-center items-center"
+              onClick={gotoTicketCreate}
+            >
+              <Plus viewBox="0 0 22 22" width={40} height={40} />
+            </div>
+          </div>
+        </>
+      )}
 
       {/* 모달 컴포넌트 영역 */}
       {isModalOpen && (

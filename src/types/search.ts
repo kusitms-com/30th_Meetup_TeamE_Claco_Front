@@ -32,6 +32,8 @@ export type GetConcertListResponse = {
     listPageResponse: ConcertInfo[];
     totalCount: number;
     size: number;
+    currentPage: number;
+    totalPage: number;
   };
   refreshed: boolean;
 };

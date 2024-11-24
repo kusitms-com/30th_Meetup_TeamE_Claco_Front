@@ -106,10 +106,10 @@ export type TicketReviewDetailRequest = {
   watchSit: string;
   ticketImage: string;
   concertTags: TagCategory[];
-  startRate: number;
+  starRate: number;
   content: string;
   placeReviews: PlaceCategory[];
-  imageUrlS: string[];
+  imageUrlS: Array<{ imageUrl: string }>;
   editor: boolean;
 };
 
