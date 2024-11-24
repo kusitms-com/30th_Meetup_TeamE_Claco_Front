@@ -173,7 +173,6 @@ export const ClacoBookDetailPage = () => {
     if (actionState === "move") {
       const clacoBookId = selectClacoBook.id;
       const ticketReviewId = clacoTicket && clacoTicket[selectTicketIndex].id;
-
       moveClacoTicket(
         {
           clacoBookId: clacoBookId as number,
@@ -190,7 +189,7 @@ export const ClacoBookDetailPage = () => {
       );
     } else if (actionState === "delete") {
       const ticketReviewId = clacoTicket && clacoTicket[selectTicketIndex].id;
-      console.log(ticketReviewId);
+      // console.log(ticketReviewId);
       deleteClacoTicket(ticketReviewId as number, {
         onSuccess: () => {
           setMessage("티켓이 삭제되었어요");
