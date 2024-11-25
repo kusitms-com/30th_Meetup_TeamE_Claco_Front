@@ -88,9 +88,14 @@ export type GetConcertFiltersProps = {
 
 export type GetLikedConcertListResult = {
   id: number;
+  mt20id: string;
   prfnm: string;
+  prfpdfrom: string;
+  prfpdto: string;
   genrenm: string;
+  prfstate: string;
   poster: string;
+  fcltynm: string;
   categories: ShowCategory[];
 };
 

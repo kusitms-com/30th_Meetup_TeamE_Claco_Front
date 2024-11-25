@@ -3,11 +3,13 @@ import { ConfirmButton } from "@/components/common/Button";
 import { Nickname } from "@/components/common/Nickname";
 import usePutUserInfo from "@/hooks/mutation/usePutUserInfo";
 import useGetUserInfo from "@/hooks/queries/useGetUserInfo";
+import { useUserStore } from "@/libraries/store/user";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 export const UserEditPage = () => {
-  const [nickname, setNickname] = useState<string>("");
+  const setNickname = useUserStore((state) => state.setNickname);
+  const [nickname, setLocalNickname] = useState<string>("");
   const [isChecked, setIsChecked] = useState<boolean>(false);
   const [initialProfileImage, setInitialProfileImage] = useState<string>("");
   const [profileImage, setProfileImage] = useState<File | null>(null);
@@ -19,7 +21,7 @@ export const UserEditPage = () => {
 
   useEffect(() => {
     if (userInfoData) {
-      setNickname(userInfoData.nickname);
+      setLocalNickname(userInfoData.nickname);
       setInitialProfileImage(userInfoData.imageUrl);
     }
   }, [userInfoData, isUserInfoLoading]);
@@ -30,6 +32,8 @@ export const UserEditPage = () => {
         updateNickname: nickname,
         updateImage: profileImage,
       });
+      console.log("현재 닉네임:", nickname);
+      setNickname(nickname);
     } catch (error) {
       console.error(error);
     }
@@ -104,7 +108,7 @@ export const UserEditPage = () => {
           <Nickname
             isChecked={isChecked}
             setIsChecked={setIsChecked}
-            setNickname={setNickname}
+            setNickname={setLocalNickname}
           />
         </div>
       </div>
