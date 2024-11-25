@@ -11,22 +11,25 @@ import { SearchCard } from "@/components/common/Search/Card";
 import { Modal } from "@/components/common/Modal";
 import useGetShowDetail from "@/hooks/queries/useGetShowDetail";
 import extractShowTime from "@/hooks/utils/extractShowTime";
-
-const TEST_DATA = {
-  id: 2,
-  mt20id: "aaa",
-  prfnm: "제목",
-  prfpdfrom: "시작일",
-  prfpdto: "종료일",
-  genrenm: "서양음악(클래식)",
-};
+import { AutoCompleteSearchCard } from "@/types";
 
 export const TicketInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const navigate = useNavigate();
 
-  const { data, isLoading } = useGetShowDetail(865);
+  const { data, isLoading } = useGetShowDetail(
+    JSON.parse(localStorage.getItem("showId") || '"'),
+  );
   const showDetail = data?.result;
+
+  const SHOW_DATA: AutoCompleteSearchCard = {
+    id: showDetail?.id || 0,
+    mt20id: showDetail?.mt20id || "",
+    prfnm: showDetail?.prfnm || "",
+    prfpdfrom: showDetail?.prfpdfrom || "",
+    prfpdto: showDetail?.prfpdto || "",
+    genrenm: showDetail?.genrenm || "",
+  };
 
   const showTimesByDate = extractShowTime({
     prfpdfrom: showDetail?.prfpdfrom || "",
@@ -88,6 +91,7 @@ export const TicketInfoPage = () => {
   };
 
   const handleConfirmClick = () => {
+    localStorage.setItem("poster", JSON.stringify(showDetail?.poster));
     localStorage.setItem("showDate", formattedDate);
     localStorage.setItem("showTime", JSON.stringify(selectedShowTime));
     localStorage.setItem("showPlace", JSON.stringify(showDetail?.fcltynm));
@@ -164,16 +168,7 @@ export const TicketInfoPage = () => {
       )}
 
       <div className="mt-[37px]">
-        {/* <SearchCard
-          title={showDetail?.prfnm || "공연 이름 없음"}
-          date={extractDateRange(
-            showDetail?.prfpdfrom || "",
-            showDetail?.prfpdto || "",
-          )}
-          categoryType="dance"
-        /> */}
-        {/* 여기서는 검색키워드 따로 없이 선택된 공연 보여주는 용이라 그냥 빈 값 넣으면 될듯 */}
-        <SearchCard data={TEST_DATA} searchKeyWord="" />
+        <SearchCard data={SHOW_DATA} />
         <div className="flex flex-col mt-[37px] mb-[62px] gap-[27px]">
           <div className="flex">
             <span className="headline2-bold text-grayscale-80">

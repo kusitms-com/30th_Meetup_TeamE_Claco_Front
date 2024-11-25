@@ -97,6 +97,7 @@ export type ClacoBookListResponse = {
 };
 
 export type ClacoTicketProps = {
+  concertPoster: string;
   watchDate: string;
   concertName: string;
   watchPlace: string;

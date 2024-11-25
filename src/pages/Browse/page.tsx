@@ -24,12 +24,18 @@ import { Skeleton } from "@/components/ui/skeleton";
 
 import { SearchResult } from "@/components/Browse/SearchResult";
 import { RecentConcertResult } from "@/components/Browse/RecentConcertResult";
+import { useNavigate } from "react-router-dom";
 
 export const BrowsePage = () => {
   const [query, setQuery] = useState<string>("");
   const [activeTab, setActiveTab] = useState<TabMenu>(null);
   const [skipDebounce, setSkipDebounce] = useState<boolean>(false);
   const debouncedQuery = useDebouncedState(query, 500, skipDebounce);
+
+  const navigate = useNavigate();
+  const gotoShowDetail = (id: number) => {
+    navigate(`/show/${id}`);
+  };
 
   const {
     data: concertData,
@@ -51,7 +57,7 @@ export const BrowsePage = () => {
     {
       query: debouncedQuery,
       size: 9,
-    }
+    },
   );
 
   const [isSearch, setIsSearch] = useState<boolean>(false);
@@ -79,7 +85,7 @@ export const BrowsePage = () => {
   ]);
   const { elementRef: searchRef } = useRefFocusEffect<HTMLDivElement>(
     searchFetchNextPage,
-    [searchData, isSearch]
+    [searchData, isSearch],
   );
 
   useEffect(() => {
@@ -211,6 +217,7 @@ export const BrowsePage = () => {
                           key={show.id}
                           data={show}
                           searchKeyWord={query}
+                          onClick={() => gotoShowDetail(show.id)}
                         />
                       ))}
                     </>

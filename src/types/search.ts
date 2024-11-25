@@ -1,4 +1,4 @@
-import { ConcertBased } from "./show";
+import { ConcertBased, ShowCategory } from "./show";
 
 export type CategoryMap = {
   category: string;
@@ -16,7 +16,7 @@ export type ConcertInfo = {
   genrenm: string;
   prfstate: string;
   categories: CategoryMap[];
-  recommendationConcertsResponseV1s: ConcertBased[];
+  recommendationConcertsResponseV1s?: ConcertBased[];
 };
 
 export type GetConcertListProps = {
@@ -63,14 +63,16 @@ export type ShowSummaryCardProps = {
 
 export type SearchCardProps = {
   data: AutoCompleteSearchCard;
-  searchKeyWord: string;
+  searchKeyWord?: string;
   className?: string;
+  onClick?: () => void;
 };
 
 export type GetSearchProps = {
   query: string;
-  page: number;
-  size: number;
+  page?: number;
+  size?: number;
+  genre?: string;
 };
 
 export type GetConcertFiltersProps = {
@@ -82,4 +84,19 @@ export type GetConcertFiltersProps = {
   page: number;
   size: number;
   categories?: string[];
+};
+
+export type GetLikedConcertListResult = {
+  id: number;
+  prfnm: string;
+  genrenm: string;
+  poster: string;
+  categories: ShowCategory[];
+};
+
+export type GetLikedConcertListResponse = {
+  code: string;
+  message: string;
+  result: GetLikedConcertListResult[];
+  refreshed: boolean;
 };
