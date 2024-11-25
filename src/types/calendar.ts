@@ -4,7 +4,9 @@ export type CalendarProps = {
   mode?: "single" | "range";
   selectedDate?: Date | null;
   onDateSelect?: (date: Date) => void;
-  showTimesByDate?: ShowTimesByDate,
+  showTimesByDate?: ShowTimesByDate;
+  startYear?: number;
+  startMonth?: number;
   rangeStart?: Date | null;
   rangeEnd?: Date | null;
   onRangeSelect?: (start: Date, end: Date) => void;

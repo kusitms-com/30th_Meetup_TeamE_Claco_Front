@@ -177,6 +177,8 @@ export const TicketInfoPage = () => {
             <Required />
           </div>
           <Calendar
+            startYear={showDetail?.prfpdfrom ? new Date(showDetail.prfpdfrom).getFullYear() : new Date().getFullYear()}
+            startMonth={showDetail?.prfpdfrom ? new Date(showDetail.prfpdfrom).getMonth() : new Date().getMonth()}         
             selectedDate={selectedDate}
             onDateSelect={(date) => setSelectedDate(date)}
             showTimesByDate={showTimesByDate}
