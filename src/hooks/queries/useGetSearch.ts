@@ -38,7 +38,6 @@ const useGetSearch = ({
   return useInfiniteQuery({
     queryKey: ["search-concert-data", query],
     queryFn: ({ pageParam }) => getSearch({ query, page: pageParam, size }),
-    enabled: query.trim().length !== 0,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
       return lastPage.result.currentPage !== allPages[0].result.totalPage

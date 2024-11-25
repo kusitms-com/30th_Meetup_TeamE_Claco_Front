@@ -237,7 +237,7 @@ export const ClacoBookDetailPage = () => {
                   <SwiperSlide key={index}>
                     <div ref={ticketRefs[index]}>
                       <img
-                        src={`${image.ticketImage}?timestamp=${Date.now()}`}
+                        src={`${image.ticketImage}`}
                         alt="클라코 티켓 이미지"
                         className="w-[240px] h-[530px]"
                         crossOrigin="anonymous"
