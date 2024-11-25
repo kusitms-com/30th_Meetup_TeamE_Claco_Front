@@ -217,13 +217,6 @@ export const ClacoBookDetailPage = () => {
                 </span>
               </div>
             </div>
-
-            <a
-              href="/ticketcreate/search"
-              className="rounded-[5px] px-[89px] py-[14px] text-center bg-grayscale-30 text-grayscale-80 cursor-pointer"
-            >
-              나만의 티켓 만들러 가기
-            </a>
           </div>
         </>
       ) : (

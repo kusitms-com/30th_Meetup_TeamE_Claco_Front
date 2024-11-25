@@ -108,6 +108,8 @@ export type TicketReviewDetailRequest = {
   concertTags: TagCategory[];
   starRate: number;
   content: string;
+  genreName: string;
+  concertState: string;
   placeReviews: PlaceCategory[];
   imageUrlS: Array<{ imageUrl: string }>;
   editor: boolean;
