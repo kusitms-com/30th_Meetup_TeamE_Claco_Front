@@ -16,6 +16,7 @@ export type ConcertInfo = {
   genrenm: string;
   prfstate: string;
   categories: CategoryMap[];
+  liked?: boolean;
   recommendationConcertsResponseV1s?: ConcertBased[];
 };
 
