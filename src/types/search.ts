@@ -16,7 +16,7 @@ export type ConcertInfo = {
   genrenm: string;
   prfstate: string;
   categories: CategoryMap[];
-  liked?: boolean;
+  liked: boolean;
   recommendationConcertsResponseV1s?: ConcertBased[];
 };
 
@@ -97,6 +97,7 @@ export type GetLikedConcertListResult = {
   prfstate: string;
   poster: string;
   fcltynm: string;
+  liked: boolean;
   categories: ShowCategory[];
 };
 

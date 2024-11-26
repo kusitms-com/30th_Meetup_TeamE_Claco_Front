@@ -9,7 +9,7 @@ import { useNavigate } from "react-router-dom";
 
 export const ShowSummaryCard = ({ data }: ShowSummaryCardProps) => {
   const navigate = useNavigate();
-  const [isLiked, setIsLiked] = useState<boolean>(data.liked || false);
+  const [isLiked, setIsLiked] = useState<boolean>(data.liked);
   const mutation = usePostLike();
 
   const gotoShowDetail = (id: number) => {
