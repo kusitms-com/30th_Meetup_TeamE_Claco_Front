@@ -10,6 +10,8 @@ import { DeleteClacoBookModal } from "@/components/Ticket/Modal/Delete/ClacoBook
 import { Toast } from "@/libraries/toast/Toast";
 import { useNavigate } from "react-router-dom";
 import useGetClacoBookList from "@/hooks/queries/useGetClacoBookList";
+import { useDeferredLoading } from "@/hooks/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const ClacoBookPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -24,6 +26,9 @@ export const ClacoBookPage = () => {
   const clacoBookList = Array.isArray(data?.result?.clacoBookList)
     ? data?.result?.clacoBookList
     : [];
+
+    const { shouldShowSkeleton } = useDeferredLoading(isLoading);
+
 
   const navigate = useNavigate();
 
@@ -62,8 +67,17 @@ export const ClacoBookPage = () => {
     navigate(`/ticketbook/${id}?title=${title}`);
   };
 
-  if (isLoading) {
-    return <div>로딩중</div>;
+  if (shouldShowSkeleton) {
+    return (
+      <div className="pt-[41px] px-[24px] min-h-screen">
+        <div className="flex flex-col items-center justify-center">
+          <Skeleton className="w-[86px] h-[36px] mb-[51px]" />
+          <Skeleton className="w-[342px] h-[212px] mb-[35px]" />
+          <Skeleton className="w-[342px] h-[212px] mb-[35px]" />
+          <Skeleton className="w-[342px] h-[212px] mb-[35px]" />
+        </div>
+      </div>
+    );
   }
 
   return (
