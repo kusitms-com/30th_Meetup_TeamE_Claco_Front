@@ -26,7 +26,7 @@ export const SearchResult = ({ searchData }: SearchReultProps) => {
               <ClacoPick
                 pickData={
                   searchData.pages[0].result.listPageResponse[0]
-                    .recommendationConcertsResponseV1s
+                    .recommendationConcertsResponseV1s || []
                 }
               />
             </div>

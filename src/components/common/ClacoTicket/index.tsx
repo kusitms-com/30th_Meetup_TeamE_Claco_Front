@@ -1,9 +1,9 @@
 import { ReactComponent as ClacoTicketContainer } from "@/assets/svgs/Claco_Ticket.svg";
-import Image from "@/assets/images/poster6.gif";
 import { Genre } from "@/components/common/Genre";
 import { ClacoTicketProps } from "@/types";
 
 export const ClacoTicket = ({
+  concertPoster,
   watchDate,
   concertName,
 
@@ -14,8 +14,9 @@ export const ClacoTicket = ({
   return (
     <div className="relative w-[213px] h-[471px]">
       <img
-        src={Image}
+        src={concertPoster}
         alt="claco book 포스터 이미지"
+        crossOrigin="anonymous"
         className="absolute top-[7.54px] left-[7px] w-[199px] h-[266px] rounded-[5px]"
       />
       <div className="absolute bottom-[110px] left-[11px]">

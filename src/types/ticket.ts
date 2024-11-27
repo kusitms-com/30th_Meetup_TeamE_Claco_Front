@@ -111,6 +111,7 @@ export type ClacoTicketListResponse = {
 };
 
 export type ClacoTicketProps = {
+  concertPoster: string;
   watchDate: string;
   concertName: string;
   concertTags: { iconUrl: string; tagName: string }[];
