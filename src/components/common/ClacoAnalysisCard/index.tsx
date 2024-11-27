@@ -47,11 +47,6 @@ export const ClacoAnalysisCard = ({ type }: ClacoAnalysisCardProps) => {
     return () => clearTimeout(timer);
   }, [userPreference]);
 
-  if (isLoading) {
-    //skeleton UI 적용될 부분
-    return <div>로딩 중..</div>;
-  }
-
   return (
     <div>
       <div className="mb-[10px] leading-8 text-grayscale-90 heading2-bold">
