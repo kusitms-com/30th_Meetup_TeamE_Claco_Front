@@ -63,7 +63,7 @@ export const TicketRecommend = () => {
 
   useEffect(() => {
     if (data && !isLoading) {
-      console.log(data);
+      // console.log(data);
     }
   }, [data, isLoading]);
 

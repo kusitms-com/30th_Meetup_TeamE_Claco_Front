@@ -22,17 +22,7 @@ import { ClacoBookList, ClacoTicketListResult } from "@/types";
 import showReview from "@/assets/images/showReview.png";
 import { useDeleteClacoTicket, usePutMoveClacoTicket } from "@/hooks/mutation";
 import { Skeleton } from "@/components/ui/skeleton";
-
-// import { ClacoTicket } from "@/components/common/ClacoTicket";
-// import TEST from "@/assets/images/poster1.gif";
-
-// const TAGS = [
-//   { iconUrl: "", tagName: "웅장한" },
-//   { iconUrl: "", tagName: "섬세한" },
-//   { iconUrl: "", tagName: "낭만적인" },
-//   { iconUrl: "", tagName: "비극적인" },
-//   { iconUrl: "", tagName: "친숙한" },
-// ];
+import { useDeferredLoading } from "@/hooks/utils";
 
 export const ClacoBookDetailPage = () => {
   const navigate = useNavigate();
@@ -158,7 +148,6 @@ export const ClacoBookDetailPage = () => {
       );
     } else if (actionState === "delete") {
       const ticketReviewId = clacoTicket && clacoTicket[selectTicketIndex].id;
-      // console.log(ticketReviewId);
       deleteClacoTicket(ticketReviewId as number, {
         onSuccess: () => {
           setMessage("티켓이 삭제되었어요");
@@ -178,7 +167,9 @@ export const ClacoBookDetailPage = () => {
     setSelectTicketIndex(swiper.activeIndex);
   };
 
-  if (isLoading) {
+  const { shouldShowSkeleton } = useDeferredLoading(isLoading);
+
+  if (shouldShowSkeleton) {
     return (
       <div className="relative flex flex-col pt-[46px] items-center justify-center px-6">
         <div className="flex justify-center items-center w-full mb-[56px] h-[26px]">
@@ -223,12 +214,6 @@ export const ClacoBookDetailPage = () => {
       <div className="clacobook pb-[185px]">
         {clacoTicket?.length === 0 ? (
           <>
-            {/* <ClacoTicket
-              concertPoster={TEST}
-              watchDate="2024-12-12"
-              concertName="정다슬 피아노 독주회"
-              concertTags={TAGS}
-            /> */}
             <div className="flex flex-col items-center justify-center mt-[100px]">
               <span className="heading2-bold text-grayscale-80">
                 공연은 즐겁게 관람하셨나요?
@@ -266,7 +251,7 @@ export const ClacoBookDetailPage = () => {
                   <SwiperSlide key={index}>
                     <div ref={ticketRefs[index]}>
                       <img
-                        src={`${image.ticketImage}`}
+                        src={image.ticketImage}
                         alt="클라코 티켓 이미지"
                         className="w-[240px] h-[530px]"
                         crossOrigin="anonymous"

@@ -5,6 +5,7 @@ import { useUserStore } from "@/libraries/store/user";
 import { useGetUserPreferences } from "@/hooks/queries";
 import { PreferCategory } from "@/types";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useDeferredLoading } from "@/hooks/utils";
 
 export type ClacoAnalysisCardProps = {
   type: string;
@@ -21,6 +22,7 @@ export const ClacoAnalysisCard = ({ type }: ClacoAnalysisCardProps) => {
 
   useEffect(() => {
     if (!isLoading && data?.result?.preferCategories) {
+      // console.log(data);
       setUserPreference(data.result.preferCategories);
     }
   }, [isLoading, data]);
@@ -48,8 +50,9 @@ export const ClacoAnalysisCard = ({ type }: ClacoAnalysisCardProps) => {
     return () => clearTimeout(timer);
   }, [userPreference]);
 
-  if (isLoading) {
-    //skeleton UI 적용될 부분
+  const { shouldShowSkeleton } = useDeferredLoading(isLoading);
+
+  if (shouldShowSkeleton) {
     return (
       <div className="flex flex-col gap-[10px] mb-10">
         <Skeleton className="w-[127px] h-[27px]" />

@@ -4,7 +4,7 @@ import { ReactComponent as Edit } from "@/assets/svgs/Edit.svg";
 import { ReactComponent as Star } from "@/assets/svgs/StarRating.svg";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { useThumbnailModal } from "@/hooks/utils";
+import { useDeferredLoading, useThumbnailModal } from "@/hooks/utils";
 import { DeleteClacoTicketModal } from "@/components/Ticket/Modal/Delete/ClacoTicket";
 import { CategoryTag } from "@/components/common/CategoryTag";
 import { PerformanceAttributes } from "@/components/Ticket/PerformanceAttributes";
@@ -15,6 +15,7 @@ import { TicketReviewDetailRequest } from "@/types";
 import { useGetTicketReviewDetail } from "@/hooks/queries";
 import { useDeleteClacoTicket, usePutEditTicketReview } from "@/hooks/mutation";
 import { useReviewInfoStore } from "@/libraries/store/reviewInfo";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const ClacoTicketDetailPage = () => {
   const { id } = useParams();
@@ -29,6 +30,7 @@ export const ClacoTicketDetailPage = () => {
   const [isEditModalOpen, setIsEditModalOpen] = useState<boolean>(false);
   const [viewingSeat, setViewingSeat] = useState<string>("");
   const [reviewData, setReviewData] = useState<TicketReviewDetailRequest>();
+  const [imageLoaded, setImageLoaded] = useState(false);
   const {
     thumbsSwiper,
     isThumbnailShow,
@@ -88,6 +90,32 @@ export const ClacoTicketDetailPage = () => {
     });
   };
 
+  useEffect(() => {
+    if (data?.result?.ticketImage) {
+      const img = new Image();
+      img.src = data.result.ticketImage;
+      img.onload = () => setImageLoaded(true);
+    }
+  }, [data]);
+
+  const { shouldShowSkeleton } = useDeferredLoading(isLoading);
+
+  if (shouldShowSkeleton) {
+    return (
+      <div className="relative flex flex-col px-6 mb-[234px]">
+        <div className="flex justify-start w-full gap-2 mt-[95px] mb-2">
+          <CategoryTag.Skeleton />
+          <CategoryTag.Skeleton />
+        </div>
+        <Skeleton className="w-[299px] h-[30px]" />
+        <div className="mt-[54px] mb-[60px] flex justify-center">
+          <Skeleton className="w-[213px] h-[471px]" />
+        </div>
+        <Skeleton className="w-full h-[154px]" />
+      </div>
+    );
+  }
+
   return (
     <div className="relative flex flex-col pt-[46px] items-center justify-center px-6 mb-[234px]">
       <ThumbnailModal
@@ -114,11 +142,16 @@ export const ClacoTicketDetailPage = () => {
         <div className="heading2-bold">{reviewData?.concertName}</div>
       </div>
       <div className="mb-[60px]">
-        <img
-          src={reviewData?.ticketImage}
-          alt="클라코 티켓 이미지"
-          className="w-[213px] h-[471px]"
-        />
+        {reviewData?.ticketImage && (
+          <img
+            src={reviewData.ticketImage}
+            alt="클라코 티켓 이미지"
+            className={`w-[213px] h-[471px] object-contain transition-opacity duration-300 ${
+              imageLoaded ? "opacity-100" : "opacity-0"
+            }`}
+            onLoad={() => setImageLoaded(true)}
+          />
+        )}
       </div>
       <div className="w-full h-[154px] bg-grayscale-20 px-[27px] pt-[18px] pb-[45px] rounded-[5px] mb-12">
         {reviewData && (

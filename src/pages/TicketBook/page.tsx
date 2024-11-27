@@ -16,6 +16,7 @@ import {
   usePutEditClacoBook,
 } from "@/hooks/mutation";
 import { Skeleton } from "@/components/ui/skeleton";
+import { useDeferredLoading } from "@/hooks/utils";
 
 export const ClacoBookPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -124,7 +125,9 @@ export const ClacoBookPage = () => {
     navigate(`/ticketbook/${id}?title=${title}`);
   };
 
-  if (isLoading) {
+  const { shouldShowSkeleton } = useDeferredLoading(isLoading);
+
+  if (shouldShowSkeleton) {
     return (
       <div className="flex flex-col pt-[46px] items-center justify-center px-6">
         <div className="mb-[56px]">
