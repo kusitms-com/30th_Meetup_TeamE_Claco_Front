@@ -12,6 +12,8 @@ import { Modal } from "@/components/common/Modal";
 import useGetShowDetail from "@/hooks/queries/useGetShowDetail";
 import extractShowTime from "@/hooks/utils/extractShowTime";
 import { AutoCompleteSearchCard } from "@/types";
+import { useDeferredLoading } from "@/hooks/utils";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const TicketInfoPage = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -21,6 +23,7 @@ export const TicketInfoPage = () => {
     JSON.parse(localStorage.getItem("showId") || '"'),
   );
   const showDetail = data?.result;
+  const { shouldShowSkeleton } = useDeferredLoading(isLoading);
 
   const SHOW_DATA: AutoCompleteSearchCard = {
     id: showDetail?.id || 0,
@@ -126,9 +129,35 @@ export const TicketInfoPage = () => {
     setNewCasting("");
   };
 
-  if (isLoading) {
-    return <div>로딩중</div>;
+  if (shouldShowSkeleton) {
+    return (
+      <div className="relative flex flex-col min-h-screen px-[24px] pt-[46px] pb-[60px]">
+      <div className="flex flex-col gap-[33px] mb-[37px]">
+        <div className="relative flex items-center justify-center">
+          <BackArrow
+            width="9"
+            height="18"
+            viewBox="0 0 11 20"
+            className="absolute left-0"
+            onClick={handleBackClick}
+          />
+          <span className="headline2-bold text-grayscale-80">티켓 등록</span>
+        </div>
+        <Progress value={50} />
+        </div>
+        <Skeleton className="w-[342px] h-[84px] mb-[37px]" />
+        <div className="flex mb-[27px]">
+            <span className="headline2-bold text-grayscale-80">
+              관람 날짜를 선택해주세요
+            </span>
+            <Required />
+          </div>
+          <Skeleton className="w-[342px] h-[323px] mb-[62px]" />
+          <Skeleton className="w-[342px] h-[52px]" />
+      </div>
+    );
   }
+
 
   return (
     <div className="relative flex flex-col min-h-screen px-[24px] pt-[46px] pb-[60px]">
