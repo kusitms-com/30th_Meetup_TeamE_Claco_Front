@@ -9,11 +9,16 @@ export const Calendar = ({
   selectedDate = null,
   onDateSelect,
   showTimesByDate,
+  startYear = new Date().getFullYear(),
+  startMonth = new Date().getMonth(),
   rangeStart = null,
   rangeEnd = null,
   onRangeSelect,
 }: CalendarProps) => {
-  const [currentDate, setCurrentDate] = useState(new Date());
+  const [currentDate, setCurrentDate] = useState<Date>(
+    new Date(startYear || new Date().getFullYear(), (startMonth || 1) - 1, 1),
+  );
+
   const [internalRangeStart, setInternalRangeStart] = useState<Date | null>(
     rangeStart,
   );
@@ -29,6 +34,12 @@ export const Calendar = ({
   const startOfMonth = new Date(getYear(), getMonth(), 1);
   const endOfMonth = new Date(getYear(), getMonth() + 1, 0);
   const startDay = startOfMonth.getDay();
+
+  useEffect(() => {
+    if (startYear && startMonth) {
+      setCurrentDate(new Date(startYear, startMonth, 1));
+    }
+  }, [startYear, startMonth]);
 
   useEffect(() => {
     setInternalRangeStart(rangeStart);

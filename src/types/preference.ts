@@ -3,10 +3,6 @@ export type SettingsProps = {
   onClick: () => void;
 };
 
-export type PreferenceAnalysisProps = {
-  onSettingsOpen: () => void;
-};
-
 export type PreferRegion = {
   preferenceRegion: string;
 };
@@ -20,7 +16,7 @@ export type PreferType = {
 };
 
 export type UserPreferenceResult = {
-  gender: "MALE" | "FEMALE";
+  gender: string;
   age: number;
   minPrice: number;
   maxPrice: number;
@@ -33,6 +29,22 @@ export type UserPreferencesResponse = {
   code: string;
   message: string;
   result: UserPreferenceResult;
+};
+
+export type UserPreferencesPutRequest = {
+  gender: string;
+  age: number;
+  minPrice: number;
+  maxPrice: number;
+  regionPreferences: PreferRegion[];
+  typePreferences: PreferType[];
+};
+
+export type UserPreferencesPutResponse = {
+  code: string;
+  message: string;
+  result: UserPreferenceResult;
+  refreshed: boolean;
 };
 
 export type UserBased = {
