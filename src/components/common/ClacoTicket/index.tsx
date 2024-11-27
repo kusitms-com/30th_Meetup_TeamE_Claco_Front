@@ -6,7 +6,6 @@ export const ClacoTicket = ({
   concertPoster,
   watchDate,
   concertName,
-
   concertTags,
 }: ClacoTicketProps) => {
   const formattedWatchDate = (date: string): string => date.replace(/-/g, ".");
@@ -24,7 +23,7 @@ export const ClacoTicket = ({
           <div className="text-center font-Nonchalance text-[22px]">
             {formattedWatchDate(watchDate)}
           </div>
-          <div className="text-center font-medium text-[10px]">
+          <div className="flex items-center justify-center text-center font-medium text-[10px] h-[30px]">
             {concertName}
           </div>
         </div>

@@ -19,7 +19,7 @@ import { useReviewInfoStore } from "@/libraries/store/reviewInfo";
 export const ClacoTicketDetailPage = () => {
   const { id } = useParams();
   const ticketId = Number(id);
-  const { setReviewInfo, clearReviewInfo } = useReviewInfoStore();
+  const { setReviewInfo } = useReviewInfoStore();
 
   const { data, isLoading } = useGetTicketReviewDetail(ticketId);
   const { mutate: editClacoTicketReview } = usePutEditTicketReview();
@@ -47,16 +47,12 @@ export const ClacoTicketDetailPage = () => {
         content: data.result.content,
       });
     }
-
-    return () => {
-      clearReviewInfo();
-    };
-  }, [data, isLoading, setReviewInfo, clearReviewInfo]);
+  }, [data, isLoading, setReviewInfo]);
 
   const navigate = useNavigate();
 
   const gotoBack = () => {
-    navigate(-1);
+    navigate("/ticketbook");
   };
 
   const gotoTicketReviewEdit = () => {
@@ -66,7 +62,7 @@ export const ClacoTicketDetailPage = () => {
   const handleEditSeat = () => {
     const editData = {
       ticketReviewId: ticketId,
-      watchSit: viewingSeat,
+      watchSit: JSON.stringify(viewingSeat),
       starRate: null,
       content: null,
     };
@@ -197,26 +193,30 @@ export const ClacoTicketDetailPage = () => {
 
             <div className="headline2-bold text-grayscale-70">회차</div>
             <div className="body1-regular text-grayscale-90">
-              {reviewData?.watchRound}
+              {reviewData && JSON.parse(reviewData.watchRound)}
             </div>
 
             <div className="headline2-bold text-grayscale-70">캐스팅</div>
             <div className="body1-regular text-grayscale-90 max-w-[240px] flex flex-wrap">
-              {reviewData?.castings.split(",").map((casting, index, array) => (
-                <span
-                  key={index}
-                  className={
-                    index !== array.length - 1 ? "mr-[19px] mb-[19px]" : ""
-                  }
-                >
-                  {casting.trim()}
-                </span>
-              ))}
+              {reviewData &&
+                JSON.parse(reviewData.castings).map(
+                  (casting: string, index: number, array: string[]) => (
+                    <span
+                      key={index}
+                      className={
+                        index !== array.length - 1 ? "mr-[19px] mb-[19px]" : ""
+                      }
+                    >
+                      {casting.trim()}
+                    </span>
+                  )
+                )}
             </div>
 
             <div className="flex items-center gap-[9px] headline2-bold text-grayscale-70">
               좌석
-              {reviewData?.watchSit.trim().length === 0 ? (
+              {reviewData &&
+              JSON.parse(reviewData.watchSit).trim().length === 0 ? (
                 <Edit
                   viewBox="0 0 18 18"
                   width={14}
@@ -226,9 +226,10 @@ export const ClacoTicketDetailPage = () => {
               ) : null}
             </div>
             <div className="flex items-center body1-regular text-grayscale-90">
-              {reviewData?.watchSit.trim().length === 0 ? null : (
+              {reviewData &&
+              JSON.parse(reviewData.watchSit).trim().length === 0 ? null : (
                 <>
-                  {reviewData?.watchSit}
+                  {reviewData && JSON.parse(reviewData.watchSit)}
                   <Edit
                     viewBox="0 0 18 18"
                     width={14}
@@ -263,7 +264,7 @@ export const ClacoTicketDetailPage = () => {
             </span>
             <input
               className="w-full h-[52px] rounded-[7px] text-center body2-medium text-grayscale-80 bg-grayscale-30 outline-none px-3"
-              defaultValue={reviewData?.watchSit}
+              defaultValue={reviewData && JSON.parse(reviewData.watchSit)}
               onChange={(e) => setViewingSeat(e.target.value)}
             />
           </div>

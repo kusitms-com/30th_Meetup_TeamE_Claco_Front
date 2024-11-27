@@ -22,7 +22,6 @@ export const TicketDownloadPage = () => {
   const ticketReviewId = Number(localStorage.getItem("ticketReviewId"));
   const { data, isLoading } = useGetTicketReviewDetail(ticketReviewId);
   const ticketReviewDetail = data?.result;
-  const ticketBookId = localStorage.getItem("clacoBookId");
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const convertToImageAndUpload = async () => {
@@ -81,7 +80,7 @@ export const TicketDownloadPage = () => {
   }, [isLoading, ticketReviewDetail]);
 
   const handleConfirmClick = () => {
-    navigate(`/ticketbook/${ticketBookId}`);
+    navigate(`/ticketbook`);
     localStorage.removeItem("clacoBookId");
     localStorage.removeItem("poster");
     localStorage.removeItem("showId");
@@ -150,7 +149,6 @@ export const TicketDownloadPage = () => {
                 concertPoster={posterImage}
                 watchDate={ticketReviewDetail?.watchDate || ""}
                 concertName={ticketReviewDetail?.concertName || ""}
-                watchPlace={ticketReviewDetail?.watchPlace || ""}
                 concertTags={ticketReviewDetail?.concertTags || []}
               />
             )}

@@ -22,6 +22,17 @@ import { ClacoBookList, ClacoTicketListResult } from "@/types";
 import showReview from "@/assets/images/showReview.png";
 import { useDeleteClacoTicket, usePutMoveClacoTicket } from "@/hooks/mutation";
 
+// import { ClacoTicket } from "@/components/common/ClacoTicket";
+// import TEST from "@/assets/images/poster1.gif";
+
+// const TAGS = [
+//   { iconUrl: "", tagName: "웅장한" },
+//   { iconUrl: "", tagName: "섬세한" },
+//   { iconUrl: "", tagName: "낭만적인" },
+//   { iconUrl: "", tagName: "비극적인" },
+//   { iconUrl: "", tagName: "친숙한" },
+// ];
+
 export const ClacoBookDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -197,31 +208,37 @@ export const ClacoBookDetailPage = () => {
         </>
       ) : null}
 
-      {clacoTicket?.length === 0 ? (
-        <>
-          <div className="flex flex-col items-center justify-center mt-[100px]">
-            <span className="heading2-bold text-grayscale-80">
-              공연은 즐겁게 관람하셨나요?
-            </span>
-            <div className="relative flex items-center justify-center">
-              <img
-                src={showReview}
-                alt="showReview"
-                className="object-contain mb-[53px]"
-              />
-              <div className="absolute bottom-0 flex text-center">
-                <span className="body2-regular text-grayscale-70 mb-[39px]">
-                  티켓북에 공연 감상을 등록하고
-                  <br />
-                  나만의 티켓을 만들어보세요!
-                </span>
+      <div className="clacobook pb-[185px]">
+        {clacoTicket?.length === 0 ? (
+          <>
+            {/* <ClacoTicket
+              concertPoster={TEST}
+              watchDate="2024-12-12"
+              concertName="정다슬 피아노 독주회"
+              concertTags={TAGS}
+            /> */}
+            <div className="flex flex-col items-center justify-center mt-[100px]">
+              <span className="heading2-bold text-grayscale-80">
+                공연은 즐겁게 관람하셨나요?
+              </span>
+              <div className="relative flex items-center justify-center">
+                <img
+                  src={showReview}
+                  alt="showReview"
+                  className="object-contain mb-[53px]"
+                />
+                <div className="absolute bottom-0 flex text-center">
+                  <span className="body2-regular text-grayscale-70 mb-[39px]">
+                    티켓북에 공연 감상을 등록하고
+                    <br />
+                    나만의 티켓을 만들어보세요!
+                  </span>
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      ) : (
-        <>
-          <div className="clacobook pb-[185px]">
+          </>
+        ) : (
+          <>
             <Swiper
               pagination={true}
               modules={[Pagination]}
@@ -247,15 +264,15 @@ export const ClacoBookDetailPage = () => {
                   </SwiperSlide>
                 ))}
             </Swiper>
-            <div
-              className="absolute bottom-[57px] right-[26px] w-[70px] h-[70px] bg-primary rounded-full flex justify-center items-center"
-              onClick={gotoTicketCreate}
-            >
-              <Plus viewBox="0 0 22 22" width={40} height={40} />
-            </div>
-          </div>
-        </>
-      )}
+          </>
+        )}
+        <div
+          className="absolute bottom-[57px] right-[26px] w-[70px] h-[70px] bg-primary rounded-full flex justify-center items-center"
+          onClick={gotoTicketCreate}
+        >
+          <Plus viewBox="0 0 22 22" width={40} height={40} />
+        </div>
+      </div>
 
       {/* 모달 컴포넌트 영역 */}
       {isModalOpen && (

@@ -16,6 +16,7 @@ export const ClacoTicketReviewEditPage = () => {
   const { mutate: editClacoTicketReview } = usePutEditTicketReview();
 
   useEffect(() => {
+    console.log(data);
     setRating(data.starRate);
     setReviewText(data.content);
   }, [setRating, setReviewText, data]);
