@@ -15,6 +15,7 @@ import {
   usePostCreateClacoBook,
   usePutEditClacoBook,
 } from "@/hooks/mutation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export const ClacoBookPage = () => {
   const [isEditing, setIsEditing] = useState<boolean>(false);
@@ -124,7 +125,20 @@ export const ClacoBookPage = () => {
   };
 
   if (isLoading) {
-    return <div>로딩중</div>;
+    return (
+      <div className="flex flex-col pt-[46px] items-center justify-center px-6">
+        <div className="mb-[56px]">
+          <span className="headline2-bold text-grayscale-80 mb-[152px] h-[26px]">
+            티켓북
+          </span>
+        </div>
+        <div className="flex flex-col gap-[22px]">
+          {Array.from(Array(5).keys()).map((_, index) => (
+            <Skeleton key={index} className="w-[342px] h-[212px]" />
+          ))}
+        </div>
+      </div>
+    );
   }
 
   return (
@@ -152,7 +166,7 @@ export const ClacoBookPage = () => {
               />
             )}
           </div>
-          <span className="headline2-bold text-grayscale-80">클라코북</span>
+          <span className="headline2-bold text-grayscale-80">티켓북</span>
           {isEditing ? (
             <div
               className="w-[56px] body1-medium text-right"

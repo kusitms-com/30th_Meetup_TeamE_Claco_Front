@@ -21,6 +21,7 @@ import { useGetClacoBookList, useGetClacoTicketList } from "@/hooks/queries";
 import { ClacoBookList, ClacoTicketListResult } from "@/types";
 import showReview from "@/assets/images/showReview.png";
 import { useDeleteClacoTicket, usePutMoveClacoTicket } from "@/hooks/mutation";
+import { Skeleton } from "@/components/ui/skeleton";
 
 // import { ClacoTicket } from "@/components/common/ClacoTicket";
 // import TEST from "@/assets/images/poster1.gif";
@@ -176,6 +177,17 @@ export const ClacoBookDetailPage = () => {
   const handleSlideChange = (swiper: SwiperType) => {
     setSelectTicketIndex(swiper.activeIndex);
   };
+
+  if (isLoading) {
+    return (
+      <div className="relative flex flex-col pt-[46px] items-center justify-center px-6">
+        <div className="flex justify-center items-center w-full mb-[56px] h-[26px]">
+          <Skeleton className="w-[86px] h-[36px]" />
+        </div>
+        <Skeleton className="w-[241px] h-[531px]" />
+      </div>
+    );
+  }
 
   return (
     <div className="relative flex flex-col pt-[46px] items-center justify-center px-6">
