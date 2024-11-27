@@ -98,14 +98,14 @@ export const TicketReviewPage = () => {
       .filter(Boolean)
       .map((selectedTag) =>
         placeCategories.find(
-          (category) => category.categoryName === selectedTag,
-        ),
+          (category) => category.categoryName === selectedTag
+        )
       )
       .filter((category): category is PlaceCategory => category !== undefined);
 
     const selectedTags: TagCategory[] = selectedKeywordTags
       .map((selectedTag) =>
-        tagCategories?.find((category) => category.tagName === selectedTag),
+        tagCategories?.find((category) => category.tagName === selectedTag)
       )
       .filter((category): category is TagCategory => category !== undefined);
     const request: TicketReviewRequest = {

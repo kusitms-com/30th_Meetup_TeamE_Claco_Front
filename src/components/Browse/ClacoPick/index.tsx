@@ -2,9 +2,15 @@ import { ClacoPickShow } from "./ClacoPickShow";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { useUserStore } from "@/libraries/store/user";
 import { ClacoPickProps } from "@/types";
+import { useNavigate } from "react-router-dom";
 
 export const ClacoPick = ({ pickData }: ClacoPickProps) => {
   const { nickname } = useUserStore();
+  const navigate = useNavigate();
+
+  const gotoConcertDetail = (id: number) => {
+    navigate(`/show/${id}`);
+  };
 
   return (
     <div className="flex flex-col gap-5">
@@ -29,6 +35,7 @@ export const ClacoPick = ({ pickData }: ClacoPickProps) => {
             <SwiperSlide
               key={index}
               className="w-[114px] rounded-[5px] mr-[13.84px]"
+              onClick={() => gotoConcertDetail(pick.id)}
             >
               <ClacoPickShow imageSrc={pick.poster} title={pick.prfnm} />
             </SwiperSlide>

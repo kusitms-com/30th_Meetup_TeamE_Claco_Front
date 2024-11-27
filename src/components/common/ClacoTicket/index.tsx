@@ -6,7 +6,6 @@ export const ClacoTicket = ({
   concertPoster,
   watchDate,
   concertName,
-  watchPlace,
   concertTags,
 }: ClacoTicketProps) => {
   const formattedWatchDate = (date: string): string => date.replace(/-/g, ".");
@@ -19,16 +18,13 @@ export const ClacoTicket = ({
         crossOrigin="anonymous"
         className="absolute top-[7.54px] left-[7px] w-[199px] h-[266px] rounded-[5px]"
       />
-      <div className="absolute bottom-[110px]">
-        <div className="flex-col w-[213px] text-dark">
-          <div className="text-center font-Nonchalance text-[26px]">
+      <div className="absolute bottom-[110px] left-[11px]">
+        <div className="flex-col justify-center w-[195px] text-dark">
+          <div className="text-center font-Nonchalance text-[22px]">
             {formattedWatchDate(watchDate)}
           </div>
-          <div className="text-center font-medium text-[10px]">
+          <div className="flex items-center justify-center text-center font-medium text-[10px] h-[30px]">
             {concertName}
-          </div>
-          <div className="text-center font-medium text-[10px]">
-            {watchPlace}
           </div>
         </div>
       </div>
@@ -37,7 +33,7 @@ export const ClacoTicket = ({
           <Genre
             key={index}
             genreKeyword={item.tagName}
-            className="w-[29px] h-[29px] text-primary-800 font-medium text-[8px]"
+            className="w-[29px] h-[29px] object-contain text-primary-800 font-medium text-[8px]"
           />
         ))}
       </div>

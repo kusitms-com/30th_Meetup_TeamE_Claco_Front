@@ -38,14 +38,11 @@ const useGetSearch = ({
   return useInfiniteQuery({
     queryKey: ["search-concert-data", query],
     queryFn: ({ pageParam }) => getSearch({ query, page: pageParam, size }),
-    enabled: query.trim().length !== 0,
     initialPageParam: 1,
     getNextPageParam: (lastPage, allPages) => {
-      const totalPages = Math.ceil(
-        lastPage.result.totalCount / lastPage.result.size
-      );
-      const nextPage = allPages.length + 1;
-      return nextPage <= totalPages ? nextPage : undefined;
+      return lastPage.result.currentPage !== allPages[0].result.totalPage
+        ? lastPage.result.currentPage + 1
+        : undefined;
     },
   });
 };

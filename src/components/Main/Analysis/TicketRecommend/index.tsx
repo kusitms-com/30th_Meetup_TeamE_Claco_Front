@@ -1,11 +1,12 @@
 import { ReactComponent as Arrow } from "@/assets/svgs/Arrow 2.svg";
-import { TouchEvent, useState } from "react";
+import { TouchEvent, useEffect, useState } from "react";
 import { Reviews } from "./Reviews";
 // import { useGetRecommendClacoTicket } from "@/hooks/queries";
 import Ticket1 from "@/assets/images/MyClacoTicket1.png";
 import Ticket2 from "@/assets/images/MyClacoTicket2.png";
 import Ticket3 from "@/assets/images/MyClacoTicket3.png";
 import { TicketReviewSummary } from "@/types";
+import { useGetRecommendClacoTicket } from "@/hooks/queries";
 
 const REVIEW_MOCK_DATA = {
   code: "COM-000",
@@ -58,7 +59,13 @@ const REVIEW_MOCK_DATA = {
 };
 
 export const TicketRecommend = () => {
-  // const { data } = useGetRecommendClacoTicket();
+  const { data, isLoading } = useGetRecommendClacoTicket();
+
+  useEffect(() => {
+    if (data && !isLoading) {
+      // console.log(data);
+    }
+  }, [data, isLoading]);
 
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
     null

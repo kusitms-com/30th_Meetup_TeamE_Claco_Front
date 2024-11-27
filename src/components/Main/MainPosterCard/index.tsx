@@ -3,6 +3,7 @@ import { CategoryTag } from "@/components/common/CategoryTag";
 import { UserBased } from "@/types";
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { usePostLike } from "@/hooks/mutation";
 
 export type MainPosterCardProps = {
   data: UserBased;
@@ -13,6 +14,8 @@ export const MainPosterCard = ({ data }: MainPosterCardProps) => {
   const [isLoading, setIsLoading] = useState(true);
   const [shouldLoad, setShouldLoad] = useState(false);
   const posterRef = useRef<HTMLDivElement>(null);
+
+  const { mutate: postLike } = usePostLike();
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -45,18 +48,24 @@ export const MainPosterCard = ({ data }: MainPosterCardProps) => {
     navigate(`/show/${data.id}`);
   };
 
+  const handleLikeButton = (e: React.MouseEvent<HTMLButtonElement>) => {
+    e.preventDefault();
+    e.stopPropagation();
+    postLike(data.id, {
+      onSuccess: () => {},
+      onError: (error) => console.error(error),
+    });
+  };
+
   return (
     <div
       ref={posterRef}
       className="relative w-[342px] h-[443px] rounded-[5px]"
       onClick={gotoShowDetail}
     >
-      <div
-        className="absolute top-[26px] right-[19px] z-10"
-        onClick={(e) => {
-          e.stopPropagation();
-          console.log("좋아요 기능");
-        }}
+      <button
+        className="absolute top-[26px] right-[19px] z-20"
+        onClick={(e) => handleLikeButton(e)}
       >
         {data.liked ? (
           <Heart
@@ -73,7 +82,7 @@ export const MainPosterCard = ({ data }: MainPosterCardProps) => {
             viewBox="0 0 15 13"
           />
         )}
-      </div>
+      </button>
 
       {isLoading && (
         <div className="absolute top-0 left-0 z-0 w-full h-full rounded-[5px] bg-grayscale-20 animate-pulse" />
