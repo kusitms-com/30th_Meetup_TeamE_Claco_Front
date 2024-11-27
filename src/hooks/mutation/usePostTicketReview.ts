@@ -1,17 +1,17 @@
 import { client } from "@/apis";
 import { TicketReviewRequest, TicketReviewResponse } from "@/types";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 
 const postTicketReview = async (
-  request: TicketReviewRequest,
+  request: TicketReviewRequest
 ): Promise<TicketReviewResponse> => {
   const formData = new FormData();
   formData.append(
     "request",
     new Blob([JSON.stringify(request)], {
       type: "application/json",
-    }),
+    })
   );
 
   if (request.files.length == 0) {
@@ -29,7 +29,7 @@ const postTicketReview = async (
       headers: {
         "Content-Type": "multipart/form-data",
       },
-    },
+    }
   );
 
   return response.data;
@@ -37,7 +37,7 @@ const postTicketReview = async (
 
 const usePostTicketReview = () => {
   const navigate = useNavigate();
-
+  const queryClient = useQueryClient();
   return useMutation<TicketReviewResponse, Error, TicketReviewRequest>({
     mutationFn: postTicketReview,
     onSuccess: (data) => {
@@ -51,6 +51,7 @@ const usePostTicketReview = () => {
       if (ticketReviewId) {
         localStorage.setItem("ticketReviewId", ticketReviewId.toString());
       }
+      queryClient.invalidateQueries({ queryKey: ["clacoTicketList"] });
       navigate("/ticketcreate/download");
     },
     onError: (error) => {

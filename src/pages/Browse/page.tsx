@@ -53,14 +53,17 @@ export const BrowsePage = () => {
   const { data: autoCompleteData, isLoading: autoCompleteDataLoading } =
     useGetAutoCompleteSearch(debouncedQuery);
 
-  const { data: searchData, fetchNextPage: searchFetchNextPage } = useGetSearch(
-    {
-      query: debouncedQuery,
-      size: 9,
-    },
-  );
+  const {
+    data: searchData,
+    fetchNextPage: searchFetchNextPage,
+    isLoading: searchLoading,
+  } = useGetSearch({
+    query: debouncedQuery,
+    size: 9,
+  });
 
   const [isSearch, setIsSearch] = useState<boolean>(false);
+  const [isNoSearchResult, setIsNoSearchResult] = useState<boolean>(false);
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
   const [autoCompleteList, setAutoCompleteList] = useState<
     AutoCompleteSearchCard[]
@@ -85,7 +88,7 @@ export const BrowsePage = () => {
   ]);
   const { elementRef: searchRef } = useRefFocusEffect<HTMLDivElement>(
     searchFetchNextPage,
-    [searchData, isSearch],
+    [searchData, isSearch]
   );
 
   useEffect(() => {
@@ -130,6 +133,17 @@ export const BrowsePage = () => {
       }, 300);
     }
   };
+
+  useEffect(() => {
+    if (searchData && !searchLoading) {
+      if (
+        searchData.pages[0].result.listPageResponse[0]
+          .recommendationConcertsResponseV1s
+      ) {
+        setIsNoSearchResult(true);
+      }
+    }
+  }, [searchData, searchLoading]);
 
   useEffect(() => {
     if (skipDebounce) {
@@ -188,6 +202,7 @@ export const BrowsePage = () => {
               onClick={() => {
                 setIsSearch(false);
                 setShowSearchResult(false);
+                setIsNoSearchResult(false);
               }}
             />
           ) : null}
@@ -297,12 +312,16 @@ export const BrowsePage = () => {
             </>
           )}
         </div>
-        {!isSearch ? (
-          <div
-            className="h-1"
-            ref={!showSearchResult ? elementRef : searchRef}
-          />
-        ) : null}
+        {isNoSearchResult ? null : (
+          <>
+            {!isSearch ? (
+              <div
+                className="h-1"
+                ref={!showSearchResult ? elementRef : searchRef}
+              />
+            ) : null}
+          </>
+        )}
       </div>
     </div>
   );

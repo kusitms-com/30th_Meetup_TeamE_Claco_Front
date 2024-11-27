@@ -1,5 +1,5 @@
 import { client } from "@/apis";
-import { useMutation } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 export type TicketImageRequest = {
   id: number;
@@ -18,7 +18,7 @@ export type TicketImageResponse = {
 };
 
 const putTicketImage = async (
-  request: TicketImageRequest,
+  request: TicketImageRequest
 ): Promise<TicketImageResponse> => {
   const formData = new FormData();
   formData.append("file", request.file);
@@ -30,17 +30,19 @@ const putTicketImage = async (
       headers: {
         "Content-Type": "multipart/form-data",
       },
-    },
+    }
   );
 
   return response.data;
 };
 
 const usePutTicketImage = () => {
+  const queryClient = useQueryClient();
   return useMutation<TicketImageResponse, Error, TicketImageRequest>({
     mutationFn: putTicketImage,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      // console.log(data);
+      queryClient.invalidateQueries({ queryKey: ["ticketReviewDetail"] });
     },
     onError: (error) => {
       console.error(error);

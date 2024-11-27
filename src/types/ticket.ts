@@ -80,13 +80,18 @@ export type TicketReview = {
 };
 
 export type ClacoBookList = {
-  id: number;
+  id: number | null;
   title: string;
   color: string;
 };
 
 export type ClacoBookListResult = {
   clacoBookList: ClacoBookList[];
+};
+
+export type ClacoTicketListResult = {
+  id: number;
+  ticketImage: string;
 };
 
 export type ClacoBookListResponse = {
@@ -96,10 +101,32 @@ export type ClacoBookListResponse = {
   refreshed: boolean;
 };
 
+export type ClacoTicketListResponse = {
+  code: string;
+  message: string;
+  result: {
+    ticketList: ClacoTicketListResult[];
+  };
+  refreshed: boolean;
+};
+
 export type ClacoTicketProps = {
   concertPoster: string;
   watchDate: string;
   concertName: string;
-  watchPlace: string;
   concertTags: { iconUrl: string; tagName: string }[];
+};
+
+export type EditClacoTicketReviewProps = {
+  ticketReviewId: number;
+  watchSit: string | null;
+  starRate: number | null;
+  content: string | null;
+};
+
+export type EditClacoTicketReviewResponse = {
+  code: string;
+  message: string;
+  result: EditClacoTicketReviewProps;
+  refreshed: boolean;
 };
