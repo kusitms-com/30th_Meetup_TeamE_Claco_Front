@@ -1,5 +1,6 @@
 import { Progress } from "@/components/ui/progress";
 import { ReactComponent as Download } from "@/assets/svgs/download.svg";
+import loading from "@/assets/images/loading.gif";
 import { useNavigate } from "react-router-dom";
 import { ClacoTicket } from "@/components/common/ClacoTicket";
 import { useEffect, useRef, useState } from "react";
@@ -24,6 +25,7 @@ export const TicketDownloadPage = () => {
   const ticketReviewDetail = data?.result;
   const ticketBookId = localStorage.getItem("clacoBookId");
   const [isChecked, setIsChecked] = useState<boolean>(false);
+  const [loadingState, setLoadingState] = useState<boolean>(true);
 
   const convertToImageAndUpload = async () => {
     if (!ticketRef.current) return;
@@ -80,6 +82,14 @@ export const TicketDownloadPage = () => {
     }
   }, [isLoading, ticketReviewDetail]);
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setLoadingState(false);
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
+
   const handleConfirmClick = () => {
     navigate(`/ticketbook/${ticketBookId}`);
     localStorage.removeItem("clacoBookId");
@@ -105,6 +115,11 @@ export const TicketDownloadPage = () => {
       });
   };
   const onDownloadBtn = async () => {
+    if (!ticketData?.result?.imageUrl) {
+      console.error("Ticket Image URL is undefined. Check API response.");
+      return;
+    }
+
     const a = document.createElement("a");
     a.href = await DataUrl(ticketData?.result.imageUrl || "");
     a.download = "MyClacoTicket.png";
@@ -133,47 +148,60 @@ export const TicketDownloadPage = () => {
       </div>
 
       <div className="mt-[40px]">
-        <div className="px-[24px] headline2-bold text-white">
-          관람 후기가 등록됐어요! <br /> 나만의 클라코 티켓을 간직해보세요
-        </div>
-        <div className="mb-[24px] flex items-center justify-center mt-[31px] relative overflow-hidden">
-          <div ref={ticketRef} className="z-10">
-            {isChecked ? (
-              <img
-                src={ticketData?.result.imageUrl}
-                alt="ticket.png"
-                className="w-[213px] h-[471px] z-10"
-                crossOrigin="anonymous"
-              />
-            ) : (
-              <ClacoTicket
-                concertPoster={posterImage}
-                watchDate={ticketReviewDetail?.watchDate || ""}
-                concertName={ticketReviewDetail?.concertName || ""}
-                watchPlace={ticketReviewDetail?.watchPlace || ""}
-                concertTags={ticketReviewDetail?.concertTags || []}
-              />
-            )}
+        {loadingState ? (
+          <div className="flex items-center justify-center mt-[200px]">
+            <img src={loading} alt="Loading" className="w-[280px] h-[200px]" />
           </div>
-          <div className="absolute bottom-0 w-screen h-[269px] bg-gradient-to-t from-[#DB5F35]/30 to-[#F7B29D]/0" />
-        </div>
-        <div
-          className="flex items-center justify-center border border-grayscale-80 rounded-[5px] mx-[24px] px-[120px] py-4 gap-[10px] cursor-pointer"
-          onClick={handleModalOpen}
-        >
-          <Download />
-          <span className="caption-12 text-grayscale-80">이미지 다운로드</span>
-          {isModalOpen && (
-            <DownLoadModal
-              onClose={handleCloseModal}
-              onConfirm={onDownloadBtn}
-            />
-          )}
+        ) : (
+          <>
+            <div className="px-[24px] headline2-bold text-white">
+              관람 후기가 등록됐어요! <br /> 나만의 클라코 티켓을 간직해보세요
+            </div>
+            <div className="mb-[24px] flex items-center justify-center mt-[31px] relative overflow-hidden">
+              <div ref={ticketRef} className="z-10">
+                {isChecked ? (
+                  <img
+                    src={ticketData?.result.imageUrl}
+                    alt="ticket.png"
+                    className="w-[213px] h-[471px] z-10"
+                    crossOrigin="anonymous"
+                  />
+                ) : (
+                  <ClacoTicket
+                    concertPoster={posterImage}
+                    watchDate={ticketReviewDetail?.watchDate || ""}
+                    concertName={ticketReviewDetail?.concertName || ""}
+                    watchPlace={ticketReviewDetail?.watchPlace || ""}
+                    concertTags={ticketReviewDetail?.concertTags || []}
+                  />
+                )}
+              </div>
+              <div className="absolute bottom-0 w-screen h-[269px] bg-gradient-to-t from-[#DB5F35]/30 to-[#F7B29D]/0" />
+            </div>
+            <div
+              className="flex items-center justify-center border border-grayscale-80 rounded-[5px] mx-[24px] px-[120px] py-4 gap-[10px] cursor-pointer"
+              onClick={handleModalOpen}
+            >
+              <Download />
+              <span className="caption-12 text-grayscale-80">
+                이미지 다운로드
+              </span>
+              {isModalOpen && (
+                <DownLoadModal
+                  onClose={handleCloseModal}
+                  onConfirm={onDownloadBtn}
+                />
+              )}
 
-          {toast && (
-            <Toast setToast={setToast} message={"티켓 다운이 완료되었어요"} />
-          )}
-        </div>
+              {toast && (
+                <Toast
+                  setToast={setToast}
+                  message={"티켓 다운이 완료되었어요"}
+                />
+              )}
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
