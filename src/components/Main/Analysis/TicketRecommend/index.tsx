@@ -143,7 +143,6 @@ export const TicketRecommend = () => {
             <img
               src={ticket.ticketInfoResponse.ticketImage}
               alt="클라코 티켓 이미지"
-              alt="클라코 티켓 이미지"
               className="w-[213px] h-[471px] object-contain"
             />
           </div>
