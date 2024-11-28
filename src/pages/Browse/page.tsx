@@ -378,7 +378,7 @@ export const BrowsePage = () => {
           <>
             {!isSearch ? (
               <div
-                className="w-full h-1 bg-red-300"
+                className="h-1"
                 ref={
                   showSearchResult
                     ? searchRef

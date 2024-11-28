@@ -6,13 +6,7 @@ import { useGetRecommendClacoTicket } from "@/hooks/queries";
 import { useNavigate } from "react-router-dom";
 
 export const TicketRecommend = () => {
-  const { data, isLoading } = useGetRecommendClacoTicket();
-
-  useEffect(() => {
-    if (data && !isLoading) {
-      console.log(data);
-    }
-  }, [data, isLoading]);
+  const { data } = useGetRecommendClacoTicket();
 
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
     null
