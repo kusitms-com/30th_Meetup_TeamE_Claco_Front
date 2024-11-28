@@ -230,12 +230,12 @@ export const TicketInfoPage = () => {
                 </span>
                 <Required />
               </div>
-              <div className="flex flex-wrap gap-[10px] justify-center">
+              <div className="grid grid-cols-2 gap-[10px]">
                 {availableShowTimes.map((showTime) => (
                   <button
                     key={showTime.time}
                     onClick={() => handleShowTimeClick(showTime.time)}
-                    className={`rounded-[5px] flex-1 items-center justify-center py-[14px] px-[61px] ${
+                    className={`rounded-[5px] items-center justify-center py-[14px] px-[61px] ${
                       selectedShowTime === showTime.time
                         ? "bg-grayscale-80 text-grayscale-20"
                         : "bg-grayscale-30 text-grayscale-80"
