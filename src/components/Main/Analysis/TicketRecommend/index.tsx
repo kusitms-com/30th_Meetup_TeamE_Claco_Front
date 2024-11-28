@@ -1,70 +1,16 @@
 import { ReactComponent as Arrow } from "@/assets/svgs/Arrow 2.svg";
 import { TouchEvent, useEffect, useState } from "react";
 import { Reviews } from "./Reviews";
-// import { useGetRecommendClacoTicket } from "@/hooks/queries";
-import Ticket1 from "@/assets/images/MyClacoTicket1.png";
-import Ticket2 from "@/assets/images/MyClacoTicket2.png";
-import Ticket3 from "@/assets/images/MyClacoTicket3.png";
 import { TicketReviewSummary } from "@/types";
 import { useGetRecommendClacoTicket } from "@/hooks/queries";
 import { useNavigate } from "react-router-dom";
-
-const REVIEW_MOCK_DATA = {
-  code: "COM-000",
-  message: "OK.",
-  result: [
-    {
-      ticketInfoResponse: {
-        id: 80,
-        ticketImage: Ticket1,
-      },
-      ticketReviewSummary: {
-        nickName: "큘미사용자1",
-        concertName: "백조의 호수1",
-        concertId: 865,
-        createdAt: "2024-11-23T05:39:59.110Z",
-        content:
-          "전문 무용수들의 실력이 눈부시게 빛났습니다. 지젤 역을 맡은 발레리나의 날렵한 동작과 뛰어난 연기는 보는 이의 마음을 울렸습니다. 특히, 2막의 윌리들의 군무는 환상적이었고, 유령들의 통일성이 돋보였습니다. 모든 출연진이 하나가 되어 춤출 때, 진한 감동이 전해졌습니다.",
-      },
-    },
-    {
-      ticketInfoResponse: {
-        id: 92,
-        ticketImage: Ticket2,
-      },
-      ticketReviewSummary: {
-        nickName: "큘미사용자2",
-        concertName: "백조의 호수2",
-        concertId: 865,
-        createdAt: "2024-11-24T05:39:59.110Z",
-        content:
-          "주요 무용수들의 기술은 정말 놀라웠습니다. 오데트 역을 맡은 주 무용수의 우아한 포즈와 뛰어난 스핀은 관객의 시선을 사로잡았습니다. 특히, 마지막 장면에서의 군무는 환상적이었고, 백조들의 일체감이 돋보였습니다. 모든 무용수가 조화를 이루며 춤출 때, 마치 한 몸처럼 느껴졌습니다.",
-      },
-    },
-    {
-      ticketInfoResponse: {
-        id: 90,
-        ticketImage: Ticket3,
-      },
-      ticketReviewSummary: {
-        nickName: "큘미사용자3",
-        concertName: "백조의 호수3",
-        concertId: 865,
-        createdAt: "2024-11-18T05:39:59.110Z",
-        content:
-          "전문 무용수들의 실력이 눈부시게 빛났습니다. 지젤 역을 맡은 발레리나의 날렵한 동작과 뛰어난 연기는 보는 이의 마음을 울렸습니다. 특히, 2막의 윌리들의 군무는 환상적이었고, 유령들의 통일성이 돋보였습니다. 모든 출연진이 하나가 되어 춤출 때, 진한 감동이 전해졌습니다.",
-      },
-    },
-  ],
-  refreshed: true,
-};
 
 export const TicketRecommend = () => {
   const { data, isLoading } = useGetRecommendClacoTicket();
 
   useEffect(() => {
     if (data && !isLoading) {
-      // console.log(data);
+      console.log(data);
     }
   }, [data, isLoading]);
 
@@ -75,18 +21,21 @@ export const TicketRecommend = () => {
     null
   );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
-
-  const [reviewContent, setReviewContent] = useState<TicketReviewSummary>(
-    REVIEW_MOCK_DATA.result[0].ticketReviewSummary
-  );
-  const [isReviewVisible, setIsReviewVisible] = useState(true);
+  const [reviewContent, setReviewContent] = useState<TicketReviewSummary>({
+    nickName: "",
+    concertId: 0,
+    concertName: "",
+    content: "",
+    createdAt: "",
+  });
+  const [isReviewVisible, setIsReviewVisible] = useState<boolean>(true);
   const navigate = useNavigate();
 
-  // useEffect(() => {
-  //   if (data) {
-  //     setReviewContent(data.result[0])
-  //   }
-  // },[data])
+  useEffect(() => {
+    if (data) {
+      setReviewContent(data.result[0].ticketReviewSummary);
+    }
+  }, [data]);
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null);
@@ -104,7 +53,7 @@ export const TicketRecommend = () => {
   };
 
   const handleTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
+    if (!touchStart || !touchEnd || !data) return;
 
     const xDistance = touchStart.x - touchEnd.x;
     const yDistance = Math.abs(touchStart.y - touchEnd.y);
@@ -123,18 +72,16 @@ export const TicketRecommend = () => {
 
     let nextIndex;
     if (isLeftSwipe) {
-      nextIndex = (currentIndex + 1) % REVIEW_MOCK_DATA.result.length;
+      nextIndex = (currentIndex + 1) % data.result.length;
     } else if (isRightSwipe) {
-      nextIndex =
-        (currentIndex - 1 + REVIEW_MOCK_DATA.result.length) %
-        REVIEW_MOCK_DATA.result.length;
+      nextIndex = (currentIndex - 1 + data.result.length) % data.result.length;
     } else {
       nextIndex = currentIndex;
     }
     setCurrentIndex(nextIndex);
 
     setTimeout(() => {
-      setReviewContent(REVIEW_MOCK_DATA.result[nextIndex].ticketReviewSummary);
+      setReviewContent(data.result[nextIndex].ticketReviewSummary);
       setIsReviewVisible(true);
     }, 400);
   };
@@ -158,8 +105,7 @@ export const TicketRecommend = () => {
   };
 
   const handleGoToTicket = () => {
-    const currentTicketId =
-      REVIEW_MOCK_DATA.result[currentIndex].ticketInfoResponse.id;
+    const currentTicketId = data?.result[currentIndex].ticketInfoResponse.id;
     navigate(`/ticket/${currentTicketId}`);
   };
 
@@ -175,7 +121,7 @@ export const TicketRecommend = () => {
         onTouchMove={handleTouchMove}
         onTouchEnd={handleTouchEnd}
       >
-        {REVIEW_MOCK_DATA?.result.map((ticket, index) => (
+        {data?.result.map((ticket, index) => (
           <div key={index} className={getItemStyle(index)}>
             <img
               src={ticket.ticketInfoResponse.ticketImage}
