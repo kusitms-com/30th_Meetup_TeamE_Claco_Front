@@ -6,13 +6,14 @@ import { useGetRecommendClacoTicket } from "@/hooks/queries";
 import { useNavigate } from "react-router-dom";
 export const TicketRecommend = () => {
   const navigate = useNavigate();
+
   const { data, isLoading, isError } = useGetRecommendClacoTicket();
   const [error, setError] = useState<boolean>(false);
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
-    null,
+    null
   );
   const [touchEnd, setTouchEnd] = useState<{ x: number; y: number } | null>(
-    null,
+    null
   );
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [reviewContent, setReviewContent] = useState<TicketReviewSummary>({
@@ -23,9 +24,11 @@ export const TicketRecommend = () => {
     createdAt: "",
   });
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(true);
+
   useEffect(() => {
     if (data) {
       if (data.code === "COM-000" && data.result.length > 0) {
+        setError(false);
         setReviewContent(data.result[0].ticketReviewSummary);
       } else if (data.code === "CLB-001") {
         // 클라코북을 찾을 수 없는 오류
@@ -38,6 +41,7 @@ export const TicketRecommend = () => {
       }
     }
   }, [data, navigate]);
+
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null);
     setTouchStart({
@@ -95,6 +99,7 @@ export const TicketRecommend = () => {
     const currentTicketId = data?.result[currentIndex].ticketInfoResponse.id;
     navigate(`/ticket/${currentTicketId}`);
   };
+
   // 로딩, 에러, 데이터 없음 상태 처리
   if (
     isLoading ||
@@ -110,6 +115,7 @@ export const TicketRecommend = () => {
       </div>
     );
   }
+
   // 클라코북을 찾을 수 없는 에러 발생 시
   if (error) {
     return (
@@ -119,6 +125,7 @@ export const TicketRecommend = () => {
       </div>
     );
   }
+
   return (
     <div className="pt-[22px] pb-[171px] relative">
       <div className="px-6 mb-[47px] leading-8 text-grayscale-90 heading2-bold">
