@@ -34,6 +34,7 @@ export const BrowsePage = () => {
   const [isFilterOn, setIsFilterOn] = useState<boolean>(false);
   const [isSearch, setIsSearch] = useState<boolean>(false);
   const [isNoSearchResult, setIsNoSearchResult] = useState<boolean>(false);
+  const [isNoFilterResult, setIsNoFilterResult] = useState<boolean>(false);
   const [showSearchResult, setShowSearchResult] = useState<boolean>(false);
   const [autoCompleteList, setAutoCompleteList] = useState<
     AutoCompleteSearchCard[]
@@ -47,7 +48,7 @@ export const BrowsePage = () => {
   } = useGetConcertList({
     genre: activeTab,
     size: 9,
-    enabled: !isFilterOn,
+    // enabled: !isFilterOn,
   });
 
   const { data: autoCompleteData, isLoading: autoCompleteDataLoading } =
@@ -56,6 +57,7 @@ export const BrowsePage = () => {
   const {
     data: searchData,
     fetchNextPage: searchFetchNextPage,
+    isFetchingNextPage: isFetchingSearchNext,
     isLoading: searchLoading,
   } = useGetSearch({
     query: debouncedQuery,
@@ -73,7 +75,6 @@ export const BrowsePage = () => {
     closeFilter,
   } = useShowFilter();
 
-  // filterValue 가져오기
   useEffect(() => {
     const savedFilter = localStorage.getItem("filterObj");
     if (savedFilter) {
@@ -84,10 +85,10 @@ export const BrowsePage = () => {
   }, [showFilter]);
 
   const {
-    data,
-    // fetchNextPage: filterFetchNextPage,
-    // isFetchingNextPage: isFilterFetchingNextPage,
-    // isLoading: isFilterLoading,
+    data: filterConcertData,
+    fetchNextPage: filterFetchNextPage,
+    isFetchingNextPage: isFilterFetchingNextPage,
+    isLoading: isFilterSearchLoading,
   } = useGetConcertFilters({
     minPrice: filterValue?.minPrice,
     maxPrice: filterValue?.maxPrice,
@@ -107,15 +108,21 @@ export const BrowsePage = () => {
   const handleRefreshButton = () => {
     setIsFilterOn(false);
     setFilterValue(null);
+    setIsNoFilterResult(false);
     localStorage.removeItem("filterObj");
     handleRefreshClick();
   };
 
   const { shouldShowSkeleton } = useDeferredLoading(isLoading);
-  const { elementRef } = useRefFocusEffect<HTMLDivElement>(fetchNextPage, [
-    concertData,
-    isSearch,
-  ]);
+
+  const { elementRef: recentRef } = useRefFocusEffect<HTMLDivElement>(
+    fetchNextPage,
+    [concertData, isSearch, isFilterOn]
+  );
+  const { elementRef: filterRef } = useRefFocusEffect<HTMLDivElement>(
+    filterFetchNextPage,
+    [filterConcertData, isFilterOn]
+  );
   const { elementRef: searchRef } = useRefFocusEffect<HTMLDivElement>(
     searchFetchNextPage,
     [searchData, isSearch]
@@ -153,11 +160,11 @@ export const BrowsePage = () => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      localStorage.removeItem("filterObj");
-    };
-  }, []);
+  // useEffect(() => {
+  //   return () => {
+  //     localStorage.removeItem("filterObj");
+  //   };
+  // }, []);
 
   useEffect(() => {
     if (autoCompleteData && !autoCompleteDataLoading) {
@@ -179,7 +186,13 @@ export const BrowsePage = () => {
         setIsNoSearchResult(true);
       }
     }
-  }, [searchData, searchLoading]);
+
+    if (filterConcertData && !isFilterSearchLoading) {
+      if (filterConcertData.pages[0].result.listPageResponse.length === 0) {
+        setIsNoFilterResult(true);
+      }
+    }
+  }, [searchData, searchLoading, filterConcertData, isFilterSearchLoading]);
 
   useEffect(() => {
     if (skipDebounce) {
@@ -334,25 +347,45 @@ export const BrowsePage = () => {
               </div>
               {debouncedQuery.trim().length === 0 ? (
                 <>
-                  {concertData && (
+                  {isFilterOn && filterConcertData ? (
                     <RecentConcertResult
-                      concertData={concertData}
-                      isFetchingNextPage={isFetchingNextPage}
+                      concertData={filterConcertData}
+                      isFetchingNextPage={isFilterFetchingNextPage}
                     />
+                  ) : (
+                    concertData && (
+                      <RecentConcertResult
+                        concertData={concertData}
+                        isFetchingNextPage={isFetchingNextPage}
+                      />
+                    )
                   )}
                 </>
               ) : (
-                <>{searchData && <SearchResult searchData={searchData} />}</>
+                <>
+                  {searchData && (
+                    <SearchResult
+                      searchData={searchData}
+                      isFetchingNextPage={isFetchingSearchNext}
+                    />
+                  )}
+                </>
               )}
             </>
           )}
         </div>
-        {isNoSearchResult ? null : (
+        {isNoSearchResult || isNoFilterResult ? null : (
           <>
             {!isSearch ? (
               <div
-                className="h-1"
-                ref={!showSearchResult ? elementRef : searchRef}
+                className="w-full h-1 bg-red-300"
+                ref={
+                  showSearchResult
+                    ? searchRef
+                    : isFilterOn
+                      ? filterRef
+                      : recentRef
+                }
               />
             ) : null}
           </>
