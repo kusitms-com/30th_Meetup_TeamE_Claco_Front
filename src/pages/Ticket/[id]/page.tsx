@@ -249,7 +249,7 @@ export const ClacoTicketDetailPage = () => {
                   )
                 )}
             </div>
-
+            {/* 
             <div className="flex items-center gap-[9px] headline2-bold text-grayscale-70">
               좌석
               {reviewData &&
@@ -282,7 +282,7 @@ export const ClacoTicketDetailPage = () => {
                   )}
                 </>
               )}
-            </div>
+            </div> */}
           </div>
         </div>
       </div>
