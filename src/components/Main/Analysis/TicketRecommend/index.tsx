@@ -6,8 +6,10 @@ import { useGetRecommendClacoTicket } from "@/hooks/queries";
 import { useNavigate } from "react-router-dom";
 
 export const TicketRecommend = () => {
-  const { data, isLoading, isError } = useGetRecommendClacoTicket();
+  const navigate = useNavigate();
 
+  const { data, isLoading, isError } = useGetRecommendClacoTicket();
+  const [error, setError] = useState<boolean>(false);
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
     null
   );
@@ -23,14 +25,18 @@ export const TicketRecommend = () => {
     createdAt: "",
   });
   const [isReviewVisible, setIsReviewVisible] = useState<boolean>(true);
-  const navigate = useNavigate();
 
   useEffect(() => {
     if (data) {
-      if (data?.code === "COM-000") {
+      if (data.code === "COM-000" && data.result.length > 0) {
+        setError(false);
         setReviewContent(data.result[0].ticketReviewSummary);
+      } else if (data.code === "CLB-001") {
+        // 클라코북을 찾을 수 없는 오류
+        setError(true);
+        // window.confirm("알 수 없는 오류가 발생했습니다.");
+        // navigate("/");
       } else {
-        // COM-000 응답 코드 아닌 경우 오류 발생으로 간주 (재로그인 시도하도록 리다이렉트)
         navigate("/");
         localStorage.clear();
       }
@@ -109,7 +115,24 @@ export const TicketRecommend = () => {
     navigate(`/ticket/${currentTicketId}`);
   };
 
-  if (isLoading || isError) {
+  // 로딩, 에러, 데이터 없음 상태 처리
+  if (
+    isLoading ||
+    isError ||
+    !data ||
+    !data.result ||
+    data.result.length === 0
+  ) {
+    return (
+      <div className="w-full text-center px-6 pt-[22px] pb-[171px]">
+        비슷한 취향을 가진 사람들의 정보를 <br />
+        분석해주는 서비스를 준비중이에요..
+      </div>
+    );
+  }
+
+  // 클라코북을 찾을 수 없는 에러 발생 시
+  if (error) {
     return (
       <div className="w-full text-center px-6 pt-[22px] pb-[171px]">
         비슷한 취향을 가진 사람들의 정보를 <br />
@@ -134,7 +157,7 @@ export const TicketRecommend = () => {
           <div key={index} className={getItemStyle(index)}>
             <img
               src={ticket.ticketInfoResponse.ticketImage}
-              alt="클라코티켓 이미지"
+              alt="클라코 티켓 이미지"
               className="w-[213px] h-[471px] object-contain"
             />
           </div>

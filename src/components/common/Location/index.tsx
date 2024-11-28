@@ -20,13 +20,9 @@ export const Location = ({
 }: LocationProps) => {
   const handleClick = (location: { value: string[]; label: string }) => {
     if (isFilter) {
-      if (onLocationFilterClick) {
-        onLocationFilterClick(location.value, location.label);
-      }
+      onLocationFilterClick?.(location.value, location.label);
     } else {
-      if (onLocationClick) {
-        onLocationClick(location.label);
-      }
+      onLocationClick?.(location.label);
     }
   };
 
@@ -35,7 +31,11 @@ export const Location = ({
       {AREA_LIST.map((location, index) => (
         <TypeButton
           key={index}
-          isChecked={location.value.every((v) => selectedLocation?.includes(v))}
+          isChecked={
+            !isFilter
+              ? selectedLocation?.includes(location.label)
+              : location.value.every((v) => selectedLocation?.includes(v))
+          }
           onClick={() => handleClick(location)}
         >
           {location.label}

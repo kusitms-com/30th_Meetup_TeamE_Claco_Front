@@ -23,16 +23,6 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { useDeferredLoading } from "@/hooks/utils";
 import { useQueryClient } from "@tanstack/react-query";
 
-// import { ClacoTicket } from "@/components/common/ClacoTicket";
-// import TEST1 from "@/assets/images/poster1.gif";
-// const TEST_TAG = [
-//   { iconUrl: "", tagName: "역동적인" },
-//   { iconUrl: "", tagName: "고전적인" },
-//   { iconUrl: "", tagName: "현대적인" },
-//   { iconUrl: "", tagName: "서정적인" },
-//   { iconUrl: "", tagName: "웅장한" },
-// ];
-
 export const ClacoBookDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -84,10 +74,14 @@ export const ClacoBookDetailPage = () => {
   }, [value]);
 
   const gotoBack = () => {
-    navigate(-1);
+    localStorage.removeItem("prevTicketBookId");
+    localStorage.removeItem("prevClacoBookTitle");
+    navigate("/ticketbook");
   };
 
   const gotoTicketDetail = (tId: number) => {
+    localStorage.setItem("prevTicketBookId", String(id));
+    localStorage.setItem("prevClacoBookTitle", currentClacoBook);
     queryClient.invalidateQueries({ queryKey: ["ticketReviewDetail", tId] });
     navigate(`/ticket/${tId}`);
   };
@@ -229,12 +223,6 @@ export const ClacoBookDetailPage = () => {
       <div className="clacobook pb-[185px]">
         {clacoTicket?.length === 0 ? (
           <>
-            {/* <ClacoTicket
-              concertPoster={TEST1}
-              watchDate="2024-12-11"
-              concertName="광주시립교향역단, GSO 오티움 콘서트 V: modern"
-              concertTags={TEST_TAG}
-            /> */}
             <div className="flex flex-col items-center justify-center mt-[100px]">
               <span className="heading2-bold text-grayscale-80">
                 공연은 즐겁게 관람하셨나요?
