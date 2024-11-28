@@ -23,7 +23,9 @@ export type PriceProps = {
 
 export type LocationProps = {
   selectedLocation: string[];
-  onLocationClick: (value: string[], label: string) => void;
+  onLocationFilterClick?: (value: string[], label: string) => void;
+  onLocationClick?: (label: string) => void;
+  isFilter?: boolean;
 };
 
 export type ConceptProps = {

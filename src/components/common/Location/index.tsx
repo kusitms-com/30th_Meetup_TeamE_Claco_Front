@@ -14,7 +14,9 @@ const AREA_LIST = [
 
 export const Location = ({
   selectedLocation,
+  onLocationFilterClick,
   onLocationClick,
+  isFilter = false,
 }: LocationProps) => {
   return (
     <div className="grid grid-cols-2 gap-[0.63rem]">
@@ -22,7 +24,11 @@ export const Location = ({
         <TypeButton
           key={index}
           isChecked={location.value.every((v) => selectedLocation.includes(v))}
-          onClick={() => onLocationClick(location.value, location.label)}
+          onClick={() =>
+            isFilter
+              ? onLocationFilterClick?.(location.value, location.label)
+              : onLocationClick?.(location.label)
+          }
         >
           {location.label}
         </TypeButton>

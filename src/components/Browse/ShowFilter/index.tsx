@@ -154,7 +154,7 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
           </span>
           <Location
             selectedLocation={selectedLocation}
-            onLocationClick={handleLocationClick}
+            onLocationFilterClick={handleLocationClick}
           />
         </div>
         <div className="flex flex-col mb-[58px] gap-8">
