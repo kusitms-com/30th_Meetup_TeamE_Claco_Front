@@ -37,10 +37,12 @@ const putTicketImage = async (
 };
 
 const usePutTicketImage = () => {
+  // const queryClient = useQueryClient();
   return useMutation<TicketImageResponse, Error, TicketImageRequest>({
     mutationFn: putTicketImage,
-    onSuccess: (data) => {
-      console.log(data);
+    onSuccess: () => {
+      // console.log(data);
+      // queryClient.invalidateQueries({ queryKey: ["ticketReviewDetail"] });
     },
     onError: (error) => {
       console.error(error);
