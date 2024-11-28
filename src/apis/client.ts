@@ -29,6 +29,7 @@ client.interceptors.response.use(
       res.data.code === "MSE-001" ||
       res.data.code === "ATH-001"
     ) {
+      localStorage.clear();
       window.location.replace("/");
     }
     return res;

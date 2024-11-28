@@ -39,7 +39,7 @@ export const VerticalInfoCard = ({
           </div>
           <div className="flex items-center">
             <Calendar />
-            <span>
+            <span className="truncate max-w-[151px]">
               {_dateFrom === _dateTo ? (
                 <>{_dateFrom}</>
               ) : (
