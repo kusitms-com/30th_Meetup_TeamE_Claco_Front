@@ -18,17 +18,25 @@ export const Location = ({
   onLocationClick,
   isFilter = false,
 }: LocationProps) => {
+  const handleClick = (location: { value: string[]; label: string }) => {
+    if (isFilter) {
+      if (onLocationFilterClick) {
+        onLocationFilterClick(location.value, location.label);
+      }
+    } else {
+      if (onLocationClick) {
+        onLocationClick(location.label);
+      }
+    }
+  };
+
   return (
     <div className="grid grid-cols-2 gap-[0.63rem]">
       {AREA_LIST.map((location, index) => (
         <TypeButton
           key={index}
-          isChecked={location.value.every((v) => selectedLocation.includes(v))}
-          onClick={() =>
-            isFilter
-              ? onLocationFilterClick?.(location.value, location.label)
-              : onLocationClick?.(location.label)
-          }
+          isChecked={location.value.every((v) => selectedLocation?.includes(v))}
+          onClick={() => handleClick(location)}
         >
           {location.label}
         </TypeButton>

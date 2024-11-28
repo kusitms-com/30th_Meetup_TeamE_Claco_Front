@@ -6,7 +6,7 @@ import { useGetRecommendClacoTicket } from "@/hooks/queries";
 import { useNavigate } from "react-router-dom";
 
 export const TicketRecommend = () => {
-  const { data } = useGetRecommendClacoTicket();
+  const { data, isLoading, isError } = useGetRecommendClacoTicket();
 
   const [touchStart, setTouchStart] = useState<{ x: number; y: number } | null>(
     null
@@ -27,9 +27,15 @@ export const TicketRecommend = () => {
 
   useEffect(() => {
     if (data) {
-      setReviewContent(data.result[0].ticketReviewSummary);
+      if (data?.code === "COM-000") {
+        setReviewContent(data.result[0].ticketReviewSummary);
+      } else {
+        // COM-000 응답 코드 아닌 경우 오류 발생으로 간주 (재로그인 시도하도록 리다이렉트)
+        navigate("/");
+        localStorage.clear();
+      }
     }
-  }, [data]);
+  }, [data, navigate]);
 
   const handleTouchStart = (e: TouchEvent<HTMLDivElement>) => {
     setTouchEnd(null);
@@ -102,6 +108,15 @@ export const TicketRecommend = () => {
     const currentTicketId = data?.result[currentIndex].ticketInfoResponse.id;
     navigate(`/ticket/${currentTicketId}`);
   };
+
+  if (isLoading || isError) {
+    return (
+      <div className="w-full text-center px-6 pt-[22px] pb-[171px]">
+        비슷한 취향을 가진 사람들의 정보를 <br />
+        분석해주는 서비스를 준비중이에요..
+      </div>
+    );
+  }
 
   return (
     <div className="pt-[22px] pb-[171px] relative">
