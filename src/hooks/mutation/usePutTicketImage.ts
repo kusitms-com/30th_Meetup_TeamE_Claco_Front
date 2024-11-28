@@ -1,6 +1,5 @@
 import { client } from "@/apis";
 import { useMutation } from "@tanstack/react-query";
-import { useMutation } from "@tanstack/react-query";
 
 export type TicketImageRequest = {
   id: number;

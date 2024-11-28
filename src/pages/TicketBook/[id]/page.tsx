@@ -21,6 +21,7 @@ import showReview from "@/assets/images/showReview.png";
 import { useDeleteClacoTicket, usePutMoveClacoTicket } from "@/hooks/mutation";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useDeferredLoading } from "@/hooks/utils";
+import { useQueryClient } from "@tanstack/react-query";
 
 // import { ClacoTicket } from "@/components/common/ClacoTicket";
 // import TEST1 from "@/assets/images/poster1.gif";
@@ -35,6 +36,7 @@ import { useDeferredLoading } from "@/hooks/utils";
 export const ClacoBookDetailPage = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const queryClient = useQueryClient();
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("title");
   const { id } = useParams();
@@ -81,18 +83,12 @@ export const ClacoBookDetailPage = () => {
     setCurrentClacoBook(value as string);
   }, [value]);
 
-  // useEffect(() => {
-  //   if (location.state?.message) {
-  //     setToast(true);
-  //     setMessage("티켓이 삭제되었어요");
-  //   }
-  // }, [location]);
-
   const gotoBack = () => {
     navigate(-1);
   };
 
   const gotoTicketDetail = (tId: number) => {
+    queryClient.invalidateQueries({ queryKey: ["ticketReviewDetail", tId] });
     navigate(`/ticket/${tId}`);
   };
 
