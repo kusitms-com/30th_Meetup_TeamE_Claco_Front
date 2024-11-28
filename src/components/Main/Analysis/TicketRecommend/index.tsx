@@ -7,6 +7,7 @@ import Ticket2 from "@/assets/images/MyClacoTicket2.png";
 import Ticket3 from "@/assets/images/MyClacoTicket3.png";
 import { TicketReviewSummary } from "@/types";
 import { useGetRecommendClacoTicket } from "@/hooks/queries";
+import { useNavigate } from "react-router-dom";
 
 const REVIEW_MOCK_DATA = {
   code: "COM-000",
@@ -14,7 +15,7 @@ const REVIEW_MOCK_DATA = {
   result: [
     {
       ticketInfoResponse: {
-        id: 1,
+        id: 80,
         ticketImage: Ticket1,
       },
       ticketReviewSummary: {
@@ -28,7 +29,7 @@ const REVIEW_MOCK_DATA = {
     },
     {
       ticketInfoResponse: {
-        id: 2,
+        id: 92,
         ticketImage: Ticket2,
       },
       ticketReviewSummary: {
@@ -42,7 +43,7 @@ const REVIEW_MOCK_DATA = {
     },
     {
       ticketInfoResponse: {
-        id: 3,
+        id: 90,
         ticketImage: Ticket3,
       },
       ticketReviewSummary: {
@@ -79,6 +80,7 @@ export const TicketRecommend = () => {
     REVIEW_MOCK_DATA.result[0].ticketReviewSummary
   );
   const [isReviewVisible, setIsReviewVisible] = useState(true);
+  const navigate = useNavigate();
 
   // useEffect(() => {
   //   if (data) {
@@ -155,6 +157,12 @@ export const TicketRecommend = () => {
     }
   };
 
+  const handleGoToTicket = () => {
+    const currentTicketId =
+      REVIEW_MOCK_DATA.result[currentIndex].ticketInfoResponse.id;
+    navigate(`/ticket/${currentTicketId}`);
+  };
+
   return (
     <div className="pt-[22px] pb-[171px] relative">
       <div className="px-6 mb-[47px] leading-8 text-grayscale-90 heading2-bold">
@@ -186,7 +194,10 @@ export const TicketRecommend = () => {
       >
         <Reviews data={reviewContent} />
       </div>
-      <div className="absolute bottom-[120px] right-6 caption-13 flex-col space-y-[11px] text-grayscale-60 cursor-pointer">
+      <div
+        className="absolute bottom-[120px] right-6 caption-13 flex-col space-y-[11px] text-grayscale-60 cursor-pointer"
+        onClick={handleGoToTicket}
+      >
         <Arrow />
         <div className="text-right">보러가기</div>
       </div>

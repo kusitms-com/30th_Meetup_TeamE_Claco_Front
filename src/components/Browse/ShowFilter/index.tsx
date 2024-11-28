@@ -68,23 +68,28 @@ export const ShowFilter = ({ onClose, onApply }: ShowFilterProps) => {
     setIsVisible(false);
     setTimeout(() => onApply(priceRange, location, dateRange, feature), 300);
 
+    const [startDate, endDate] = dateRange.split("~");
     const filterObj = {
       minPrice: minPrice,
       maxPrice: maxPrice,
       selectedLocation: selectedLocation,
-      rangeStart: rangeStart,
-      rangeEnd: rangeEnd,
-      selectedFeatures: selectedFeatures,
+      startDate: startDate,
+      endDate: endDate,
+      categories: selectedFeatures,
     };
     console.log(filterObj);
-    sessionStorage.setItem("filterObj", JSON.stringify(filterObj));
+
+    localStorage.setItem("filterObj", JSON.stringify(filterObj));
   };
 
-  const handleLocationClick = (location: string) => {
-    if (selectedLocation.includes(location)) {
-      setSelectedLocation(selectedLocation.filter((loc) => loc !== location));
+  const handleLocationClick = (values: string[], label: string) => {
+    console.log(label);
+    if (values.every((value) => selectedLocation.includes(value))) {
+      setSelectedLocation(
+        selectedLocation.filter((loc) => !values.includes(loc))
+      );
     } else {
-      setSelectedLocation([...selectedLocation, location]);
+      setSelectedLocation([...selectedLocation, ...values]);
     }
   };
 

@@ -38,10 +38,10 @@ export const ClacoBookDetailPage = () => {
   const queryParams = new URLSearchParams(location.search);
   const value = queryParams.get("title");
   const { id } = useParams();
-  const [clacoTicket, setClacoTicket] = useState<ClacoTicketListResult[]>();
   const [ticketRefs, setTicketRefs] = useState<
     React.RefObject<HTMLDivElement>[]
   >([]);
+  const [clacoTicket, setClacoTicket] = useState<ClacoTicketListResult[]>();
   const [currentClacoBook, setCurrentClacoBook] = useState<string>("");
   const [selectTicketIndex, setSelectTicketIndex] = useState<number>(0);
   const [selectClacoBook, setSelectClacoBook] = useState<ClacoBookList>({
@@ -80,6 +80,13 @@ export const ClacoBookDetailPage = () => {
   useEffect(() => {
     setCurrentClacoBook(value as string);
   }, [value]);
+
+  // useEffect(() => {
+  //   if (location.state?.message) {
+  //     setToast(true);
+  //     setMessage("티켓이 삭제되었어요");
+  //   }
+  // }, [location]);
 
   const gotoBack = () => {
     navigate(-1);
@@ -198,8 +205,12 @@ export const ClacoBookDetailPage = () => {
           {currentClacoBook}
         </span>
         <div className="flex space-x-[21px] w-[56px]">
-          <DownLoad onClick={() => handleModalOpen("download")} />
-          <DotsThree onClick={() => setIsSetting(true)} />
+          {clacoTicket?.length !== 0 && (
+            <>
+              <DownLoad onClick={() => handleModalOpen("download")} />
+              <DotsThree onClick={() => setIsSetting(true)} />
+            </>
+          )}
         </div>
       </div>
 

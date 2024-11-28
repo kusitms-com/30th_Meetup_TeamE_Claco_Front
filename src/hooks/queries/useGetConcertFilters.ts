@@ -46,6 +46,7 @@ const useGetConcertFilters = ({
   endDate,
   size = 9,
   categories,
+  enabled = false,
 }: Omit<GetConcertFiltersProps, "page"> & {
   enabled?: boolean;
 }): UseInfiniteQueryResult<GetConcertInfiniteResponse, AxiosError> => {
@@ -76,6 +77,7 @@ const useGetConcertFilters = ({
         ? lastPage.result.currentPage + 1
         : undefined;
     },
+    enabled,
   });
 };
 
